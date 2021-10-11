@@ -11,7 +11,8 @@ class AppWidget extends StatelessWidget {
         return MaterialApp(
           title: 'Vivassimo',
           debugShowCheckedModeBanner: false,
-          home: HomePage(),
+          initialRoute: '/',
+          routes: {'/': (context) => HomePage()},
         );
       },
     );
