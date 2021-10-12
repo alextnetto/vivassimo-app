@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/components/button_purple.dart';
-import 'package:my_app/theme.dart';
+import 'package:my_app/config/style.dart';
 
 class HomePage extends StatefulWidget {
   @override

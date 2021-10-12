@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../theme.dart';
+import '../config/style.dart';
 
 class ButtonPurple extends StatelessWidget {
   String label;
