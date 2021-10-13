@@ -4,12 +4,19 @@ import '../config/style.dart';
 
 class ButtonPurple extends StatelessWidget {
   String label;
-  ButtonPurple({required this.label});
+  Function onPressed;
+  ButtonPurple({
+    Key? key,
+    required this.label,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        onPressed();
+      },
       child: Text(
         label,
         style: GoogleFonts.manrope(
@@ -21,7 +28,7 @@ class ButtonPurple extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        primary: VivassimoTheme.purple,
+        primary: VivassimoTheme.purpleActive,
         side: BorderSide(
           width: 2.0,
           color: VivassimoTheme.red,

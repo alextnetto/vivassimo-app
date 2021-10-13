@@ -97,7 +97,11 @@ class HomePageState extends State<HomePage> {
                 child: SizedBox(
                   width: 324,
                   height: 60,
-                  child: ButtonPurple(label: 'Não tenho uma conta'),
+                  child: ButtonPurple(
+                      label: 'Não tenho uma conta',
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/register/1');
+                      }),
                 ),
               ),
             ],

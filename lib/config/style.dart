@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class VivassimoTheme {
-  static Color purple = Color(0xFF4B0055);
-  static Color purpleActive = Color(0xFF2C0733);
+  static Color purple = Color(0xFF2C0733);
+  static Color purpleActive = Color(0xFF4B0055);
   static Color purpleSecundary = Color(0xFFB081C9);
   static Color green = Color(0xFF23B591);
   static Color greenActive = Color(0xFF9CC840);
