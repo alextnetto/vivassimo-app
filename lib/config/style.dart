@@ -15,6 +15,6 @@ class VivassimoTheme {
   static Color white = Color(0xFFFFFFFF);
   static Color gradientMainBegin = Color(0xFF700080);
   static Color gradientMainEnd = Color(0xFFD26F58);
-  static Color gradientSkyBegin = Color(0xFFE9F3F4);
-  static Color gradientSkyEnd = Color(0x00E9F3F4);
+  static Color gradientSkyBegin = Color(0x00E9F3F4);
+  static Color gradientSkyEnd = Color(0xFFE9F3F4);
 }

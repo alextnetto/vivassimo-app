@@ -4,10 +4,14 @@ import '../config/style.dart';
 
 class ButtonPurple extends StatelessWidget {
   String label;
+  Color primary, onPrimary, borderColor;
   Function onPressed;
   ButtonPurple({
     Key? key,
     required this.label,
+    required this.primary,
+    required this.onPrimary,
+    required this.borderColor,
     required this.onPressed,
   }) : super(key: key);
 
@@ -23,15 +27,15 @@ class ButtonPurple extends StatelessWidget {
           textStyle: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 23,
-            color: VivassimoTheme.white,
+            color: onPrimary,
           ),
         ),
       ),
       style: ElevatedButton.styleFrom(
-        primary: VivassimoTheme.purpleActive,
+        primary: primary,
         side: BorderSide(
           width: 2.0,
-          color: VivassimoTheme.red,
+          color: borderColor,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

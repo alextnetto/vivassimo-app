@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
+import 'package:my_app/config/style.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/register_terms.dart';
 

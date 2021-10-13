@@ -99,6 +99,9 @@ class HomePageState extends State<HomePage> {
                   height: 60,
                   child: ButtonPurple(
                       label: 'Não tenho uma conta',
+                      primary: VivassimoTheme.purpleActive,
+                      onPrimary: VivassimoTheme.white,
+                      borderColor: VivassimoTheme.red,
                       onPressed: () {
                         Navigator.of(context).pushNamed('/register/1');
                       }),
