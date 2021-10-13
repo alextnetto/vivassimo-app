@@ -20,35 +20,38 @@ class _RegisterTermsState extends State<RegisterTerms> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Container(
-              height: 130,
-              color: VivassimoTheme.white,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBack(),
-                      // texto
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: Text(
-                          'Criar uma conta',
-                          style: GoogleFonts.manrope(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: VivassimoTheme.purpleActive,
+            Hero(
+              tag: 'registerAppBar',
+              child: Container(
+                height: 130,
+                color: VivassimoTheme.white,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ButtonBack(),
+                        // texto
+                        Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: Text(
+                            'Criar uma conta',
+                            style: GoogleFonts.manrope(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                color: VivassimoTheme.purpleActive,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             Center(
@@ -91,7 +94,9 @@ class _RegisterTermsState extends State<RegisterTerms> {
                           primary: VivassimoTheme.gradientSkyEnd,
                           onPrimary: VivassimoTheme.grey,
                           borderColor: VivassimoTheme.blue,
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/register/terms');
+                          }),
                     ),
                   ),
                   Padding(
@@ -100,11 +105,14 @@ class _RegisterTermsState extends State<RegisterTerms> {
                       width: 324,
                       height: 60,
                       child: ButtonPurple(
-                          label: 'Continuar',
-                          primary: VivassimoTheme.green,
-                          onPrimary: VivassimoTheme.white,
-                          borderColor: VivassimoTheme.white,
-                          onPressed: () {}),
+                        label: 'Continuar',
+                        primary: VivassimoTheme.green,
+                        onPrimary: VivassimoTheme.white,
+                        borderColor: VivassimoTheme.white,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/register/name');
+                        },
+                      ),
                     ),
                   ),
                 ],
