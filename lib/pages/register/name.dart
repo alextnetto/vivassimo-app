@@ -5,6 +5,7 @@ import 'package:my_app/components/button_purple.dart';
 import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
+import 'package:my_app/models/register/user.dart';
 
 class NamePage extends StatelessWidget {
   const NamePage({Key? key}) : super(key: key);
@@ -96,6 +97,9 @@ class MyCustomFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
+              onSaved: (value) {
+                RegisterUser.instance.name = value;
+              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo vazio';
@@ -124,6 +128,8 @@ class MyCustomFormState extends State<NameForm> {
                 borderColor: VivassimoTheme.white,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    print(RegisterUser.instance.toJson());
                     Navigator.of(context).pushNamed('/register/email');
                   }
                 },
