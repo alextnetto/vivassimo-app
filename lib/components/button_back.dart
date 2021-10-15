@@ -9,7 +9,7 @@ class ButtonBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 140,
       child: ElevatedButton(
         onPressed: () {
@@ -34,11 +34,8 @@ class ButtonBack extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: VivassimoTheme.purpleActive,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(0),
-              bottomLeft: Radius.circular(0),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
+            borderRadius: BorderRadius.horizontal(
+              right: Radius.circular(10),
             ),
           ),
         ),

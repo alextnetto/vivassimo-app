@@ -70,7 +70,7 @@ class _RegisterTermsState extends State<RegisterTerms> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     width: 324,
                     child: Text(
                       'Ao continuar o cadastro você estará aceitando nossos termos de uso',

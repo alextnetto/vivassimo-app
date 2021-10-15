@@ -5,6 +5,8 @@ import 'package:my_app/components/button_purple.dart';
 import 'package:my_app/config/style.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return HomePageState();
