@@ -55,17 +55,17 @@ class HomePageState extends State<HomePage> {
               GestureDetector(
                 child: Image.asset(
                   'assets/images/senior_0$seniorImage.png',
-                  height: 350,
+                  height: MediaQuery.of(context).size.height / 2.4,
                   fit: BoxFit.scaleDown,
                 ),
                 onTap: changeSeniorImage,
               ),
               Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(24),
                 child: Image.asset('assets/images/logo.png'),
               ),
               Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(24),
                 child: SizedBox(
                   width: 324,
                   height: 60,
@@ -94,7 +94,7 @@ class HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(24),
                 child: SizedBox(
                   width: 324,
                   height: 60,

@@ -36,12 +36,10 @@ class EmailPage extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
                             'Criar uma conta',
-                            style: GoogleFonts.manrope(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
-                                color: VivassimoTheme.purpleActive,
-                              ),
+                            style: customTextStyle(
+                              FontWeight.w700,
+                              18,
+                              VivassimoTheme.purpleActive,
                             ),
                           ),
                         )
@@ -105,7 +103,7 @@ class EmailFormState extends State<EmailForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: 'dev@dev.com',
+              //initialValue: 'dev@dev.com',
               onSaved: (value) {
                 RegisterUser.instance.email = value;
               },

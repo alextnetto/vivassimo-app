@@ -12,5 +12,6 @@ TextStyle customTextStyle(
       fontSize: fontSize,
       color: color,
     ),
+    decoration: TextDecoration.none,
   );
 }

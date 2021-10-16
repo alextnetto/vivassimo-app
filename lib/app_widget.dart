@@ -17,21 +17,24 @@ class AppWidget extends StatelessWidget {
     return AnimatedBuilder(
       animation: AppController.instance,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Vivassimo',
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/',
-          routes: {
-            '/': (context) => HomePage(),
-            '/register/1': (context) => RegisterTerms(),
-            '/register/terms': (context) => TermsPage(),
-            '/register/name': (context) => NamePage(),
-            '/register/email': (context) => EmailPage(),
-            '/register/phonenumber': (context) => PhonenumberPage(),
-            '/register/password': (context) => PasswordPage(),
-            '/register/passwordConfirmation': (context) =>
-                PasswordConfirmPage(),
-          },
+        return Material(
+          type: MaterialType.transparency,
+          child: MaterialApp(
+            title: 'Vivassimo',
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => HomePage(),
+              '/register/1': (context) => RegisterTerms(),
+              '/register/terms': (context) => TermsPage(),
+              '/register/name': (context) => NamePage(),
+              '/register/email': (context) => EmailPage(),
+              '/register/phonenumber': (context) => PhonenumberPage(),
+              '/register/password': (context) => PasswordPage(),
+              '/register/passwordConfirmation': (context) =>
+                  PasswordConfirmPage(),
+            },
+          ),
         );
       },
     );

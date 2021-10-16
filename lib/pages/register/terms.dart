@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
+import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 
 class TermsPage extends StatelessWidget {
@@ -32,12 +33,10 @@ class TermsPage extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 30),
                         child: Text(
                           'Criar uma conta',
-                          style: GoogleFonts.manrope(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: VivassimoTheme.purpleActive,
-                            ),
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            18,
+                            VivassimoTheme.purpleActive,
                           ),
                         ),
                       )

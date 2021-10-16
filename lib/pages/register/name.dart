@@ -37,12 +37,10 @@ class NamePage extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
                             'Criar uma conta',
-                            style: GoogleFonts.manrope(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
-                                color: VivassimoTheme.purpleActive,
-                              ),
+                            style: customTextStyle(
+                              FontWeight.w700,
+                              18,
+                              VivassimoTheme.purpleActive,
                             ),
                           ),
                         )
@@ -97,7 +95,7 @@ class NameFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: 'Dev',
+              //initialValue: 'Dev',
               onSaved: (value) {
                 RegisterUser.instance.name = value;
               },
