@@ -58,12 +58,10 @@ class _RegisterTermsState extends State<RegisterTerms> {
                 children: [
                   Text(
                     'Aceitar Termos de Uso',
-                    style: GoogleFonts.manrope(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 23,
-                        color: VivassimoTheme.purpleActive,
-                      ),
+                    style: customTextStyle(
+                      FontWeight.w700,
+                      23,
+                      VivassimoTheme.purpleActive,
                     ),
                   ),
                   SizedBox(
@@ -73,12 +71,10 @@ class _RegisterTermsState extends State<RegisterTerms> {
                     width: 324,
                     child: Text(
                       'Ao continuar o cadastro você estará aceitando nossos termos de uso',
-                      style: GoogleFonts.manrope(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: VivassimoTheme.purpleActive,
-                        ),
+                      style: customTextStyle(
+                        FontWeight.w700,
+                        18,
+                        VivassimoTheme.purpleActive,
                       ),
                       textAlign: TextAlign.center,
                     ),

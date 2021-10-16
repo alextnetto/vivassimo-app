@@ -54,12 +54,10 @@ class EmailPage extends StatelessWidget {
               width: 300,
               child: Text(
                 'Agora precisamos saber o seu email',
-                style: GoogleFonts.manrope(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                    color: VivassimoTheme.purpleActive,
-                  ),
+                style: customTextStyle(
+                  FontWeight.w700,
+                  23,
+                  VivassimoTheme.purpleActive,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -86,7 +84,7 @@ class EmailFormState extends State<EmailForm> {
 
   isValidEmail(value) {
     RegExp regExp = RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+        r"^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
     if (regExp.hasMatch(value)) {
       return true;
     }

@@ -55,12 +55,10 @@ class PasswordPage extends StatelessWidget {
               width: 300,
               child: Text(
                 'Agora escolha uma senha para acessar o aplicativo',
-                style: GoogleFonts.manrope(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                    color: VivassimoTheme.purpleActive,
-                  ),
+                style: customTextStyle(
+                  FontWeight.w700,
+                  23,
+                  VivassimoTheme.purpleActive,
                 ),
                 textAlign: TextAlign.center,
               ),

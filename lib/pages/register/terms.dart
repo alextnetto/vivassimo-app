@@ -50,12 +50,10 @@ class TermsPage extends StatelessWidget {
                 children: [
                   Text(
                     'Termos de Uso',
-                    style: GoogleFonts.manrope(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 23,
-                        color: VivassimoTheme.purpleActive,
-                      ),
+                    style: customTextStyle(
+                      FontWeight.w700,
+                      23,
+                      VivassimoTheme.purpleActive,
                     ),
                   ),
                   Padding(
@@ -68,12 +66,10 @@ class TermsPage extends StatelessWidget {
                         children: [
                           Text(
                             'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. ',
-                            style: GoogleFonts.manrope(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17,
-                                color: VivassimoTheme.purpleActive,
-                              ),
+                            style: customTextStyle(
+                              FontWeight.w600,
+                              17,
+                              VivassimoTheme.purpleActive,
                             ),
                             textAlign: TextAlign.justify,
                           ),

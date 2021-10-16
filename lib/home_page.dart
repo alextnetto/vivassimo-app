@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/components/button_1.dart';
+import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 
 class HomePage extends StatefulWidget {
@@ -73,12 +74,10 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {},
                     child: Text(
                       'Já tenho uma conta',
-                      style: GoogleFonts.manrope(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 23,
-                          color: VivassimoTheme.white,
-                        ),
+                      style: customTextStyle(
+                        FontWeight.w700,
+                        23,
+                        VivassimoTheme.white,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(

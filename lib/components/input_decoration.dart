@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 
 InputDecoration customInputDecoration1(
@@ -9,20 +10,16 @@ InputDecoration customInputDecoration1(
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
     suffixIcon: suffixIcon,
-    errorStyle: GoogleFonts.manrope(
-      textStyle: TextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 18,
-        color: VivassimoTheme.redActive,
-      ),
+    errorStyle: customTextStyle(
+      FontWeight.w700,
+      18,
+      VivassimoTheme.redActive,
     ),
     hintText: label,
-    hintStyle: GoogleFonts.manrope(
-      textStyle: TextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 18,
-        color: VivassimoTheme.purpleActive,
-      ),
+    hintStyle: customTextStyle(
+      FontWeight.w700,
+      18,
+      VivassimoTheme.purpleActive,
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(

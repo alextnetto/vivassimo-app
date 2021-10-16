@@ -57,12 +57,10 @@ class PhonenumberPage extends StatelessWidget {
               width: 300,
               child: Text(
                 'E o número do seu telefone celular com DDD',
-                style: GoogleFonts.manrope(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                    color: VivassimoTheme.purpleActive,
-                  ),
+                style: customTextStyle(
+                  FontWeight.w700,
+                  23,
+                  VivassimoTheme.purpleActive,
                 ),
                 textAlign: TextAlign.center,
               ),

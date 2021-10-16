@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/components/text_style.dart';
 
 class CustomButton1 extends StatelessWidget {
   final String label;
@@ -22,12 +23,10 @@ class CustomButton1 extends StatelessWidget {
       },
       child: Text(
         label,
-        style: GoogleFonts.manrope(
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 23,
-            color: onPrimary,
-          ),
+        style: customTextStyle(
+          FontWeight.w700,
+          23,
+          onPrimary,
         ),
       ),
       style: ElevatedButton.styleFrom(

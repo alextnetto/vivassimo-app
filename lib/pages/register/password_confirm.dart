@@ -55,12 +55,10 @@ class PasswordConfirmPage extends StatelessWidget {
               width: 300,
               child: Text(
                 'Digite novamente a senha escolhida',
-                style: GoogleFonts.manrope(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                    color: VivassimoTheme.purpleActive,
-                  ),
+                style: customTextStyle(
+                  FontWeight.w700,
+                  23,
+                  VivassimoTheme.purpleActive,
                 ),
                 textAlign: TextAlign.center,
               ),

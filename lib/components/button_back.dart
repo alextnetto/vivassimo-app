@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 
 class ButtonBack extends StatelessWidget {
@@ -21,12 +22,10 @@ class ButtonBack extends StatelessWidget {
             Icon(Icons.arrow_back),
             Text(
               'Voltar',
-              style: GoogleFonts.manrope(
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
-                  color: VivassimoTheme.white,
-                ),
+              style: customTextStyle(
+                FontWeight.w700,
+                18,
+                VivassimoTheme.white,
               ),
             ),
           ],
