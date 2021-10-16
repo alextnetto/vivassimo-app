@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_app/app_controller.dart';
-import 'package:my_app/components/button_purple.dart';
+import 'package:my_app/components/button_1.dart';
 import 'package:my_app/config/style.dart';
 
 class HomePage extends StatefulWidget {
@@ -99,7 +98,7 @@ class HomePageState extends State<HomePage> {
                 child: SizedBox(
                   width: 324,
                   height: 60,
-                  child: ButtonPurple(
+                  child: CustomButton1(
                       label: 'Não tenho uma conta',
                       primary: VivassimoTheme.purpleActive,
                       onPrimary: VivassimoTheme.white,

@@ -7,8 +7,8 @@ import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class NamePage extends StatelessWidget {
-  const NamePage({Key? key}) : super(key: key);
+class PasswordConfirmPage extends StatelessWidget {
+  const PasswordConfirmPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class NamePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Primeiro, nos informe o seu nome completo',
+                'Digite novamente a senha escolhida',
                 style: GoogleFonts.manrope(
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -67,7 +67,7 @@ class NamePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            NameForm(),
+            PasswordConfirmationForm(),
           ],
         ),
       ),
@@ -75,17 +75,18 @@ class NamePage extends StatelessWidget {
   }
 }
 
-class NameForm extends StatefulWidget {
-  const NameForm({Key? key}) : super(key: key);
+class PasswordConfirmationForm extends StatefulWidget {
+  const PasswordConfirmationForm({Key? key}) : super(key: key);
 
   @override
-  NameFormState createState() {
-    return NameFormState();
+  PasswordConfirmationFormState createState() {
+    return PasswordConfirmationFormState();
   }
 }
 
-class NameFormState extends State<NameForm> {
+class PasswordConfirmationFormState extends State<PasswordConfirmationForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,18 +98,32 @@ class NameFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: 'Dev',
+              obscureText: !_passwordVisible,
+              enableSuggestions: false,
+              autocorrect: false,
               onSaved: (value) {
-                RegisterUser.instance.name = value;
+                RegisterUser.instance.password = value;
               },
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Campo vazio';
+                if (value != RegisterUser.instance.password) {
+                  return 'Senhas não coincidem';
                 }
                 return null;
               },
-              decoration:
-                  customInputDecoration1('Digite aqui seu nome completo'),
+              decoration: customInputDecoration1(
+                'Digite novamente a senha',
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
+                ),
+              ),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -130,7 +145,7 @@ class NameFormState extends State<NameForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/email');
+                    //Navigator.of(context).pushNamed('/register/passwordConfirmation');
                   }
                 },
               ),

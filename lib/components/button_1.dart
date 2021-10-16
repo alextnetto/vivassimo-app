@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ButtonPurple extends StatelessWidget {
-  String label;
-  Color primary, onPrimary, borderColor;
-  Function onPressed;
-  ButtonPurple({
+class CustomButton1 extends StatelessWidget {
+  final String label;
+  final Color primary, onPrimary, borderColor;
+  final Function onPressed;
+  const CustomButton1({
     Key? key,
     required this.label,
     required this.primary,

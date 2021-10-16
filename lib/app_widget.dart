@@ -4,6 +4,8 @@ import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/email.dart';
 import 'package:my_app/pages/register/name.dart';
+import 'package:my_app/pages/register/password.dart';
+import 'package:my_app/pages/register/password_confirm.dart';
 import 'package:my_app/pages/register/phonenumber.dart';
 import 'package:my_app/pages/register/terms.dart';
 
@@ -26,6 +28,9 @@ class AppWidget extends StatelessWidget {
             '/register/name': (context) => NamePage(),
             '/register/email': (context) => EmailPage(),
             '/register/phonenumber': (context) => PhonenumberPage(),
+            '/register/password': (context) => PasswordPage(),
+            '/register/passwordConfirmation': (context) =>
+                PasswordConfirmPage(),
           },
         );
       },

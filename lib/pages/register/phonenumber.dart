@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_purple.dart';
+import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
@@ -113,7 +113,6 @@ class PhonenumberFormState extends State<PhonenumberForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: '+55 (48) 99972-4312',
               keyboardType: TextInputType.phone,
               inputFormatters: [maskFormatter],
               onSaved: (value) {
@@ -141,7 +140,7 @@ class PhonenumberFormState extends State<PhonenumberForm> {
             child: SizedBox(
               width: 324,
               height: 60,
-              child: ButtonPurple(
+              child: CustomButton1(
                 label: 'Continuar',
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
@@ -149,7 +148,7 @@ class PhonenumberFormState extends State<PhonenumberForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    //Navigator.of(context).pushNamed('/register/');
+                    Navigator.of(context).pushNamed('/register/password');
                   }
                 },
               ),

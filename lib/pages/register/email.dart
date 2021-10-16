@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_purple.dart';
+import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
@@ -129,7 +129,7 @@ class EmailFormState extends State<EmailForm> {
             child: SizedBox(
               width: 324,
               height: 60,
-              child: ButtonPurple(
+              child: CustomButton1(
                 label: 'Continuar',
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
