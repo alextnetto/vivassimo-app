@@ -4,6 +4,7 @@ import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/email.dart';
 import 'package:my_app/pages/register/name.dart';
+import 'package:my_app/pages/register/phonenumber.dart';
 import 'package:my_app/pages/register/terms.dart';
 
 class AppWidget extends StatelessWidget {
@@ -24,6 +25,7 @@ class AppWidget extends StatelessWidget {
             '/register/terms': (context) => TermsPage(),
             '/register/name': (context) => NamePage(),
             '/register/email': (context) => EmailPage(),
+            '/register/phonenumber': (context) => PhonenumberPage(),
           },
         );
       },

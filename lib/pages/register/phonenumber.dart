@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_purple.dart';
 import 'package:my_app/components/input_decoration.dart';
@@ -7,8 +9,8 @@ import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class EmailPage extends StatelessWidget {
-  const EmailPage({Key? key}) : super(key: key);
+class PhonenumberPage extends StatelessWidget {
+  const PhonenumberPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class EmailPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ButtonBack(),
+                        // texto
                         Padding(
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
@@ -55,7 +58,7 @@ class EmailPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Agora precisamos saber o seu email',
+                'E o número do seu telefone celular com DDD',
                 style: GoogleFonts.manrope(
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -66,7 +69,7 @@ class EmailPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            EmailForm(),
+            PhonenumberForm(),
           ],
         ),
       ),
@@ -74,26 +77,31 @@ class EmailPage extends StatelessWidget {
   }
 }
 
-class EmailForm extends StatefulWidget {
-  const EmailForm({Key? key}) : super(key: key);
+class PhonenumberForm extends StatefulWidget {
+  const PhonenumberForm({Key? key}) : super(key: key);
 
   @override
-  EmailFormState createState() {
-    return EmailFormState();
+  PhonenumberFormState createState() {
+    return PhonenumberFormState();
   }
 }
 
-class EmailFormState extends State<EmailForm> {
+class PhonenumberFormState extends State<PhonenumberForm> {
   final _formKey = GlobalKey<FormState>();
 
-  isValidEmail(value) {
-    RegExp regExp = RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-    if (regExp.hasMatch(value)) {
+  isValidPhonenumber() {
+    if (maskFormatter.getUnmaskedText().length == 11) {
       return true;
     }
     return false;
   }
+
+  var maskFormatter = MaskTextInputFormatter(
+    mask: '+55 (##) #####-####',
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -105,17 +113,21 @@ class EmailFormState extends State<EmailForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: 'dev@dev.com',
+              initialValue: '+55 (48) 99972-4312',
+              keyboardType: TextInputType.phone,
+              inputFormatters: [maskFormatter],
               onSaved: (value) {
-                RegisterUser.instance.email = value;
+                RegisterUser.instance.phonenumber =
+                    maskFormatter.getUnmaskedText();
               },
               validator: (value) {
-                if (!isValidEmail(value)) {
-                  return 'Email inválido';
+                if (!isValidPhonenumber()) {
+                  return 'Telefone inválido';
                 }
                 return null;
               },
-              decoration: customInputDecoration1('Digite aqui seu email'),
+              decoration:
+                  customInputDecoration1('Digite aqui seu número de celular'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -137,7 +149,7 @@ class EmailFormState extends State<EmailForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/phonenumber');
+                    //Navigator.of(context).pushNamed('/register/');
                   }
                 },
               ),
