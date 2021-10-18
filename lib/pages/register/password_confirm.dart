@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
@@ -141,7 +140,7 @@ class PasswordConfirmationFormState extends State<PasswordConfirmationForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    //Navigator.of(context).pushNamed('/register/passwordConfirmation');
+                    Navigator.of(context).pushNamed('/register/cpf');
                   }
                 },
               ),
