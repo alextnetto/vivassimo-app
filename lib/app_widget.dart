@@ -5,6 +5,7 @@ import 'package:my_app/pages/register/birthday.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/email.dart';
+import 'package:my_app/pages/register/gender.dart';
 import 'package:my_app/pages/register/name.dart';
 import 'package:my_app/pages/register/password.dart';
 import 'package:my_app/pages/register/password_confirm.dart';
@@ -37,6 +38,7 @@ class AppWidget extends StatelessWidget {
                   PasswordConfirmPage(),
               '/register/cpf': (context) => CpfPage(),
               '/register/birthday': (context) => BirthdayPage(),
+              '/register/gender': (context) => GenderPage(),
             },
           ),
         );

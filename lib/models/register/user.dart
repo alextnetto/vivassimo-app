@@ -1,5 +1,5 @@
 class RegisterUser {
-  String? name, email, phonenumber, password, cpf, genre, birthday;
+  String? name, email, phonenumber, password, cpf, gender, birthday;
   static RegisterUser instance = RegisterUser();
 
   Map<String, String?> toJson() => {
@@ -8,7 +8,7 @@ class RegisterUser {
         'phonenumber': phonenumber,
         'password': password,
         'cpf': cpf,
-        'genre': genre,
+        'gender': gender,
         'birthday': birthday
       };
 }

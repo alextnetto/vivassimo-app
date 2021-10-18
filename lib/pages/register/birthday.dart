@@ -152,7 +152,7 @@ class BirthdayFormState extends State<BirthdayForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/genre');
+                    Navigator.of(context).pushNamed('/register/gender');
                   }
                 },
               ),
