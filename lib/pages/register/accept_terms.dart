@@ -4,14 +4,9 @@ import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 
-class RegisterTerms extends StatefulWidget {
+class RegisterTerms extends StatelessWidget {
   const RegisterTerms({Key? key}) : super(key: key);
 
-  @override
-  _RegisterTermsState createState() => _RegisterTermsState();
-}
-
-class _RegisterTermsState extends State<RegisterTerms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -16,6 +16,10 @@ dependencies:
   mask_text_input_formatter: ^2.0.0
   cpf_cnpj_validator: ^2.0.0
   intl: ^0.17.0
+  location: ^4.3.0
+  geocoding: ^2.0.1
+  http: ^0.13.4
+
 
 dev_dependencies:
   flutter_test:
