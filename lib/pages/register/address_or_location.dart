@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
+import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:location/location.dart';
@@ -41,27 +42,45 @@ class AddressOrLocationPage extends StatelessWidget {
             contentPadding: EdgeInsets.all(20),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),
                 child: const Text('OK'),
               ),
             ],
-            actionsAlignment: MainAxisAlignment.spaceAround,
           ),
         );
         return;
       }
     }
 
+    loadingIndicator(context);
     _locationData = await location.getLocation();
-
     Placemark address =
         await getAddress(_locationData.latitude, _locationData.longitude);
     dynamic cepAddress =
         await cepToAddress(address.postalCode?.replaceAll('-', ''));
+    Navigator.pop(context);
+
+    if (!cepAddress['valid']) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Localização falhou'),
+          content: Text(
+              'Não conseguimos o seu CEP através da localização, preencha manualmente'),
+          contentPadding: EdgeInsets.all(20),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/register/cep');
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
 
     RegisterUser.instance.estado = cepAddress['uf'];
     RegisterUser.instance.cidade = cepAddress['localidade'];
@@ -158,9 +177,9 @@ class AddressOrLocationPage extends StatelessWidget {
                       width: 324,
                       height: 60,
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          getLocation(context);
-                          Navigator.of(context).pushNamed('/register/cep');
+                        onPressed: () async {
+                          await getLocation(context);
+                          //Navigator.of(context).pushNamed('/register/cep');
                         },
                         icon: Icon(
                           Icons.room,

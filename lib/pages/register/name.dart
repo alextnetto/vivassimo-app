@@ -92,7 +92,6 @@ class NameFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              //initialValue: 'Dev',
               onSaved: (value) {
                 RegisterUser.instance.name = value;
               },
