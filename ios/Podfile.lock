@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - geocoder (0.0.1):
+  - geocoding (1.0.5):
     - Flutter
   - location (0.0.1):
     - Flutter
@@ -9,15 +9,15 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - geocoder (from `.symlinks/plugins/geocoder/ios`)
+  - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  geocoder:
-    :path: ".symlinks/plugins/geocoder/ios"
+  geocoding:
+    :path: ".symlinks/plugins/geocoding/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   path_provider:
@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  geocoder: 6bb9cb74d39e014874e837ec598a6644b8e1807d
+  geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
 

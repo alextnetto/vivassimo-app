@@ -3,6 +3,7 @@ import 'package:my_app/app_controller.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/address_or_location.dart';
 import 'package:my_app/pages/register/birthday.dart';
+import 'package:my_app/pages/register/cep_page.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/email.dart';
@@ -42,6 +43,7 @@ class AppWidget extends StatelessWidget {
               '/register/gender': (context) => GenderPage(),
               '/register/addressOrLocation': (context) =>
                   AddressOrLocationPage(),
+              '/register/cep': (context) => CepPage(),
             },
           ),
         );

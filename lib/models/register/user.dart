@@ -6,11 +6,13 @@ class RegisterUser {
       cpf,
       gender,
       birthday,
+      cep,
       estado,
       cidade,
       bairro,
-      cep,
-      numero;
+      logradouro,
+      numero,
+      complemento;
   static RegisterUser instance = RegisterUser();
 
   toJson() {
@@ -23,10 +25,12 @@ class RegisterUser {
       'gender': gender,
       'birthday': birthday,
       'estado': estado,
+      'cep': cep,
       'cidade': cidade,
       'bairro': bairro,
-      'cep': cep,
+      'logradouro': logradouro,
       'numero': numero,
+      'complemento': complemento,
     };
   }
 }

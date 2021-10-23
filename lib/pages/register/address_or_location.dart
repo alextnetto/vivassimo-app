@@ -79,13 +79,14 @@ class AddressOrLocationPage extends StatelessWidget {
           ],
         ),
       );
-      return;
     }
 
-    RegisterUser.instance.estado = cepAddress['uf'];
-    RegisterUser.instance.cidade = cepAddress['localidade'];
-    RegisterUser.instance.bairro = cepAddress['bairro'];
-    RegisterUser.instance.cep = cepAddress['cep'];
+    var cepAddressData = cepAddress['data'];
+    RegisterUser.instance.estado = cepAddressData['uf'];
+    RegisterUser.instance.cidade = cepAddressData['localidade'];
+    RegisterUser.instance.bairro = cepAddressData['bairro'];
+    RegisterUser.instance.cep = cepAddressData['cep'];
+    RegisterUser.instance.logradouro = cepAddressData['logradouro'];
     RegisterUser.instance.numero = address.subThoroughfare;
   }
 
@@ -179,7 +180,7 @@ class AddressOrLocationPage extends StatelessWidget {
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           await getLocation(context);
-                          //Navigator.of(context).pushNamed('/register/cep');
+                          Navigator.of(context).pushNamed('/register/cep');
                         },
                         icon: Icon(
                           Icons.room,
