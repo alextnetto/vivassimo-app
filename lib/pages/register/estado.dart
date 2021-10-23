@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
-import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
-import 'package:my_app/services/cep_to_address.dart';
 
-class CepPage extends StatelessWidget {
-  const CepPage({Key? key}) : super(key: key);
+class EstadoPage extends StatelessWidget {
+  const EstadoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +53,7 @@ class CepPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Digite o número do seu CEP',
+                'Qual o estado da sua residência?',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -66,7 +62,7 @@ class CepPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            CepForm(),
+            EstadoForm(),
           ],
         ),
       ),
@@ -74,39 +70,17 @@ class CepPage extends StatelessWidget {
   }
 }
 
-class CepForm extends StatefulWidget {
-  const CepForm({Key? key}) : super(key: key);
+class EstadoForm extends StatefulWidget {
+  const EstadoForm({Key? key}) : super(key: key);
 
   @override
-  CepFormState createState() {
-    return CepFormState();
+  EstadoFormState createState() {
+    return EstadoFormState();
   }
 }
 
-class CepFormState extends State<CepForm> {
+class EstadoFormState extends State<EstadoForm> {
   final _formKey = GlobalKey<FormState>();
-
-  bool _isValidCepAsync = true;
-
-  var maskFormatter = MaskTextInputFormatter(
-    mask: '#####-###',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-    initialText: RegisterUser.instance.cep,
-  );
-
-  validateCep() async {
-    var cepData = await cepToAddress(maskFormatter.getUnmaskedText());
-    setState(() {
-      if (cepData['valid']) {
-        _isValidCepAsync = true;
-      } else {
-        _isValidCepAsync = false;
-      }
-    });
-    return cepData['data'];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,20 +91,19 @@ class CepFormState extends State<CepForm> {
           SizedBox(
             width: 324,
             height: 90,
+            // TODO: Select for estados
             child: TextFormField(
-              keyboardType: TextInputType.number,
-              inputFormatters: [maskFormatter],
-              initialValue: maskFormatter.getMaskedText(),
+              initialValue: RegisterUser.instance.estado,
+              onSaved: (value) {
+                RegisterUser.instance.estado = value;
+              },
               validator: (value) {
-                if (maskFormatter.getUnmaskedText().length < 8) {
-                  return 'CEP incompleto';
-                }
-                if (!_isValidCepAsync) {
-                  return 'CEP inválido';
+                if (value == null || value.isEmpty) {
+                  return 'Campo vazio';
                 }
                 return null;
               },
-              decoration: customInputDecoration1('Digite aqui o CEP'),
+              decoration: customInputDecoration1('Digite aqui o estado'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -149,21 +122,11 @@ class CepFormState extends State<CepForm> {
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
-                onPressed: () async {
+                onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    loadingIndicator(context);
-                    var cepAddress = await validateCep();
-                    Navigator.pop(context);
-                    // Validate again to show "CEP inválido" error
-                    if (_formKey.currentState!.validate()) {
-                      RegisterUser.instance.cep = cepAddress['cep'];
-                      RegisterUser.instance.estado = cepAddress['uf'];
-                      RegisterUser.instance.cidade = cepAddress['localidade'];
-                      RegisterUser.instance.bairro = cepAddress['bairro'];
-                      RegisterUser.instance.logradouro =
-                          cepAddress['logradouro'];
-                      Navigator.of(context).pushNamed('/register/estado');
-                    }
+                    _formKey.currentState!.save();
+
+                    //Navigator.of(context).pushNamed('/register/cidade');
                   }
                 },
               ),
