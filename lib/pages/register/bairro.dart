@@ -6,8 +6,8 @@ import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class NamePage extends StatelessWidget {
-  const NamePage({Key? key}) : super(key: key);
+class BairroPage extends StatelessWidget {
+  const BairroPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class NamePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Primeiro, nos informe o seu nome completo',
+                'Qual o bairro da sua residência?',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -62,7 +62,7 @@ class NamePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            NameForm(),
+            BairroForm(),
           ],
         ),
       ),
@@ -70,16 +70,16 @@ class NamePage extends StatelessWidget {
   }
 }
 
-class NameForm extends StatefulWidget {
-  const NameForm({Key? key}) : super(key: key);
+class BairroForm extends StatefulWidget {
+  const BairroForm({Key? key}) : super(key: key);
 
   @override
-  NameFormState createState() {
-    return NameFormState();
+  BairroFormState createState() {
+    return BairroFormState();
   }
 }
 
-class NameFormState extends State<NameForm> {
+class BairroFormState extends State<BairroForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -92,18 +92,11 @@ class NameFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              textCapitalization: TextCapitalization.sentences,
+              initialValue: RegisterUser.instance.bairro,
               onSaved: (value) {
-                RegisterUser.instance.name = value;
+                RegisterUser.instance.bairro = value;
               },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Campo vazio';
-                }
-                return null;
-              },
-              decoration:
-                  customInputDecoration1('Digite aqui seu nome completo'),
+              decoration: customInputDecoration1('Digite aqui o bairro'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -125,7 +118,7 @@ class NameFormState extends State<NameForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/email');
+                    Navigator.of(context).pushNamed('/register/logradouro');
                   }
                 },
               ),

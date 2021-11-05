@@ -19,6 +19,7 @@ dependencies:
   location: ^4.3.0
   geocoding: ^2.0.1
   http: ^0.13.4
+  email_validator: ^2.0.1
 
 
 dev_dependencies:

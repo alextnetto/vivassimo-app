@@ -74,7 +74,7 @@ class GenderPage extends StatelessWidget {
                       onPrimary: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
                       onPressed: () {
-                        RegisterUser.instance.gender = 'M';
+                        RegisterUser.instance.gender = 'masculino';
                         Navigator.of(context)
                             .pushNamed('/register/addressOrLocation');
                       },
@@ -92,7 +92,7 @@ class GenderPage extends StatelessWidget {
                       onPrimary: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
                       onPressed: () {
-                        RegisterUser.instance.gender = 'F';
+                        RegisterUser.instance.gender = 'feminino';
                         Navigator.of(context)
                             .pushNamed('/register/addressOrLocation');
                       },
@@ -110,7 +110,7 @@ class GenderPage extends StatelessWidget {
                       onPrimary: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
                       onPressed: () {
-                        RegisterUser.instance.gender = 'O';
+                        RegisterUser.instance.gender = 'outros';
                         Navigator.of(context)
                             .pushNamed('/register/addressOrLocation');
                       },

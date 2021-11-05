@@ -79,6 +79,7 @@ class AddressOrLocationPage extends StatelessWidget {
           ],
         ),
       );
+      return;
     }
 
     var cepAddressData = cepAddress['data'];
@@ -180,7 +181,6 @@ class AddressOrLocationPage extends StatelessWidget {
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           await getLocation(context);
-                          Navigator.of(context).pushNamed('/register/cep');
                         },
                         icon: Icon(
                           Icons.room,

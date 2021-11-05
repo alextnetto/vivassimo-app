@@ -125,8 +125,7 @@ class EstadoFormState extends State<EstadoForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-
-                    //Navigator.of(context).pushNamed('/register/cidade');
+                    Navigator.of(context).pushNamed('/register/cidade');
                   }
                 },
               ),

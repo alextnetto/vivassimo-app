@@ -4,9 +4,11 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
+import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
+import 'package:my_app/services/backend.dart';
 
 class PhonenumberPage extends StatelessWidget {
   const PhonenumberPage({Key? key}) : super(key: key);
@@ -84,6 +86,8 @@ class PhonenumberForm extends StatefulWidget {
 class PhonenumberFormState extends State<PhonenumberForm> {
   final _formKey = GlobalKey<FormState>();
 
+  bool _phonenumberExistsAsync = true;
+
   isValidPhonenumber() {
     if (maskFormatter.getUnmaskedText().length == 11) {
       return true;
@@ -110,13 +114,11 @@ class PhonenumberFormState extends State<PhonenumberForm> {
             child: TextFormField(
               keyboardType: TextInputType.phone,
               inputFormatters: [maskFormatter],
-              onSaved: (value) {
-                RegisterUser.instance.phonenumber =
-                    maskFormatter.getUnmaskedText();
-              },
               validator: (value) {
                 if (!isValidPhonenumber()) {
                   return 'Telefone inválido';
+                } else if (_phonenumberExistsAsync) {
+                  return 'Telefone já cadastrado';
                 }
                 return null;
               },
@@ -140,9 +142,18 @@ class PhonenumberFormState extends State<PhonenumberForm> {
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
-                onPressed: () {
+                onPressed: () async {
+                  loadingIndicator(context);
+                  var response = await BackendService.instance
+                      .userExists(maskFormatter.getUnmaskedText());
+                  Navigator.pop(context);
+
+                  if (response['valid']) {
+                    _phonenumberExistsAsync = response['data'];
+                  }
                   if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+                    RegisterUser.instance.phonenumber =
+                        maskFormatter.getUnmaskedText();
                     Navigator.of(context).pushNamed('/register/password');
                   }
                 },

@@ -6,8 +6,8 @@ import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class NamePage extends StatelessWidget {
-  const NamePage({Key? key}) : super(key: key);
+class CidadePage extends StatelessWidget {
+  const CidadePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class NamePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Primeiro, nos informe o seu nome completo',
+                'Qual a cidade da sua residência?',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -62,7 +62,7 @@ class NamePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            NameForm(),
+            CidadeForm(),
           ],
         ),
       ),
@@ -70,16 +70,16 @@ class NamePage extends StatelessWidget {
   }
 }
 
-class NameForm extends StatefulWidget {
-  const NameForm({Key? key}) : super(key: key);
+class CidadeForm extends StatefulWidget {
+  const CidadeForm({Key? key}) : super(key: key);
 
   @override
-  NameFormState createState() {
-    return NameFormState();
+  CidadeFormState createState() {
+    return CidadeFormState();
   }
 }
 
-class NameFormState extends State<NameForm> {
+class CidadeFormState extends State<CidadeForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -91,10 +91,11 @@ class NameFormState extends State<NameForm> {
           SizedBox(
             width: 324,
             height: 90,
+            // TODO: Select for cidades
             child: TextFormField(
-              textCapitalization: TextCapitalization.sentences,
+              initialValue: RegisterUser.instance.cidade,
               onSaved: (value) {
-                RegisterUser.instance.name = value;
+                RegisterUser.instance.cidade = value;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -102,8 +103,7 @@ class NameFormState extends State<NameForm> {
                 }
                 return null;
               },
-              decoration:
-                  customInputDecoration1('Digite aqui seu nome completo'),
+              decoration: customInputDecoration1('Digite aqui a cidade'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -125,7 +125,7 @@ class NameFormState extends State<NameForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/email');
+                    Navigator.of(context).pushNamed('/register/bairro');
                   }
                 },
               ),

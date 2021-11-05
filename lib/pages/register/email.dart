@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
@@ -81,15 +82,6 @@ class EmailForm extends StatefulWidget {
 class EmailFormState extends State<EmailForm> {
   final _formKey = GlobalKey<FormState>();
 
-  isValidEmail(value) {
-    RegExp regExp = RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
-    if (regExp.hasMatch(value)) {
-      return true;
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -105,7 +97,7 @@ class EmailFormState extends State<EmailForm> {
                 RegisterUser.instance.email = value;
               },
               validator: (value) {
-                if (!isValidEmail(value)) {
+                if (!EmailValidator.validate(value ?? '')) {
                   return 'Email inválido';
                 }
                 return null;

@@ -6,8 +6,8 @@ import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class NamePage extends StatelessWidget {
-  const NamePage({Key? key}) : super(key: key);
+class NumeroPage extends StatelessWidget {
+  const NumeroPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class NamePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Primeiro, nos informe o seu nome completo',
+                'Qual o número da sua residência?',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -62,7 +62,7 @@ class NamePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            NameForm(),
+            NumeroForm(),
           ],
         ),
       ),
@@ -70,16 +70,16 @@ class NamePage extends StatelessWidget {
   }
 }
 
-class NameForm extends StatefulWidget {
-  const NameForm({Key? key}) : super(key: key);
+class NumeroForm extends StatefulWidget {
+  const NumeroForm({Key? key}) : super(key: key);
 
   @override
-  NameFormState createState() {
-    return NameFormState();
+  NumeroFormState createState() {
+    return NumeroFormState();
   }
 }
 
-class NameFormState extends State<NameForm> {
+class NumeroFormState extends State<NumeroForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -92,9 +92,9 @@ class NameFormState extends State<NameForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              textCapitalization: TextCapitalization.sentences,
+              initialValue: RegisterUser.instance.numero,
               onSaved: (value) {
-                RegisterUser.instance.name = value;
+                RegisterUser.instance.numero = value;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -102,8 +102,7 @@ class NameFormState extends State<NameForm> {
                 }
                 return null;
               },
-              decoration:
-                  customInputDecoration1('Digite aqui seu nome completo'),
+              decoration: customInputDecoration1('Digite aqui o número'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -125,7 +124,7 @@ class NameFormState extends State<NameForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/email');
+                    Navigator.of(context).pushNamed('/register/complemento');
                   }
                 },
               ),

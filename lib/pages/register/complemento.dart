@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
+import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
+import 'package:my_app/services/backend.dart';
 
-class NamePage extends StatelessWidget {
-  const NamePage({Key? key}) : super(key: key);
+class ComplementoPage extends StatelessWidget {
+  const ComplementoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class NamePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20),
               width: 300,
               child: Text(
-                'Primeiro, nos informe o seu nome completo',
+                'Qual o complemento da sua residência?',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -62,7 +64,7 @@ class NamePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            NameForm(),
+            ComplementoForm(),
           ],
         ),
       ),
@@ -70,16 +72,16 @@ class NamePage extends StatelessWidget {
   }
 }
 
-class NameForm extends StatefulWidget {
-  const NameForm({Key? key}) : super(key: key);
+class ComplementoForm extends StatefulWidget {
+  const ComplementoForm({Key? key}) : super(key: key);
 
   @override
-  NameFormState createState() {
-    return NameFormState();
+  ComplementoFormState createState() {
+    return ComplementoFormState();
   }
 }
 
-class NameFormState extends State<NameForm> {
+class ComplementoFormState extends State<ComplementoForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -91,19 +93,13 @@ class NameFormState extends State<NameForm> {
           SizedBox(
             width: 324,
             height: 90,
+            // TODO: Select for Complementos
             child: TextFormField(
-              textCapitalization: TextCapitalization.sentences,
+              initialValue: RegisterUser.instance.complemento,
               onSaved: (value) {
-                RegisterUser.instance.name = value;
+                RegisterUser.instance.complemento = value;
               },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Campo vazio';
-                }
-                return null;
-              },
-              decoration:
-                  customInputDecoration1('Digite aqui seu nome completo'),
+              decoration: customInputDecoration1('Digite aqui o Complemento'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -122,10 +118,19 @@ class NameFormState extends State<NameForm> {
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/email');
+
+                    loadingIndicator(context);
+                    var response = await BackendService.instance
+                        .registerUser(RegisterUser.instance);
+                    Navigator.pop(context);
+
+                    if (response['valid']) {
+                      Navigator.of(context)
+                          .pushNamed('/register/registerFinished');
+                    }
                   }
                 },
               ),
