@@ -7,6 +7,7 @@ import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
+import 'package:my_app/services/backend.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -86,6 +87,7 @@ class LoginFormState extends State<LoginForm> {
 
   bool _isValidLoginAsync = true;
   bool _passwordVisible = false;
+  String _password = '';
 
   var maskFormatter = MaskTextInputFormatter(
     mask: '+55 (##) #####-####',
@@ -132,7 +134,9 @@ class LoginFormState extends State<LoginForm> {
                 obscureText: !_passwordVisible,
                 enableSuggestions: false,
                 autocorrect: false,
-                onSaved: (value) {},
+                onSaved: (value) {
+                  _password = value ?? '';
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Senha inválida';
@@ -174,11 +178,15 @@ class LoginFormState extends State<LoginForm> {
               borderColor: VivassimoTheme.white,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
                   loadingIndicator(context);
+                  var response = await BackendService.instance.login(
+                    maskFormatter.getUnmaskedText(),
+                    _password,
+                  );
                   Navigator.pop(context);
-                  if (_formKey.currentState!.validate()) {
-                    //Navigator.of(context).pushNamed('/register/estado');
-                  }
+                  print(response);
+                  //TODO: Get token and save it
                 }
               },
             ),

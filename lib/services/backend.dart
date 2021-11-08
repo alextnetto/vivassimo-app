@@ -32,4 +32,18 @@ class BackendService {
       return {'valid': false};
     }
   }
+
+  login(String phonenumber, String password) async {
+    String body =
+        jsonEncode({'phonenumber': phonenumber, 'password': password});
+    Uri url = Uri.http(_baseUrl, '/login');
+    const customHeaders = {"content-type": "application/json"};
+
+    final response = await http.post(url, headers: customHeaders, body: body);
+    if (response.statusCode == 200) {
+      return {'valid': true};
+    } else {
+      return {'valid': false};
+    }
+  }
 }

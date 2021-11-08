@@ -86,7 +86,7 @@ class RegisterFinishedPageState extends State<RegisterFinishedPage> {
                       onPrimary: VivassimoTheme.purpleActive,
                       borderColor: VivassimoTheme.red,
                       onPressed: () {
-                        //Navigator.of(context).pushNamed('/register/registerFinished');
+                        Navigator.of(context).pushNamed('/login');
                       },
                     ),
                   ),
