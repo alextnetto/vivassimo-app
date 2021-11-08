@@ -7,11 +7,9 @@ import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
-import 'package:my_app/models/register/user.dart';
-import 'package:my_app/services/cep_to_address.dart';
 
-class CepPage extends StatelessWidget {
-  const CepPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +22,8 @@ class CepPage extends StatelessWidget {
             Hero(
               tag: 'registerAppBar',
               child: Container(
-                height: 130,
-                color: VivassimoTheme.blue,
+                height: 90,
+                color: VivassimoTheme.white,
                 child: Column(
                   children: [
                     SizedBox(
@@ -39,7 +37,7 @@ class CepPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
-                            'Criar uma conta',
+                            'Acesso a conta',
                             style: customTextStyle(
                               FontWeight.w700,
                               18,
@@ -54,10 +52,10 @@ class CepPage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              width: 300,
+              padding: EdgeInsets.symmetric(vertical: 30),
+              width: 320,
               child: Text(
-                'Digite o número do seu CEP',
+                'Informe seu email ou telefone cadastrado e a senha',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -66,7 +64,7 @@ class CepPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            CepForm(),
+            LoginForm(),
           ],
         ),
       ),
@@ -74,39 +72,29 @@ class CepPage extends StatelessWidget {
   }
 }
 
-class CepForm extends StatefulWidget {
-  const CepForm({Key? key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  CepFormState createState() {
-    return CepFormState();
+  LoginFormState createState() {
+    return LoginFormState();
   }
 }
 
-class CepFormState extends State<CepForm> {
+class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  bool _isValidCepAsync = true;
+  bool _isValidLoginAsync = true;
+  bool _passwordVisible = false;
 
   var maskFormatter = MaskTextInputFormatter(
-    mask: '#####-###',
+    mask: '+55 (##) #####-####',
     filter: {
       "#": RegExp(r'[0-9]'),
     },
-    initialText: RegisterUser.instance.cep,
   );
 
-  validateCep() async {
-    var cepData = await cepToAddress(maskFormatter.getUnmaskedText());
-    setState(() {
-      if (cepData['valid']) {
-        _isValidCepAsync = true;
-      } else {
-        _isValidCepAsync = false;
-      }
-    });
-    return cepData['data'];
-  }
+  validateLogin() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -118,19 +106,15 @@ class CepFormState extends State<CepForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.phone,
               inputFormatters: [maskFormatter],
-              initialValue: maskFormatter.getMaskedText(),
               validator: (value) {
-                if (maskFormatter.getUnmaskedText().length < 8) {
-                  return 'CEP incompleto';
-                }
-                if (!_isValidCepAsync) {
-                  return 'CEP inválido';
+                if (value == null || value.isEmpty) {
+                  return 'Telefone incompleto';
                 }
                 return null;
               },
-              decoration: customInputDecoration1('Digite aqui o CEP'),
+              decoration: customInputDecoration1('Digite aqui seu telefone'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -140,33 +124,63 @@ class CepFormState extends State<CepForm> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: SizedBox(
               width: 324,
-              height: 60,
-              child: CustomButton1(
-                label: 'Continuar',
-                primary: VivassimoTheme.green,
-                onPrimary: VivassimoTheme.white,
-                borderColor: VivassimoTheme.white,
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    loadingIndicator(context);
-                    var cepAddress = await validateCep();
-                    Navigator.pop(context);
-                    // Validate again to show "CEP inválido" error
-                    if (_formKey.currentState!.validate()) {
-                      RegisterUser.instance.cep = cepAddress['cep'];
-                      RegisterUser.instance.estado = cepAddress['uf'];
-                      RegisterUser.instance.cidade = cepAddress['localidade'];
-                      RegisterUser.instance.bairro = cepAddress['bairro'];
-                      RegisterUser.instance.logradouro =
-                          cepAddress['logradouro'];
-                      Navigator.of(context).pushNamed('/register/estado');
-                    }
+              height: 90,
+              child: TextFormField(
+                obscureText: !_passwordVisible,
+                enableSuggestions: false,
+                autocorrect: false,
+                onSaved: (value) {},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Senha inválida';
                   }
+                  return null;
                 },
+                decoration: customInputDecoration1(
+                  'Digite letras e números',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                style: customTextStyle(
+                  FontWeight.w700,
+                  18,
+                  VivassimoTheme.purpleActive,
+                ),
               ),
+            ),
+          ),
+          SizedBox(
+            width: 324,
+            height: 60,
+            child: CustomButton1(
+              label: 'Entrar',
+              primary: VivassimoTheme.green,
+              onPrimary: VivassimoTheme.white,
+              borderColor: VivassimoTheme.white,
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  loadingIndicator(context);
+                  Navigator.pop(context);
+                  if (_formKey.currentState!.validate()) {
+                    //Navigator.of(context).pushNamed('/register/estado');
+                  }
+                }
+              },
             ),
           ),
         ],

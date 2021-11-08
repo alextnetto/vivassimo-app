@@ -70,7 +70,9 @@ class HomePageState extends State<HomePage> {
                   width: 324,
                   height: 60,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/login');
+                    },
                     child: Text(
                       'Já tenho uma conta',
                       style: customTextStyle(

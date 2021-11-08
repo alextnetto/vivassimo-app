@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/home_page.dart';
+import 'package:my_app/pages/login/login.dart';
 import 'package:my_app/pages/register/address_or_location.dart';
 import 'package:my_app/pages/register/bairro.dart';
 import 'package:my_app/pages/register/birthday.dart';
@@ -58,6 +59,7 @@ class AppWidget extends StatelessWidget {
               '/register/numero': (context) => NumeroPage(),
               '/register/complemento': (context) => ComplementoPage(),
               '/register/registerFinished': (context) => RegisterFinishedPage(),
+              '/login': (context) => LoginPage(),
             },
           ),
         );
