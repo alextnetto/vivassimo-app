@@ -13,18 +13,17 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int counter = 0;
+  int themeCounter = 1;
   bool isDarkTheme = false;
-  int seniorImage = 1;
 
-  changeSeniorImage() {
-    if (seniorImage < 7) {
+  changeThemeCounter() {
+    if (themeCounter < 7) {
       setState(() {
-        seniorImage++;
+        themeCounter++;
       });
     } else {
       setState(() {
-        seniorImage = 1;
+        themeCounter = 1;
       });
     }
   }
@@ -32,85 +31,95 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                VivassimoTheme.gradientMainBegin,
-                VivassimoTheme.gradientMainEnd
-              ],
-            ),
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/home_bg_$themeCounter.png',
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              GestureDetector(
-                child: Image.asset(
-                  'assets/images/senior_0$seniorImage.png',
-                  height: MediaQuery.of(context).size.height / 2.4,
-                  fit: BoxFit.scaleDown,
-                ),
-                onTap: changeSeniorImage,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Image.asset('assets/images/logo.png'),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: SizedBox(
-                  width: 324,
-                  height: 60,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
-                    child: Text(
-                      'Já tenho uma conta',
-                      style: customTextStyle(
-                        FontWeight.w700,
-                        23,
-                        VivassimoTheme.white,
-                      ),
+          SafeArea(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                    child: Image.asset(
+                      'assets/images/home_senior_$themeCounter.png',
+                      height: MediaQuery.of(context).size.height / 2.4,
+                      fit: BoxFit.scaleDown,
                     ),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        width: 2.0,
-                        color: VivassimoTheme.white,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    onTap: changeThemeCounter,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60, bottom: 20),
+                    child: Image.asset('assets/images/logo.png'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: SizedBox(
+                      width: 324,
+                      height: 60,
+                      child: CustomButton1(
+                          label: 'Já tenho uma conta',
+                          primary: themeCounter == 5
+                              ? VivassimoTheme.white
+                              : VivassimoTheme.purple,
+                          onPrimary: themeCounter == 5
+                              ? VivassimoTheme.purple
+                              : VivassimoTheme.white,
+                          borderColor: themeCounter == 5
+                              ? VivassimoTheme.white
+                              : VivassimoTheme.purple,
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/register/1');
+                          }),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: SizedBox(
+                      width: 324,
+                      height: 60,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/login');
+                        },
+                        child: Text(
+                          'Não tenho uma conta',
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            23,
+                            themeCounter == 2 || themeCounter == 3
+                                ? VivassimoTheme.purple
+                                : VivassimoTheme.white,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            width: 2.0,
+                            color: themeCounter == 2 || themeCounter == 3
+                                ? VivassimoTheme.purple
+                                : VivassimoTheme.white,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: SizedBox(
-                  width: 324,
-                  height: 60,
-                  child: CustomButton1(
-                      label: 'Não tenho uma conta',
-                      primary: VivassimoTheme.purpleActive,
-                      onPrimary: VivassimoTheme.white,
-                      borderColor: VivassimoTheme.red,
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/register/1');
-                      }),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
