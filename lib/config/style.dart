@@ -9,11 +9,10 @@ class VivassimoTheme {
   static Color redActive = Color(0xFFD13311);
   static Color yellow = Color(0xFFFEC240);
   static Color yellowActive = Color(0xFFFFAE00);
-  static Color blue = Color(0xFFB0CECE);
+  static Color blue = Color(0xFFB4D8D8);
   static Color grey = Color(0xFF635F75);
   static Color white = Color(0xFFFFFFFF);
   static Color gradientMainBegin = Color(0xFF700080);
   static Color gradientMainEnd = Color(0xFFD26F58);
-  static Color gradientSkyBegin = Color(0x00E9F3F4);
-  static Color gradientSkyEnd = Color(0xFFE9F3F4);
+  static Color ice = Color(0xFFE9F3F4);
 }

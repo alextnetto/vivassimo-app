@@ -78,7 +78,7 @@ class HomePageState extends State<HomePage> {
                               ? VivassimoTheme.white
                               : VivassimoTheme.purple,
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/register/1');
+                            Navigator.of(context).pushNamed('/login');
                           }),
                     ),
                   ),
@@ -89,7 +89,8 @@ class HomePageState extends State<HomePage> {
                       height: 60,
                       child: OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
+                          Navigator.of(context)
+                              .pushNamed('/register/acceptTerms');
                         },
                         child: Text(
                           'Não tenho uma conta',

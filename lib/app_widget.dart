@@ -38,7 +38,7 @@ class AppWidget extends StatelessWidget {
             initialRoute: '/',
             routes: {
               '/': (context) => HomePage(),
-              '/register/1': (context) => RegisterTerms(),
+              '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
               '/register/name': (context) => NamePage(),
               '/register/email': (context) => EmailPage(),
