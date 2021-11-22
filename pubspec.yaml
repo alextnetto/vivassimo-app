@@ -20,6 +20,7 @@ dependencies:
   geocoding: ^2.0.1
   http: ^0.13.4
   email_validator: ^2.0.1
+  pin_code_fields: ^7.3.0
 
 
 dev_dependencies:
