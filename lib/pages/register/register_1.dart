@@ -1,21 +1,40 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/button_confirm.dart';
 import 'package:my_app/components/input_decoration.dart';
+import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
+import 'package:my_app/services/backend.dart';
 
-class NamePage extends StatefulWidget {
-  const NamePage({Key? key}) : super(key: key);
+class Register1Page extends StatefulWidget {
+  const Register1Page({Key? key}) : super(key: key);
 
   @override
-  _NamePageState createState() => _NamePageState();
+  _Register1PageState createState() => _Register1PageState();
 }
 
-class _NamePageState extends State<NamePage> {
+class _Register1PageState extends State<Register1Page> {
   final _formKey = GlobalKey<FormState>();
+
+  bool _phonenumberExistsAsync = true;
+
+  isValidPhonenumber() {
+    if (maskFormatter.getUnmaskedText().length == 11) {
+      return true;
+    }
+    return false;
+  }
+
+  var maskFormatter = MaskTextInputFormatter(
+    mask: '+55 (##) #####-####',
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +119,65 @@ class _NamePageState extends State<NamePage> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: 324,
+                        height: 90,
+                        child: TextFormField(
+                          //initialValue: 'dev@dev.com',
+                          onSaved: (value) {
+                            RegisterUser.instance.email = value;
+                          },
+                          validator: (value) {
+                            if (!EmailValidator.validate(value ?? '')) {
+                              return 'Email inválido';
+                            }
+                            return null;
+                          },
+                          decoration:
+                              customInputDecoration1('Digite aqui seu email'),
+                          textAlign: TextAlign.center,
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            18,
+                            VivassimoTheme.purpleActive,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: 324,
+                        height: 90,
+                        child: TextFormField(
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [maskFormatter],
+                          onSaved: (value) {
+                            RegisterUser.instance.phonenumber =
+                                maskFormatter.getUnmaskedText();
+                            print(value);
+                          },
+                          validator: (value) {
+                            if (!isValidPhonenumber()) {
+                              return 'Telefone inválido';
+                            } else if (_phonenumberExistsAsync) {
+                              return 'Telefone já cadastrado';
+                            }
+                            return null;
+                          },
+                          decoration: customInputDecoration1(
+                              'Digite aqui seu número de celular'),
+                          textAlign: TextAlign.center,
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            18,
+                            VivassimoTheme.purpleActive,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -114,10 +192,20 @@ class _NamePageState extends State<NamePage> {
                   primary: VivassimoTheme.green,
                   onPrimary: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
-                  onPressed: () {
+                  onPressed: () async {
+                    loadingIndicator(context);
+                    var response = await BackendService.instance
+                        .userExists(maskFormatter.getUnmaskedText());
+                    Navigator.pop(context);
+
+                    if (response['valid']) {
+                      _phonenumberExistsAsync = response['data'];
+                    }
+
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      Navigator.of(context).pushNamed('/register/email');
+                      // Navigator.of(context).pushNamed('/register/validateOtp');
+                      Navigator.of(context).pushNamed('/register/phonenumber');
                     }
                   },
                 ),

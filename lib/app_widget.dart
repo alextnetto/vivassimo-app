@@ -10,15 +10,13 @@ import 'package:my_app/pages/register/cidade.dart';
 import 'package:my_app/pages/register/complemento.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
-import 'package:my_app/pages/register/email.dart';
 import 'package:my_app/pages/register/estado.dart';
 import 'package:my_app/pages/register/gender.dart';
 import 'package:my_app/pages/register/logradouro.dart';
-import 'package:my_app/pages/register/name.dart';
+import 'package:my_app/pages/register/register_1.dart';
 import 'package:my_app/pages/register/numero.dart';
 import 'package:my_app/pages/register/password.dart';
 import 'package:my_app/pages/register/password_confirm.dart';
-import 'package:my_app/pages/register/phonenumber.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/pages/register/terms.dart';
 
@@ -40,9 +38,7 @@ class AppWidget extends StatelessWidget {
               '/': (context) => HomePage(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
-              '/register/name': (context) => NamePage(),
-              '/register/email': (context) => EmailPage(),
-              '/register/phonenumber': (context) => PhonenumberPage(),
+              '/register/1': (context) => Register1Page(),
               '/register/password': (context) => PasswordPage(),
               '/register/passwordConfirmation': (context) =>
                   PasswordConfirmPage(),

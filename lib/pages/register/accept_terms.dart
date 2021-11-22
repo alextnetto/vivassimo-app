@@ -108,7 +108,7 @@ class RegisterTerms extends StatelessWidget {
                   onPrimary: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/register/name');
+                    Navigator.of(context).pushNamed('/register/1');
                   },
                 ),
               ),

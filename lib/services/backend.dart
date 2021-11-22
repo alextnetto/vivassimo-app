@@ -11,13 +11,18 @@ class BackendService {
 
   userExists(String phonenumber) async {
     Uri url = Uri.http(_baseUrl, '/userExists', {'phonenumber': phonenumber});
-    final response = await http.get(url);
-    if (response.statusCode != 200) {
+    try {
+      final response = await http.get(url);
+      if (response.statusCode != 200) {
+        return {'valid': false};
+      }
+      var data = jsonDecode(response.body);
+
+      return {'valid': true, 'data': data};
+    } catch (e) {
+      print(e);
       return {'valid': false};
     }
-    var data = jsonDecode(response.body);
-
-    return {'valid': true, 'data': data};
   }
 
   registerUser(RegisterUser user) async {

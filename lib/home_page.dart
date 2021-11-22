@@ -40,7 +40,7 @@ class HomePageState extends State<HomePage> {
             width: double.infinity,
           ),
           SafeArea(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Column(
