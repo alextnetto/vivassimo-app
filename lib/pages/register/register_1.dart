@@ -194,10 +194,9 @@ class _Register1PageState extends State<Register1Page> {
                   borderColor: VivassimoTheme.white,
                   onPressed: () async {
                     // Checks if phonenumber is already registered
-                    loadingIndicator(context);
+                    LoadingIndicator.show(context);
                     var response = await BackendService.instance
                         .userExists(phoneFormatter.getUnmaskedText());
-                    Navigator.pop(context);
 
                     if (response['valid']) {
                       _phonenumberExistsAsync = response['data'];
@@ -209,8 +208,11 @@ class _Register1PageState extends State<Register1Page> {
                       _formKey.currentState!.save();
                       await BackendService.instance
                           .sendOtp(phoneFormatter.getUnmaskedText());
+                      LoadingIndicator.hide(context);
                       Navigator.of(context).pushNamed('/register/verifyOtp');
+                      return;
                     }
+                    LoadingIndicator.hide(context);
                   },
                 ),
               ),

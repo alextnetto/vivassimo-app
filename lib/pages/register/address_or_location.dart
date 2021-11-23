@@ -52,13 +52,13 @@ class AddressOrLocationPage extends StatelessWidget {
       }
     }
 
-    loadingIndicator(context);
+    LoadingIndicator.show(context);
     _locationData = await location.getLocation();
     Placemark address =
         await getAddress(_locationData.latitude, _locationData.longitude);
     dynamic cepAddress =
         await cepToAddress(address.postalCode?.replaceAll('-', ''));
-    Navigator.pop(context);
+    LoadingIndicator.hide(context);
 
     if (!cepAddress['valid']) {
       showDialog(

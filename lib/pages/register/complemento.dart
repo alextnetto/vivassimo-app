@@ -122,10 +122,10 @@ class ComplementoFormState extends State<ComplementoForm> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
 
-                    loadingIndicator(context);
+                    LoadingIndicator.show(context);
                     var response = await BackendService.instance
                         .registerUser(RegisterUser.instance);
-                    Navigator.pop(context);
+                    LoadingIndicator.hide(context);
 
                     if (response['valid']) {
                       Navigator.of(context)

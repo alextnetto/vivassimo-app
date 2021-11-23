@@ -179,12 +179,12 @@ class LoginFormState extends State<LoginForm> {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  loadingIndicator(context);
+                  LoadingIndicator.show(context);
                   var response = await BackendService.instance.login(
                     maskFormatter.getUnmaskedText(),
                     _password,
                   );
-                  Navigator.pop(context);
+                  LoadingIndicator.hide(context);
                   print(response);
                   //TODO: Get token and save it
                 }

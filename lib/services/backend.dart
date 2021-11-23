@@ -42,6 +42,26 @@ class BackendService {
     }
   }
 
+  verifyOtp(String phonenumber, String token) async {
+    Uri url = Uri.http(_baseUrl, '/verifyOtp', {
+      'phonenumber': phonenumber,
+      'token': token,
+    });
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode != 200) {
+        return {'valid': false};
+      }
+      var data = jsonDecode(response.body);
+
+      return {'valid': true, 'data': data};
+    } catch (e) {
+      print(e);
+      return {'valid': false};
+    }
+  }
+
   registerUser(RegisterUser user) async {
     String body = jsonEncode(user.toJson());
     Uri url = Uri.http(_baseUrl, '/users');

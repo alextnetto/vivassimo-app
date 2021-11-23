@@ -151,9 +151,9 @@ class CepFormState extends State<CepForm> {
                 borderColor: VivassimoTheme.white,
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    loadingIndicator(context);
+                    LoadingIndicator.show(context);
                     var cepAddress = await validateCep();
-                    Navigator.pop(context);
+                    LoadingIndicator.hide(context);
                     // Validate again to show "CEP inválido" error
                     if (_formKey.currentState!.validate()) {
                       RegisterUser.instance.cep = cepAddress['cep'];
