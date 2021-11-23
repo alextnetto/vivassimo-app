@@ -23,13 +23,13 @@ class _Register1PageState extends State<Register1Page> {
   bool _phonenumberExistsAsync = true;
 
   isValidPhonenumber() {
-    if (maskFormatter.getUnmaskedText().length == 11) {
+    if (phoneFormatter.getUnmaskedText().length == 11) {
       return true;
     }
     return false;
   }
 
-  var maskFormatter = MaskTextInputFormatter(
+  var phoneFormatter = MaskTextInputFormatter(
     mask: '+55 (##) #####-####',
     filter: {
       "#": RegExp(r'[0-9]'),
@@ -154,10 +154,10 @@ class _Register1PageState extends State<Register1Page> {
                         height: 90,
                         child: TextFormField(
                           keyboardType: TextInputType.phone,
-                          inputFormatters: [maskFormatter],
+                          inputFormatters: [phoneFormatter],
                           onSaved: (value) {
                             RegisterUser.instance.phonenumber =
-                                maskFormatter.getUnmaskedText();
+                                phoneFormatter.getUnmaskedText();
                             print(value);
                           },
                           validator: (value) {
@@ -196,15 +196,19 @@ class _Register1PageState extends State<Register1Page> {
                     // Checks if phonenumber is already registered
                     loadingIndicator(context);
                     var response = await BackendService.instance
-                        .userExists(maskFormatter.getUnmaskedText());
+                        .userExists(phoneFormatter.getUnmaskedText());
                     Navigator.pop(context);
 
                     if (response['valid']) {
                       _phonenumberExistsAsync = response['data'];
                     }
 
-                    if (!_formKey.currentState!.validate()) {
+                    print(response);
+
+                    if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
+                      await BackendService.instance
+                          .sendOtp(phoneFormatter.getUnmaskedText());
                       Navigator.of(context).pushNamed('/register/verifyOtp');
                     }
                   },
