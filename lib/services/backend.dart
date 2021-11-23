@@ -50,10 +50,15 @@ class BackendService {
 
     try {
       final response = await http.get(url);
-      if (response.statusCode != 200) {
-        return {'valid': false};
-      }
       var data = jsonDecode(response.body);
+
+      if (response.statusCode == 500) {
+        return {'valid': false, 'message': data['message']};
+      } else if (response.statusCode == 400) {
+        return {'valid': false, 'message': data['message']};
+      } else if (response.statusCode == 200) {
+        return {'valid': true, 'message': data['message']};
+      }
 
       return {'valid': true, 'data': data};
     } catch (e) {

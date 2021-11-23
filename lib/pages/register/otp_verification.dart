@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_confirm.dart';
-import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
@@ -17,6 +16,23 @@ class OtpVerificationPage extends StatefulWidget {
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  String errorMessage = '';
+
+  validateOtp(String otp) async {
+    LoadingIndicator.show(context);
+    var response = await BackendService.instance
+        .verifyOtp(RegisterUser.instance.phonenumber!, otp);
+    LoadingIndicator.hide(context);
+
+    if (response['valid']) {
+      Navigator.pushNamed(context, '/register/password');
+    } else {
+      setState(() {
+        errorMessage = response['message'];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +100,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     appContext: context,
                     length: 6,
                     onChanged: (value) {},
-                    onCompleted: (value) {},
+                    onCompleted: (otp) async {
+                      validateOtp(otp);
+                    },
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(8),
@@ -93,10 +111,25 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       selectedColor: VivassimoTheme.blue,
                       inactiveColor: VivassimoTheme.purpleActive, //
                       activeColor: VivassimoTheme.purpleActive,
+                      errorBorderColor: VivassimoTheme.red,
                     ),
                     animationType: AnimationType.fade,
+                    errorTextSpace: 30,
+                    textStyle: customTextStyle(
+                      FontWeight.w700,
+                      20,
+                      VivassimoTheme.purpleActive,
+                    ),
                   ),
                 ),
+                Text(
+                  errorMessage,
+                  style: customTextStyle(
+                    FontWeight.w700,
+                    23,
+                    VivassimoTheme.redActive,
+                  ),
+                )
               ],
             ),
             Hero(
