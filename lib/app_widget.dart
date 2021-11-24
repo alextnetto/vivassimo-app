@@ -16,7 +16,6 @@ import 'package:my_app/pages/register/logradouro.dart';
 import 'package:my_app/pages/register/register_1.dart';
 import 'package:my_app/pages/register/numero.dart';
 import 'package:my_app/pages/register/password.dart';
-import 'package:my_app/pages/register/password_confirm.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/pages/register/terms.dart';
 import 'package:my_app/pages/register/otp_verification.dart';
@@ -42,8 +41,6 @@ class AppWidget extends StatelessWidget {
               '/register/verifyOtp': (context) => OtpVerificationPage(),
               '/register/1': (context) => Register1Page(),
               '/register/password': (context) => PasswordPage(),
-              '/register/passwordConfirmation': (context) =>
-                  PasswordConfirmPage(),
               '/register/cpf': (context) => CpfPage(),
               '/register/birthday': (context) => BirthdayPage(),
               '/register/gender': (context) => GenderPage(),
