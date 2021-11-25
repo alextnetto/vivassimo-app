@@ -17,7 +17,7 @@ class HomePageState extends State<HomePage> {
   bool isDarkTheme = false;
 
   changeThemeCounter() {
-    if (themeCounter < 7) {
+    if (themeCounter < 5) {
       setState(() {
         themeCounter++;
       });
@@ -47,71 +47,62 @@ class HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   GestureDetector(
                     child: Image.asset(
                       'assets/images/home_senior_$themeCounter.png',
-                      height: MediaQuery.of(context).size.height / 2.4,
+                      height: MediaQuery.of(context).size.height / 2.3,
                       fit: BoxFit.scaleDown,
                     ),
                     onTap: changeThemeCounter,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 60, bottom: 20),
+                    padding: const EdgeInsets.only(top: 60, bottom: 40),
                     child: Image.asset('assets/images/logo.png'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: SizedBox(
-                      width: 324,
-                      height: 60,
-                      child: CustomButton1(
-                          label: 'Já tenho uma conta',
-                          primary: themeCounter == 5
-                              ? VivassimoTheme.white
-                              : VivassimoTheme.purple,
-                          onPrimary: themeCounter == 5
+                  SizedBox(
+                    width: 324,
+                    height: 60,
+                    child: CustomButton1(
+                        label: 'Já tenho uma conta',
+                        primary: VivassimoTheme.purple,
+                        onPrimary: VivassimoTheme.white,
+                        borderColor: VivassimoTheme.purple,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/login');
+                        }),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  SizedBox(
+                    width: 324,
+                    height: 60,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed('/register/acceptTerms');
+                      },
+                      child: Text(
+                        'Não tenho uma conta',
+                        style: customTextStyle(
+                          FontWeight.w700,
+                          23,
+                          themeCounter == 2 || themeCounter == 3
                               ? VivassimoTheme.purple
                               : VivassimoTheme.white,
-                          borderColor: themeCounter == 5
-                              ? VivassimoTheme.white
-                              : VivassimoTheme.purple,
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/login');
-                          }),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: SizedBox(
-                      width: 324,
-                      height: 60,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed('/register/acceptTerms');
-                        },
-                        child: Text(
-                          'Não tenho uma conta',
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            23,
-                            themeCounter == 2 || themeCounter == 3
-                                ? VivassimoTheme.purple
-                                : VivassimoTheme.white,
-                          ),
                         ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            width: 2.0,
-                            color: themeCounter == 2 || themeCounter == 3
-                                ? VivassimoTheme.purple
-                                : VivassimoTheme.white,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                          width: 2.0,
+                          color: themeCounter == 2 || themeCounter == 3
+                              ? VivassimoTheme.purple
+                              : VivassimoTheme.white,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
