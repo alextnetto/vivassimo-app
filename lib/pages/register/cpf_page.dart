@@ -130,7 +130,7 @@ class CpfPageState extends State<CpfPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      Navigator.of(context).pushNamed('/register/birthday');
+                      Navigator.of(context).pushNamed('/register/2');
                     }
                   },
                 ),

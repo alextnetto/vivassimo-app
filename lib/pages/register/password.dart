@@ -19,7 +19,7 @@ class PasswordPageState extends State<PasswordPage> {
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
 
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

@@ -4,18 +4,17 @@ import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/login/login.dart';
 import 'package:my_app/pages/register/address_or_location.dart';
 import 'package:my_app/pages/register/bairro.dart';
-import 'package:my_app/pages/register/birthday.dart';
 import 'package:my_app/pages/register/cep_page.dart';
 import 'package:my_app/pages/register/cidade.dart';
 import 'package:my_app/pages/register/complemento.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/estado.dart';
-import 'package:my_app/pages/register/gender.dart';
 import 'package:my_app/pages/register/logradouro.dart';
 import 'package:my_app/pages/register/register_1.dart';
 import 'package:my_app/pages/register/numero.dart';
 import 'package:my_app/pages/register/password.dart';
+import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/pages/register/terms.dart';
 import 'package:my_app/pages/register/otp_verification.dart';
@@ -40,10 +39,9 @@ class AppWidget extends StatelessWidget {
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),
               '/register/1': (context) => Register1Page(),
+              '/register/2': (context) => Register2Page(),
               '/register/password': (context) => PasswordPage(),
               '/register/cpf': (context) => CpfPage(),
-              '/register/birthday': (context) => BirthdayPage(),
-              '/register/gender': (context) => GenderPage(),
               '/register/addressOrLocation': (context) =>
                   AddressOrLocationPage(),
               '/register/cep': (context) => CepPage(),

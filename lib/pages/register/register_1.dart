@@ -158,7 +158,6 @@ class _Register1PageState extends State<Register1Page> {
                           onSaved: (value) {
                             RegisterUser.instance.phonenumber =
                                 phoneFormatter.getUnmaskedText();
-                            print(value);
                           },
                           validator: (value) {
                             if (!isValidPhonenumber()) {
@@ -201,8 +200,6 @@ class _Register1PageState extends State<Register1Page> {
                     if (response['valid']) {
                       _phonenumberExistsAsync = response['data'];
                     }
-
-                    print(response);
 
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
