@@ -229,8 +229,7 @@ class _Register2PageState extends State<Register2Page> {
                     if (isValidGender()) {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        Navigator.of(context)
-                            .pushNamed('/register/addressOrLocation');
+                        Navigator.of(context).pushNamed('/register/address1');
                       }
                     } else {
                       _formKey.currentState!.validate();

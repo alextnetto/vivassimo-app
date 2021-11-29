@@ -14,6 +14,7 @@ InputDecoration customInputDecoration1(
       18,
       VivassimoTheme.redActive,
     ),
+    alignLabelWithHint: true,
     labelText: label,
     labelStyle: customTextStyle(
       FontWeight.w700,

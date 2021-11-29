@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_1.dart';
+import 'package:my_app/components/input_decoration.dart';
 import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
@@ -11,8 +12,15 @@ import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/cep_to_address.dart';
 import 'package:my_app/services/location_to_address.dart';
 
-class AddressOrLocationPage extends StatelessWidget {
-  const AddressOrLocationPage({Key? key}) : super(key: key);
+class Address1Page extends StatefulWidget {
+  const Address1Page({Key? key}) : super(key: key);
+
+  @override
+  _Address1PageState createState() => _Address1PageState();
+}
+
+class _Address1PageState extends State<Address1Page> {
+  final _formKey = GlobalKey<FormState>();
 
   getLocation(context) async {
     Location location = Location();
@@ -48,11 +56,13 @@ class AddressOrLocationPage extends StatelessWidget {
             ],
           ),
         );
+        // if user do not authorize the app, do not continue
         return;
       }
     }
 
     LoadingIndicator.show(context);
+
     _locationData = await location.getLocation();
     Placemark address =
         await getAddress(_locationData.latitude, _locationData.longitude);
@@ -72,7 +82,6 @@ class AddressOrLocationPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed('/register/cep');
               },
               child: const Text('OK'),
             ),
@@ -89,6 +98,30 @@ class AddressOrLocationPage extends StatelessWidget {
     RegisterUser.instance.cep = cepAddressData['cep'];
     RegisterUser.instance.logradouro = cepAddressData['logradouro'];
     RegisterUser.instance.numero = address.subThoroughfare;
+
+    Navigator.of(context).pushNamed('/register/estado');
+  }
+
+  bool _isValidCepAsync = true;
+
+  var cepFormatter = MaskTextInputFormatter(
+    mask: '#####-###',
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+    initialText: RegisterUser.instance.cep,
+  );
+
+  validateCep() async {
+    var cepData = await cepToAddress(cepFormatter.getUnmaskedText());
+    setState(() {
+      if (cepData['valid']) {
+        _isValidCepAsync = true;
+      } else {
+        _isValidCepAsync = false;
+      }
+    });
+    return cepData['data'];
   }
 
   @override
@@ -148,7 +181,7 @@ class AddressOrLocationPage extends StatelessWidget {
                   SizedBox(
                     width: 324,
                     child: Text(
-                      'Agora para que possamos fazer as suas entregas e oferecer os serviços mais proximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
+                      'Para oferecermos os serviços mais próximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
                       style: customTextStyle(
                         FontWeight.w700,
                         18,
@@ -157,54 +190,104 @@ class AddressOrLocationPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: 324,
-                      height: 60,
-                      child: CustomButton1(
-                        label: 'Informar endereço',
-                        primary: VivassimoTheme.green,
-                        onPrimary: VivassimoTheme.white,
-                        borderColor: VivassimoTheme.white,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/register/cep');
-                        },
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 324,
+                    height: 60,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        await getLocation(context);
+                      },
+                      icon: Icon(
+                        Icons.room,
+                        color: VivassimoTheme.purpleActive,
+                        size: 32,
+                      ),
+                      label: Text(
+                        'Usar localização',
+                        style: customTextStyle(
+                          FontWeight.w700,
+                          23,
+                          VivassimoTheme.purpleActive,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: VivassimoTheme.yellow,
+                        side: BorderSide(
+                          width: 2.0,
+                          color: VivassimoTheme.red,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: 324,
-                      height: 60,
-                      child: ElevatedButton.icon(
-                        onPressed: () async {
-                          await getLocation(context);
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      'ou',
+                      style: customTextStyle(
+                        FontWeight.w700,
+                        18,
+                        VivassimoTheme.purpleActive,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 324,
+                    height: 90,
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [cepFormatter],
+                        initialValue: cepFormatter.getMaskedText(),
+                        validator: (value) {
+                          if (cepFormatter.getUnmaskedText().length < 8) {
+                            return 'CEP incompleto';
+                          }
+                          if (!_isValidCepAsync) {
+                            return 'CEP inválido';
+                          }
+                          return null;
                         },
-                        icon: Icon(
-                          Icons.room,
-                          color: VivassimoTheme.purpleActive,
-                          size: 32,
+                        decoration: customInputDecoration1('Digite aqui o CEP'),
+                        textAlign: TextAlign.center,
+                        style: customTextStyle(
+                          FontWeight.w700,
+                          18,
+                          VivassimoTheme.purpleActive,
                         ),
-                        label: Text(
-                          'Usar localização',
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            23,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: VivassimoTheme.yellow,
-                          side: BorderSide(
-                            width: 2.0,
-                            color: VivassimoTheme.red,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        onChanged: (value) async {
+                          if (cepFormatter.getUnmaskedText().length == 8) {
+                            // reset validator
+                            _isValidCepAsync = true;
+
+                            if (_formKey.currentState!.validate()) {
+                              // validate cep
+                              LoadingIndicator.show(context);
+                              var cepAddress = await validateCep();
+                              LoadingIndicator.hide(context);
+
+                              // Validate again to show "CEP inválido" error if needed
+                              if (_formKey.currentState!.validate()) {
+                                RegisterUser.instance.cep = cepAddress['cep'];
+                                RegisterUser.instance.estado = cepAddress['uf'];
+                                RegisterUser.instance.cidade =
+                                    cepAddress['localidade'];
+                                RegisterUser.instance.bairro =
+                                    cepAddress['bairro'];
+                                RegisterUser.instance.logradouro =
+                                    cepAddress['logradouro'];
+                                Navigator.of(context)
+                                    .pushNamed('/register/estado');
+                              }
+                            }
+                          }
+                        },
                       ),
                     ),
                   ),

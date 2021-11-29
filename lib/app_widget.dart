@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/login/login.dart';
-import 'package:my_app/pages/register/address_or_location.dart';
+import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/bairro.dart';
-import 'package:my_app/pages/register/cep_page.dart';
 import 'package:my_app/pages/register/cidade.dart';
 import 'package:my_app/pages/register/complemento.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
@@ -42,9 +41,7 @@ class AppWidget extends StatelessWidget {
               '/register/2': (context) => Register2Page(),
               '/register/password': (context) => PasswordPage(),
               '/register/cpf': (context) => CpfPage(),
-              '/register/addressOrLocation': (context) =>
-                  AddressOrLocationPage(),
-              '/register/cep': (context) => CepPage(),
+              '/register/address1': (context) => Address1Page(),
               '/register/estado': (context) => EstadoPage(),
               '/register/cidade': (context) => CidadePage(),
               '/register/bairro': (context) => BairroPage(),
