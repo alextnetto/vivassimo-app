@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button_back.dart';
 import 'package:my_app/components/button_1.dart';
 import 'package:my_app/components/input_decoration.dart';
+import 'package:my_app/components/loading_indicator.dart';
 import 'package:my_app/components/text_style.dart';
 import 'package:my_app/config/style.dart';
 import 'package:my_app/models/register/user.dart';
+import 'package:my_app/services/backend.dart';
 
 class EstadoPage extends StatelessWidget {
   const EstadoPage({Key? key}) : super(key: key);
@@ -90,12 +92,85 @@ class EstadoFormState extends State<EstadoForm> {
         children: [
           SizedBox(
             width: 324,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 60,
+                  height: 90,
+                  // TODO: Select for estados
+                  child: TextFormField(
+                    initialValue: RegisterUser.instance.estado,
+                    onSaved: (value) {
+                      RegisterUser.instance.estado = value;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      return null;
+                    },
+                    decoration: customInputDecoration1('UF'),
+                    textAlign: TextAlign.center,
+                    style: customTextStyle(
+                      FontWeight.w700,
+                      18,
+                      VivassimoTheme.purpleActive,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 224,
+                  height: 90,
+                  // TODO: Select for cidades
+                  child: TextFormField(
+                    initialValue: RegisterUser.instance.cidade,
+                    onSaved: (value) {
+                      RegisterUser.instance.cidade = value;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      return null;
+                    },
+                    decoration: customInputDecoration1('Digite aqui a cidade'),
+                    textAlign: TextAlign.center,
+                    style: customTextStyle(
+                      FontWeight.w700,
+                      18,
+                      VivassimoTheme.purpleActive,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 324,
             height: 90,
-            // TODO: Select for estados
             child: TextFormField(
-              initialValue: RegisterUser.instance.estado,
+              initialValue: RegisterUser.instance.bairro,
               onSaved: (value) {
-                RegisterUser.instance.estado = value;
+                RegisterUser.instance.bairro = value;
+              },
+              decoration: customInputDecoration1('Digite aqui o bairro'),
+              textAlign: TextAlign.center,
+              style: customTextStyle(
+                FontWeight.w700,
+                18,
+                VivassimoTheme.purpleActive,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 324,
+            height: 90,
+            // TODO: Select for logradouro
+            child: TextFormField(
+              initialValue: RegisterUser.instance.logradouro,
+              onSaved: (value) {
+                RegisterUser.instance.logradouro = value;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -103,7 +178,30 @@ class EstadoFormState extends State<EstadoForm> {
                 }
                 return null;
               },
-              decoration: customInputDecoration1('Digite aqui o estado'),
+              decoration: customInputDecoration1('Digite aqui o logradouro'),
+              textAlign: TextAlign.center,
+              style: customTextStyle(
+                FontWeight.w700,
+                18,
+                VivassimoTheme.purpleActive,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 324,
+            height: 90,
+            child: TextFormField(
+              initialValue: RegisterUser.instance.numero,
+              onSaved: (value) {
+                RegisterUser.instance.numero = value;
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo vazio';
+                }
+                return null;
+              },
+              decoration: customInputDecoration1('Digite aqui o número'),
               textAlign: TextAlign.center,
               style: customTextStyle(
                 FontWeight.w700,
@@ -122,10 +220,19 @@ class EstadoFormState extends State<EstadoForm> {
                 primary: VivassimoTheme.green,
                 onPrimary: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.of(context).pushNamed('/register/cidade');
+
+                    LoadingIndicator.show(context);
+                    var response = await BackendService.instance
+                        .registerUser(RegisterUser.instance);
+                    LoadingIndicator.hide(context);
+
+                    if (response['valid']) {
+                      Navigator.of(context)
+                          .pushNamed('/register/registerFinished');
+                    }
                   }
                 },
               ),
