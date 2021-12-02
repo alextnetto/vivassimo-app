@@ -3,15 +3,9 @@ import 'package:my_app/app_controller.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/login/login.dart';
 import 'package:my_app/pages/register/address_1.dart';
-import 'package:my_app/pages/register/bairro.dart';
-import 'package:my_app/pages/register/cidade.dart';
-import 'package:my_app/pages/register/complemento.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
-import 'package:my_app/pages/register/estado.dart';
-import 'package:my_app/pages/register/logradouro.dart';
 import 'package:my_app/pages/register/register_1.dart';
-import 'package:my_app/pages/register/numero.dart';
 import 'package:my_app/pages/register/password.dart';
 import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
@@ -42,12 +36,6 @@ class AppWidget extends StatelessWidget {
               '/register/password': (context) => PasswordPage(),
               '/register/cpf': (context) => CpfPage(),
               '/register/address1': (context) => Address1Page(),
-              '/register/estado': (context) => EstadoPage(),
-              '/register/cidade': (context) => CidadePage(),
-              '/register/bairro': (context) => BairroPage(),
-              '/register/logradouro': (context) => LogradouroPage(),
-              '/register/numero': (context) => NumeroPage(),
-              '/register/complemento': (context) => ComplementoPage(),
               '/register/registerFinished': (context) => RegisterFinishedPage(),
               '/login': (context) => LoginPage(),
             },
