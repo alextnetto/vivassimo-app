@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
+import 'package:my_app/features/login/presentation/screens/login_screen.dart';
 import 'package:my_app/home_page.dart';
-import 'package:my_app/pages/login/login.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
               '/register/cpf': (context) => CpfPage(),
               '/register/address1': (context) => Address1Page(),
               '/register/registerFinished': (context) => RegisterFinishedPage(),
-              '/login': (context) => LoginPage(),
+              '/login': (context) => LoginScreen(),
             },
           ),
         );

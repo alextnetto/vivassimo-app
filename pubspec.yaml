@@ -21,6 +21,12 @@ dependencies:
   http: ^0.13.4
   email_validator: ^2.0.1
   pin_code_fields: ^7.3.0
+  mobx: ^2.0.5
+  flutter_mobx: ^2.0.2
+  flutter_modular: ^3.0.0-nullsafety.3
+  flutter_modular_test: ^1.0.4
+  dartz: ^0.10.0
+  equatable: ^2.0.3
 
 
 dev_dependencies:
@@ -29,6 +35,8 @@ dev_dependencies:
   flutter_launcher_icons: "^0.9.2"
 
   flutter_lints: ^1.0.0
+  mobx_codegen: ^2.0.4
+  build_runner: ^2.1.5
 
 
 flutter_icons:
