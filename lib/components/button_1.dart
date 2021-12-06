@@ -4,7 +4,7 @@ import 'package:my_app/components/text_style.dart';
 class CustomButton1 extends StatelessWidget {
   final String label;
   final Color primary, onPrimary, borderColor;
-  final Function onPressed;
+  final Function()? onPressed;
   const CustomButton1({
     Key? key,
     required this.label,
@@ -17,9 +17,7 @@ class CustomButton1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        onPressed();
-      },
+      onPressed: onPressed,
       child: Text(
         label,
         style: customTextStyle(

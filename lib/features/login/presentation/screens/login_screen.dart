@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/components/button_back.dart';
@@ -84,10 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.only(top: 30),
               width: 320,
               child: Text(
-                'Informe seu email ou telefone cadastrado e a senha',
+                'Informe seu telefone cadastrado e a senha',
                 style: customTextStyle(
                   FontWeight.w700,
                   23,
@@ -96,65 +97,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Form(
-              key: _formKey,
+            Padding(
+              padding: EdgeInsets.only(top: 28),
               child: Column(
                 children: [
                   SizedBox(
                     width: 324,
                     height: 90,
-                    child: TextFormField(
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [maskFormatter],
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Telefone incompleto';
-                        }
-                        return null;
-                      },
-                      decoration:
-                          customInputDecoration1('Digite aqui seu telefone'),
-                      textAlign: TextAlign.center,
-                      style: customTextStyle(
-                        FontWeight.w700,
-                        18,
-                        VivassimoTheme.purpleActive,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: SizedBox(
-                      width: 324,
-                      height: 90,
-                      child: TextFormField(
-                        obscureText: !_passwordVisible,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        onSaved: (value) {
-                          _password = value ?? '';
+                    child: Observer(builder: (_) {
+                      return TextField(
+                        onChanged: (value) {
+                          loginStore!
+                              .setPhoneNumber(maskFormatter.getUnmaskedText());
                         },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Senha inválida';
-                          }
-                          return null;
-                        },
+                        inputFormatters: [maskFormatter],
+                        keyboardType: TextInputType.phone,
                         decoration: customInputDecoration1(
-                          'Digite letras e números',
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Theme.of(context).primaryColorDark,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                          ),
+                          'Digite aqui seu telefone',
+                          errorText: loginStore!.getPhoneNumberError,
                         ),
                         textAlign: TextAlign.center,
                         style: customTextStyle(
@@ -162,53 +122,99 @@ class _LoginScreenState extends State<LoginScreen> {
                           18,
                           VivassimoTheme.purpleActive,
                         ),
-                      ),
+                      );
+                    }),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 12),
+                    child: SizedBox(
+                      width: 324,
+                      height: 90,
+                      child: Observer(builder: (_) {
+                        return TextField(
+                          onChanged: (value) {
+                            loginStore!.setPassword(value);
+                          },
+                          decoration: customInputDecoration1(
+                            'Digite aqui sua senha',
+                            errorText: loginStore!.getPasswordError,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _passwordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            18,
+                            VivassimoTheme.purpleActive,
+                          ),
+                        );
+                      }),
                     ),
                   ),
-                  SizedBox(
-                    width: 324,
-                    height: 60,
-                    child: CustomButton1(
-                      label: 'Entrar',
-                      primary: VivassimoTheme.green,
-                      onPrimary: VivassimoTheme.white,
-                      borderColor: VivassimoTheme.white,
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
+                  Padding(
+                    padding: EdgeInsets.only(top: 12),
+                    child: SizedBox(
+                      width: 324,
+                      height: 60,
+                      child: Observer(builder: (_) {
+                        return CustomButton1(
+                          label: 'Entrar',
+                          primary: VivassimoTheme.green,
+                          onPrimary: VivassimoTheme.white,
+                          borderColor: VivassimoTheme.white,
+                          onPressed: loginStore!.enableButton
+                              ? () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
 
-                          LoadingIndicator.show(context);
-                          var response = await loginStore!.login(
-                            maskFormatter.getUnmaskedText(),
-                            _password,
-                          );
-                          LoadingIndicator.hide(context);
+                                    LoadingIndicator.show(context);
+                                    var response = await loginStore!.login(
+                                      maskFormatter.getUnmaskedText(),
+                                      _password,
+                                    );
+                                    LoadingIndicator.hide(context);
 
-                          if (response == 'Success') {
-                            Navigator.of(context)
-                                .pushNamedAndRemoveUntil('/', (route) => false);
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: Text('Localização falhou'),
-                                content: Text(response),
-                                contentPadding: EdgeInsets.all(20),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
+                                    if (response == 'Success') {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              '/', (route) => false);
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: Text('Localização falhou'),
+                                          content: Text(response),
+                                          contentPadding: EdgeInsets.all(20),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
 
-                          //TODO: Get token and save it
-                        }
-                      },
+                                    //TODO: Get token and save it
+                                  }
+                                }
+                              : null,
+                        );
+                      }),
                     ),
                   ),
                 ],

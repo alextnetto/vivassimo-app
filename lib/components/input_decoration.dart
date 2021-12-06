@@ -5,10 +5,12 @@ import 'package:my_app/config/style.dart';
 InputDecoration customInputDecoration1(
   String label, {
   IconButton? suffixIcon,
+  String? errorText = '',
 }) {
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
     suffixIcon: suffixIcon,
+    errorText: errorText,
     errorStyle: customTextStyle(
       FontWeight.w700,
       18,
@@ -20,6 +22,13 @@ InputDecoration customInputDecoration1(
       FontWeight.w700,
       18,
       VivassimoTheme.purpleActive,
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(
+        color: VivassimoTheme.redActive,
+        width: 1.0,
+      ),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
