@@ -20,8 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration:
-                      BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromRGBO(255, 255, 255, 0.25)))),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(255, 255, 255, 0.25)))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -69,7 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 15.0),
                         child: Image.asset('assets/icon/search_icon.png'),
@@ -167,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         childAspectRatio: (1.5 / 1),
                       ),
                       itemCount: 4,
-                      itemBuilder: (contex, index) {
+                      itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {},
                           child: Container(
@@ -183,7 +186,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 188,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(9),
-                              child: Image.asset('assets/products_type/'),
+                              child: Image.asset(
+                                  'assets/products_type/product_type_background_${index + 1}.png'),
                             ),
                           ),
                         );
