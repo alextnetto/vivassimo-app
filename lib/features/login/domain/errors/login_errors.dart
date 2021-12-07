@@ -20,6 +20,6 @@ class LoginRepositoryError extends LoginError {
   LoginRepositoryError({String message = ''}) : super(message: message);
 }
 
-class LoginRTimeoutError extends LoginError {
-  LoginRTimeoutError({String message = ''}) : super(message: message);
+class LoginTimeoutError extends LoginError {
+  LoginTimeoutError({String message = ''}) : super(message: message);
 }

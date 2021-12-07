@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
+
+import '../app_style.dart';
 
 InputDecoration customInputDecoration1(
   String label, {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
+import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
@@ -27,7 +28,8 @@ class AppWidget extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              '/': (context) => HomePage(),
+              '/': (context) => SignInOrSignUpRedirectScreen(),
+              '/home': (context) => HomeScreen(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),

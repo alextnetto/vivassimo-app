@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/app_style.dart';
 
 InputDecoration customInputDecoration1(
   String label, {
-  IconButton? suffixIcon,
-  String? errorText = '',
+  Widget? suffixIcon,
+  String? errorText,
 }) {
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),

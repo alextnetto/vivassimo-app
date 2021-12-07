@@ -27,13 +27,14 @@ dependencies:
   flutter_modular_test: ^1.0.4
   dartz: ^0.10.0
   equatable: ^2.0.3
+  
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.9.2"
-
+  mocktail: ^0.2.0
   flutter_lints: ^1.0.0
   mobx_codegen: ^2.0.4
   build_runner: ^2.1.5

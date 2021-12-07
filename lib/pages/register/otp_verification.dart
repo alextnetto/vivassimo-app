@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_confirm.dart';
-import 'package:my_app/components/loading_indicator.dart';
-import 'package:my_app/components/text_style.dart';
-import 'package:my_app/config/style.dart';
+import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/ui/widgets/loading_indicator.dart';
+import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/backend.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
