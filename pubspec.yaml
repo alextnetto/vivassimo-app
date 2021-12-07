@@ -47,6 +47,10 @@ flutter_icons:
 flutter:
   assets:
     - assets/images/
+    - assets/icon/
+    - assets/logos/
+    - assets/backgrounds/
+    - assets/products_type/
 
   uses-material-design: true
 

@@ -12,6 +12,8 @@ import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/pages/register/terms.dart';
 import 'package:my_app/pages/register/otp_verification.dart';
 
+import 'features/home/presentation/screens/home_screen.dart';
+
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
 
@@ -27,6 +29,7 @@ class AppWidget extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
+              // '/': (context) => HomeScreen(),
               '/': (context) => HomePage(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
