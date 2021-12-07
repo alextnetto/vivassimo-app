@@ -57,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10.0, right: 10, top: 0, bottom: 8),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10, top: 0, bottom: 8),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Digite um produto ou serviço',
@@ -167,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         childAspectRatio: (1.5 / 1),
                       ),
                       itemCount: 4,
-                      itemBuilder: (contex, index) {
+                      itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {},
                           child: Container(
@@ -183,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 188,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(9),
-                              child: Image.asset('assets/products_type/'),
+                              child: Image.asset('assets/products_type/product_type_background_$index.dart'),
                             ),
                           ),
                         );

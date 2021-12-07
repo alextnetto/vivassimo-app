@@ -27,8 +27,7 @@ dependencies:
   flutter_modular_test: ^1.0.4
   dartz: ^0.10.0
   equatable: ^2.0.3
-  
-
+  shared_preferences: ^2.0.9
 
 dev_dependencies:
   flutter_test:
