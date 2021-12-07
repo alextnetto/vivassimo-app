@@ -2,11 +2,11 @@ import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_confirm.dart';
-import 'package:my_app/components/input_decoration.dart';
-import 'package:my_app/components/text_style.dart';
-import 'package:my_app/config/style.dart';
+import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/ui/component_styles/input_decoration.dart';
+import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 
 class CpfPage extends StatefulWidget {

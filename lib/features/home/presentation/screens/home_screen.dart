@@ -57,7 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10, top: 0, bottom: 8),
+                  padding: const EdgeInsets.only(
+                      left: 10.0, right: 10, top: 0, bottom: 8),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Digite um produto ou serviço',

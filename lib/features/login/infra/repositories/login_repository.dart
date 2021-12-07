@@ -19,7 +19,7 @@ class LoginRepository implements ILoginRepository {
       return Left(e);
     } on LoginNotAuthorizedError catch (e) {
       return Left(e);
-    } on LoginRTimeoutError catch (e) {
+    } on LoginTimeoutError catch (e) {
       return Left(e);
     } catch (e) {
       return Left(LoginDatasourceError());

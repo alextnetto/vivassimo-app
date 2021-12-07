@@ -21,9 +21,9 @@ class LoginDatasource implements ILoginDatasource {
     if (response.statusCode == 200) {
       var resultModel = LoginResponseModel.fromJson(response.body);
       return resultModel;
-    } else if (response.statusCode == 401) {
-      throw LoginNotFoundError(message: response.body);
     } else if (response.statusCode == 404) {
+      throw LoginNotFoundError(message: response.body);
+    } else if (response.statusCode == 401) {
       throw LoginNotAuthorizedError();
     } else {
       throw LoginDatasourceError();

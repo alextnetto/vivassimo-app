@@ -13,7 +13,7 @@ class HttpService implements IRequestService {
     final response = await http
         .post(url, headers: customHeaders, body: body)
         .timeout(Duration(seconds: 10), onTimeout: () {
-      throw LoginRTimeoutError(message: 'Timeout');
+      throw LoginTimeoutError(message: 'Timeout');
     });
 
     return response;

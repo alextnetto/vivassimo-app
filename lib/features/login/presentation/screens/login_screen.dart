@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/components/button_back.dart';
-import 'package:my_app/components/button_1.dart';
-import 'package:my_app/components/input_decoration.dart';
-import 'package:my_app/components/loading_indicator.dart';
-import 'package:my_app/components/text_style.dart';
-import 'package:my_app/config/style.dart';
+import 'package:my_app/core/ui/widgets/app_text_field.dart';
+import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/button_1.dart';
+import 'package:my_app/core/ui/widgets/loading_indicator.dart';
+import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/features/login/login_module.dart';
 import 'package:my_app/features/login/presentation/stores/login_store.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   String _password = '';
 
-  var maskFormatter = MaskTextInputFormatter(
+  var phoneNumberFormatter = MaskTextInputFormatter(
     mask: '+55 (##) #####-####',
     filter: {
       "#": RegExp(r'[0-9]'),
@@ -59,14 +59,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: VivassimoTheme.white,
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 40,
-                    ),
+                    SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ButtonBack(),
-                        // texto
                         Padding(
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
@@ -101,62 +98,40 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.only(top: 28),
               child: Column(
                 children: [
-                  SizedBox(
-                    width: 324,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
                     height: 90,
                     child: Observer(builder: (_) {
-                      return TextField(
-                        onChanged: (value) {
-                          loginStore!
-                              .setPhoneNumber(maskFormatter.getUnmaskedText());
-                        },
-                        inputFormatters: [maskFormatter],
-                        keyboardType: TextInputType.phone,
-                        decoration: customInputDecoration1(
-                          'Digite aqui seu telefone',
-                          errorText: loginStore!.getPhoneNumberError,
-                        ),
-                        textAlign: TextAlign.center,
-                        style: customTextStyle(
-                          FontWeight.w700,
-                          18,
-                          VivassimoTheme.purpleActive,
-                        ),
+                      return AppTextField(
+                        label: 'Digite aqui seu telefone',
+                        onChanged: loginStore!.setPhoneNumber,
+                        errorText: loginStore!.getPhoneNumberError,
+                        inputFormatters: [phoneNumberFormatter],
                       );
                     }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 12),
-                    child: SizedBox(
-                      width: 324,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       height: 90,
                       child: Observer(builder: (_) {
-                        return TextField(
-                          onChanged: (value) {
-                            loginStore!.setPassword(value);
-                          },
-                          decoration: customInputDecoration1(
-                            'Digite aqui sua senha',
-                            errorText: loginStore!.getPasswordError,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Theme.of(context).primaryColorDark,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
+                        return AppTextField(
+                          label: 'Digite sua senha',
+                          onChanged: loginStore!.setPassword,
+                          errorText: loginStore!.getPasswordError,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Theme.of(context).primaryColorDark,
                             ),
-                          ),
-                          textAlign: TextAlign.center,
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
                           ),
                         );
                       }),
@@ -164,23 +139,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 12),
-                    child: SizedBox(
-                      width: 324,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       height: 60,
                       child: Observer(builder: (_) {
-                        return CustomButton1(
-                          label: 'Entrar',
-                          primary: VivassimoTheme.green,
-                          onPrimary: VivassimoTheme.white,
-                          borderColor: VivassimoTheme.white,
-                          onPressed: loginStore!.enableButton
-                              ? () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState!.save();
-
+                        return SizedBox(
+                          width: double.infinity,
+                          child: CustomButton1(
+                            label: 'Entrar',
+                            primary: VivassimoTheme.green,
+                            onPrimary: VivassimoTheme.white,
+                            borderColor: VivassimoTheme.white,
+                            onPressed: loginStore!.enableButton
+                                ? () async {
                                     LoadingIndicator.show(context);
                                     var response = await loginStore!.login(
-                                      maskFormatter.getUnmaskedText(),
+                                      phoneNumberFormatter.getUnmaskedText(),
                                       _password,
                                     );
                                     LoadingIndicator.hide(context);
@@ -188,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if (response == 'Success') {
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil(
-                                              '/', (route) => false);
+                                              '/home', (route) => false);
                                     } else {
                                       showDialog(
                                         context: context,
@@ -211,8 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                     //TODO: Get token and save it
                                   }
-                                }
-                              : null,
+                                : null,
+                          ),
                         );
                       }),
                     ),
