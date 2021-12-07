@@ -31,8 +31,8 @@ class AppWidget extends StatelessWidget {
             initialRoute: '/',
             routes: {
               // '/': (context) => HomeScreen(),
-              '/': (context) => SignInOrSignUpRedirectScreen(),
-              '/home': (context) => HomeScreen(),
+              '/home': (context) => SignInOrSignUpRedirectScreen(),
+              '/': (context) => HomeScreen(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),

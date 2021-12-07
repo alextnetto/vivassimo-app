@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 188,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(9),
-                              child: Image.asset('assets/products_type/product_type_background_$index.dart'),
+                              child: Image.asset('assets/products_type/product_type_background_${index + 1}.png'),
                             ),
                           ),
                         );
