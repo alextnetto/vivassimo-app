@@ -6,6 +6,8 @@ Future<Map> cepToAddress(cep) async {
   var url = 'https://viacep.com.br/ws/$cep/json/';
   var response = await http.get(Uri.parse(url));
 
+  print(response);
+
   if (response.statusCode != 200) {
     return {'valid': false};
   }

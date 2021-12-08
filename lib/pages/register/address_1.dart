@@ -45,8 +45,7 @@ class _Address1PageState extends State<Address1Page> {
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: Text('Permissão negada pelo usuário'),
-            content:
-                Text('Agora somente autorizando nas configurações do celular.'),
+            content: Text('Agora somente autorizando nas configurações do celular.'),
             contentPadding: EdgeInsets.all(20),
             actions: <Widget>[
               TextButton(
@@ -64,10 +63,8 @@ class _Address1PageState extends State<Address1Page> {
     LoadingIndicator.show(context);
 
     _locationData = await location.getLocation();
-    Placemark address =
-        await getAddress(_locationData.latitude, _locationData.longitude);
-    dynamic cepAddress =
-        await cepToAddress(address.postalCode?.replaceAll('-', ''));
+    Placemark address = await getAddress(_locationData.latitude, _locationData.longitude);
+    dynamic cepAddress = await cepToAddress(address.postalCode?.replaceAll('-', ''));
     LoadingIndicator.hide(context);
 
     if (!cepAddress['valid']) {
@@ -75,8 +72,7 @@ class _Address1PageState extends State<Address1Page> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: Text('Localização falhou'),
-          content: Text(
-              'Não conseguimos o seu CEP através da localização, preencha manualmente'),
+          content: Text('Não conseguimos o seu CEP através da localização, preencha manualmente'),
           contentPadding: EdgeInsets.all(20),
           actions: <Widget>[
             TextButton(
@@ -130,171 +126,169 @@ class _Address1PageState extends State<Address1Page> {
       body: Container(
         color: VivassimoTheme.white,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Hero(
-              tag: 'registerAppBar',
-              child: Container(
-                height: 130,
-                color: VivassimoTheme.white,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ButtonBack(),
-                        // texto
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30),
-                          child: Text(
-                            'Criar uma conta',
-                            style: customTextStyle(
-                              FontWeight.w700,
-                              18,
-                              VivassimoTheme.purpleActive,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Hero(
+                tag: 'registerAppBar',
+                child: Container(
+                  height: 130,
+                  color: VivassimoTheme.white,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ButtonBack(),
+                          // texto
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Text(
+                              'Criar uma conta',
+                              style: customTextStyle(
+                                FontWeight.w700,
+                                18,
+                                VivassimoTheme.purpleActive,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'Muito bem!',
-                    style: customTextStyle(
-                      FontWeight.w800,
-                      26,
-                      VivassimoTheme.purpleActive,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: 324,
-                    child: Text(
-                      'Para oferecermos os serviços mais próximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Muito bem!',
                       style: customTextStyle(
-                        FontWeight.w700,
-                        18,
-                        VivassimoTheme.purpleActive,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: 324,
-                    height: 60,
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        await getLocation(context);
-                      },
-                      icon: Icon(
-                        Icons.room,
-                        color: VivassimoTheme.purpleActive,
-                        size: 32,
-                      ),
-                      label: Text(
-                        'Usar localização',
-                        style: customTextStyle(
-                          FontWeight.w700,
-                          23,
-                          VivassimoTheme.purpleActive,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: VivassimoTheme.yellow,
-                        side: BorderSide(
-                          width: 2.0,
-                          color: VivassimoTheme.red,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Text(
-                      'ou',
-                      style: customTextStyle(
-                        FontWeight.w700,
-                        18,
+                        FontWeight.w800,
+                        26,
                         VivassimoTheme.purpleActive,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 324,
-                    height: 90,
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [cepFormatter],
-                        initialValue: cepFormatter.getMaskedText(),
-                        validator: (value) {
-                          if (cepFormatter.getUnmaskedText().length < 8) {
-                            return 'CEP incompleto';
-                          }
-                          if (!_isValidCepAsync) {
-                            return 'CEP inválido';
-                          }
-                          return null;
-                        },
-                        decoration: customInputDecoration1('Digite aqui o CEP'),
-                        textAlign: TextAlign.center,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: 324,
+                      child: Text(
+                        'Para oferecermos os serviços mais próximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
                         style: customTextStyle(
                           FontWeight.w700,
                           18,
                           VivassimoTheme.purpleActive,
                         ),
-                        onChanged: (value) async {
-                          if (cepFormatter.getUnmaskedText().length == 8) {
-                            // reset validator
-                            _isValidCepAsync = true;
-
-                            if (_formKey.currentState!.validate()) {
-                              // validate cep
-                              LoadingIndicator.show(context);
-                              var cepAddress = await validateCep();
-                              LoadingIndicator.hide(context);
-
-                              // Validate again to show "CEP inválido" error if needed
-                              if (_formKey.currentState!.validate()) {
-                                RegisterUser.instance.cep = cepAddress['cep'];
-                                RegisterUser.instance.estado = cepAddress['uf'];
-                                RegisterUser.instance.cidade =
-                                    cepAddress['localidade'];
-                                RegisterUser.instance.bairro =
-                                    cepAddress['bairro'];
-                                RegisterUser.instance.logradouro =
-                                    cepAddress['logradouro'];
-                                Navigator.of(context)
-                                    .pushNamed('/register/estado');
-                              }
-                            }
-                          }
-                        },
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: 324,
+                      height: 60,
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await getLocation(context);
+                        },
+                        icon: Icon(
+                          Icons.room,
+                          color: VivassimoTheme.purpleActive,
+                          size: 32,
+                        ),
+                        label: Text(
+                          'Usar localização',
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            23,
+                            VivassimoTheme.purpleActive,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: VivassimoTheme.yellow,
+                          side: BorderSide(
+                            width: 2.0,
+                            color: VivassimoTheme.red,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Text(
+                        'ou',
+                        style: customTextStyle(
+                          FontWeight.w700,
+                          18,
+                          VivassimoTheme.purpleActive,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 324,
+                      height: 90,
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [cepFormatter],
+                          initialValue: cepFormatter.getMaskedText(),
+                          validator: (value) {
+                            if (cepFormatter.getUnmaskedText().length < 8) {
+                              return 'CEP incompleto';
+                            }
+                            if (!_isValidCepAsync) {
+                              return 'CEP inválido';
+                            }
+                            return null;
+                          },
+                          decoration: customInputDecoration1('Digite aqui o CEP'),
+                          textAlign: TextAlign.center,
+                          style: customTextStyle(
+                            FontWeight.w700,
+                            18,
+                            VivassimoTheme.purpleActive,
+                          ),
+                          onChanged: (value) async {
+                            if (cepFormatter.getUnmaskedText().length == 8) {
+                              // reset validator
+                              _isValidCepAsync = true;
+
+                              if (_formKey.currentState!.validate()) {
+                                // validate cep
+                                LoadingIndicator.show(context);
+                                var cepAddress = await validateCep();
+                                LoadingIndicator.hide(context);
+
+                                // Validate again to show "CEP inválido" error if needed
+                                if (_formKey.currentState!.validate()) {
+                                  RegisterUser.instance.cep = cepAddress['cep'];
+                                  RegisterUser.instance.estado = cepAddress['uf'];
+                                  RegisterUser.instance.cidade = cepAddress['localidade'];
+                                  RegisterUser.instance.bairro = cepAddress['bairro'];
+                                  RegisterUser.instance.logradouro = cepAddress['logradouro'];
+                                  Navigator.of(context).pushNamed('/register/address2');
+                                }
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

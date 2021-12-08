@@ -156,7 +156,7 @@ class _Register1PageState extends State<Register1Page> {
                           keyboardType: TextInputType.phone,
                           inputFormatters: [phoneFormatter],
                           onSaved: (value) {
-                            RegisterUser.instance.phonenumber =
+                            RegisterUser.instance.phoneNumber =
                                 phoneFormatter.getUnmaskedText();
                           },
                           validator: (value) {

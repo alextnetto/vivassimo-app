@@ -37,13 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   String _password = '';
 
-  var phoneNumberFormatter = MaskTextInputFormatter(
-    mask: '+55 (##) #####-####',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: 'Digite aqui seu telefone',
                         onChanged: loginStore!.setPhoneNumber,
                         errorText: loginStore!.getPhoneNumberError,
-                        inputFormatters: [phoneNumberFormatter],
+                        inputFormatters: [loginStore!.phoneNumberFormatter],
                       );
                     }),
                   ),
@@ -122,9 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           errorText: loginStore!.getPasswordError,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              _passwordVisible ? Icons.visibility : Icons.visibility_off,
                               color: Theme.of(context).primaryColorDark,
                             ),
                             onPressed: () {
@@ -153,21 +144,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: loginStore!.enableButton
                                 ? () async {
                                     LoadingIndicator.show(context);
-                                    var response = await loginStore!.login(
-                                      phoneNumberFormatter.getUnmaskedText(),
-                                      _password,
-                                    );
+                                    var response = await loginStore!.login();
                                     LoadingIndicator.hide(context);
 
                                     if (response == 'Success') {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              '/home', (route) => false);
+                                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
                                     } else {
                                       showDialog(
                                         context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
+                                        builder: (BuildContext context) => AlertDialog(
                                           title: Text('Localização falhou'),
                                           content: Text(response),
                                           contentPadding: EdgeInsets.all(20),

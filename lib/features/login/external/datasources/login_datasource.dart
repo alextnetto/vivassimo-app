@@ -14,9 +14,9 @@ class LoginDatasource implements ILoginDatasource {
   Future<LoginResponseModel> login(LoginRequestModel loginRequestModel) async {
     String body = loginRequestModel.toJson();
 
-    print(body);
-
     final response = await httpClient.post(endpoint: '/login', body: body);
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       var resultModel = LoginResponseModel.fromJson(response.body);

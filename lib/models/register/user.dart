@@ -1,7 +1,7 @@
 class RegisterUser {
   String? name,
       email,
-      phonenumber,
+      phoneNumber,
       password,
       cpf,
       gender,
@@ -19,7 +19,7 @@ class RegisterUser {
     return {
       'name': name,
       'email': email,
-      'phonenumber': phonenumber,
+      'phoneNumber': phoneNumber,
       'password': password,
       'cpf': cpf,
       'gender': gender,

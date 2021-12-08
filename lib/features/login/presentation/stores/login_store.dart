@@ -1,3 +1,4 @@
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/utils/constants/constants.dart';
 import 'package:my_app/features/login/domain/errors/login_errors.dart';
@@ -12,6 +13,13 @@ abstract class _LoginStoreBase with Store {
   final ILoginUsecase loginUseCase;
 
   _LoginStoreBase(this.loginUseCase);
+
+  var phoneNumberFormatter = MaskTextInputFormatter(
+    mask: '+55 (##) #####-####',
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
 
   @observable
   String phoneNumber = "";
@@ -65,23 +73,20 @@ abstract class _LoginStoreBase with Store {
 
   @computed
   bool get enableButton {
-    return getPhoneNumberError == null &&
-        getPasswordError == null &&
-        hasChangedPhoneNumber &&
-        hasChangedPassword;
+    return getPhoneNumberError == null && getPasswordError == null && hasChangedPhoneNumber && hasChangedPassword;
   }
 
-  Future<String> login(String phoneNumber, String password) async {
-    LoginRequestModel loginRequestModel =
-        LoginRequestModel(password: password, phoneNumber: phoneNumber);
+  Future<String> login() async {
+    LoginRequestModel loginRequestModel = LoginRequestModel(
+      password: password,
+      phoneNumber: phoneNumberFormatter.getUnmaskedText(),
+    );
 
     var resultUsecase = await loginUseCase.login(loginRequestModel);
 
     return resultUsecase.fold((l) {
       if (l is LoginNotFoundError || l is LoginNotAuthorizedError) {
-        return l.message.isNotEmpty
-            ? l.message
-            : 'Não foi possível realizar o login. Tente novamente mais tarde.';
+        return l.message.isNotEmpty ? l.message : 'Não foi possível realizar o login. Tente novamente mais tarde.';
       } else {
         print(l.toString());
         return 'Não foi possível realizar o login. Tente novamente mais tarde.';

@@ -3,6 +3,7 @@ import 'package:my_app/app_controller.dart';
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
 import 'package:my_app/home_page.dart';
+import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
@@ -31,8 +32,10 @@ class AppWidget extends StatelessWidget {
             initialRoute: '/',
             routes: {
               // '/': (context) => HomeScreen(),
-              '/home': (context) => SignInOrSignUpRedirectScreen(),
-              '/': (context) => HomeScreen(),
+              '/': (context) => SignInOrSignUpRedirectScreen(),
+              '/register/address2': (context) => EstadoPage(),
+
+              '/home': (context) => HomeScreen(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),

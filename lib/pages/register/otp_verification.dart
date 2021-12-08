@@ -21,7 +21,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   validateOtp(String otp) async {
     LoadingIndicator.show(context);
     var response = await BackendService.instance
-        .verifyOtp(RegisterUser.instance.phonenumber!, otp);
+        .verifyOtp(RegisterUser.instance.phoneNumber!, otp);
     LoadingIndicator.hide(context);
 
     if (response['valid']) {

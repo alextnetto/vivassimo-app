@@ -4,7 +4,8 @@ import 'package:my_app/features/login/domain/errors/login_errors.dart';
 
 class HttpService implements IRequestService {
   var customHeaders = {"content-type": "application/json"};
-  var baseUrl = 'localhost';
+  // var baseUrl = '10.21.100.132';
+  var baseUrl = '172.17.208.1';
 
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
