@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
@@ -30,12 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     super.initState();
   }
-
-  final _formKey = GlobalKey<FormState>();
-
-  bool _isValidLoginAsync = true;
-  bool _passwordVisible = false;
-  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -113,15 +105,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           label: 'Digite sua senha',
                           onChanged: loginStore!.setPassword,
                           errorText: loginStore!.getPasswordError,
+                          obscureText: loginStore!.isPasswordVisible,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                              loginStore!.isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Theme.of(context).primaryColorDark,
                             ),
                             onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
+                              loginStore!.changePasswordVisibity();
                             },
                           ),
                         );
@@ -147,14 +140,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                     var response = await loginStore!.login();
                                     LoadingIndicator.hide(context);
 
-                                    if (response == 'Success') {
-                                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                                    if (response.success) {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              '/home', (route) => false);
                                     } else {
                                       showDialog(
                                         context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: Text('Localização falhou'),
-                                          content: Text(response),
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: Text('Ops!'),
+                                          content: Text(response.message),
                                           contentPadding: EdgeInsets.all(20),
                                           actions: <Widget>[
                                             TextButton(
@@ -167,8 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       );
                                     }
-
-                                    //TODO: Get token and save it
                                   }
                                 : null,
                           ),

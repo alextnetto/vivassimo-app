@@ -1,5 +1,5 @@
-import 'package:my_app/core/request_service/interface/i_request_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/login/domain/errors/login_errors.dart';
 
 class HttpService implements IRequestService {

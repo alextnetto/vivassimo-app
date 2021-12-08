@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class LoginEntity extends Equatable {
-  final String token;
+  final String? token;
 
   const LoginEntity({
-    required this.token,
+    this.token,
   });
 
   @override

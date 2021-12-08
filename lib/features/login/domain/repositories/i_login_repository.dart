@@ -5,6 +5,6 @@ import 'package:my_app/features/login/infra/models/request/login_request_model.d
 import 'package:my_app/features/login/infra/models/response/login_response_model.dart';
 
 abstract class ILoginRepository {
-  Future<Either<LoginError, LoginEntity>> login(
+  Future<Either<LoginError, LoginResponseModel>> login(
       LoginRequestModel loginRequestModel);
 }

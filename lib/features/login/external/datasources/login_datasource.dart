@@ -1,4 +1,4 @@
-import 'package:my_app/core/request_service/interface/i_request_service.dart';
+import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/login/domain/errors/login_errors.dart';
 
 import 'package:my_app/features/login/infra/datasources/i_login_datasource.dart';
@@ -24,9 +24,9 @@ class LoginDatasource implements ILoginDatasource {
     } else if (response.statusCode == 404) {
       throw LoginNotFoundError(message: response.body);
     } else if (response.statusCode == 401) {
-      throw LoginNotAuthorizedError();
+      throw LoginNotAuthorizedError(message: response.body);
     } else {
-      throw LoginDatasourceError();
+      throw LoginDatasourceError(message: response.body);
     }
   }
 }

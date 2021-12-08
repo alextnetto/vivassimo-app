@@ -4,7 +4,7 @@ import 'domain/usecases/cache_usecase.dart';
 import 'external/datasources/sharedpreferences_datasource.dart';
 import 'infra/repositories/cache_repository_impl.dart';
 
-class AppCache extends Module {
+class CacheModule extends Module {
   @override
   List<Bind> get binds => [
         Bind((i) => SharedPreferencesService()),

@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final String? errorText;
   final Widget? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
+  final bool obscureText;
 
   const AppTextField({
     required this.label,
@@ -18,12 +19,14 @@ class AppTextField extends StatelessWidget {
     this.errorText,
     this.suffixIcon,
     this.inputFormatters,
+    this.obscureText = false,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: obscureText,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
       decoration: customInputDecoration1(
