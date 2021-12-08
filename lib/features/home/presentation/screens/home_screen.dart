@@ -13,32 +13,42 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(
-        children: [
-          Image.asset('assets/backgrounds/Vector.png'),
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: Column(
+      body: buildBodyWithoutStack(context),
+      bottomNavigationBar: bottomNavigationBar(),
+    );
+  }
+
+  Widget buildBodyWithoutStack(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        Stack(
+          children: [
+            Image.asset('assets/backgrounds/Vector.png'),
+            Column(
               children: [
-                Container(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration:
-                      BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromRGBO(255, 255, 255, 0.25)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/logos/vivassimo_logo.png'),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Entrar',
-                          style: TextStyle(
-                            color: Color(0xFFFFB640),
-                            fontSize: 18,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromRGBO(255, 255, 255, 0.25)))),
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset('assets/logos/vivassimo_logo.png'),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Entrar',
+                            style: TextStyle(
+                              color: Color(0xFFFFB640),
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -136,10 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          // child: Container(
-                          //   // height: 177,
-                          //   // width: 100,
-                          // ),
                         ),
                       ),
                       SizedBox(
@@ -149,71 +155,78 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          // child: Container(
-                          //   // height: 177,
-                          //   // width: 100,
-                          // ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 21),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 8,
-                      childAspectRatio: (1.5 / 1),
-                    ),
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          alignment: Alignment.topRight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
-                            ),
-                            // color: Colors.blue,
-                          ),
-                          height: 130,
-                          width: 188,
-                          child: Container(
-                            padding: EdgeInsets.only(right: 12, top: 5),
-                            // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                            child: Image.asset(
-                              'assets/products_type/product_type_item_${index + 1}.png',
-                              // width: 100,
-                            ),
-                          ),
-                          // child: ClipRRect(
-                          //   borderRadius: BorderRadius.circular(9),
-                          //   child: Image.asset(
-                          //     'assets/products_type/product_type_background_${index + 1}.png',
-                          //     fit: BoxFit.cover,
-                          //   ),
-                          // ),
-                        ),
-                      );
-                    },
-                  ),
-                )
               ],
+            )
+          ],
+        ),
+        SizedBox(
+          height: 266,
+          child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(left: 15, right: 15, top: 21),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 8,
+              childAspectRatio: (1.5 / 1),
             ),
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {},
+                child: Container(
+                  alignment: Alignment.topRight,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                      image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
+                    ),
+                    // color: Colors.blue,
+                  ),
+                  height: 130,
+                  width: 188,
+                  child: Container(
+                    padding: EdgeInsets.only(right: 12, top: 5),
+                    // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: Image.asset(
+                      'assets/products_type/product_type_item_${index + 1}.png',
+                      // width: 100,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   child: bottomNavigationBar(),
-          // )
-        ],
-      ),
-      bottomNavigationBar: bottomNavigationBar(),
+        ),
+        // Column(
+        //   children: [
+        //     Container(
+        //       margin: EdgeInsets.only(bottom: 100),
+        //       child: Row(
+        //         children: [
+        //           Row(
+        //             children: [
+        //               CircleAvatar(),
+        //               SizedBox(width: 10),
+        //               Column(
+        //                 children: const [
+        //                   Text('Academia Health Fit'),
+        //                   Text('Academia Health Fit'),
+        //                 ],
+        //               ),
+        //             ],
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+      ],
     );
   }
 
