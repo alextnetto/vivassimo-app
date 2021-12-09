@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/features/home/presentation/widgets/home_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -203,29 +205,51 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-        // Column(
-        //   children: [
-        //     Container(
-        //       margin: EdgeInsets.only(bottom: 100),
-        //       child: Row(
-        //         children: [
-        //           Row(
-        //             children: [
-        //               CircleAvatar(),
-        //               SizedBox(width: 10),
-        //               Column(
-        //                 children: const [
-        //                   Text('Academia Health Fit'),
-        //                   Text('Academia Health Fit'),
-        //                 ],
-        //               ),
-        //             ],
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Text(
+                'Lojas em sua região',
+                style: customTextStyle(FontWeight.bold, 18, Color(0xFF560955)),
+              ),
+              padding: const EdgeInsets.only(left: 20, top: 40),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 100, top: 20),
+              child: Column(
+                children: const [
+                  StoreTileWidget(
+                    title: 'Academia Health Fit',
+                    description: 'Saúde & Bem-estar',
+                    imagePath: 'assets/images/stores/store1.png',
+                    border: Border(bottom: BorderSide(color: Color(0XFFB4D8D8))),
+                    backgroundColor: Color.fromRGBO(180, 216, 216, 0.2),
+                  ),
+                  StoreTileWidget(
+                    title: 'Fitness Center',
+                    description: 'Saúde & Bem-estar',
+                    imagePath: 'assets/images/stores/store2.png',
+                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                  StoreTileWidget(
+                    description: 'Saúde & Bem-estar',
+                    title: 'Academia Health Fit',
+                    imagePath: 'assets/images/stores/store1.png',
+                    border: Border(bottom: BorderSide(color: Color(0XFFB4D8D8))),
+                    backgroundColor: Color.fromRGBO(180, 216, 216, 0.2),
+                  ),
+                  StoreTileWidget(
+                    title: 'Fitness Center',
+                    description: 'Saúde & Bem-estar',
+                    imagePath: 'assets/images/stores/store2.png',
+                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
