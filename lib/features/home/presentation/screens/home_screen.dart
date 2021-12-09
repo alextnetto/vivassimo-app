@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/features/home/presentation/widgets/home_widgets.dart';
+import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -273,133 +274,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 0;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/icon/home_icon.png',
-                              width: _selectedIndex == 0 ? 30 : null,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Inicio",
-                              style: TextStyle(
-                                color: Color(0xff4D0351),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/home_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 0;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Inicio",
                   ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/announce_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 1;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Anunciar",
                   ),
-                  Expanded(
-                    child: SizedBox(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 1;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/icon/announce_icon.png',
-                              width: _selectedIndex == 1 ? 30 : null,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Anunciar",
-                              style: TextStyle(
-                                color: Color(0xff4D0351),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/order_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 2;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Pedidos",
                   ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 2;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/icon/order_icon.png',
-                            width: _selectedIndex == 2 ? 30 : null,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "Pedidos",
-                            style: TextStyle(
-                              color: Color(0xff4D0351),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 3;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/icon/person_icon.png',
-                            width: _selectedIndex == 3 ? 30 : null,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "Perfil",
-                            style: TextStyle(
-                              color: Color(0xff4D0351),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/person_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 3;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Perfil",
                   ),
                 ],
               ),
