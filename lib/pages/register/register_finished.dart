@@ -4,16 +4,16 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class RegisterFinishedPage extends StatefulWidget {
-  const RegisterFinishedPage({Key? key}) : super(key: key);
+class RegisterFinishedScreen extends StatefulWidget {
+  const RegisterFinishedScreen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return RegisterFinishedPageState();
+    return RegisterFinishedScreenState();
   }
 }
 
-class RegisterFinishedPageState extends State<RegisterFinishedPage> {
+class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

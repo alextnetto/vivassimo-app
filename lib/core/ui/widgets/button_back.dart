@@ -11,6 +11,7 @@ class ButtonBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 140,
+      height: 40,
       child: ElevatedButton(
         onPressed: () {
           Navigator.pop(context);

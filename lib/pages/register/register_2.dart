@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class Register2Page extends StatefulWidget {
-  const Register2Page({Key? key}) : super(key: key);
+class RegisterStepTwoScreen extends StatefulWidget {
+  const RegisterStepTwoScreen({Key? key}) : super(key: key);
 
   @override
-  _Register2PageState createState() => _Register2PageState();
+  _RegisterStepTwoScreenState createState() => _RegisterStepTwoScreenState();
 }
 
-class _Register2PageState extends State<Register2Page> {
+class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _gender;
@@ -64,28 +64,29 @@ class _Register2PageState extends State<Register2Page> {
                     height: 130,
                     color: VivassimoTheme.blue,
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonBack(),
-                            // texto
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'Criar uma conta',
-                                style: customTextStyle(
-                                  FontWeight.w700,
-                                  18,
-                                  VivassimoTheme.purpleActive,
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     ButtonBack(),
+                        //     // texto
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 30),
+                        //       child: Text(
+                        //         'Criar uma conta',
+                        //         style: customTextStyle(
+                        //           FontWeight.w700,
+                        //           18,
+                        //           VivassimoTheme.purpleActive,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
@@ -117,8 +118,7 @@ class _Register2PageState extends State<Register2Page> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [birthdayFormatter],
                           onSaved: (value) {
-                            RegisterUser.instance.birthday =
-                                birthdayFormatter.getUnmaskedText();
+                            RegisterUser.instance.birthday = birthdayFormatter.getUnmaskedText();
                           },
                           validator: (value) {
                             if (!isValidBirthday(value)) {
@@ -126,8 +126,7 @@ class _Register2PageState extends State<Register2Page> {
                             }
                             return null;
                           },
-                          decoration:
-                              customInputDecoration1('Digite a data aqui'),
+                          decoration: customInputDecoration1('Digite a data aqui'),
                           textAlign: TextAlign.center,
                           style: customTextStyle(
                             FontWeight.w700,
@@ -146,9 +145,7 @@ class _Register2PageState extends State<Register2Page> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: _genderError
-                                ? VivassimoTheme.redActive
-                                : VivassimoTheme.yellow,
+                            color: _genderError ? VivassimoTheme.redActive : VivassimoTheme.yellow,
                             width: 2,
                           ),
                           color: VivassimoTheme.yellow,
@@ -156,8 +153,7 @@ class _Register2PageState extends State<Register2Page> {
                         child: DropdownButtonFormField(
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
-                            contentPadding:
-                                EdgeInsets.only(left: 10, right: 10),
+                            contentPadding: EdgeInsets.only(left: 10, right: 10),
                             filled: true,
                             fillColor: VivassimoTheme.yellow,
                             hintText: 'Gênero',
@@ -180,8 +176,7 @@ class _Register2PageState extends State<Register2Page> {
                           ),
                           iconSize: 30,
                           isExpanded: true,
-                          items: ['Masculino', 'Feminino', 'Outro']
-                              .map((String value) {
+                          items: ['Masculino', 'Feminino', 'Outro'].map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),

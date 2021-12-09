@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
@@ -24,28 +24,29 @@ class RegisterTerms extends StatelessWidget {
                     height: 130,
                     color: VivassimoTheme.white,
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonBack(),
-                            // texto
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'Criar uma conta',
-                                style: customTextStyle(
-                                  FontWeight.w700,
-                                  18,
-                                  VivassimoTheme.purpleActive,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     ButtonBack(),
+                        //     // texto
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 30),
+                        //       child: Text(
+                        //         'Criar uma conta',
+                        //         style: customTextStyle(
+                        //           FontWeight.w700,
+                        //           18,
+                        //           VivassimoTheme.purpleActive,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -88,8 +89,7 @@ class RegisterTerms extends StatelessWidget {
                               onPrimary: VivassimoTheme.grey,
                               borderColor: VivassimoTheme.blue,
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('/register/terms');
+                                Navigator.of(context).pushNamed('/register/terms');
                               }),
                         ),
                       ),

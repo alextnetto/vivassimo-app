@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/core/ui/component_styles/text_style.dart';
-import 'package:my_app/features/home/presentation/widgets/home_widgets.dart';
+import 'package:my_app/core/entities/store_entity.dart';
+import 'package:my_app/core/ui/components/stores_list_component.dart';
 import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -125,19 +125,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        height: 177,
-                        margin: EdgeInsets.only(left: 0),
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(9),
-                            child: Image.asset(
-                              'assets/backgrounds/pilates_class.png',
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/product/product-details');
+                        },
+                        child: Container(
+                          height: 177,
+                          margin: EdgeInsets.only(left: 0),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(9),
+                              child: Image.asset(
+                                'assets/backgrounds/pilates_class_banner.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -206,48 +211,29 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              child: Text(
-                'Lojas em sua região',
-                style: customTextStyle(FontWeight.bold, 18, Color(0xFF560955)),
-              ),
-              padding: const EdgeInsets.only(left: 20, top: 40),
+        StoresListComponent(
+          title: 'Lojas em sua região',
+          paddingBottom: 100,
+          storeEntities: const [
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Academia Health Fit',
+              imagePath: 'assets/images/stores/store1.png',
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 100, top: 20),
-              child: Column(
-                children: const [
-                  StoreTileWidget(
-                    title: 'Academia Health Fit',
-                    description: 'Saúde & Bem-estar',
-                    imagePath: 'assets/images/stores/store1.png',
-                    border: Border(bottom: BorderSide(color: Color(0XFFB4D8D8))),
-                    backgroundColor: Color.fromRGBO(180, 216, 216, 0.2),
-                  ),
-                  StoreTileWidget(
-                    title: 'Fitness Center',
-                    description: 'Saúde & Bem-estar',
-                    imagePath: 'assets/images/stores/store2.png',
-                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                  StoreTileWidget(
-                    description: 'Saúde & Bem-estar',
-                    title: 'Academia Health Fit',
-                    imagePath: 'assets/images/stores/store1.png',
-                    border: Border(bottom: BorderSide(color: Color(0XFFB4D8D8))),
-                    backgroundColor: Color.fromRGBO(180, 216, 216, 0.2),
-                  ),
-                  StoreTileWidget(
-                    title: 'Fitness Center',
-                    description: 'Saúde & Bem-estar',
-                    imagePath: 'assets/images/stores/store2.png',
-                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ],
-              ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Fitness Center',
+              imagePath: 'assets/images/stores/store2.png',
+            ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Academia Health Fit',
+              imagePath: 'assets/images/stores/store1.png',
+            ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Fitness Center',
+              imagePath: 'assets/images/stores/store2.png',
             ),
           ],
         ),

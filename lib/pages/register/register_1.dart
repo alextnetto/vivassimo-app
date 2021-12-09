@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
@@ -10,14 +10,14 @@ import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/backend.dart';
 
-class Register1Page extends StatefulWidget {
-  const Register1Page({Key? key}) : super(key: key);
+class RegisterStepOneScreen extends StatefulWidget {
+  const RegisterStepOneScreen({Key? key}) : super(key: key);
 
   @override
-  _Register1PageState createState() => _Register1PageState();
+  _RegisterStepOneScreenState createState() => _RegisterStepOneScreenState();
 }
 
-class _Register1PageState extends State<Register1Page> {
+class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool _phonenumberExistsAsync = true;
@@ -52,28 +52,29 @@ class _Register1PageState extends State<Register1Page> {
                     height: 130,
                     color: VivassimoTheme.blue,
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonBack(),
-                            // texto
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'Criar uma conta',
-                                style: customTextStyle(
-                                  FontWeight.w700,
-                                  18,
-                                  VivassimoTheme.purpleActive,
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     ButtonBack(),
+                        //     // texto
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 30),
+                        //       child: Text(
+                        //         'Criar uma conta',
+                        //         style: customTextStyle(
+                        //           FontWeight.w700,
+                        //           18,
+                        //           VivassimoTheme.purpleActive,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
