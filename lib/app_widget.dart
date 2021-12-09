@@ -15,6 +15,7 @@ import 'package:my_app/pages/register/terms.dart';
 import 'package:my_app/pages/register/otp_verification.dart';
 
 import 'features/home/presentation/screens/home_screen.dart';
+import 'features/products/presentation/screens/service_type_description_screen.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -33,18 +34,18 @@ class AppWidget extends StatelessWidget {
             routes: {
               // '/': (context) => HomeScreen(),
               '/': (context) => SignInOrSignUpRedirectScreen(),
-              '/register/address2': (context) => EstadoPage(),
-
+              '/register/address2': (context) => EstadoScreen(),
+              '/product/product-details': (context) => ServiceTypeDescriptionScreen(),
               '/home': (context) => HomeScreen(),
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
-              '/register/verifyOtp': (context) => OtpVerificationPage(),
-              '/register/1': (context) => Register1Page(),
-              '/register/2': (context) => Register2Page(),
-              '/register/password': (context) => PasswordPage(),
-              '/register/cpf': (context) => CpfPage(),
-              '/register/address1': (context) => Address1Page(),
-              '/register/registerFinished': (context) => RegisterFinishedPage(),
+              '/register/verifyOtp': (context) => OtpVerificationScreen(),
+              '/register/1': (context) => RegisterStepOneScreen(),
+              '/register/2': (context) => RegisterStepTwoScreen(),
+              '/register/password': (context) => PasswordScreen(),
+              '/register/cpf': (context) => CpfScreen(),
+              '/register/address1': (context) => AddressStepOneScreen(),
+              '/register/registerFinished': (context) => RegisterFinishedScreen(),
               '/login': (context) => LoginScreen(),
             },
           ),

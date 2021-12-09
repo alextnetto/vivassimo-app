@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
@@ -12,14 +12,14 @@ import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/cep_to_address.dart';
 import 'package:my_app/services/location_to_address.dart';
 
-class Address1Page extends StatefulWidget {
-  const Address1Page({Key? key}) : super(key: key);
+class AddressStepOneScreen extends StatefulWidget {
+  const AddressStepOneScreen({Key? key}) : super(key: key);
 
   @override
-  _Address1PageState createState() => _Address1PageState();
+  _AddressStepOneScreenState createState() => _AddressStepOneScreenState();
 }
 
-class _Address1PageState extends State<Address1Page> {
+class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
   final _formKey = GlobalKey<FormState>();
 
   getLocation(context) async {
@@ -135,28 +135,29 @@ class _Address1PageState extends State<Address1Page> {
                   height: 130,
                   color: VivassimoTheme.white,
                   child: Column(
-                    children: [
+                    children: const [
                       SizedBox(
                         height: 40,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonBack(),
-                          // texto
-                          Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Text(
-                              'Criar uma conta',
-                              style: customTextStyle(
-                                FontWeight.w700,
-                                18,
-                                VivassimoTheme.purpleActive,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                      AppBarDefaultWidget(title: 'Criar uma conta'),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     ButtonBack(),
+                      //     // texto
+                      //     Padding(
+                      //       padding: const EdgeInsets.only(right: 30),
+                      //       child: Text(
+                      //         'Criar uma conta',
+                      //         style: customTextStyle(
+                      //           FontWeight.w700,
+                      //           18,
+                      //           VivassimoTheme.purpleActive,
+                      //         ),
+                      //       ),
+                      //     )
+                      //   ],
+                      // )
                     ],
                   ),
                 ),

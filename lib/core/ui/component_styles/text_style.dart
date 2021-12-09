@@ -15,3 +15,8 @@ TextStyle customTextStyle(
     decoration: TextDecoration.none,
   );
 }
+
+class AppTextStyles {
+  static TextStyle defaultTextStyleTitle = customTextStyle(FontWeight.bold, 18, Color(0XFF560955));
+  static TextStyle defaultTextStyleDescription = customTextStyle(FontWeight.w600, 18, Color(0XFF635F75));
+}
