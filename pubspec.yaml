@@ -29,6 +29,14 @@ dependencies:
   equatable: ^2.0.3
   shared_preferences: ^2.0.9
   flutter_native_splash: ^1.3.2
+  firebase_core: ^1.10.5
+  firebase_auth: ^3.3.3
+  firebase_messaging: ^11.2.3
+  flutter_local_notifications: ^9.1.5
+  connectivity_plus: ^2.1.0
+  firebase_crashlytics: ^2.4.3
+  package_info: ^2.0.2
+  firebase_analytics: ^9.0.3
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +56,9 @@ flutter_native_splash:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon/icon.png"
+  # image_path: "assets/icon/icon.png"
+  image_path_android: "assets/icon/icon.png"
+  image_path_ios: "assets/icon/icon.png"
 
 flutter:
   assets:
@@ -58,6 +68,7 @@ flutter:
     - assets/logos/
     - assets/backgrounds/
     - assets/products_type/
+    - assets/endpoints_config/
 
   uses-material-design: true
 

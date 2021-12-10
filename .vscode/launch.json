@@ -5,15 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "my_app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "my_app (profile mode)",
+            "name": "vivassimo-dev",
+            // "cwd": "LIS_EWALLET",
+            // "program": "lib/main.dart",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
+            "name": "vivassimo-prod",
+            // "cwd": "LIS_EWALLET",
+            // "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
         }
     ]
 }

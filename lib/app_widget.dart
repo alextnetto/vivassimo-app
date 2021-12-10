@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
@@ -19,7 +20,9 @@ import 'features/services/services_purchase/presentation/screens/service_type_de
 import 'home_page.dart';
 
 class AppWidget extends StatelessWidget {
-  const AppWidget({Key? key}) : super(key: key);
+  final FirebaseAnalyticsObserver observer;
+
+  const AppWidget({Key? key, required this.observer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class AppWidget extends StatelessWidget {
           child: MaterialApp(
             title: 'Vivassimo',
             debugShowCheckedModeBanner: false,
+            navigatorObservers: <NavigatorObserver>[observer],
             initialRoute: '/',
             routes: {
               '/': (context) => SignInOrSignUpRedirectScreen(),

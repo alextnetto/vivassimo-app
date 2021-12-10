@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "273060906945",
+    "project_id": "vivassimo-prod",
+    "storage_bucket": "vivassimo-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273060906945:android:49aaeb8f337c41dfa95140",
+        "android_client_info": {
+          "package_name": "com.unibes.vivassimo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273060906945-dpbscgeqguhdoe8jebftcm3ofuisabv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXpefh0vQTFQpQ7ajD84SFHC2QbgqkW-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273060906945-dpbscgeqguhdoe8jebftcm3ofuisabv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

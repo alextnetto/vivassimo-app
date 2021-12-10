@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'core/services/analytics_service.dart';
 
 class SignInOrSignUpRedirectScreen extends StatefulWidget {
   const SignInOrSignUpRedirectScreen({Key? key}) : super(key: key);
@@ -12,8 +13,7 @@ class SignInOrSignUpRedirectScreen extends StatefulWidget {
   }
 }
 
-class SignInOrSignUpRedirectScreenState
-    extends State<SignInOrSignUpRedirectScreen> {
+class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScreen> {
   int themeCounter = 1;
   bool isDarkTheme = false;
 
@@ -70,7 +70,8 @@ class SignInOrSignUpRedirectScreenState
                         primary: VivassimoTheme.purple,
                         onPrimary: VivassimoTheme.white,
                         borderColor: VivassimoTheme.purple,
-                        onPressed: () {
+                        onPressed: () async {
+                          await AnalyticsService.setEventLogin();
                           Navigator.of(context).pushNamed('/login');
                         }),
                   ),
@@ -82,25 +83,20 @@ class SignInOrSignUpRedirectScreenState
                     height: 60,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('/register/acceptTerms');
+                        Navigator.of(context).pushNamed('/register/acceptTerms');
                       },
                       child: Text(
                         'Não tenho uma conta',
                         style: customTextStyle(
                           FontWeight.w700,
                           23,
-                          themeCounter == 2 || themeCounter == 3
-                              ? VivassimoTheme.purple
-                              : VivassimoTheme.white,
+                          themeCounter == 2 || themeCounter == 3 ? VivassimoTheme.purple : VivassimoTheme.white,
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
                           width: 2.0,
-                          color: themeCounter == 2 || themeCounter == 3
-                              ? VivassimoTheme.purple
-                              : VivassimoTheme.white,
+                          color: themeCounter == 2 || themeCounter == 3 ? VivassimoTheme.purple : VivassimoTheme.white,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),

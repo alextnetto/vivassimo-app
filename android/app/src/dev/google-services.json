@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "362509356465",
+    "project_id": "vivassimo-dev",
+    "storage_bucket": "vivassimo-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362509356465:android:7a6eb74c7c41823ff28190",
+        "android_client_info": {
+          "package_name": "com.unibes.vivassimo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362509356465-n0sj1b0b3ijhaeq1grlvev68vnvhmduc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs3m-khRYDXof2DFV6dye7hPx9GuURAl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362509356465-n0sj1b0b3ijhaeq1grlvev68vnvhmduc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362509356465:android:1ee66e13927b6a1ff28190",
+        "android_client_info": {
+          "package_name": "com.unibes.vivassimo.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362509356465-n0sj1b0b3ijhaeq1grlvev68vnvhmduc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs3m-khRYDXof2DFV6dye7hPx9GuURAl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362509356465-n0sj1b0b3ijhaeq1grlvev68vnvhmduc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

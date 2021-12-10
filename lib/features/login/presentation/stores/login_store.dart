@@ -1,6 +1,6 @@
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/utils/constants/constants.dart';
+import 'package:my_app/core/utils/constants/app_constants.dart';
 import 'package:my_app/features/login/domain/usecases/login_usecase.dart';
 import 'package:my_app/features/login/infra/models/request/login_request_model.dart';
 import 'package:my_app/core/utils/extensions/string_extensions.dart';
@@ -59,7 +59,7 @@ abstract class _LoginStoreBase with Store {
       return null;
     } else if (phoneNumber.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (phoneNumber.length < Constants.phoneNumberValidLength) {
+    } else if (phoneNumber.length < IntConstants.phoneNumberValidLength) {
       return 'Telefone inválido';
     }
 
