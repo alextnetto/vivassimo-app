@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
-import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
@@ -15,7 +14,9 @@ import 'package:my_app/pages/register/terms.dart';
 import 'package:my_app/pages/register/otp_verification.dart';
 
 import 'features/home/presentation/screens/home_screen.dart';
-import 'features/products/presentation/screens/service_type_description_screen.dart';
+import 'features/products/products_purchase/presentation/screens/delivery_address_screen.dart';
+import 'features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
+import 'home_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -32,8 +33,8 @@ class AppWidget extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              // '/': (context) => HomeScreen(),
               '/': (context) => SignInOrSignUpRedirectScreen(),
+              '/products/products_purchase/delivery_address': (context) => DeliveryAddressScreen(),
               '/register/address2': (context) => EstadoScreen(),
               '/product/product-details': (context) => ServiceTypeDescriptionScreen(),
               '/home': (context) => HomeScreen(),

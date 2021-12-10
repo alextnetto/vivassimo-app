@@ -21,7 +21,7 @@ class ButtonConfirm extends StatelessWidget {
       padding: EdgeInsets.only(top: 30, bottom: 80),
       height: 170,
       width: double.infinity,
-      color: VivassimoTheme.blue,
+      color: VivassimoTheme.blueWithOpacity,
       child: Align(
         child: SizedBox(
           width: 300,

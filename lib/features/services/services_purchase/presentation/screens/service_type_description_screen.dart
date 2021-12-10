@@ -36,7 +36,7 @@ class _ServiceTypeDescriptionScreenState extends State<ServiceTypeDescriptionScr
                   padding: const EdgeInsets.only(top: 25),
                   child: Text(
                     'O pilates pode ser definido como um conjunto de exercícios para criar uma conexão entre corpo e mente. Pode ser praticado por qualquer pessoa, de qualquer idade – salvo restrições médicas. Diferente de outros exercícios, o pilates respeita os limites corporais de todos os seus alunos.',
-                    style: AppTextStyles.defaultTextStyleDescription,
+                    style: AppTextStyles.defaultTextStyleDescriptionGrey,
                   ),
                 ),
               ],
