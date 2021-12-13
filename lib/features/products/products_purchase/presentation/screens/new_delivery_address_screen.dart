@@ -88,16 +88,6 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                 SizedBox(height: 16),
                 Row(
                   children: [
-                    // SizedBox(
-                    //   width: 60,
-                    //   child: Observer(builder: (_) {
-                    //     return AppTextField(
-                    //       onChanged: newAddressStore.setUf,
-                    //       label: 'UF',
-                    //       errorText: newAddressStore.getUfError,
-                    //     );
-                    //   }),
-                    // ),
                     SizedBox(
                       width: 75,
                       height: 58,
@@ -108,7 +98,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                           onChanged: (value) {
                             newAddressStore.setUf(value ?? '');
                           },
-                          storeValue: 'SP',
+                          storeValue: newAddressStore.uf,
                         );
                       }),
                     ),

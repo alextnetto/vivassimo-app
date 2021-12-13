@@ -31,6 +31,6 @@ abstract class _NewDeliveryAddressValidationBase with Store {
       hasChangedAddress &&
       hasChangedNumber &&
       hasChangedNeighborhood &&
-      hasChangedUf &&
+      // hasChangedUf &&
       hasChangedCity;
 }

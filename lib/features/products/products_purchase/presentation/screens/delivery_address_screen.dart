@@ -144,7 +144,9 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
               primary: VivassimoTheme.green,
               onPrimary: VivassimoTheme.white,
               borderColor: VivassimoTheme.greenBorderColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method');
+              },
             ),
           ),
         ],

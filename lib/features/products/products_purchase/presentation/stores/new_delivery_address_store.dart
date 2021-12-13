@@ -154,7 +154,7 @@ abstract class _NewDeliveryAddressStoreBase with Store {
       getAddressError == null &&
       getCepError == null &&
       getNeighborhoodError == null &&
-      getUfError == null &&
+      // getUfError == null &&
       getNumberError == null;
 
   // @computed
