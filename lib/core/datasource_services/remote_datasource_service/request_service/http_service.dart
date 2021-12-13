@@ -1,11 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/login/domain/errors/login_errors.dart';
+import 'package:my_app/features/register/domain/errors/register_errors.dart';
 
 class HttpService implements IRequestService {
   var customHeaders = {"content-type": "application/json"};
   // var baseUrl = '10.21.100.132';
-  var baseUrl = '172.17.208.1';
+  //var baseUrl = '172.17.208.1';
+  var baseUrl = 'localhost';
 
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
@@ -27,9 +29,17 @@ class HttpService implements IRequestService {
   }
 
   @override
-  getData() {
-    // TODO: implement getData
-    throw UnimplementedError();
+  Future<dynamic> getData(
+      {required String endpoint, Map<String, dynamic>? queryParams}) async {
+    var url = Uri.http(baseUrl, endpoint, queryParams);
+
+    final response =
+        await http.get(url).timeout(Duration(seconds: 10), onTimeout: () {
+      throw RegisterTimeoutError(message: 'Timeout');
+    });
+
+    print(response.body);
+    return response;
   }
 
   @override

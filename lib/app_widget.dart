@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/app_controller.dart';
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
 import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
@@ -39,7 +40,7 @@ class AppWidget extends StatelessWidget {
               '/register/acceptTerms': (context) => RegisterTerms(),
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),
-              '/register/1': (context) => Register1Page(),
+              '/register/1': (context) => RegisterStepOne(),
               '/register/2': (context) => Register2Page(),
               '/register/password': (context) => PasswordPage(),
               '/register/cpf': (context) => CpfPage(),
