@@ -15,8 +15,8 @@ import 'package:my_app/pages/register/otp_verification.dart';
 
 import 'features/home/presentation/screens/home_screen.dart';
 import 'features/products/products_purchase/presentation/screens/delivery_address_screen.dart';
+import 'features/products/products_purchase/presentation/screens/new_delivery_address_screen.dart';
 import 'features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
-import 'home_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -33,8 +33,10 @@ class AppWidget extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              '/': (context) => SignInOrSignUpRedirectScreen(),
-              '/products/products_purchase/delivery_address': (context) => DeliveryAddressScreen(),
+              // '/': (context) => SignInOrSignUpRedirectScreen(),
+              '/': (context) => DeliveryAddressScreen(),
+              // '/products/products_purchase/delivery_address': (context) => DeliveryAddressScreen(),
+              '/products/products_purchase/new_delivery_address': (context) => NewDeliveryAddressScreen(),
               '/register/address2': (context) => EstadoScreen(),
               '/product/product-details': (context) => ServiceTypeDescriptionScreen(),
               '/home': (context) => HomeScreen(),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+
+import '../../products_purchase_module.dart';
 
 class DeliveryAddressScreen extends StatefulWidget {
   const DeliveryAddressScreen({Key? key}) : super(key: key);
@@ -14,6 +17,13 @@ class DeliveryAddressScreen extends StatefulWidget {
 }
 
 class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
+  @override
+  void initState() {
+    initModule(ProductsPurchaseModule());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +116,9 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                   child: CustomButton1(
                     borderColor: Color(0xFFDE674B),
                     label: 'Novo Endereço',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/products/products_purchase/new_delivery_address');
+                    },
                     onPrimary: Color(0XFF4D0351),
                     primary: Color(0xFFFFB640),
                   ),

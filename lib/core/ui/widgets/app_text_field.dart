@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
+  final String? placeholder;
 
   const AppTextField({
     required this.label,
@@ -21,6 +22,7 @@ class AppTextField extends StatelessWidget {
     this.inputFormatters,
     this.obscureText = false,
     Key? key,
+    this.placeholder,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class AppTextField extends StatelessWidget {
         label,
         errorText: errorText,
         suffixIcon: suffixIcon,
+        placeholder: placeholder,
       ),
       textAlign: TextAlign.center,
       style: customTextStyle(

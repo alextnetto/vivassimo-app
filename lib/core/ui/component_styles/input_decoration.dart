@@ -6,14 +6,16 @@ InputDecoration customInputDecoration1(
   String label, {
   Widget? suffixIcon,
   String? errorText,
+  String? placeholder,
 }) {
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
     suffixIcon: suffixIcon,
     errorText: errorText,
+    hintText: placeholder,
     errorStyle: customTextStyle(
       FontWeight.w700,
-      18,
+      14,
       VivassimoTheme.redActive,
     ),
     alignLabelWithHint: true,
