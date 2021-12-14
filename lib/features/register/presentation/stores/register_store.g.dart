@@ -9,6 +9,20 @@ part of 'register_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegisterStepOneStore on _RegisterStepOneStoreBase, Store {
+  Computed<String?>? _$getNameErrorComputed;
+
+  @override
+  String? get getNameError =>
+      (_$getNameErrorComputed ??= Computed<String?>(() => super.getNameError,
+              name: '_RegisterStepOneStoreBase.getNameError'))
+          .value;
+  Computed<String?>? _$getEmailErrorComputed;
+
+  @override
+  String? get getEmailError =>
+      (_$getEmailErrorComputed ??= Computed<String?>(() => super.getEmailError,
+              name: '_RegisterStepOneStoreBase.getEmailError'))
+          .value;
   Computed<String?>? _$getPhoneNumberErrorComputed;
 
   @override
@@ -16,6 +30,13 @@ mixin _$RegisterStepOneStore on _RegisterStepOneStoreBase, Store {
           Computed<String?>(() => super.getPhoneNumberError,
               name: '_RegisterStepOneStoreBase.getPhoneNumberError'))
       .value;
+  Computed<bool>? _$enableButtonComputed;
+
+  @override
+  bool get enableButton =>
+      (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
+              name: '_RegisterStepOneStoreBase.enableButton'))
+          .value;
 
   final _$nameAtom = Atom(name: '_RegisterStepOneStoreBase.name');
 
@@ -48,38 +69,6 @@ mixin _$RegisterStepOneStore on _RegisterStepOneStoreBase, Store {
     });
   }
 
-  final _$phoneNumberAtom = Atom(name: '_RegisterStepOneStoreBase.phoneNumber');
-
-  @override
-  String get phoneNumber {
-    _$phoneNumberAtom.reportRead();
-    return super.phoneNumber;
-  }
-
-  @override
-  set phoneNumber(String value) {
-    _$phoneNumberAtom.reportWrite(value, super.phoneNumber, () {
-      super.phoneNumber = value;
-    });
-  }
-
-  final _$hasChangedNamePhoneNumberAtom =
-      Atom(name: '_RegisterStepOneStoreBase.hasChangedNamePhoneNumber');
-
-  @override
-  bool get hasChangedNamePhoneNumber {
-    _$hasChangedNamePhoneNumberAtom.reportRead();
-    return super.hasChangedNamePhoneNumber;
-  }
-
-  @override
-  set hasChangedNamePhoneNumber(bool value) {
-    _$hasChangedNamePhoneNumberAtom
-        .reportWrite(value, super.hasChangedNamePhoneNumber, () {
-      super.hasChangedNamePhoneNumber = value;
-    });
-  }
-
   final _$emailAtom = Atom(name: '_RegisterStepOneStoreBase.email');
 
   @override
@@ -95,19 +84,51 @@ mixin _$RegisterStepOneStore on _RegisterStepOneStoreBase, Store {
     });
   }
 
-  final _$hasChangedNameEmailAtom =
-      Atom(name: '_RegisterStepOneStoreBase.hasChangedNameEmail');
+  final _$hasChangedEmailAtom =
+      Atom(name: '_RegisterStepOneStoreBase.hasChangedEmail');
 
   @override
-  bool get hasChangedNameEmail {
-    _$hasChangedNameEmailAtom.reportRead();
-    return super.hasChangedNameEmail;
+  bool get hasChangedEmail {
+    _$hasChangedEmailAtom.reportRead();
+    return super.hasChangedEmail;
   }
 
   @override
-  set hasChangedNameEmail(bool value) {
-    _$hasChangedNameEmailAtom.reportWrite(value, super.hasChangedNameEmail, () {
-      super.hasChangedNameEmail = value;
+  set hasChangedEmail(bool value) {
+    _$hasChangedEmailAtom.reportWrite(value, super.hasChangedEmail, () {
+      super.hasChangedEmail = value;
+    });
+  }
+
+  final _$phoneNumberAtom = Atom(name: '_RegisterStepOneStoreBase.phoneNumber');
+
+  @override
+  String get phoneNumber {
+    _$phoneNumberAtom.reportRead();
+    return super.phoneNumber;
+  }
+
+  @override
+  set phoneNumber(String value) {
+    _$phoneNumberAtom.reportWrite(value, super.phoneNumber, () {
+      super.phoneNumber = value;
+    });
+  }
+
+  final _$hasChangedPhoneNumberAtom =
+      Atom(name: '_RegisterStepOneStoreBase.hasChangedPhoneNumber');
+
+  @override
+  bool get hasChangedPhoneNumber {
+    _$hasChangedPhoneNumberAtom.reportRead();
+    return super.hasChangedPhoneNumber;
+  }
+
+  @override
+  set hasChangedPhoneNumber(bool value) {
+    _$hasChangedPhoneNumberAtom.reportWrite(value, super.hasChangedPhoneNumber,
+        () {
+      super.hasChangedPhoneNumber = value;
     });
   }
 
@@ -152,11 +173,14 @@ mixin _$RegisterStepOneStore on _RegisterStepOneStoreBase, Store {
     return '''
 name: ${name},
 hasChangedName: ${hasChangedName},
-phoneNumber: ${phoneNumber},
-hasChangedNamePhoneNumber: ${hasChangedNamePhoneNumber},
 email: ${email},
-hasChangedNameEmail: ${hasChangedNameEmail},
-getPhoneNumberError: ${getPhoneNumberError}
+hasChangedEmail: ${hasChangedEmail},
+phoneNumber: ${phoneNumber},
+hasChangedPhoneNumber: ${hasChangedPhoneNumber},
+getNameError: ${getNameError},
+getEmailError: ${getEmailError},
+getPhoneNumberError: ${getPhoneNumberError},
+enableButton: ${enableButton}
     ''';
   }
 }

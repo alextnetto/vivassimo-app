@@ -1,6 +1,6 @@
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/utils/constants/constants.dart';
+import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
@@ -14,7 +14,7 @@ abstract class _RegisterStepOneStoreBase with Store {
 
   _RegisterStepOneStoreBase(this.registerUsecase);
 
-  var phoneNumberFormatter = MaskTextInputFormatter(
+  var phoneNumberMask = MaskTextInputFormatter(
     mask: '+55 (##) #####-####',
     filter: {
       "#": RegExp(r'[0-9]'),
@@ -28,16 +28,16 @@ abstract class _RegisterStepOneStoreBase with Store {
   bool hasChangedName = false;
 
   @observable
-  String phoneNumber = '';
-
-  @observable
-  bool hasChangedNamePhoneNumber = false;
-
-  @observable
   String email = '';
 
   @observable
-  bool hasChangedNameEmail = false;
+  bool hasChangedEmail = false;
+
+  @observable
+  String phoneNumber = '';
+
+  @observable
+  bool hasChangedPhoneNumber = false;
 
   @action
   setName(String value) {
@@ -47,27 +47,63 @@ abstract class _RegisterStepOneStoreBase with Store {
 
   @action
   setPhoneNumber(String value) {
-    hasChangedNamePhoneNumber = true;
-    return phoneNumber = value;
+    hasChangedPhoneNumber = true;
+
+    return phoneNumber = phoneNumberMask.getUnmaskedText();
   }
 
   @action
   setEmail(String value) {
-    hasChangedNameEmail = true;
+    hasChangedEmail = true;
     return email = value;
   }
 
   @computed
+  String? get getNameError {
+    if (!hasChangedName) {
+      return null;
+    } else if (name.isEmpty) {
+      return 'Esse campo é obrigatório';
+    }
+
+    return null;
+  }
+
+  @computed
+  String? get getEmailError {
+    if (!hasChangedEmail) {
+      return null;
+    } else if (email.isEmpty) {
+      return 'Esse campo é obrigatório';
+    } else if (!email.isValidEmail) {
+      return 'Email inválido';
+    }
+
+    return null;
+  }
+
+  @computed
   String? get getPhoneNumberError {
-    if (!hasChangedNamePhoneNumber) {
+    print(phoneNumber.isValidPhoneNumber);
+    if (!hasChangedPhoneNumber) {
       return null;
     } else if (phoneNumber.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (phoneNumber.length < Constants.phoneNumberValidLength) {
+    } else if (!phoneNumber.isValidPhoneNumber) {
       return 'Telefone inválido';
     }
 
     return null;
+  }
+
+  @computed
+  bool get enableButton {
+    return getNameError == null &&
+        getEmailError == null &&
+        getPhoneNumberError == null &&
+        hasChangedName &&
+        hasChangedEmail &&
+        hasChangedPhoneNumber;
   }
 
   Future<CheckExistingUserResponseModel> userExists() async {

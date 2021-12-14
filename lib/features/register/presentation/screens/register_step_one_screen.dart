@@ -26,10 +26,6 @@ class RegisterStepOne extends StatefulWidget {
 class _RegisterStepOneState extends State<RegisterStepOne> {
   RegisterStepOneStore? registerStepOneStore;
 
-  final _formKey = GlobalKey<FormState>();
-
-  bool _phonenumberExistsAsync = true;
-
   @override
   void initState() {
     initModule(RegisterModule());
@@ -93,65 +89,39 @@ class _RegisterStepOneState extends State<RegisterStepOne> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 324,
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         height: 90,
-                        child: TextFormField(
-                          textCapitalization: TextCapitalization.sentences,
-                          onSaved: (value) {
-                            RegisterUser.instance.name = value;
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo vazio';
-                            }
-                            return null;
-                          },
-                          decoration: customInputDecoration1(
-                              'Digite aqui seu nome completo'),
-                          textAlign: TextAlign.center,
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
+                        child: Observer(builder: (_) {
+                          return AppTextField(
+                            label: 'Digite aqui seu nome completo',
+                            onChanged: registerStepOneStore!.setName,
+                            errorText: registerStepOneStore!.getNameError,
+                          );
+                        }),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        width: 324,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         height: 90,
-                        child: TextFormField(
-                          //initialValue: 'dev@dev.com',
-                          onSaved: (value) {
-                            RegisterUser.instance.email = value;
-                          },
-                          validator: (value) {
-                            if (!EmailValidator.validate(value ?? '')) {
-                              return 'Email inválido';
-                            }
-                            return null;
-                          },
-                          decoration:
-                              customInputDecoration1('Digite aqui seu email'),
-                          textAlign: TextAlign.center,
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
+                        child: Observer(builder: (_) {
+                          return AppTextField(
+                            label: 'Digite aqui seu email',
+                            onChanged: registerStepOneStore!.setEmail,
+                            errorText: registerStepOneStore!.getEmailError,
+                          );
+                        }),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 30),
                         height: 90,
                         child: Observer(builder: (_) {
@@ -161,13 +131,13 @@ class _RegisterStepOneState extends State<RegisterStepOne> {
                             errorText:
                                 registerStepOneStore!.getPhoneNumberError,
                             inputFormatters: [
-                              registerStepOneStore!.phoneNumberFormatter
+                              registerStepOneStore!.phoneNumberMask
                             ],
                           );
                         }),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -175,36 +145,65 @@ class _RegisterStepOneState extends State<RegisterStepOne> {
               tag: 'registerButtonConfirm',
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: ButtonConfirm(
-                  label: 'Continuar',
-                  primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
-                  borderColor: VivassimoTheme.white,
-                  onPressed: () async {
-                    // Checks if phonenumber is already registered
-                    LoadingIndicator.show(context);
-                    var response = registerStepOneStore!.userExists();
-                    print(response);
-                    LoadingIndicator.hide(context);
-                    // LoadingIndicator.show(context);
-                    // var response = await BackendService.instance
-                    //     .userExists(phoneFormatter.getUnmaskedText());
+                child: Observer(builder: (_) {
+                  return ButtonConfirm(
+                    label: 'Continuar',
+                    primary: VivassimoTheme.green,
+                    onPrimary: VivassimoTheme.white,
+                    borderColor: VivassimoTheme.white,
+                    onPressed: registerStepOneStore!.enableButton
+                        ? () async {
+                            LoadingIndicator.show(context);
+                            var response =
+                                await registerStepOneStore!.userExists();
+                            print(response.toJson());
+                            LoadingIndicator.hide(context);
 
-                    // if (response['valid']) {
-                    //   _phonenumberExistsAsync = response['data'];
-                    // }
-
-                    // if (_formKey.currentState!.validate()) {
-                    //   _formKey.currentState!.save();
-                    //   await BackendService.instance
-                    //       .sendOtp(phoneFormatter.getUnmaskedText());
-                    //   LoadingIndicator.hide(context);
-                    //   Navigator.of(context).pushNamed('/register/verifyOtp');
-                    //   return;
-                    // }
-                    // LoadingIndicator.hide(context);
-                  },
-                ),
+                            if (response.success) {
+                              if (response.userExists) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text('Telefone já cadastrado'),
+                                    content: Text(response.message),
+                                    contentPadding: EdgeInsets.all(20),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                Navigator.of(context)
+                                    .pushNamed('/register/verifyOtp');
+                              }
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Ops!'),
+                                  content: Text(response.message),
+                                  contentPadding: EdgeInsets.all(20),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }
+                        : null,
+                  );
+                }),
               ),
             ),
           ],
