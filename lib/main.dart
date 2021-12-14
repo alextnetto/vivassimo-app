@@ -5,10 +5,14 @@ import 'package:my_app/app_widget.dart';
 
 import 'core/shared_modules/cache/cache_module.dart';
 
-void main() {
-  initModule(CacheModule());
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  initModule(CacheModule());
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  await Firebase.initializeApp();
+
+  // runApp(App());
+  runApp(AppWidget());
 }
 
 /// We are using a StatefulWidget such that we only create the [Future] once,
@@ -25,6 +29,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   /// The future is part of the state of our widget. We should not call `initializeApp`
   /// directly inside [build].
+
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
