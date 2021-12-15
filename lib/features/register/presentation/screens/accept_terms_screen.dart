@@ -5,8 +5,8 @@ import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 
-class RegisterTerms extends StatelessWidget {
-  const RegisterTerms({Key? key}) : super(key: key);
+class AcceptRegisterTermsScreen extends StatelessWidget {
+  const AcceptRegisterTermsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/features/register/presentation/stores/otp_store.dart';
 import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/backend.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../../register_module.dart';
 
 class OtpVerificationPage extends StatefulWidget {
   const OtpVerificationPage({Key? key}) : super(key: key);
@@ -16,6 +21,7 @@ class OtpVerificationPage extends StatefulWidget {
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  OtpStore? otpStore;
   String errorMessage = '';
 
   validateOtp(String otp) async {
@@ -31,6 +37,16 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         errorMessage = response['message'];
       });
     }
+  }
+
+  @override
+  void initState() {
+    initModule(RegisterModule());
+    otpStore = Modular.get<OtpStore>();
+
+    var response = otpStore!.sendOtp().then((value) => print(value));
+
+    super.initState();
   }
 
   @override

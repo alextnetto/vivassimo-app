@@ -3,7 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:my_app/features/register/domain/repositories/i_register_repository.dart';
 import 'package:my_app/features/register/infra/datasources/i_register_datasource.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
+import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
+import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
 
 class RegisterRepository implements IRegisterRepository {
   final IRegisterDatasource registerDatasource;
@@ -18,17 +20,9 @@ class RegisterRepository implements IRegisterRepository {
           await registerDatasource.userExists(userExistsRequestModel);
 
       return Right(resultDatasource);
-    } on UserNotExistsError catch (e) {
-      return Left(e);
     } catch (e) {
       return Left(RegisterDatasourceError(message: e.toString()));
     }
-  }
-
-  @override
-  sendOtp() {
-    // TODO: implement sendOtp
-    throw UnimplementedError();
   }
 
   @override
@@ -41,6 +35,19 @@ class RegisterRepository implements IRegisterRepository {
   register() {
     // TODO: implement register
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<RegisterError, SendOtpResponseModel>> sendOtp(
+      SendOtpRequestModel sendOtpRequestModel) async {
+    try {
+      var resultDatasource =
+          await registerDatasource.sendOtp(sendOtpRequestModel);
+
+      return Right(resultDatasource);
+    } catch (e) {
+      return Left(RegisterDatasourceError(message: e.toString()));
+    }
   }
 }
 

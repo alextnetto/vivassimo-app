@@ -1,13 +1,17 @@
-import 'package:dartz/dartz.dart';
 import 'package:my_app/features/register/domain/repositories/i_register_repository.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
+import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
+import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
 
 abstract class IRegisterUsecase {
   Future<CheckExistingUserResponseModel> userExists(
       CheckExistingUserRequestModel userExistsRequestModel);
-  sendOtp();
+
+  Future<SendOtpResponseModel> sendOtp(SendOtpRequestModel sendOtpRequestModel);
+
   verifyOtp();
+
   register();
 }
 
@@ -38,14 +42,20 @@ class RegisterUsecase implements IRegisterUsecase {
   }
 
   @override
-  sendOtp() {
-    // TODO: implement sendOtp
+  verifyOtp() {
+    // TODO: implement verifyOtp
     throw UnimplementedError();
   }
 
   @override
-  verifyOtp() {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
+  Future<SendOtpResponseModel> sendOtp(
+      SendOtpRequestModel sendOtpRequestModel) async {
+    var resultModel = await registerRepository.sendOtp(sendOtpRequestModel);
+
+    return resultModel.fold((left) {
+      return SendOtpResponseModel(success: false, message: left.message);
+    }, (right) {
+      return SendOtpResponseModel(success: true, message: right.message);
+    });
   }
 }

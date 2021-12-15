@@ -156,7 +156,6 @@ class _RegisterStepOneState extends State<RegisterStepOne> {
                             LoadingIndicator.show(context);
                             var response =
                                 await registerStepOneStore!.userExists();
-                            print(response.toJson());
                             LoadingIndicator.hide(context);
 
                             if (response.success) {

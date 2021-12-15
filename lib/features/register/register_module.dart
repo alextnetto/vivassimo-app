@@ -3,6 +3,7 @@ import 'package:my_app/core/datasource_services/remote_datasource_service/reques
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 import 'package:my_app/features/register/external/datasources/register_datasource.dart';
 import 'package:my_app/features/register/infra/repositories/register_repository.dart';
+import 'package:my_app/features/register/presentation/stores/otp_store.dart';
 import 'package:my_app/features/register/presentation/stores/register_store.dart';
 
 class RegisterModule extends Module {
@@ -13,6 +14,7 @@ class RegisterModule extends Module {
         Bind.factory((i) => RegisterRepository(i())),
         Bind.factory((i) => RegisterUsecase(i())),
         Bind.factory((i) => RegisterStepOneStore(i())),
+        Bind.factory((i) => OtpStore(i())),
       ];
 
   // @override

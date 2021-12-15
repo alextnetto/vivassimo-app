@@ -7,13 +7,12 @@ import 'package:my_app/home_page.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
-import 'package:my_app/pages/register/accept_terms.dart';
-import 'package:my_app/pages/register/register_1.dart';
+import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
 import 'package:my_app/pages/register/password.dart';
 import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
-import 'package:my_app/pages/register/terms.dart';
-import 'package:my_app/pages/register/otp_verification.dart';
+import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
+import 'package:my_app/features/register/presentation/screens/otp_screen.dart';
 
 import 'features/home/presentation/screens/home_screen.dart';
 
@@ -37,7 +36,7 @@ class AppWidget extends StatelessWidget {
               '/register/address2': (context) => EstadoPage(),
 
               '/home': (context) => HomeScreen(),
-              '/register/acceptTerms': (context) => RegisterTerms(),
+              '/register/acceptTerms': (context) => AcceptRegisterTermsScreen(),
               '/register/terms': (context) => TermsPage(),
               '/register/verifyOtp': (context) => OtpVerificationPage(),
               '/register/1': (context) => RegisterStepOne(),

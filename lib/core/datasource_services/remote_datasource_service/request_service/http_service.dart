@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:my_app/core/contracts/i_request_service.dart';
-import 'package:my_app/features/login/domain/errors/login_errors.dart';
-import 'package:my_app/features/register/domain/errors/register_errors.dart';
+import 'package:my_app/core/errors/request_timeout.dart';
 
 class HttpService implements IRequestService {
   var customHeaders = {"content-type": "application/json"};
@@ -16,7 +15,7 @@ class HttpService implements IRequestService {
     final response = await http
         .post(url, headers: customHeaders, body: body)
         .timeout(Duration(seconds: 10), onTimeout: () {
-      throw LoginTimeoutError(message: 'Timeout');
+      throw RequestTimeoutError(message: 'Timeout');
     });
 
     return response;
@@ -35,7 +34,7 @@ class HttpService implements IRequestService {
 
     final response =
         await http.get(url).timeout(Duration(seconds: 10), onTimeout: () {
-      throw RegisterTimeoutError(message: 'Timeout');
+      throw RequestTimeoutError(message: 'Timeout');
     });
 
     print(response.body);
