@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
   final String? placeholder;
+  final TextEditingController? controller;
 
   const AppTextField({
     required this.label,
@@ -23,12 +24,14 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     Key? key,
     this.placeholder,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: obscureText,
+      controller: controller,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
       decoration: customInputDecoration1(

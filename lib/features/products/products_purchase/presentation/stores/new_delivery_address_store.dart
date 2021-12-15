@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
+import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 
 import 'new_delivery_address_validation.dart';
 part 'new_delivery_address_store.g.dart';
@@ -7,13 +10,28 @@ class NewDeliveryAddressStore = _NewDeliveryAddressStoreBase with _$NewDeliveryA
 
 abstract class _NewDeliveryAddressStoreBase with Store {
   NewDeliveryAddressValidation validation = NewDeliveryAddressValidation();
+  TextEditingController cepController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController neighborhoodController = TextEditingController();
+  TextEditingController ufController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
 
   @observable
   String cep = '';
 
+  @observable
+  bool isValidCep = false;
+
+  @action
+  setIsValidCep(bool value) {
+    return isValidCep = value;
+  }
+
   @action
   setCep(String value) {
     validation.hasChangedCep = true;
+
     return cep = value;
   }
 
@@ -25,6 +43,8 @@ abstract class _NewDeliveryAddressStoreBase with Store {
       return 'Este campo é obrigatório';
     } else if (cep.length < 9) {
       return 'CEP inválido';
+    } else if (!isValidCep) {
+      return 'Este CEP é inexistente';
     }
 
     return null;
@@ -157,16 +177,29 @@ abstract class _NewDeliveryAddressStoreBase with Store {
       // getUfError == null &&
       getNumberError == null;
 
-  // @computed
-  // String? get geComplementError {
-  //   if (!validation.hasChangedComplement) {
-  //     return null;
-  //   } else if (complement.isEmpty) {
-  //     return 'Este campo é obrigatório';
-  //   } else if (complement.length < 2) {
-  //     return 'Cidade inválida';
-  //   }
+  Future<void> getAddressByCep(String value, BuildContext context) async {
+    var address = await cepToAddress(value);
 
-  //   return null;
-  // }
+    if (address['valid']) {
+      setIsValidCep(true);
+      await setAddressByCep(address['data']);
+    } else {
+      setIsValidCep(false);
+    }
+  }
+
+  Future<void> setAddressByCep(Map<dynamic, dynamic> addressFromCep) async {
+    await Future.delayed(Duration(seconds: 2));
+    setAddress(addressFromCep['logradouro']);
+    addressController.text = addressFromCep['logradouro'];
+
+    setNeighborhood(addressFromCep['bairro']);
+    neighborhoodController.text = addressFromCep['bairro'];
+
+    setUf(addressFromCep['uf']);
+    // ufController.text = addressFromCep['uf'];
+
+    setCity(addressFromCep['localidade']);
+    cityController.text = addressFromCep['localidade'];
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
 import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';

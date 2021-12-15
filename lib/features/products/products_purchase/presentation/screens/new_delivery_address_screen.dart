@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/entities/delivery_address_entity.dart';
 import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
@@ -8,17 +9,22 @@ import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_dropdown_list.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/utils/constants/constants.dart';
+import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
 import 'package:my_app/features/products/products_purchase/presentation/stores/new_delivery_address_store.dart';
 
 class NewDeliveryAddressScreen extends StatefulWidget {
-  const NewDeliveryAddressScreen({Key? key}) : super(key: key);
+  final DeliveryAddressStore deliveryStore;
+  const NewDeliveryAddressScreen({Key? key, required this.deliveryStore}) : super(key: key);
 
   @override
   _NewDeliveryAddressScreenState createState() => _NewDeliveryAddressScreenState();
 }
 
 class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
+  DeliveryAddressStore get deliveryStore => widget.deliveryStore;
+
   NewDeliveryAddressStore newAddressStore = Modular.get<NewDeliveryAddressStore>();
   @override
   Widget build(BuildContext context) {
@@ -55,7 +61,16 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
               children: [
                 Observer(builder: (_) {
                   return AppTextField(
-                    onChanged: newAddressStore.setCep,
+                    controller: newAddressStore.cepController,
+                    onChanged: (value) async {
+                      if (value.length == 9) {
+                        LoadingIndicator.show(context);
+                        newAddressStore.getAddressByCep(value, context).then((value) {
+                          LoadingIndicator.hide(context);
+                        });
+                      }
+                      newAddressStore.setCep(value);
+                    },
                     label: 'CEP',
                     inputFormatters: [AppMasks.cep],
                     errorText: newAddressStore.getCepError,
@@ -64,6 +79,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                 SizedBox(height: 16),
                 Observer(builder: (_) {
                   return AppTextField(
+                    controller: newAddressStore.addressController,
                     onChanged: newAddressStore.setAddress,
                     label: 'Endereço',
                     errorText: newAddressStore.getAddressError,
@@ -72,6 +88,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                 SizedBox(height: 16),
                 Observer(builder: (_) {
                   return AppTextField(
+                    controller: newAddressStore.numberController,
                     onChanged: newAddressStore.setNumber,
                     label: 'Número',
                     errorText: newAddressStore.getNumberError,
@@ -80,6 +97,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                 SizedBox(height: 16),
                 Observer(builder: (_) {
                   return AppTextField(
+                    controller: newAddressStore.neighborhoodController,
                     onChanged: newAddressStore.setNeighborhood,
                     label: 'Bairro',
                     errorText: newAddressStore.getNeighborhoodError,
@@ -106,6 +124,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                     Expanded(
                       child: Observer(builder: (_) {
                         return AppTextField(
+                          controller: newAddressStore.cityController,
                           onChanged: newAddressStore.setCity,
                           label: 'Cidade',
                           errorText: newAddressStore.getCityError,
@@ -135,7 +154,23 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
             // onPressed: newAddressStore.ena () {
             onPressed: newAddressStore.enableButton
                 ? () {
-                    Navigator.of(context).pop();
+                    // deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
+                    //   cep: newAddressStore.cep,
+                    //   city: newAddressStore.city,
+                    //   neighborhood: newAddressStore.neighborhood,
+                    //   number: newAddressStore.number,
+                    //   street: newAddressStore.address,
+                    //   uf: newAddressStore.uf,
+                    // ));
+                    print('sdjfiosdj');
+                    Navigator.of(context).pop(DeliveryAddressEntity(
+                      cep: newAddressStore.cep,
+                      city: newAddressStore.city,
+                      neighborhood: newAddressStore.neighborhood,
+                      number: newAddressStore.number,
+                      street: newAddressStore.address,
+                      uf: newAddressStore.uf,
+                    ));
                   }
                 : null,
           );

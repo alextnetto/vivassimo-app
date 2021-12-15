@@ -74,6 +74,22 @@ mixin _$NewDeliveryAddressStore on _NewDeliveryAddressStoreBase, Store {
     });
   }
 
+  final _$isValidCepAtom =
+      Atom(name: '_NewDeliveryAddressStoreBase.isValidCep');
+
+  @override
+  bool get isValidCep {
+    _$isValidCepAtom.reportRead();
+    return super.isValidCep;
+  }
+
+  @override
+  set isValidCep(bool value) {
+    _$isValidCepAtom.reportWrite(value, super.isValidCep, () {
+      super.isValidCep = value;
+    });
+  }
+
   final _$addressAtom = Atom(name: '_NewDeliveryAddressStoreBase.address');
 
   @override
@@ -170,6 +186,17 @@ mixin _$NewDeliveryAddressStore on _NewDeliveryAddressStoreBase, Store {
       ActionController(name: '_NewDeliveryAddressStoreBase');
 
   @override
+  dynamic setIsValidCep(bool value) {
+    final _$actionInfo = _$_NewDeliveryAddressStoreBaseActionController
+        .startAction(name: '_NewDeliveryAddressStoreBase.setIsValidCep');
+    try {
+      return super.setIsValidCep(value);
+    } finally {
+      _$_NewDeliveryAddressStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setCep(String value) {
     final _$actionInfo = _$_NewDeliveryAddressStoreBaseActionController
         .startAction(name: '_NewDeliveryAddressStoreBase.setCep');
@@ -250,6 +277,7 @@ mixin _$NewDeliveryAddressStore on _NewDeliveryAddressStoreBase, Store {
   String toString() {
     return '''
 cep: ${cep},
+isValidCep: ${isValidCep},
 address: ${address},
 number: ${number},
 neighborhood: ${neighborhood},

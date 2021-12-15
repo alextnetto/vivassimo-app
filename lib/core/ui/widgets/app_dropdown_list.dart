@@ -14,14 +14,20 @@ class DropdownListWidget extends StatelessWidget {
   final String storeValue;
   final List<String> contentList;
   final Function(String? value) onChanged;
-  final String labelText;
+  final String? labelText;
+  final Color? fillCollor;
+  final TextStyle? contentStyle;
+  final Widget? icon;
 
   const DropdownListWidget({
     Key? key,
     required this.storeValue,
     required this.contentList,
     required this.onChanged,
-    required this.labelText,
+    this.labelText,
+    this.fillCollor,
+    this.contentStyle,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -30,6 +36,8 @@ class DropdownListWidget extends StatelessWidget {
       builder: (FormFieldState<String> state) {
         return InputDecorator(
           decoration: InputDecoration(
+            fillColor: fillCollor,
+            filled: fillCollor != null,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2.0,
@@ -46,6 +54,9 @@ class DropdownListWidget extends StatelessWidget {
             child: DropdownButton<String>(
               value: storeValue,
               isDense: true,
+              style: contentStyle,
+              dropdownColor: fillCollor,
+              icon: icon,
               // isExpanded: true,
               // style: ,
               onChanged: (String? value) {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/shipping_method_card.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products/products_purchase/presentation/stores/shipping_method_store.dart';
 
 class ShippingMethodScreen extends StatefulWidget {
   const ShippingMethodScreen({Key? key}) : super(key: key);
@@ -15,6 +17,8 @@ class ShippingMethodScreen extends StatefulWidget {
 }
 
 class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
+  ShippingMethodStore shippingStore = Modular.get<ShippingMethodStore>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,7 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
             decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
             child: Column(
               children: const [
-                AppBarDefaultWidget(title: 'Endereço de Entrega'),
+                AppBarDefaultWidget(title: 'Pagamento'),
                 SizedBox(
                   height: 10,
                 ),
@@ -49,19 +53,37 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
               ],
             ),
           ),
-          ShippingMethodCard(
-            deliveryTime: '2 Dias Úteis',
-            iconPath: 'assets/icon/checked_icon_light.png',
-            shippingValue: 'Grátis',
-            title: 'PAC',
-          ),
+          Observer(builder: (_) {
+            return GestureDetector(
+              onTap: () {
+                shippingStore.setShippingMethodType('PAC');
+              },
+              child: ShippingMethodCard(
+                deliveryTime: '2 Dias Úteis',
+                iconPath: shippingStore.shippingMethodType == 'PAC'
+                    ? 'assets/icon/checked_icon_light.png'
+                    : 'assets/icon/unchecked_icon_light.png',
+                shippingValue: 'Grátis',
+                title: 'PAC',
+              ),
+            );
+          }),
           SizedBox(height: 35),
-          ShippingMethodCard(
-            deliveryTime: '1 Dia Útil',
-            iconPath: 'assets/icon/unchecked_icon_light.png',
-            shippingValue: 'R\$ 14,00',
-            title: 'PAC',
-          ),
+          Observer(builder: (_) {
+            return GestureDetector(
+              onTap: () {
+                shippingStore.setShippingMethodType('Sedex');
+              },
+              child: ShippingMethodCard(
+                deliveryTime: '1 Dia Útil',
+                iconPath: shippingStore.shippingMethodType != 'PAC'
+                    ? 'assets/icon/checked_icon_light.png'
+                    : 'assets/icon/unchecked_icon_light.png',
+                shippingValue: 'R\$ 14,00',
+                title: 'Sedex',
+              ),
+            );
+          }),
           Container(
             padding: const EdgeInsets.only(left: 30, top: 45),
             child: Column(
@@ -82,7 +104,9 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
             primary: VivassimoTheme.green,
             onPrimary: VivassimoTheme.white,
             borderColor: VivassimoTheme.greenBorderColor,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/products/products_purchase/payment_method');
+            },
           );
         }),
       ),

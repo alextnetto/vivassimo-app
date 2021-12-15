@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/entities/store_entity.dart';
 import 'package:my_app/core/ui/components/stores_list_component.dart';
+import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -186,7 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: 4,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed('/home/product-category');
+                },
                 child: Container(
                   alignment: Alignment.topRight,
                   decoration: BoxDecoration(
@@ -199,8 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 130,
                   width: 188,
                   child: Container(
-                    padding: EdgeInsets.only(right: 12, top: 5),
-                    // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                    padding: EdgeInsets.only(right: 8, top: 5),
                     child: Image.asset(
                       'assets/products_type/product_type_item_${index + 1}.png',
                       // width: 100,
@@ -210,6 +212,17 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
+        ),
+        AppButton(
+          borderColor: Color(0XFFB4D8D8),
+          buttonColor: Color(0XFFE9F3F4),
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+          textColor: Color(0XFF4D0351),
+          title: 'Ver todas as categorias',
+          onPressed: () {},
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          margin: const EdgeInsets.only(top: 20),
         ),
         StoresListComponent(
           title: 'Lojas em sua região',
