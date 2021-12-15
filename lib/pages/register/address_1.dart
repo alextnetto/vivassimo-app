@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
+import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
@@ -100,16 +102,16 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
 
   bool _isValidCepAsync = true;
 
-  var cepFormatter = MaskTextInputFormatter(
-    mask: '#####-###',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-    initialText: RegisterUser.instance.cep,
-  );
+  // var AppMasks.cep = MaskTextInputFormatter(
+  //   mask: '#####-###',
+  //   filter: {
+  //     "#": RegExp(r'[0-9]'),
+  //   },
+  //   initialText: RegisterUser.instance.cep,
+  // );
 
   validateCep() async {
-    var cepData = await cepToAddress(cepFormatter.getUnmaskedText());
+    var cepData = await cepToAddress(AppMasks.cep.getUnmaskedText());
     setState(() {
       if (cepData['valid']) {
         _isValidCepAsync = true;
@@ -241,10 +243,10 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                         key: _formKey,
                         child: TextFormField(
                           keyboardType: TextInputType.number,
-                          inputFormatters: [cepFormatter],
-                          initialValue: cepFormatter.getMaskedText(),
+                          inputFormatters: [AppMasks.cep],
+                          initialValue: AppMasks.cep.getMaskedText(),
                           validator: (value) {
-                            if (cepFormatter.getUnmaskedText().length < 8) {
+                            if (AppMasks.cep.getUnmaskedText().length < 8) {
                               return 'CEP incompleto';
                             }
                             if (!_isValidCepAsync) {
@@ -260,7 +262,7 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                             VivassimoTheme.purpleActive,
                           ),
                           onChanged: (value) async {
-                            if (cepFormatter.getUnmaskedText().length == 8) {
+                            if (AppMasks.cep.getUnmaskedText().length == 8) {
                               // reset validator
                               _isValidCepAsync = true;
 

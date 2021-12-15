@@ -21,7 +21,7 @@ class StoresListComponent extends StatelessWidget {
             title,
             style: AppTextStyles.defaultTextStyleTitle,
           ),
-          padding: const EdgeInsets.only(left: 20, top: 40),
+          padding: const EdgeInsets.only(left: 20, top: 30),
         ),
         Container(
           margin: EdgeInsets.only(bottom: paddingBottom, top: 20),
@@ -47,7 +47,7 @@ class StoresListComponent extends StatelessWidget {
   buildStoreTileWidget(StoreEntity storeEntity, bool hasToSetStyle) {
     return StoreTileWidget(
       title: storeEntity.name,
-      description: storeEntity.description,
+      description: storeEntity.description ?? '',
       imagePath: storeEntity.imagePath,
       border: hasToSetStyle ? Border(bottom: BorderSide(color: Color(0XFFB4D8D8))) : null,
       backgroundColor: hasToSetStyle ? Color.fromRGBO(180, 216, 216, 0.2) : Color.fromRGBO(255, 255, 255, 1),

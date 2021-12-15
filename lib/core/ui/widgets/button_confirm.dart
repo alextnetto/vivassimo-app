@@ -5,7 +5,7 @@ import 'package:my_app/core/ui/app_style.dart';
 class ButtonConfirm extends StatelessWidget {
   final String label;
   final Color primary, onPrimary, borderColor;
-  final Function onPressed;
+  final Function()? onPressed;
   const ButtonConfirm({
     Key? key,
     required this.label,
@@ -18,18 +18,19 @@ class ButtonConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+        color: VivassimoTheme.blueWithOpacity,
+      ),
       padding: EdgeInsets.only(top: 30, bottom: 80),
       height: 170,
       width: double.infinity,
-      color: VivassimoTheme.blueWithOpacity,
       child: Align(
         child: SizedBox(
           width: 300,
           height: 60,
           child: ElevatedButton(
-            onPressed: () {
-              onPressed();
-            },
+            onPressed: onPressed,
             child: Text(
               label,
               style: customTextStyle(
