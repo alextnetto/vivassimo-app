@@ -7,13 +7,14 @@ class HttpService implements IRequestService {
 
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
-    var baseUrl = '10.21.100.132';
+    var baseUrl = 'localhost';
     var customHeaders = {"content-type": "application/json"};
 
     var url = Uri.http(baseUrl, endpoint);
 
-    final response =
-        await http.post(url, headers: customHeaders, body: body).timeout(Duration(seconds: 50), onTimeout: () {
+    final response = await http
+        .post(url, headers: customHeaders, body: body)
+        .timeout(Duration(seconds: 50), onTimeout: () {
       throw LoginTimeoutError();
     });
 
