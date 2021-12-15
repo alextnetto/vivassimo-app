@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initModule(CacheModule());
   // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   // runApp(App());
   runApp(AppWidget());
