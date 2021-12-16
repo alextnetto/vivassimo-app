@@ -1,8 +1,10 @@
 import 'package:my_app/features/register/domain/repositories/i_register_repository.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
+import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
+import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
 
 abstract class IRegisterUsecase {
   Future<CheckExistingUserResponseModel> userExists(
@@ -10,7 +12,8 @@ abstract class IRegisterUsecase {
 
   Future<SendOtpResponseModel> sendOtp(SendOtpRequestModel sendOtpRequestModel);
 
-  verifyOtp();
+  Future<VerifyOtpResponseModel> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel);
 
   register();
 }
@@ -36,18 +39,6 @@ class RegisterUsecase implements IRegisterUsecase {
   }
 
   @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
-  }
-
-  @override
-  verifyOtp() {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
-  }
-
-  @override
   Future<SendOtpResponseModel> sendOtp(
       SendOtpRequestModel sendOtpRequestModel) async {
     var resultModel = await registerRepository.sendOtp(sendOtpRequestModel);
@@ -57,5 +48,23 @@ class RegisterUsecase implements IRegisterUsecase {
     }, (right) {
       return SendOtpResponseModel(success: true, message: right.message);
     });
+  }
+
+  @override
+  Future<VerifyOtpResponseModel> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel) async {
+    var resultModel = await registerRepository.verifyOtp(verifyOtpRequestModel);
+
+    return resultModel.fold((left) {
+      return VerifyOtpResponseModel(success: false, message: left.message);
+    }, (right) {
+      return VerifyOtpResponseModel(success: true, message: right.message);
+    });
+  }
+
+  @override
+  register() {
+    // TODO: implement register
+    throw UnimplementedError();
   }
 }

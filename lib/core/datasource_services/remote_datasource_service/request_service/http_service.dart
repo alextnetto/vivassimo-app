@@ -28,7 +28,7 @@ class HttpService implements IRequestService {
   }
 
   @override
-  Future<dynamic> getData(
+  Future<dynamic> get(
       {required String endpoint, Map<String, dynamic>? queryParams}) async {
     var url = Uri.http(baseUrl, endpoint, queryParams);
 

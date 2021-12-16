@@ -4,8 +4,10 @@ import 'package:my_app/features/register/domain/repositories/i_register_reposito
 import 'package:my_app/features/register/infra/datasources/i_register_datasource.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
+import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
+import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
 
 class RegisterRepository implements IRegisterRepository {
   final IRegisterDatasource registerDatasource;
@@ -26,18 +28,6 @@ class RegisterRepository implements IRegisterRepository {
   }
 
   @override
-  verifyOtp() {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
-  }
-
-  @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<RegisterError, SendOtpResponseModel>> sendOtp(
       SendOtpRequestModel sendOtpRequestModel) async {
     try {
@@ -49,6 +39,23 @@ class RegisterRepository implements IRegisterRepository {
       return Left(RegisterDatasourceError(message: e.toString()));
     }
   }
-}
 
-class UserExistsResponseModel {}
+  @override
+  Future<Either<RegisterError, VerifyOtpResponseModel>> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel) async {
+    try {
+      var resultDatasource =
+          await registerDatasource.verifyOtp(verifyOtpRequestModel);
+
+      return Right(resultDatasource);
+    } catch (e) {
+      return Left(RegisterDatasourceError(message: e.toString()));
+    }
+  }
+
+  @override
+  register() {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
+}
