@@ -109,7 +109,7 @@ class _DeletePaymentMethodScreenState extends State<DeletePaymentMethodScreen> {
       bottomNavigationBar: ButtonConfirm(
         label: 'Cancelar',
         primary: Color(0XFFFFB640),
-        onPrimary: Color(0XFF4D0351),
+        textColor: Color(0XFF4D0351),
         borderColor: Color(0XFFDE674B),
         onPressed: () {
           Navigator.of(context).pop();

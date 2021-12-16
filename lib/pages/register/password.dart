@@ -176,7 +176,7 @@ class PasswordScreenState extends State<PasswordScreen> {
                 child: ButtonConfirm(
                   label: 'Continuar',
                   primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
+                  textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

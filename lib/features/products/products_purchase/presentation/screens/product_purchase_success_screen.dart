@@ -60,7 +60,7 @@ class _ProductPurchaseSuccessScreenState extends State<ProductPurchaseSuccessScr
                   child: ButtonConfirm(
                     label: 'Tela Inicial',
                     primary: Color(0XFFFFB640),
-                    onPrimary: Color(0XFF4D0351),
+                    textColor: Color(0XFF4D0351),
                     borderColor: Color(0XFFFFB640),
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);

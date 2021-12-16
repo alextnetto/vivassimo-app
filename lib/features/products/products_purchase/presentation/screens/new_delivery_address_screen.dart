@@ -149,7 +149,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
           return ButtonConfirm(
             label: 'Salvar Endereço',
             primary: VivassimoTheme.green,
-            onPrimary: VivassimoTheme.white,
+            textColor: VivassimoTheme.white,
             borderColor: newAddressStore.enableButton ? VivassimoTheme.greenBorderColor : Colors.grey,
             // onPressed: newAddressStore.ena () {
             onPressed: newAddressStore.enableButton

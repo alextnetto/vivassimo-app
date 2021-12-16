@@ -130,7 +130,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
             child: ButtonConfirm(
               label: 'Continuar',
               primary: VivassimoTheme.green,
-              onPrimary: VivassimoTheme.white,
+              textColor: VivassimoTheme.white,
               borderColor: VivassimoTheme.greenBorderColor,
               onPressed: () {
                 Navigator.of(context).pushNamed('/products/products_purchase/shipping_method');

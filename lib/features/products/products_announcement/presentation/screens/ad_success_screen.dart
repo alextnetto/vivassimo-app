@@ -1,0 +1,169 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'ad_screen.dart';
+
+class AdSuccessScreen extends StatefulWidget {
+  final List img;
+
+  AdSuccessScreen({required this.img});
+
+  @override
+  _AdSuccessScreenState createState() => _AdSuccessScreenState();
+}
+
+class _AdSuccessScreenState extends State<AdSuccessScreen> {
+  @override
+  void initState() {
+    super.initState();
+    changeStatusBar();
+  }
+
+  changeStatusBar() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Color(0xFF4D0351)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 50, right: 50, top: 90),
+            child: Container(
+              height: 120,
+              child: Text(
+                'Muito bem! Anúncio realizado com sucesso!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color(0xFF4D0351),
+                    fontSize: 34,
+                    fontWeight: FontWeight.w800),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: Container(
+              height: 389,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/nuvem.jpeg',
+                  ),
+                  RotationTransition(
+                    turns: new AlwaysStoppedAnimation(350 / 360),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 100),
+                        height: 174,
+                        width: 238,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(color: Colors.white, spreadRadius: 10)
+                          ],
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: FileImage(
+                              File(widget.img[0]),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 30, bottom: 50, right: 45, left: 45),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  height: 60,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          elevation: 0,
+                          primary: Color(0xFF22AB86),
+                          // fixedSize: Size(324, 60),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 2.0,
+                                color: Color(0xFF006633),
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ))),
+                      onPressed: () {},
+                      child: Text(
+                        'Compartilhar',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600),
+                      )),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 30, bottom: 50, right: 45, left: 45),
+            height: 170,
+            color: Color.fromRGBO(180, 216, 216, 0.2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  height: 60,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        alignment: Alignment.center,
+                        elevation: 0,
+                        primary: Color(0xFFFFB640),
+                        // fixedSize: Size(324, 60),
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 2.0,
+                              color: Color(0xFFDE674B),
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ))),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdScreen(
+                            img: widget.img,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Ver Anúncio',
+                      style: TextStyle(
+                          color: Color(0xFF4D0351),
+                          fontSize: 23,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
+}

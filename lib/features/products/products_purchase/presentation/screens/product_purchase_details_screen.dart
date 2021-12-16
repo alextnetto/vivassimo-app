@@ -142,7 +142,7 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
           return ButtonConfirm(
             label: 'Continuar',
             primary: VivassimoTheme.green,
-            onPrimary: VivassimoTheme.white,
+            textColor: VivassimoTheme.white,
             borderColor: VivassimoTheme.greenBorderColor,
             onPressed: () {
               Navigator.of(context).pushNamed('/products/products_purchase/product_purchase_success');

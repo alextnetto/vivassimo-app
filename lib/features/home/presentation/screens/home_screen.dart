@@ -276,9 +276,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   TabItemWidget(
                     iconPath: 'assets/icon/home_icon.png',
                     onTap: () {
-                      setState(() {
-                        _selectedIndex = 0;
-                      });
+                      // setState(() {
+                      //   _selectedIndex = 0;
+                      // });
                     },
                     selectedIndex: _selectedIndex,
                     title: "Inicio",
@@ -287,9 +287,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   TabItemWidget(
                     iconPath: 'assets/icon/announce_icon.png',
                     onTap: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
+                      Navigator.of(context).pushNamed('/product/products_announcement/product_category');
+                      // setState(() {
+                      //   _selectedIndex = 1;
+                      // });
                     },
                     selectedIndex: _selectedIndex,
                     title: "Anunciar",
@@ -298,9 +299,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   TabItemWidget(
                     iconPath: 'assets/icon/order_icon.png',
                     onTap: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
+                      // setState(() {
+                      //   _selectedIndex = 2;
+                      // });
                     },
                     selectedIndex: _selectedIndex,
                     title: "Pedidos",
@@ -309,9 +310,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   TabItemWidget(
                     iconPath: 'assets/icon/person_icon.png',
                     onTap: () {
-                      setState(() {
-                        _selectedIndex = 3;
-                      });
+                      // setState(() {
+                      //   _selectedIndex = 3;
+                      // });
                     },
                     selectedIndex: _selectedIndex,
                     title: "Perfil",
