@@ -7,6 +7,7 @@ import 'package:my_app/features/products/products_purchase/presentation/screens/
 import 'package:my_app/features/products/products_purchase/presentation/screens/delivery_address_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/new_delivery_address_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/payment_method_screen.dart';
+import 'package:my_app/features/products/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/shipping_method_screen.dart';
 import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
@@ -69,7 +70,7 @@ class RouteGenerator {
 
       case '/products/products_purchase/product_purchase_details':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => DeletePaymentMethodScreen());
+        return MaterialPageRoute(builder: (_) => ProductPurchaseDetailsScreen());
 
       case '/products/products_purchase/product_purchase_success':
         // if (args is String) {

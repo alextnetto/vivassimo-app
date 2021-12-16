@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_style.dart';
 
-// class DdlModel {
-//   final int id;
-//   final String nameItem;
-
-//   DdlModel(this.id, this.nameItem);
-// }
-
 class DropdownListWidget extends StatelessWidget {
-  // final String storeError;
   final String storeValue;
   final List<String> contentList;
   final Function(String? value) onChanged;

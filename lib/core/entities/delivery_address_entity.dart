@@ -1,4 +1,5 @@
 class DeliveryAddressEntity {
+  final int id;
   final String? street;
   final String? number;
   final String? neighborhood;
@@ -6,5 +7,5 @@ class DeliveryAddressEntity {
   final String? uf;
   final String? cep;
 
-  DeliveryAddressEntity({this.street, this.number, this.neighborhood, this.city, this.uf, this.cep});
+  DeliveryAddressEntity({required this.id, this.street, this.number, this.neighborhood, this.city, this.uf, this.cep});
 }

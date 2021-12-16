@@ -28,15 +28,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     initModule(ProductsPurchaseModule());
     deliveryStore = Modular.get<DeliveryAddressStore>();
 
-    deliveryStore!.addDeliveryAddress(DeliveryAddressEntity(
-      cep: '06455-555',
-      city: 'São Paulo',
-      neighborhood: 'Centro',
-      number: '930',
-      street: 'Av. Paulista',
-      uf: 'SP',
-    ));
-
     super.initState();
   }
 
@@ -94,36 +85,25 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                 ),
                 Observer(builder: (_) {
                   return Column(children: [
-                    for (int index = 0; index < deliveryStore!.deliveryTest.length; index++)
-                      buildAddressCard(deliveryStore!.deliveryTest[index])
+                    for (int index = 1; index <= deliveryStore!.deliveryAddresses.length; index++)
+                      GestureDetector(
+                        onTap: () {
+                          deliveryStore!.setSelectedDeliveryAddressId(index);
+                        },
+                        child: buildAddressCard(deliveryStore!.deliveryAddresses[index - 1]),
+                      ),
                   ]);
                 }),
-                // AddressCardWidget(
-                //   streetAndNumber: 'Av. Paulista, 930',
-                //   cep: 'CEP 06455-55',
-                //   checkIconPath: 'assets/icon/checked_icon.png',
-                //   cityAndState: 'Centro - São Paulo/SP',
-                //   cardColor: Color(0XFF22AB86),
-                // ),
                 Container(
                   height: 60,
                   margin: const EdgeInsets.only(top: 45),
                   child: CustomButton1(
                     borderColor: Color(0xFFDE674B),
                     label: 'Novo Endereço',
-                    onPressed: () async {
-                      var newAddress = await Navigator.of(context)
-                          .pushNamed('/products/products_purchase/new_delivery_address', arguments: {
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/products/products_purchase/new_delivery_address', arguments: {
                         'deliveryStore': deliveryStore,
                       });
-
-                      if (newAddress != null) {
-                        print('gsdfg');
-
-                        setState(() {
-                          deliveryStore!.deliveryTest.add(newAddress as DeliveryAddressEntity);
-                        });
-                      }
                     },
                     onPrimary: Color(0XFF4D0351),
                     primary: Color(0xFFFFB640),
@@ -166,7 +146,9 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return AddressCardWidget(
       streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
       cep: '${deliveryAddress.cep}',
-      checkIconPath: 'assets/icon/checked_icon.png',
+      checkIconPath: deliveryAddress.id == deliveryStore!.selectedDeliveryAddressId
+          ? 'assets/icon/checked_icon.png'
+          : 'assets/icon/unchecked_icon.png',
       cityAndState: 'Centro - São Paulo/SP',
       cardColor: Color(0XFF22AB86),
     );

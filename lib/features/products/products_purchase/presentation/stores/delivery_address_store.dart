@@ -7,6 +7,7 @@ class DeliveryAddressStore = _DeliveryAddressStoreBase with _$DeliveryAddressSto
 abstract class _DeliveryAddressStoreBase with Store {
   _DeliveryAddressStoreBase() {
     addDeliveryAddress(DeliveryAddressEntity(
+      id: 1,
       cep: '06455-555',
       city: 'São Paulo',
       neighborhood: 'Centro',
@@ -16,18 +17,15 @@ abstract class _DeliveryAddressStoreBase with Store {
     ));
   }
 
-  ObservableList<DeliveryAddressEntity> deliveryAddresses = ObservableList<DeliveryAddressEntity>();
+  @observable
+  int selectedDeliveryAddressId = 1;
 
-  List<DeliveryAddressEntity> deliveryTest = [
-    DeliveryAddressEntity(
-      cep: '06455-555',
-      city: 'São Paulo',
-      neighborhood: 'Centro',
-      number: '930',
-      street: 'Av. Paulista',
-      uf: 'SP',
-    )
-  ];
+  @action
+  setSelectedDeliveryAddressId(int value) {
+    if (value != selectedDeliveryAddressId) return selectedDeliveryAddressId = value;
+  }
+
+  ObservableList<DeliveryAddressEntity> deliveryAddresses = ObservableList<DeliveryAddressEntity>();
 
   @action
   addDeliveryAddress(DeliveryAddressEntity addressEntity) {

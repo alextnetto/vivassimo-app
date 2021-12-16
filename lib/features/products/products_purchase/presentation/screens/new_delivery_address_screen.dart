@@ -154,16 +154,8 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
             // onPressed: newAddressStore.ena () {
             onPressed: newAddressStore.enableButton
                 ? () {
-                    // deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
-                    //   cep: newAddressStore.cep,
-                    //   city: newAddressStore.city,
-                    //   neighborhood: newAddressStore.neighborhood,
-                    //   number: newAddressStore.number,
-                    //   street: newAddressStore.address,
-                    //   uf: newAddressStore.uf,
-                    // ));
-                    print('sdjfiosdj');
-                    Navigator.of(context).pop(DeliveryAddressEntity(
+                    deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
+                      id: 2,
                       cep: newAddressStore.cep,
                       city: newAddressStore.city,
                       neighborhood: newAddressStore.neighborhood,
@@ -171,6 +163,8 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                       street: newAddressStore.address,
                       uf: newAddressStore.uf,
                     ));
+                    print('sdjfiosdj');
+                    Navigator.of(context).pop();
                   }
                 : null,
           );
