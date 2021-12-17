@@ -10,18 +10,17 @@ import 'package:my_app/features/products/products_purchase/presentation/screens/
 import 'package:my_app/features/products/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/shipping_method_screen.dart';
+import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
+import 'package:my_app/features/register/presentation/screens/otp_screen.dart';
+import 'package:my_app/features/register/presentation/screens/password_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
 import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
-import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
-import 'package:my_app/pages/register/otp_verification.dart';
-import 'package:my_app/pages/register/password.dart';
-import 'package:my_app/pages/register/register_1.dart';
 import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
-import 'package:my_app/pages/register/terms.dart';
-
 import '../../home_page.dart';
 
 class RouteGenerator {
@@ -31,7 +30,8 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => SignInOrSignUpRedirectScreen());
+        return MaterialPageRoute(
+            builder: (_) => SignInOrSignUpRedirectScreen());
 
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
@@ -50,7 +50,9 @@ class RouteGenerator {
 
       case '/products/products_purchase/new_delivery_address':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => NewDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
+        return MaterialPageRoute(
+            builder: (_) =>
+                NewDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
 
       case '/products/products_purchase/delete_delivery_address':
         // if (args is String) {
@@ -70,11 +72,13 @@ class RouteGenerator {
 
       case '/products/products_purchase/product_purchase_details':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductPurchaseDetailsScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProductPurchaseDetailsScreen());
 
       case '/products/products_purchase/product_purchase_success':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductPurchaseSuccessScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProductPurchaseSuccessScreen());
 
       case '/register/address2':
         // if (args is String) {
@@ -82,19 +86,23 @@ class RouteGenerator {
 
       case '/product/product-details':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ServiceTypeDescriptionScreen());
+        return MaterialPageRoute(
+            builder: (_) => ServiceTypeDescriptionScreen());
 
       case '/register/acceptTerms':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => RegisterTerms());
+        return MaterialPageRoute(builder: (_) => AcceptRegisterTermsScreen());
 
       case '/register/terms':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => TermsPage());
+        return MaterialPageRoute(builder: (_) => TermsScreen());
 
       case '/register/verifyOtp':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => OtpVerificationScreen());
+        return MaterialPageRoute(
+            builder: (_) => OtpVerificationPage(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/1':
         // if (args is String) {
@@ -106,7 +114,10 @@ class RouteGenerator {
 
       case '/register/password':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => PasswordScreen());
+        return MaterialPageRoute(
+            builder: (_) => PasswordScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/cpf':
         // if (args is String) {

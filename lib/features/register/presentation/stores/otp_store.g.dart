@@ -24,6 +24,21 @@ mixin _$OtpStore on _OtpStoreBase, Store {
     });
   }
 
+  final _$otpAtom = Atom(name: '_OtpStoreBase.otp');
+
+  @override
+  String? get otp {
+    _$otpAtom.reportRead();
+    return super.otp;
+  }
+
+  @override
+  set otp(String? value) {
+    _$otpAtom.reportWrite(value, super.otp, () {
+      super.otp = value;
+    });
+  }
+
   final _$_OtpStoreBaseActionController =
       ActionController(name: '_OtpStoreBase');
 
@@ -39,9 +54,21 @@ mixin _$OtpStore on _OtpStoreBase, Store {
   }
 
   @override
+  dynamic setOtp(String value) {
+    final _$actionInfo = _$_OtpStoreBaseActionController.startAction(
+        name: '_OtpStoreBase.setOtp');
+    try {
+      return super.setOtp(value);
+    } finally {
+      _$_OtpStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-phoneNumber: ${phoneNumber}
+phoneNumber: ${phoneNumber},
+otp: ${otp}
     ''';
   }
 }

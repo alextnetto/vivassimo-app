@@ -1,32 +1,32 @@
 import 'dart:convert';
 
 class RegisterUserRequestModel {
-  String name;
-  String email;
-  String phoneNumber;
-  String password;
-  String genero;
-  String cpf;
-  String dataNascimento;
-  String cep;
-  String bairro;
-  String rua;
-  String numero;
-  String complemento;
+  String? name;
+  String? email;
+  String? phoneNumber;
+  String? password;
+  String? genero;
+  String? cpf;
+  String? dataNascimento;
+  String? cep;
+  String? bairro;
+  String? rua;
+  String? numero;
+  String? complemento;
 
   RegisterUserRequestModel({
-    required this.name,
-    required this.email,
-    required this.phoneNumber,
-    required this.password,
-    required this.genero,
-    required this.cpf,
-    required this.dataNascimento,
-    required this.cep,
-    required this.bairro,
-    required this.rua,
-    required this.numero,
-    required this.complemento,
+    this.name,
+    this.email,
+    this.phoneNumber,
+    this.password,
+    this.genero,
+    this.cpf,
+    this.dataNascimento,
+    this.cep,
+    this.bairro,
+    this.rua,
+    this.numero,
+    this.complemento,
   });
 
   Map<String, dynamic> toMap() {

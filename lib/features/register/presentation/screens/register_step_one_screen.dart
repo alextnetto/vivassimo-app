@@ -8,17 +8,18 @@ import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/register_store.dart';
 import 'package:my_app/features/register/register_module.dart';
 
-class RegisterStepOne extends StatefulWidget {
-  const RegisterStepOne({Key? key}) : super(key: key);
+class RegisterStepOneScreen extends StatefulWidget {
+  const RegisterStepOneScreen({Key? key}) : super(key: key);
 
   @override
   _RegisterStepOneState createState() => _RegisterStepOneState();
 }
 
-class _RegisterStepOneState extends State<RegisterStepOne> {
+class _RegisterStepOneState extends State<RegisterStepOneScreen> {
   RegisterStepOneStore? registerStepOneStore;
 
   @override
@@ -173,8 +174,18 @@ class _RegisterStepOneState extends State<RegisterStepOne> {
                                   ),
                                 );
                               } else {
-                                Navigator.of(context)
-                                    .pushNamed('/register/verifyOtp');
+                                Navigator.of(context).pushNamed(
+                                  '/register/verifyOtp',
+                                  arguments: {
+                                    'registerUserRequestModel':
+                                        RegisterUserRequestModel(
+                                      name: registerStepOneStore!.name,
+                                      email: registerStepOneStore!.email,
+                                      phoneNumber:
+                                          registerStepOneStore!.phoneNumber,
+                                    )
+                                  },
+                                );
                               }
                             } else {
                               showDialog(

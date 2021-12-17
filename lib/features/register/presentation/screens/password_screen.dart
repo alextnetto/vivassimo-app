@@ -7,11 +7,14 @@ import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/password_store.dart';
 import 'package:my_app/features/register/register_module.dart';
 
 class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({Key? key}) : super(key: key);
+  const PasswordScreen({Key? key, required this.registerUserRequestModel})
+      : super(key: key);
+  final RegisterUserRequestModel registerUserRequestModel;
 
   @override
   PasswordScreenState createState() {
@@ -20,6 +23,8 @@ class PasswordScreen extends StatefulWidget {
 }
 
 class PasswordScreenState extends State<PasswordScreen> {
+  RegisterUserRequestModel get registerUserRequestModel =>
+      widget.registerUserRequestModel;
   PasswordStore? passwordStore;
 
   @override

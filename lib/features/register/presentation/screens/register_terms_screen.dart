@@ -4,8 +4,8 @@ import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 
-class TermsPage extends StatelessWidget {
-  const TermsPage({Key? key}) : super(key: key);
+class TermsScreen extends StatelessWidget {
+  const TermsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

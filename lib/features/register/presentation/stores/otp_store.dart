@@ -14,9 +14,17 @@ abstract class _OtpStoreBase with Store {
   @observable
   String? phoneNumber = '';
 
+  @observable
+  String? otp = '';
+
   @action
   setPhoneNumber(String value) {
     return phoneNumber = value;
+  }
+
+  @action
+  setOtp(String value) {
+    return otp = value;
   }
 
   Future<SendOtpResponseModel> sendOtp() async {
