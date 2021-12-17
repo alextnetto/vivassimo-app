@@ -2,23 +2,23 @@ import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/models/register/user.dart';
 
-class CpfPage extends StatefulWidget {
-  const CpfPage({Key? key}) : super(key: key);
+class CpfScreen extends StatefulWidget {
+  const CpfScreen({Key? key}) : super(key: key);
 
   @override
-  CpfPageState createState() {
-    return CpfPageState();
+  CpfScreenState createState() {
+    return CpfScreenState();
   }
 }
 
-class CpfPageState extends State<CpfPage> {
+class CpfScreenState extends State<CpfScreen> {
   final _formKey = GlobalKey<FormState>();
 
   var maskFormatter = MaskTextInputFormatter(
@@ -44,28 +44,29 @@ class CpfPageState extends State<CpfPage> {
                     height: 130,
                     color: VivassimoTheme.blue,
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonBack(),
-                            // texto
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'Criar uma conta',
-                                style: customTextStyle(
-                                  FontWeight.w700,
-                                  18,
-                                  VivassimoTheme.purpleActive,
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     ButtonBack(),
+                        //     // texto
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 30),
+                        //       child: Text(
+                        //         'Criar uma conta',
+                        //         style: customTextStyle(
+                        //           FontWeight.w700,
+                        //           18,
+                        //           VivassimoTheme.purpleActive,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
                   ),

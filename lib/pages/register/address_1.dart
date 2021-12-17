@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
+import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
+import 'package:my_app/core/ui/app_masks/app_masks.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
@@ -12,14 +14,14 @@ import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/cep_to_address.dart';
 import 'package:my_app/services/location_to_address.dart';
 
-class Address1Page extends StatefulWidget {
-  const Address1Page({Key? key}) : super(key: key);
+class AddressStepOneScreen extends StatefulWidget {
+  const AddressStepOneScreen({Key? key}) : super(key: key);
 
   @override
-  _Address1PageState createState() => _Address1PageState();
+  _AddressStepOneScreenState createState() => _AddressStepOneScreenState();
 }
 
-class _Address1PageState extends State<Address1Page> {
+class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
   final _formKey = GlobalKey<FormState>();
 
   getLocation(context) async {
@@ -100,16 +102,16 @@ class _Address1PageState extends State<Address1Page> {
 
   bool _isValidCepAsync = true;
 
-  var cepFormatter = MaskTextInputFormatter(
-    mask: '#####-###',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-    initialText: RegisterUser.instance.cep,
-  );
+  // var AppMasks.cep = MaskTextInputFormatter(
+  //   mask: '#####-###',
+  //   filter: {
+  //     "#": RegExp(r'[0-9]'),
+  //   },
+  //   initialText: RegisterUser.instance.cep,
+  // );
 
   validateCep() async {
-    var cepData = await cepToAddress(cepFormatter.getUnmaskedText());
+    var cepData = await cepToAddress(AppMasks.cep.getUnmaskedText());
     setState(() {
       if (cepData['valid']) {
         _isValidCepAsync = true;
@@ -135,28 +137,29 @@ class _Address1PageState extends State<Address1Page> {
                   height: 130,
                   color: VivassimoTheme.white,
                   child: Column(
-                    children: [
+                    children: const [
                       SizedBox(
                         height: 40,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonBack(),
-                          // texto
-                          Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Text(
-                              'Criar uma conta',
-                              style: customTextStyle(
-                                FontWeight.w700,
-                                18,
-                                VivassimoTheme.purpleActive,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                      AppBarDefaultWidget(title: 'Criar uma conta'),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     ButtonBack(),
+                      //     // texto
+                      //     Padding(
+                      //       padding: const EdgeInsets.only(right: 30),
+                      //       child: Text(
+                      //         'Criar uma conta',
+                      //         style: customTextStyle(
+                      //           FontWeight.w700,
+                      //           18,
+                      //           VivassimoTheme.purpleActive,
+                      //         ),
+                      //       ),
+                      //     )
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -240,10 +243,10 @@ class _Address1PageState extends State<Address1Page> {
                         key: _formKey,
                         child: TextFormField(
                           keyboardType: TextInputType.number,
-                          inputFormatters: [cepFormatter],
-                          initialValue: cepFormatter.getMaskedText(),
+                          inputFormatters: [AppMasks.cep],
+                          initialValue: AppMasks.cep.getMaskedText(),
                           validator: (value) {
-                            if (cepFormatter.getUnmaskedText().length < 8) {
+                            if (AppMasks.cep.getUnmaskedText().length < 8) {
                               return 'CEP incompleto';
                             }
                             if (!_isValidCepAsync) {
@@ -259,7 +262,7 @@ class _Address1PageState extends State<Address1Page> {
                             VivassimoTheme.purpleActive,
                           ),
                           onChanged: (value) async {
-                            if (cepFormatter.getUnmaskedText().length == 8) {
+                            if (AppMasks.cep.getUnmaskedText().length == 8) {
                               // reset validator
                               _isValidCepAsync = true;
 

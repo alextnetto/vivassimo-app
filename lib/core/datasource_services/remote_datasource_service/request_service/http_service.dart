@@ -3,19 +3,22 @@ import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/core/errors/request_timeout.dart';
 
 class HttpService implements IRequestService {
-  var customHeaders = {"content-type": "application/json"};
   // var baseUrl = '10.21.100.132';
   //var baseUrl = '172.17.208.1';
   var baseUrl = 'localhost';
 
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
+    // var baseUrl = 'localhost';
+    var baseUrl = '172.28.128.1';
+    var customHeaders = {"content-type": "application/json"};
+
     var url = Uri.http(baseUrl, endpoint);
 
     final response = await http
         .post(url, headers: customHeaders, body: body)
-        .timeout(Duration(seconds: 10), onTimeout: () {
-      throw RequestTimeoutError(message: 'Timeout');
+        .timeout(Duration(seconds: 50), onTimeout: () {
+      throw RequestTimeoutError();
     });
 
     return response;

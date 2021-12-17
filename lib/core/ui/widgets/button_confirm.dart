@@ -18,10 +18,13 @@ class ButtonConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+        color: VivassimoTheme.blueWithOpacity,
+      ),
       padding: EdgeInsets.only(top: 30, bottom: 80),
       height: 170,
       width: double.infinity,
-      color: VivassimoTheme.blue,
       child: Align(
         child: SizedBox(
           width: 300,

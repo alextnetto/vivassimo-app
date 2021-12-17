@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/entities/store_entity.dart';
+import 'package:my_app/core/ui/components/stores_list_component.dart';
+import 'package:my_app/core/ui/widgets/app_button.dart';
+import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,32 +17,42 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(
-        children: [
-          Image.asset('assets/backgrounds/Vector.png'),
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: Column(
+      body: buildBodyWithoutStack(context),
+      bottomNavigationBar: bottomNavigationBar(),
+    );
+  }
+
+  Widget buildBodyWithoutStack(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        Stack(
+          children: [
+            Image.asset('assets/backgrounds/Vector.png'),
+            Column(
               children: [
-                Container(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration:
-                      BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromRGBO(255, 255, 255, 0.25)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/logos/vivassimo_logo.png'),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Entrar',
-                          style: TextStyle(
-                            color: Color(0xFFFFB640),
-                            fontSize: 18,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromRGBO(255, 255, 255, 0.25)))),
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset('assets/logos/vivassimo_logo.png'),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Entrar',
+                            style: TextStyle(
+                              color: Color(0xFFFFB640),
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -112,19 +126,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        height: 177,
-                        margin: EdgeInsets.only(left: 0),
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(9),
-                            child: Image.asset(
-                              'assets/backgrounds/pilates_class.png',
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/product/product-details');
+                        },
+                        child: Container(
+                          height: 177,
+                          margin: EdgeInsets.only(left: 0),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(9),
+                              child: Image.asset(
+                                'assets/backgrounds/pilates_class_banner.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -136,10 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          // child: Container(
-                          //   // height: 177,
-                          //   // width: 100,
-                          // ),
                         ),
                       ),
                       SizedBox(
@@ -149,71 +164,93 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          // child: Container(
-                          //   // height: 177,
-                          //   // width: 100,
-                          // ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 21),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 8,
-                      childAspectRatio: (1.5 / 1),
-                    ),
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          alignment: Alignment.topRight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
-                            ),
-                            // color: Colors.blue,
-                          ),
-                          height: 130,
-                          width: 188,
-                          child: Container(
-                            padding: EdgeInsets.only(right: 12, top: 5),
-                            // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                            child: Image.asset(
-                              'assets/products_type/product_type_item_${index + 1}.png',
-                              // width: 100,
-                            ),
-                          ),
-                          // child: ClipRRect(
-                          //   borderRadius: BorderRadius.circular(9),
-                          //   child: Image.asset(
-                          //     'assets/products_type/product_type_background_${index + 1}.png',
-                          //     fit: BoxFit.cover,
-                          //   ),
-                          // ),
-                        ),
-                      );
-                    },
-                  ),
-                )
               ],
+            )
+          ],
+        ),
+        SizedBox(
+          height: 266,
+          child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(left: 15, right: 15, top: 21),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 8,
+              childAspectRatio: (1.5 / 1),
             ),
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/home/product-category');
+                },
+                child: Container(
+                  alignment: Alignment.topRight,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                      image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
+                    ),
+                    // color: Colors.blue,
+                  ),
+                  height: 130,
+                  width: 188,
+                  child: Container(
+                    padding: EdgeInsets.only(right: 8, top: 5),
+                    child: Image.asset(
+                      'assets/products_type/product_type_item_${index + 1}.png',
+                      // width: 100,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   child: bottomNavigationBar(),
-          // )
-        ],
-      ),
-      bottomNavigationBar: bottomNavigationBar(),
+        ),
+        AppButton(
+          borderColor: Color(0XFFB4D8D8),
+          buttonColor: Color(0XFFE9F3F4),
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+          textColor: Color(0XFF4D0351),
+          title: 'Ver todas as categorias',
+          onPressed: () {},
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          margin: const EdgeInsets.only(top: 20),
+        ),
+        StoresListComponent(
+          title: 'Lojas em sua região',
+          paddingBottom: 100,
+          storeEntities: const [
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Academia Health Fit',
+              imagePath: 'assets/images/stores/store1.png',
+            ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Fitness Center',
+              imagePath: 'assets/images/stores/store2.png',
+            ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Academia Health Fit',
+              imagePath: 'assets/images/stores/store1.png',
+            ),
+            StoreEntity(
+              description: 'Saúde & Bem-estar',
+              name: 'Fitness Center',
+              imagePath: 'assets/images/stores/store2.png',
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -236,133 +273,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 0;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/icon/home_icon.png',
-                              width: _selectedIndex == 0 ? 30 : null,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Inicio",
-                              style: TextStyle(
-                                color: Color(0xff4D0351),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/home_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 0;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Inicio",
                   ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/announce_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 1;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Anunciar",
                   ),
-                  Expanded(
-                    child: SizedBox(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 1;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/icon/announce_icon.png',
-                              width: _selectedIndex == 1 ? 30 : null,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Anunciar",
-                              style: TextStyle(
-                                color: Color(0xff4D0351),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/order_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 2;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Pedidos",
                   ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 2;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/icon/order_icon.png',
-                            width: _selectedIndex == 2 ? 30 : null,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "Pedidos",
-                            style: TextStyle(
-                              color: Color(0xff4D0351),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  VerticalDivider(
-                    color: Color(0xffA480BD),
-                    width: 1,
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 3;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/icon/person_icon.png',
-                            width: _selectedIndex == 3 ? 30 : null,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "Perfil",
-                            style: TextStyle(
-                              color: Color(0xff4D0351),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                  VerticalDivider(color: Color(0xffA480BD), width: 1),
+                  TabItemWidget(
+                    iconPath: 'assets/icon/person_icon.png',
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = 3;
+                      });
+                    },
+                    selectedIndex: _selectedIndex,
+                    title: "Perfil",
                   ),
                 ],
               ),

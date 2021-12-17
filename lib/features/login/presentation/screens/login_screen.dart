@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
-import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
@@ -43,25 +43,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 90,
                 color: VivassimoTheme.white,
                 child: Column(
-                  children: [
+                  children: const [
                     SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ButtonBack(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30),
-                          child: Text(
-                            'Acesso a conta',
-                            style: customTextStyle(
-                              FontWeight.w700,
-                              18,
-                              VivassimoTheme.purpleActive,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
+                    AppBarDefaultWidget(title: 'Acesso a conta'),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     ButtonBack(),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(right: 30),
+                    //       child: Text(
+                    //         'Acesso a conta',
+                    //         style: customTextStyle(
+                    //           FontWeight.w700,
+                    //           18,
+                    //           VivassimoTheme.purpleActive,
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -108,9 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: loginStore!.isPasswordVisible,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              loginStore!.isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              loginStore!.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                               color: Theme.of(context).primaryColorDark,
                             ),
                             onPressed: () {
@@ -141,14 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     LoadingIndicator.hide(context);
 
                                     if (response.success) {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              '/home', (route) => false);
+                                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
                                     } else {
                                       showDialog(
                                         context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
+                                        builder: (BuildContext context) => AlertDialog(
                                           title: Text('Ops!'),
                                           content: Text(response.message),
                                           contentPadding: EdgeInsets.all(20),
