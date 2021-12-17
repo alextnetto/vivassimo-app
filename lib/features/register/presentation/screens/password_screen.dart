@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular_test/flutter_modular_test.dart';
+import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
-import 'package:my_app/models/register/user.dart';
+import 'package:my_app/features/register/presentation/stores/password_store.dart';
+import 'package:my_app/features/register/register_module.dart';
 
-class PasswordPage extends StatefulWidget {
-  const PasswordPage({Key? key}) : super(key: key);
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({Key? key}) : super(key: key);
 
   @override
-  PasswordPageState createState() {
-    return PasswordPageState();
+  PasswordScreenState createState() {
+    return PasswordScreenState();
   }
 }
 
-class PasswordPageState extends State<PasswordPage> {
-  final _formKey = GlobalKey<FormState>();
-  bool _passwordVisible = false;
+class PasswordScreenState extends State<PasswordScreen> {
+  PasswordStore? passwordStore;
 
-  final TextEditingController _passwordController = TextEditingController();
+  @override
+  void initState() {
+    initModule(RegisterModule());
+    passwordStore = Modular.get<PasswordStore>();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,95 +85,62 @@ class PasswordPageState extends State<PasswordPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 324,
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         height: 90,
-                        child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: !_passwordVisible,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          onSaved: (value) {
-                            RegisterUser.instance.password = value;
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Senha inválida';
-                            }
-                            return null;
-                          },
-                          decoration: customInputDecoration1(
-                            'Digite uma senha',
+                        child: Observer(builder: (_) {
+                          return AppTextField(
+                            label: 'Digite uma senha',
+                            onChanged: passwordStore!.setPassword,
+                            errorText: passwordStore!.getPasswordError,
+                            obscureText: passwordStore!.isPasswordVisible,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _passwordVisible
+                                passwordStore!.isPasswordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
+                                passwordStore!.changePasswordVisibity();
                               },
                             ),
-                          ),
-                          textAlign: TextAlign.center,
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
+                          );
+                        }),
                       ),
-                      SizedBox(
-                        width: 324,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         height: 90,
-                        child: TextFormField(
-                          obscureText: !_passwordVisible,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          onSaved: (value) {
-                            RegisterUser.instance.password = value;
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Senha inválida';
-                            } else if (value != _passwordController.text) {
-                              return 'Senhas não conferem';
-                            }
-                            return null;
-                          },
-                          decoration: customInputDecoration1(
-                            'Digite novamente a senha',
+                        child: Observer(builder: (_) {
+                          return AppTextField(
+                            label: 'Digite novamente a senha',
+                            onChanged: passwordStore!.setPasswordConfirmation,
+                            errorText:
+                                passwordStore!.getPasswordConfirmationError,
+                            obscureText: passwordStore!.isPasswordVisible,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _passwordVisible
+                                passwordStore!.isPasswordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
+                                passwordStore!.changePasswordVisibity();
                               },
                             ),
-                          ),
-                          textAlign: TextAlign.center,
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
+                          );
+                        }),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -177,12 +153,7 @@ class PasswordPageState extends State<PasswordPage> {
                   primary: VivassimoTheme.green,
                   onPrimary: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      Navigator.of(context).pushNamed('/register/cpf');
-                    }
-                  },
+                  onPressed: () async {},
                 ),
               ),
             ),

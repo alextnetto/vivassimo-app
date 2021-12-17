@@ -84,7 +84,6 @@ abstract class _RegisterStepOneStoreBase with Store {
 
   @computed
   String? get getPhoneNumberError {
-    print(phoneNumber.isValidPhoneNumber);
     if (!hasChangedPhoneNumber) {
       return null;
     } else if (phoneNumber.isEmpty) {

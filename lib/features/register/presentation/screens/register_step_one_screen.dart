@@ -1,20 +1,15 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/features/register/presentation/stores/register_store.dart';
 import 'package:my_app/features/register/register_module.dart';
-import 'package:my_app/models/register/user.dart';
-import 'package:my_app/services/backend.dart';
 
 class RegisterStepOne extends StatefulWidget {
   const RegisterStepOne({Key? key}) : super(key: key);

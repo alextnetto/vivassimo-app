@@ -8,7 +8,7 @@ import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/pages/register/cpf_page.dart';
 import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
-import 'package:my_app/pages/register/password.dart';
+import 'package:my_app/features/register/presentation/screens/password_screen.dart';
 import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
@@ -41,7 +41,7 @@ class AppWidget extends StatelessWidget {
               '/register/verifyOtp': (context) => OtpVerificationPage(),
               '/register/1': (context) => RegisterStepOne(),
               '/register/2': (context) => Register2Page(),
-              '/register/password': (context) => PasswordPage(),
+              '/register/password': (context) => PasswordScreen(),
               '/register/cpf': (context) => CpfPage(),
               '/register/address1': (context) => Address1Page(),
               '/register/registerFinished': (context) => RegisterFinishedPage(),

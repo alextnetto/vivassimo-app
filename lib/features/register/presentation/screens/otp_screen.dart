@@ -44,7 +44,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     initModule(RegisterModule());
     otpStore = Modular.get<OtpStore>();
 
-    var response = otpStore!.sendOtp().then((value) => print(value));
+    var response = otpStore!.sendOtp();
 
     super.initState();
   }
