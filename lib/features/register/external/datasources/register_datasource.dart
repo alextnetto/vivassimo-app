@@ -1,10 +1,12 @@
 import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/register/domain/errors/register_errors.dart';
 import 'package:my_app/features/register/infra/datasources/i_register_datasource.dart';
+import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
+import 'package:my_app/features/register/infra/models/response/register_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
 
@@ -56,8 +58,16 @@ class RegisterDatasource implements IRegisterDatasource {
   }
 
   @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<RegisterUserResponseModel> register(
+      RegisterUserRequestModel registerUserRequestModel) async {
+    var response = await httpClient.post(
+        endpoint: '/users', body: registerUserRequestModel.toJson());
+
+    if (response.statusCode == 201) {
+      var resultModel = RegisterUserResponseModel.fromJson(response.body);
+      return resultModel;
+    } else {
+      throw RegisterDatasourceError(message: response.body);
+    }
   }
 }
