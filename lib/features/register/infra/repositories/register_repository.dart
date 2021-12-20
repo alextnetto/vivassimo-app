@@ -1,3 +1,4 @@
+import 'package:my_app/core/errors/request_timeout.dart';
 import 'package:my_app/features/register/domain/errors/register_errors.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_app/features/register/domain/repositories/i_register_repository.dart';
@@ -24,6 +25,10 @@ class RegisterRepository implements IRegisterRepository {
           await registerDatasource.userExists(userExistsRequestModel);
 
       return Right(resultDatasource);
+    } on RegisterDatasourceError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
+    } on RequestTimeoutError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
     } catch (e) {
       return Left(RegisterDatasourceError(message: e.toString()));
     }
@@ -37,6 +42,10 @@ class RegisterRepository implements IRegisterRepository {
           await registerDatasource.sendOtp(sendOtpRequestModel);
 
       return Right(resultDatasource);
+    } on RegisterDatasourceError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
+    } on RequestTimeoutError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
     } catch (e) {
       return Left(RegisterDatasourceError(message: e.toString()));
     }
@@ -50,6 +59,10 @@ class RegisterRepository implements IRegisterRepository {
           await registerDatasource.verifyOtp(verifyOtpRequestModel);
 
       return Right(resultDatasource);
+    } on RegisterDatasourceError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
+    } on RequestTimeoutError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
     } catch (e) {
       return Left(RegisterDatasourceError(message: e.toString()));
     }
@@ -63,6 +76,10 @@ class RegisterRepository implements IRegisterRepository {
           await registerDatasource.register(registerUserRequestModel);
 
       return Right(resultDatasource);
+    } on RegisterDatasourceError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
+    } on RequestTimeoutError catch (e) {
+      return Left(RegisterDatasourceError(message: e.message.toString()));
     } catch (e) {
       return Left(RegisterDatasourceError(message: e.toString()));
     }

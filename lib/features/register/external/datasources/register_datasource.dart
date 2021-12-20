@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/register/domain/errors/register_errors.dart';
 import 'package:my_app/features/register/infra/datasources/i_register_datasource.dart';
@@ -25,7 +27,9 @@ class RegisterDatasource implements IRegisterDatasource {
       var resultModel = CheckExistingUserResponseModel.fromJson(response.body);
       return resultModel;
     } else {
-      throw RegisterDatasourceError(message: response.body);
+      var message = json.decode(response.body)['message'];
+
+      throw RegisterDatasourceError(message: message);
     }
   }
 
@@ -39,7 +43,9 @@ class RegisterDatasource implements IRegisterDatasource {
       var resultModel = SendOtpResponseModel.fromJson(response.body);
       return resultModel;
     } else {
-      throw RegisterDatasourceError(message: response.body);
+      var message = json.decode(response.body)['message'];
+
+      throw RegisterDatasourceError(message: message);
     }
   }
 
@@ -53,7 +59,9 @@ class RegisterDatasource implements IRegisterDatasource {
       var resultModel = VerifyOtpResponseModel.fromJson(response.body);
       return resultModel;
     } else {
-      throw RegisterDatasourceError(message: response.body);
+      var message = json.decode(response.body)['message'];
+
+      throw RegisterDatasourceError(message: message);
     }
   }
 
@@ -67,7 +75,9 @@ class RegisterDatasource implements IRegisterDatasource {
       var resultModel = RegisterUserResponseModel.fromJson(response.body);
       return resultModel;
     } else {
-      throw RegisterDatasourceError(message: response.body);
+      var message = json.decode(response.body)['message'];
+
+      throw RegisterDatasourceError(message: message);
     }
   }
 }

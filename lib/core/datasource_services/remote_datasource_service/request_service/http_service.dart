@@ -37,7 +37,7 @@ class HttpService implements IRequestService {
 
     final response =
         await http.get(url).timeout(Duration(seconds: 10), onTimeout: () {
-      throw RequestTimeoutError(message: 'Timeout');
+      throw RequestTimeoutError();
     });
 
     print(response.body);
