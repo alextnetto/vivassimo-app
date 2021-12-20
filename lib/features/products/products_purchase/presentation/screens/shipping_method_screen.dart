@@ -22,93 +22,109 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            height: 131,
-            padding: const EdgeInsets.only(top: 25),
-            decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
-            child: Column(
-              children: const [
-                AppBarDefaultWidget(title: 'Pagamento'),
-                SizedBox(
-                  height: 10,
-                ),
-                LinearProgressBar(textIndicator: '2/4', percentageValue: 0.50),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 80),
-            width: 150,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Selecione a forma de envio',
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.defaultTextStyleTitleBig800,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Container(
+              height: 120,
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+              child: Column(
+                children: const [
+                  AppBarDefaultWidget(title: 'Pagamento'),
+                  SizedBox(
+                    height: 10,
                   ),
-                )
-              ],
+                  LinearProgressBar(textIndicator: '2/4', percentageValue: 0.50),
+                ],
+              ),
             ),
           ),
-          Observer(builder: (_) {
-            return GestureDetector(
-              onTap: () {
-                shippingStore.setShippingMethodType('PAC');
-              },
-              child: ShippingMethodCard(
-                deliveryTime: '2 Dias Úteis',
-                iconPath: shippingStore.shippingMethodType == 'PAC'
-                    ? 'assets/icon/checked_icon_light.png'
-                    : 'assets/icon/unchecked_icon_light.png',
-                shippingValue: 'Grátis',
-                title: 'PAC',
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 80),
+              margin: const EdgeInsets.only(top: 20),
+              width: 150,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Selecione a forma de envio',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.defaultTextStyleTitleBig800,
+                    ),
+                  )
+                ],
               ),
-            );
-          }),
-          SizedBox(height: 35),
-          Observer(builder: (_) {
-            return GestureDetector(
-              onTap: () {
-                shippingStore.setShippingMethodType('Sedex');
-              },
-              child: ShippingMethodCard(
-                deliveryTime: '1 Dia Útil',
-                iconPath: shippingStore.shippingMethodType != 'PAC'
-                    ? 'assets/icon/checked_icon_light.png'
-                    : 'assets/icon/unchecked_icon_light.png',
-                shippingValue: 'R\$ 14,00',
-                title: 'Sedex',
-              ),
-            );
-          }),
-          Container(
-            padding: const EdgeInsets.only(left: 30, top: 45),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Total', style: customTextStyle(FontWeight.w600, 18, Color(0XFF4D0351))),
-                Text('R\$ 29,90', style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351))),
-              ],
             ),
-          )
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 30)),
+          SliverToBoxAdapter(
+            child: Observer(builder: (_) {
+              return GestureDetector(
+                onTap: () {
+                  shippingStore.setShippingMethodType('PAC');
+                },
+                child: ShippingMethodCard(
+                  deliveryTime: '2 Dias Úteis',
+                  iconPath: shippingStore.shippingMethodType == 'PAC'
+                      ? 'assets/icon/checked_icon_light.png'
+                      : 'assets/icon/unchecked_icon_light.png',
+                  shippingValue: 'Grátis',
+                  title: 'PAC',
+                ),
+              );
+            }),
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 35)),
+          SliverToBoxAdapter(
+            child: Observer(builder: (_) {
+              return GestureDetector(
+                onTap: () {
+                  shippingStore.setShippingMethodType('Sedex');
+                },
+                child: ShippingMethodCard(
+                  deliveryTime: '1 Dia Útil',
+                  iconPath: shippingStore.shippingMethodType != 'PAC'
+                      ? 'assets/icon/checked_icon_light.png'
+                      : 'assets/icon/unchecked_icon_light.png',
+                  shippingValue: 'R\$ 14,00',
+                  title: 'Sedex',
+                ),
+              );
+            }),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.only(left: 30, top: 45),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Total', style: customTextStyle(FontWeight.w600, 18, Color(0XFF4D0351))),
+                  Text('R\$ 29,90', style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351))),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 30)),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: SizedBox(
+              // margin: const EdgeInsets.only(top: 66),
+              child: Observer(builder: (_) {
+                return ButtonConfirm(
+                  label: 'Continuar',
+                  primary: VivassimoTheme.green,
+                  textColor: VivassimoTheme.white,
+                  borderColor: VivassimoTheme.greenBorderColor,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/products/products_purchase/payment_method');
+                  },
+                );
+              }),
+            ),
+          ),
         ],
-      ),
-      bottomNavigationBar: SizedBox(
-        // margin: const EdgeInsets.only(top: 66),
-        child: Observer(builder: (_) {
-          return ButtonConfirm(
-            label: 'Continuar',
-            primary: VivassimoTheme.green,
-            textColor: VivassimoTheme.white,
-            borderColor: VivassimoTheme.greenBorderColor,
-            onPressed: () {
-              Navigator.of(context).pushNamed('/products/products_purchase/payment_method');
-            },
-          );
-        }),
       ),
     );
   }

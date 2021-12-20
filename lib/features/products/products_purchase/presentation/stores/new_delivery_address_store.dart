@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
-import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 
 import 'new_delivery_address_validation.dart';
 part 'new_delivery_address_store.g.dart';

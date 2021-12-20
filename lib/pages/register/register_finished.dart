@@ -86,7 +86,7 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
                       onPrimary: VivassimoTheme.purpleActive,
                       borderColor: VivassimoTheme.red,
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/login');
+                        Navigator.of(context).pushNamed('/sign_or_signup');
                       },
                     ),
                   ),

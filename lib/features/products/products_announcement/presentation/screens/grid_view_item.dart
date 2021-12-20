@@ -4,7 +4,7 @@ class GridViewItem extends StatefulWidget {
   final String title;
   final Color color;
 
-  GridViewItem(this.title, this.color);
+  const GridViewItem(this.title, this.color, {Key? key}) : super(key: key);
   @override
   _GridViewItemState createState() => _GridViewItemState();
 }

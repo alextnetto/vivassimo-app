@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
-import 'package:my_app/features/products/products_announcement/presentation/PageUtils/AppStrings.dart';
 
 class ProductDescriptionScreen extends StatefulWidget {
   const ProductDescriptionScreen({Key? key}) : super(key: key);
@@ -31,16 +30,16 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
         child: Column(
           children: [
             Container(
-              height: 95,
+              height: 120,
               decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
-              margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
               child: Column(
                 children: const [
                   AppBarDefaultWidget(title: 'Anunciar'),
                   SizedBox(
                     height: 10,
                   ),
-                  LinearProgressBar(textIndicator: '3/4', percentageValue: 0.75),
+                  LinearProgressBar(textIndicator: '4/8', percentageValue: 0.5),
                 ],
               ),
             ),
@@ -130,7 +129,7 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
                       Navigator.of(context).pushNamed('/product/products_announcement/product_photos');
                     },
                     child: Text(
-                      AppStrings.BTN_CONTINUAR,
+                      'Continuar',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 23,

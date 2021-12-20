@@ -4,7 +4,8 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 
 class SignInOrSignUpRedirectScreen extends StatefulWidget {
-  const SignInOrSignUpRedirectScreen({Key? key}) : super(key: key);
+  final String redirectTo;
+  const SignInOrSignUpRedirectScreen({Key? key, required this.redirectTo}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -12,8 +13,9 @@ class SignInOrSignUpRedirectScreen extends StatefulWidget {
   }
 }
 
-class SignInOrSignUpRedirectScreenState
-    extends State<SignInOrSignUpRedirectScreen> {
+class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScreen> {
+  String get redirectTo => widget.redirectTo;
+
   int themeCounter = 1;
   bool isDarkTheme = false;
 
@@ -71,7 +73,7 @@ class SignInOrSignUpRedirectScreenState
                         onPrimary: VivassimoTheme.white,
                         borderColor: VivassimoTheme.purple,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
+                          Navigator.of(context).pushNamed('/login', arguments: {'redirectTo': redirectTo});
                         }),
                   ),
                   SizedBox(
@@ -82,25 +84,20 @@ class SignInOrSignUpRedirectScreenState
                     height: 60,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('/register/acceptTerms');
+                        Navigator.of(context).pushNamed('/register/acceptTerms');
                       },
                       child: Text(
                         'Não tenho uma conta',
                         style: customTextStyle(
                           FontWeight.w700,
                           23,
-                          themeCounter == 2 || themeCounter == 3
-                              ? VivassimoTheme.purple
-                              : VivassimoTheme.white,
+                          themeCounter == 2 || themeCounter == 3 ? VivassimoTheme.purple : VivassimoTheme.white,
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
                           width: 2.0,
-                          color: themeCounter == 2 || themeCounter == 3
-                              ? VivassimoTheme.purple
-                              : VivassimoTheme.white,
+                          color: themeCounter == 2 || themeCounter == 3 ? VivassimoTheme.purple : VivassimoTheme.white,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),

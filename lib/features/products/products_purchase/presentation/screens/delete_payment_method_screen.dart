@@ -51,7 +51,7 @@ class _DeletePaymentMethodScreenState extends State<DeletePaymentMethodScreen> {
                         onTap: () {
                           deleteAddressStore.setPaymentMethodId(1);
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: AppButton(
                             borderColor: Color(0XFFDE674B),
@@ -78,7 +78,7 @@ class _DeletePaymentMethodScreenState extends State<DeletePaymentMethodScreen> {
                         onTap: () {
                           deleteAddressStore.setPaymentMethodId(2);
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: AppButton(
                             borderColor: Color(0XFFDE674B),

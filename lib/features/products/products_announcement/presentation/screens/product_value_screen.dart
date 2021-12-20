@@ -5,35 +5,30 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/utils/formatters/currency_pt_br_input_formatter.dart';
-import 'package:my_app/features/products/products_announcement/presentation/PageUtils/AppStrings.dart';
-import 'package:my_app/features/products/products_announcement/presentation/screens/product_delivery_screen.dart';
+import 'package:my_app/features/products/products_announcement/presentation/screens/product_announcement_delivery_screen.dart';
 
 class ProductValueScreen extends StatefulWidget {
   final List img;
 
-  ProductValueScreen({required this.img});
+  const ProductValueScreen({Key? key, required this.img}) : super(key: key);
   @override
   _ProductValueScreenState createState() => _ProductValueScreenState();
 }
 
 class _ProductValueScreenState extends State<ProductValueScreen> {
-  TextEditingController? _controller;
-
-  String _enteredText = '';
 
   @override
   void initState() {
     super.initState();
-    changeStatusBar();
-    _controller = TextEditingController();
+    // changeStatusBar();
   }
 
-  changeStatusBar() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Color.fromRGBO(180, 216, 216, 0.2),
-        systemNavigationBarColor: Color(0xFF4D0351)));
-  }
+  // changeStatusBar() {
+  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //       statusBarIconBrightness: Brightness.dark,
+  //       statusBarColor: Color.fromRGBO(180, 216, 216, 0.2),
+  //       systemNavigationBarColor: Color(0xFF4D0351)));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +52,7 @@ class _ProductValueScreenState extends State<ProductValueScreen> {
                             children: const [
                               AppBarDefaultWidget(title: 'Anunciar'),
                               SizedBox(height: 10),
-                              LinearProgressBar(textIndicator: '6/8', percentageValue: 0.5),
+                              LinearProgressBar(textIndicator: '6/8', percentageValue: 0.75),
                             ],
                           ),
                         ),
@@ -143,10 +138,10 @@ class _ProductValueScreenState extends State<ProductValueScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => ProductDeliveryScreen(img: widget.img)));
+                                            builder: (context) => ProductAnnouncementDeliveryScreen(img: widget.img)));
                                   },
                                   child: Text(
-                                    AppStrings.BTN_CONTINUAR,
+                                    'Continuar',
                                     style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w600),
                                   ),
                                 ),

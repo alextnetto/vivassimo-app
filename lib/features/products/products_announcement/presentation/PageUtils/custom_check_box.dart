@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Custom_Checkbox extends StatefulWidget {
-  double? size;
-  double? iconSize;
-  Function onChange;
-  Color? backgroundColor;
-  Color? iconColor;
-  Color? borderColor;
-  IconData? icon;
-  bool isChecked;
+class CustomCheckbox extends StatefulWidget {
+  final double? size;
+  final double? iconSize;
+  final Function onChange;
+  final Color? backgroundColor;
+  final Color? iconColor;
+  final Color? borderColor;
+  final IconData? icon;
+  final bool isChecked;
 
-  Custom_Checkbox({
+  const CustomCheckbox({
     Key? key,
     this.size,
     this.iconSize,
@@ -23,10 +23,10 @@ class Custom_Checkbox extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Custom_Checkbox> createState() => _Custom_CheckboxState();
+  State<CustomCheckbox> createState() => _CustomCheckboxState();
 }
 
-class _Custom_CheckboxState extends State<Custom_Checkbox> {
+class _CustomCheckboxState extends State<CustomCheckbox> {
   bool isChecked = false;
 
   @override
@@ -55,8 +55,7 @@ class _Custom_CheckboxState extends State<Custom_Checkbox> {
               // isChecked
               //     ? widget.backgroundColor ?? Colors.red
               //     : Colors.transparent,
-              border: Border.all(
-                  width: 3.63, color: widget.borderColor ?? Colors.white)),
+              border: Border.all(width: 3.63, color: widget.borderColor ?? Colors.white)),
           child: isChecked
               ? Icon(
                   widget.icon ?? Icons.check,

@@ -8,7 +8,7 @@ class HttpService implements IRequestService {
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
     // var baseUrl = 'localhost';
-    var baseUrl = '172.28.128.1';
+    var baseUrl = '172.27.208.1';
     var customHeaders = {"content-type": "application/json"};
 
     var url = Uri.http(baseUrl, endpoint);
@@ -24,19 +24,16 @@ class HttpService implements IRequestService {
 
   @override
   delete() {
-    // TODO: implement delete
-    throw UnimplementedError();
+    
   }
 
   @override
   getData() {
-    // TODO: implement getData
-    throw UnimplementedError();
+
   }
 
   @override
   put() {
-    // TODO: implement put
-    throw UnimplementedError();
+
   }
 }

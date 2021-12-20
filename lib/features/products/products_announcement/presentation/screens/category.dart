@@ -5,8 +5,7 @@ class CategoryItem extends StatefulWidget {
   final String? path;
   final Widget? screen;
 
-  const CategoryItem({Key? key, required this.text, this.path, this.screen})
-      : super(key: key);
+  const CategoryItem({Key? key, required this.text, this.path, this.screen}) : super(key: key);
 
   @override
   _CategoryItemState createState() => _CategoryItemState();
@@ -39,19 +38,15 @@ class _CategoryItemState extends State<CategoryItem> {
         child: Row(
           children: [
             Container(
-              margin:
-                  EdgeInsets.only(left: 29, top: 37, bottom: 36, right: 57.07),
+              margin: EdgeInsets.only(left: 29, top: 37, bottom: 36, right: 57.07),
               width: 135,
               height: 57,
               child: Text(
                 '$text',
-                style: TextStyle(
-                    color: Color(0xFF4D0351),
-                    fontSize: 23,
-                    fontWeight: FontWeight.w700),
+                style: TextStyle(color: Color(0xFF4D0351), fontSize: 23, fontWeight: FontWeight.w700),
               ),
             ),
-            Container(
+            SizedBox(
               child: Image.asset(
                 path,
                 width: 130,

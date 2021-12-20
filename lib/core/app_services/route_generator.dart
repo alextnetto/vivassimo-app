@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/features/announcements/presentation/screens/my_announcements_screen.dart';
+import 'package:my_app/features/announcements/presentation/screens/choose_announcement_type_screen.dart';
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/home/presentation/screens/product_category_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
+import 'package:my_app/features/products/products_announcement/presentation/screens/product_announcement_success_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_photos_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_description_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_new_or_used_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_announcement_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_category_screen.dart';
 import 'package:my_app/features/products/products_announcement/presentation/screens/product_photo_confirmation_screen.dart';
+import 'package:my_app/features/products/products_announcement/presentation/screens/product_announcement_review_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/delete_delivery_address_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/delivery_address_screen.dart';
@@ -28,27 +32,39 @@ import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import 'package:my_app/pages/register/terms.dart';
 
-import '../../home_page.dart';
+import '../../features/signin_signup_redirect_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    // ignore: prefer_typing_uninitialized_variables
     var args;
     if (settings.arguments != null) args = settings.arguments as Map;
 
     switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(builder: (_) => SignInOrSignUpRedirectScreen());
+      case '/sign_or_signup':
+        return MaterialPageRoute(
+            builder: (_) => SignInOrSignUpRedirectScreen(
+                  redirectTo: args['redirectTo'],
+                ));
 
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case '/login':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => LoginScreen(
+            redirectTo: args['redirectTo'],
+          ),
+        );
 
       case '/home/product-category':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductCategoryScreen());
+        return MaterialPageRoute(
+          builder: (_) => ProductCategoryScreen(
+            index: args['index'],
+          ),
+        );
 
       case '/products/products_purchase/delivery_address':
         // if (args is String) {
@@ -130,10 +146,10 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ProductAnnouncementCategoryScreen());
 
-      case '/product/products_announcement/product_announcement':
+      case '/product/products_announcement/product_announcement_info':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => ProductAnnouncementScreen(
+            builder: (_) => ProductAnnouncementInfoScreen(
                   categoryEntity: args['model'],
                 ));
 
@@ -156,6 +172,28 @@ class RouteGenerator {
                   productPhotoTaken: args['imagePath'],
                 ));
 
+      case '/product/products_announcement/product_announcement_review':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => ProductAnnouncementReviewScreen(
+                  img: args['img'],
+                ));
+
+      case '/product/products_announcement/produc_announcement_success':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => ProductAnnouncementSuccessScreen(
+                  img: args['img'],
+                ));
+
+      case '/announcements/my_announcements':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => MyAnnouncementsScreen());
+
+      case '/announcements/choose_announcement':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => ChooseAnnouncementTypeScreen());
+
       // case '/verifyCode':
       //   return MaterialPageRoute(
       //     builder: (_) => VerifyCodeScreen(
@@ -166,7 +204,7 @@ class RouteGenerator {
       //   );
 
       default:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
     }
   }
 }

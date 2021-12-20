@@ -18,7 +18,7 @@ class StoreTileRatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/products/products_purchase/delivery_address');
+        Navigator.of(context).pushNamed('/sign_or_signup', arguments: {'redirectTo': 'products_purchase'});
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 22.0),

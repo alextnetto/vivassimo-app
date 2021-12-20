@@ -18,7 +18,9 @@ class _ServiceTypeDescriptionScreenState extends State<ServiceTypeDescriptionScr
       body: ListView(
         children: [
           AppBarDefaultWidget(title: 'Serviços'),
-          SizedBox(child: Image.asset('assets/backgrounds/pilates_class_banner.png')),
+          SizedBox(
+              child:
+                  Hero(tag: 'image_carousel_home', child: Image.asset('assets/backgrounds/pilates_class_banner.png'))),
           Container(
             margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 22),

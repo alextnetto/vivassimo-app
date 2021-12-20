@@ -37,12 +37,17 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       body: ListView(
         children: [
           Container(
-            height: 131,
-            padding: const EdgeInsets.only(top: 25),
+            height: 95,
+            // padding: const EdgeInsets.only(top: 25),
             decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
             child: Column(
-              children: const [
-                AppBarDefaultWidget(title: 'Endereço de Entrega'),
+              children: [
+                AppBarDefaultWidget(
+                  title: 'Endereço de Entrega',
+                  handleBackButton: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                  },
+                ),
                 SizedBox(
                   height: 10,
                 ),

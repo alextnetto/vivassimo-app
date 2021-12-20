@@ -1,32 +1,29 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:my_app/features/products/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
 
-import 'ad_screen.dart';
-
-class AdSuccessScreen extends StatefulWidget {
+class ProductAnnouncementSuccessScreen extends StatefulWidget {
   final List img;
 
-  AdSuccessScreen({required this.img});
+  const ProductAnnouncementSuccessScreen({Key? key, required this.img}) : super(key: key);
 
   @override
-  _AdSuccessScreenState createState() => _AdSuccessScreenState();
+  _ProductAnnouncementSuccessScreenState createState() => _ProductAnnouncementSuccessScreenState();
 }
 
-class _AdSuccessScreenState extends State<AdSuccessScreen> {
+class _ProductAnnouncementSuccessScreenState extends State<ProductAnnouncementSuccessScreen> {
   @override
   void initState() {
     super.initState();
-    changeStatusBar();
+    // changeStatusBar();
   }
 
-  changeStatusBar() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.white,
-        systemNavigationBarColor: Color(0xFF4D0351)));
-  }
+  // changeStatusBar() {
+  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //       statusBarIconBrightness: Brightness.dark,
+  //       statusBarColor: Colors.white,
+  //       systemNavigationBarColor: Color(0xFF4D0351)));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -36,52 +33,47 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 50, right: 50, top: 90),
-            child: Container(
+            child: SizedBox(
               height: 120,
               child: Text(
                 'Muito bem! Anúncio realizado com sucesso!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Color(0xFF4D0351),
-                    fontSize: 34,
-                    fontWeight: FontWeight.w800),
+                style: TextStyle(color: Color(0xFF4D0351), fontSize: 34, fontWeight: FontWeight.w800),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Container(
-              height: 389,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/nuvem.jpeg',
-                  ),
-                  RotationTransition(
-                    turns: new AlwaysStoppedAnimation(350 / 360),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 100),
-                        height: 174,
-                        width: 238,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(color: Colors.white, spreadRadius: 10)
-                          ],
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: FileImage(
-                              File(widget.img[0]),
-                            ),
+          SizedBox(
+            height: 389,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/product_announcement/image_background_success.png',
+                ),
+                RotationTransition(
+                  turns: AlwaysStoppedAnimation(350 / 360),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 100),
+                      height: 174,
+                      width: 238,
+                      decoration: BoxDecoration(
+                        boxShadow: const [BoxShadow(color: Colors.white, spreadRadius: 10)],
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: FileImage(
+                            File(widget.img[0]),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                Image.asset(
+                  'assets/images/product_announcement/background_with_stains.png',
+                ),
+              ],
             ),
           ),
           Padding(
@@ -89,7 +81,7 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
+                SizedBox(
                   height: 60,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -108,10 +100,7 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
                       onPressed: () {},
                       child: Text(
                         'Compartilhar',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600),
+                        style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w600),
                       )),
                 ),
               ],
@@ -124,7 +113,7 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
+                SizedBox(
                   height: 60,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -144,7 +133,7 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdScreen(
+                          builder: (context) => ProductAnnouncementPreviewScreen(
                             img: widget.img,
                           ),
                         ),
@@ -152,10 +141,7 @@ class _AdSuccessScreenState extends State<AdSuccessScreen> {
                     },
                     child: Text(
                       'Ver Anúncio',
-                      style: TextStyle(
-                          color: Color(0xFF4D0351),
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Color(0xFF4D0351), fontSize: 23, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

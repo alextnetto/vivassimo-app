@@ -54,8 +54,10 @@ flutter_icons:
 flutter:
   assets:
     - assets/images/
+    - assets/images/announcement/
     - assets/images/stores/
     - assets/icon/
+    - assets/icon/payment_methods_icons/
     - assets/logos/
     - assets/backgrounds/
     - assets/products_type/

@@ -9,7 +9,7 @@ abstract class ILoginUsecase {
 
 class LoginUsecase implements ILoginUsecase {
   final ILoginRepository loginRepository;
-  final ICacheUsecase cacheUsecase;
+  final ICacheUsecase cacheUsecase; 
 
   LoginUsecase(this.loginRepository, this.cacheUsecase);
 
@@ -18,7 +18,6 @@ class LoginUsecase implements ILoginUsecase {
     var resultModel = await loginRepository.login(loginRequestModel);
 
     return resultModel.fold((left) {
-      // if (l is LoginTimeoutError || l is LoginTimeoutError) {
       return LoginResponseModel(success: false, message: left.message);
     }, (right) {
       cacheUsecase.setCache("user_token", right.token);

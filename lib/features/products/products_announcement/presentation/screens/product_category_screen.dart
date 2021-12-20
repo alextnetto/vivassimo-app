@@ -52,53 +52,48 @@ class _ProductAnnouncementCategoryScreenState extends State<ProductAnnouncementC
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 95,
-                  // padding: const EdgeInsets.only(top: 25),
-                  decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
-                  child: Column(
-                    children: const [
-                      AppBarDefaultWidget(title: 'Anunciar'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LinearProgressBar(textIndicator: '1/4', percentageValue: 0.25),
-                    ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 120,
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+              child: Column(
+                children: const [
+                  AppBarDefaultWidget(title: 'Anunciar'),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  padding: const EdgeInsets.symmetric(horizontal: 65),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Escolha a categoria do seu produto',
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.defaultTextStyleTitleBig,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                for (int index = 1; index <= items.length - 1; index++)
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed('/product/products_announcement/product_announcement', arguments: {
-                          'model': CategoryAnnouncementEntity(productCategory: items[index].text),
-                        });
-                      },
-                      child: buildCategoryCard(index)),
-              ],
+                  LinearProgressBar(textIndicator: '1/8', percentageValue: 0.125),
+                ],
+              ),
             ),
-          ),
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 65),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Escolha a categoria do seu produto',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.defaultTextStyleTitleBig,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            for (int index = 1; index <= items.length - 1; index++)
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_info', arguments: {
+                      'model': CategoryAnnouncementEntity(productCategory: items[index].text),
+                    });
+                  },
+                  child: buildCategoryCard(index)),
+            SizedBox(height: 20)
+          ],
         ),
       ),
     );

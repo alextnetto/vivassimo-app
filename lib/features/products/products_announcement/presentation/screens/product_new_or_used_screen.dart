@@ -33,7 +33,7 @@ class _ProductNewOrUsedScreenState extends State<ProductNewOrUsedScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                LinearProgressBar(textIndicator: '3/8', percentageValue: 0.5),
+                LinearProgressBar(textIndicator: '3/8', percentageValue: 0.375),
               ],
             ),
           ),
