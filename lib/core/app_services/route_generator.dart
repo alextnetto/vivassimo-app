@@ -18,7 +18,7 @@ import 'package:my_app/features/register/presentation/screens/register_terms_scr
 import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
-import 'package:my_app/pages/register/cpf_page.dart';
+import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
 import 'package:my_app/pages/register/register_2.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import '../../home_page.dart';
@@ -121,7 +121,10 @@ class RouteGenerator {
 
       case '/register/cpf':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => CpfScreen());
+        return MaterialPageRoute(
+            builder: (_) => CpfScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/address1':
         // if (args is String) {

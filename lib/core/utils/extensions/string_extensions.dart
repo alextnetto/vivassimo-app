@@ -1,3 +1,4 @@
+import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:email_validator/email_validator.dart';
 
 extension StringExtension on String {
@@ -12,5 +13,9 @@ extension StringExtension on String {
 
   bool get isValidEmail {
     return EmailValidator.validate(this);
+  }
+
+  bool get isValidCpf {
+    return CPFValidator.isValid(this);
   }
 }
