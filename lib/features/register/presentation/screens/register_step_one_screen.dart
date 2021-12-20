@@ -9,7 +9,7 @@ import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
-import 'package:my_app/features/register/presentation/stores/register_store.dart';
+import 'package:my_app/features/register/presentation/stores/register_step_one_store.dart';
 import 'package:my_app/features/register/register_module.dart';
 
 class RegisterStepOneScreen extends StatefulWidget {

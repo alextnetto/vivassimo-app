@@ -4,7 +4,7 @@ import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
-part 'register_store.g.dart';
+part 'register_step_one_store.g.dart';
 
 class RegisterStepOneStore = _RegisterStepOneStoreBase
     with _$RegisterStepOneStore;

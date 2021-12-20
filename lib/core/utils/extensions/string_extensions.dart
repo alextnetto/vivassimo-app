@@ -1,5 +1,6 @@
 import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:intl/intl.dart';
 
 extension StringExtension on String {
   bool get isStrongPassword {
@@ -17,5 +18,18 @@ extension StringExtension on String {
 
   bool get isValidCpf {
     return CPFValidator.isValid(this);
+  }
+
+  bool get isValidBirthday {
+    String datePattern = "dd/MM/yyyy";
+
+    DateTime birthDate = DateFormat(datePattern).parse(this);
+
+    DateTime today = DateTime.now();
+
+    if (birthDate.isAfter(today) || birthDate.year < 1900) {
+      return false;
+    }
+    return true;
   }
 }

@@ -19,7 +19,7 @@ import 'package:my_app/features/services/services_purchase/presentation/screens/
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
 import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
-import 'package:my_app/pages/register/register_2.dart';
+import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
 import 'package:my_app/pages/register/register_finished.dart';
 import '../../home_page.dart';
 
@@ -110,7 +110,10 @@ class RouteGenerator {
 
       case '/register/2':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => RegisterStepTwoScreen());
+        return MaterialPageRoute(
+            builder: (_) => RegisterStepTwoScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/password':
         // if (args is String) {
