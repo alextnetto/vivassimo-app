@@ -31,7 +31,6 @@ class PasswordScreenState extends State<PasswordScreen> {
   void initState() {
     initModule(RegisterModule());
     passwordStore = Modular.get<PasswordStore>();
-
     super.initState();
   }
 
@@ -153,13 +152,26 @@ class PasswordScreenState extends State<PasswordScreen> {
               tag: 'registerButtonConfirm',
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: ButtonConfirm(
-                  label: 'Continuar',
-                  primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
-                  borderColor: VivassimoTheme.white,
-                  onPressed: () async {},
-                ),
+                child: Observer(builder: (_) {
+                  return ButtonConfirm(
+                    label: 'Continuar',
+                    primary: VivassimoTheme.green,
+                    onPrimary: VivassimoTheme.white,
+                    borderColor: VivassimoTheme.white,
+                    onPressed: passwordStore!.enableButton
+                        ? () {
+                            Navigator.pushNamed(
+                              context,
+                              '/register/cpf',
+                              arguments: {
+                                'registerUserRequestModel':
+                                    registerUserRequestModel
+                              },
+                            );
+                          }
+                        : null,
+                  );
+                }),
               ),
             ),
           ],

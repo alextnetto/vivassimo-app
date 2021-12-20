@@ -42,6 +42,14 @@ abstract class _PasswordStoreBase with Store {
   }
 
   @computed
+  bool get enableButton {
+    return getPasswordError == null &&
+        getPasswordConfirmationError == null &&
+        hasChangedPassword &&
+        hasChangedPasswordConfirmation;
+  }
+
+  @computed
   String? get getPasswordError {
     if (!hasChangedPassword) {
       return null;
