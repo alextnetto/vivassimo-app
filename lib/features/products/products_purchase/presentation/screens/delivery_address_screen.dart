@@ -117,19 +117,27 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     primary: Color(0xFFFFB640),
                   ),
                 ),
-                Container(
-                  height: 60,
-                  margin: const EdgeInsets.only(top: 45),
-                  child: CustomButton1(
-                    borderColor: Color(0xFFB4D8D8),
-                    label: 'Excluir um Endereço',
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/products/products_purchase/delete_delivery_address');
-                    },
-                    onPrimary: Color(0XFF4D0351),
-                    primary: Color(0xFFE9F3F4),
-                  ),
-                ),
+                Observer(builder: (_) {
+                  if (deliveryStore!.deliveryAddresses.isNotEmpty) {
+                    return Container(
+                      height: 60,
+                      margin: const EdgeInsets.only(top: 45),
+                      child: CustomButton1(
+                        borderColor: Color(0xFFB4D8D8),
+                        label: 'Excluir um Endereço',
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed('/products/products_purchase/delete_delivery_address', arguments: {
+                            'deliveryStore': deliveryStore,
+                          });
+                        },
+                        onPrimary: Color(0XFF4D0351),
+                        primary: Color(0xFFE9F3F4),
+                      ),
+                    );
+                  }
+                  return Container();
+                }),
               ],
             ),
           ),

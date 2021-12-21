@@ -4,7 +4,7 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 
 class ModalBottomSheetDeleteComponentWidget {
-  static showModalDeleteComponent({
+  static Future<void> showModalDeleteComponent({
     required BuildContext context,
     required String deleteMessage,
     required String confirmButtomText,

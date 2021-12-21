@@ -25,6 +25,8 @@ class NewDeliveryAddressScreen extends StatefulWidget {
 class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
   DeliveryAddressStore get deliveryStore => widget.deliveryStore;
 
+  FocusNode numberNode = FocusNode();
+
   NewDeliveryAddressStore newAddressStore = Modular.get<NewDeliveryAddressStore>();
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,9 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                           LoadingIndicator.show(context);
                           newAddressStore.getAddressByCep(value, context).then((value) {
                             LoadingIndicator.hide(context);
+                            if (newAddressStore.isValidCep) {
+                              numberNode.requestFocus();
+                            }
                           });
                         }
                         newAddressStore.setCep(value);
@@ -97,6 +102,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                       onChanged: newAddressStore.setNumber,
                       label: 'Número',
                       errorText: newAddressStore.getNumberError,
+                      focusNode: numberNode,
                     );
                   }),
                   SizedBox(height: 16),
@@ -170,7 +176,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                             uf: newAddressStore.uf,
                             complement: newAddressStore.complement,
                           ));
-                          
+
                           Navigator.of(context).pop();
                         }
                       : null,

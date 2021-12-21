@@ -31,25 +31,28 @@ class AddressCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                streetAndNumber,
-                style: customTextStyle(FontWeight.w600, 18, Colors.white),
-              ),
-              Text(
-                cityAndState,
-                style: customTextStyle(FontWeight.w600, 18, Colors.white),
-              ),
-              Text(
-                cep,
-                style: customTextStyle(FontWeight.w600, 18, Colors.white),
-              ),
-            ],
+          Expanded(
+            flex: 8,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  streetAndNumber,
+                  style: customTextStyle(FontWeight.w600, 18, Colors.white),
+                ),
+                Text(
+                  cityAndState,
+                  style: customTextStyle(FontWeight.w600, 18, Colors.white),
+                ),
+                Text(
+                  cep,
+                  style: customTextStyle(FontWeight.w600, 18, Colors.white),
+                ),
+              ],
+            ),
           ),
-          SizedBox(child: Image.asset(checkIconPath)),
+          Expanded(flex: 2, child: SizedBox(child: Image.asset(checkIconPath))),
         ],
       ),
     );

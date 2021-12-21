@@ -82,6 +82,17 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
   }
 
   @override
+  dynamic removeDeliveryAddress(DeliveryAddressEntity addressEntity) {
+    final _$actionInfo = _$_DeliveryAddressStoreBaseActionController
+        .startAction(name: '_DeliveryAddressStoreBase.removeDeliveryAddress');
+    try {
+      return super.removeDeliveryAddress(addressEntity);
+    } finally {
+      _$_DeliveryAddressStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 selectedDeliveryAddressId: ${selectedDeliveryAddressId},

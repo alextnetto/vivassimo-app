@@ -49,4 +49,9 @@ abstract class _DeliveryAddressStoreBase with Store {
   addDeliveryAddress(DeliveryAddressEntity addressEntity) {
     deliveryAddresses.add(addressEntity);
   }
+
+  @action
+  removeDeliveryAddress(DeliveryAddressEntity addressEntity) {
+    deliveryAddresses.remove(addressEntity);
+  }
 }

@@ -76,7 +76,7 @@ class RouteGenerator {
 
       case '/products/products_purchase/delete_delivery_address':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => DeleteDeliveryAddressScreen());
+        return MaterialPageRoute(builder: (_) => DeleteDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
 
       case '/products/products_purchase/shipping_method':
         // if (args is String) {

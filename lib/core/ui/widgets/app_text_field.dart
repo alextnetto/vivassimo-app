@@ -16,6 +16,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyBoardType;
   final TextAlign textAlign;
+  final FocusNode? focusNode;
 
   const AppTextField({
     required this.label,
@@ -29,12 +30,14 @@ class AppTextField extends StatelessWidget {
     this.controller,
     this.keyBoardType,
     this.textAlign = TextAlign.center,
+    this.focusNode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: obscureText,
+      focusNode: focusNode,
       keyboardType: keyBoardType,
       controller: controller,
       onChanged: onChanged,
