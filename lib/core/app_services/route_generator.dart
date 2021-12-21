@@ -80,11 +80,18 @@ class RouteGenerator {
 
       case '/products/products_purchase/shipping_method':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ShippingMethodScreen());
+        return MaterialPageRoute(
+          builder: (_) => ShippingMethodScreen(
+            productPurchaseRequestModel: args['productPurchaseRequestModel'],
+          ),
+        );
 
       case '/products/products_purchase/payment_method':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => PaymentMethodScreen());
+        return MaterialPageRoute(
+            builder: (_) => PaymentMethodScreen(
+                  productPurchaseRequestModel: args['productPurchaseRequestModel'],
+                ));
 
       case '/products/products_purchase/delete_payment_method':
         // if (args is String) {
@@ -92,7 +99,10 @@ class RouteGenerator {
 
       case '/products/products_purchase/product_purchase_details':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductPurchaseDetailsScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProductPurchaseDetailsScreen(
+                  productPurchaseRequestModel: args['productPurchaseRequestModel'],
+                ));
 
       case '/products/products_purchase/product_purchase_success':
         // if (args is String) {

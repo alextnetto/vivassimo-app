@@ -3,12 +3,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/entities/delivery_address_entity.dart';
+import 'package:my_app/core/entities/product_entity.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
 import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
 import 'package:my_app/features/products/products_purchase/presentation/widgets/address_card_widget.dart';
 
@@ -93,7 +95,8 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     for (int index = 1; index <= deliveryStore!.deliveryAddresses.length; index++)
                       GestureDetector(
                         onTap: () {
-                          deliveryStore!.setSelectedDeliveryAddressId(index);
+                          // deliveryStore!.setSelectedDeliveryAddressId(index);
+                          deliveryStore!.setSelectedDeliveryAddress(deliveryStore!.deliveryAddresses[index - 1].id);
                         },
                         child: buildAddressCard(deliveryStore!.deliveryAddresses[index - 1]),
                       ),
@@ -138,7 +141,19 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
               textColor: VivassimoTheme.white,
               borderColor: VivassimoTheme.greenBorderColor,
               onPressed: () {
-                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method');
+                //TODO: Mockado
+                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method', arguments: {
+                  'productPurchaseRequestModel': ProductPurchaseRequestModel(
+                    productEntity: ProductEntity(
+                      id: 1,
+                      ownerName: 'Glória Maria',
+                      name: 'Bolo Caseiro de Cholocate',
+                      value: 29.90,
+                    ),
+                    deliveryAddressEntity: deliveryStore!.deliveryAddressEntity,
+                    totalPurchase: 29.90,
+                  )
+                });
               },
             ),
           ),
@@ -151,7 +166,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return AddressCardWidget(
       streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
       cep: '${deliveryAddress.cep}',
-      checkIconPath: deliveryAddress.id == deliveryStore!.selectedDeliveryAddressId
+      checkIconPath: deliveryAddress.id == deliveryStore!.deliveryAddressEntity!.id
           ? 'assets/icon/checked_icon.png'
           : 'assets/icon/unchecked_icon.png',
       cityAndState: 'Centro - São Paulo/SP',

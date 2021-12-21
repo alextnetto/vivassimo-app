@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:my_app/core/entities/delivery_address_entity.dart';
+import 'package:my_app/core/entities/product_entity.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products/products_purchase/domain/entities/payment_method_entity.dart';
+import 'package:my_app/features/products/products_purchase/domain/entities/shipping_method_entity.dart';
+import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
 
 class ProductPurchaseDetailsScreen extends StatefulWidget {
-  const ProductPurchaseDetailsScreen({Key? key}) : super(key: key);
+  final ProductPurchaseRequestModel productPurchaseRequestModel;
+
+  const ProductPurchaseDetailsScreen({Key? key, required this.productPurchaseRequestModel}) : super(key: key);
 
   @override
   _ProductPurchaseDetailsScreenState createState() => _ProductPurchaseDetailsScreenState();
 }
 
 class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScreen> {
+  ProductPurchaseRequestModel get productPurchaseRequestModel => widget.productPurchaseRequestModel;
+  ProductEntity get productEntity => productPurchaseRequestModel.productEntity!;
+  DeliveryAddressEntity get addressEntity => productPurchaseRequestModel.deliveryAddressEntity!;
+  ShippingMethodEntity get shippingEntity => productPurchaseRequestModel.shippingMethodEntity!;
+  PaymentMethodEntity get paymentEntity => productPurchaseRequestModel.paymentMethodEntity!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +75,10 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Bolo Caseiro de Chocolate', style: AppTextStyles.defaultTextStyleTitleMiddleBold),
+                  Text(productPurchaseRequestModel.productEntity!.name ?? '',
+                      style: AppTextStyles.defaultTextStyleTitleMiddleBold),
                   Text(
-                    'Vendido e Entregue por Glória Maria',
+                    'Vendido e Entregue por ${productEntity.ownerName}',
                     style: AppTextStyles.defaultTextStyleTitleSmall600,
                   ),
                   Container(
@@ -72,23 +86,30 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('R\$ 29,90', style: AppTextStyles.defaultTextStyleTitleSmall600),
+                        Text('R\$ ${productEntity.value!.toStringAsFixed(2)}',
+                            style: AppTextStyles.defaultTextStyleTitleSmall600),
                         RichText(
                           text: TextSpan(
-                            text: 'Entrega via PAC:',
+                            text: 'Entrega via ${shippingEntity.name}:',
                             style: AppTextStyles.defaultTextStyleTitleSmall600,
                             children: <TextSpan>[
-                              TextSpan(text: ' Grátis', style: customTextStyle(FontWeight.w600, 18, Color(0XFF22AB86)))
+                              TextSpan(
+                                  text: shippingEntity.value! > 0
+                                      ? ' R\$ ${shippingEntity.value!.toStringAsFixed(2)}'
+                                      : ' Grátis',
+                                  style: customTextStyle(FontWeight.w600, 18, Color(0XFF22AB86)))
                             ],
                           ),
                         ),
                         SizedBox(height: 20),
                         Text(
-                          'Total: R\$ 29,90',
+                          'Total: R\$ ${(productEntity.value! + shippingEntity.value!).toStringAsFixed(2)}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          '1 Parcela de R\$ 29,90',
+                          paymentEntity.installments! > 1
+                              ? '${paymentEntity.installments!} Parcelas de R\$ ${paymentEntity.installmentAmount!.toStringAsFixed(2)}'
+                              : '1 Parcela de R\$ ${productEntity.value!.toStringAsFixed(2)}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         SizedBox(height: 20),
@@ -106,7 +127,7 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                               ),
                               SizedBox(width: 15),
                               Text(
-                                'Matercard ****4555',
+                                'Matercard ****${paymentEntity.name}',
                                 style: AppTextStyles.defaultTextStyleTitleSmall600,
                               )
                             ],
@@ -118,19 +139,19 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          'Av. Paulista, 930',
+                          '${addressEntity.street}, ${addressEntity.number}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          'Centro - São Paulo/SP',
+                          '${addressEntity.neighborhood} - ${addressEntity.city}/${addressEntity.uf}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          'CEP: 064.65-134',
+                          'CEP: ${addressEntity.cep}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          'Em frente a farmácia',
+                          '${addressEntity.complement}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                       ],

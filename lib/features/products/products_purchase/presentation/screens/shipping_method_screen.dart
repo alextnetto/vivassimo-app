@@ -7,17 +7,29 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/shipping_method_card.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
 import 'package:my_app/features/products/products_purchase/presentation/stores/shipping_method_store.dart';
 
 class ShippingMethodScreen extends StatefulWidget {
-  const ShippingMethodScreen({Key? key}) : super(key: key);
+  final ProductPurchaseRequestModel productPurchaseRequestModel;
+  const ShippingMethodScreen({Key? key, required this.productPurchaseRequestModel}) : super(key: key);
 
   @override
   _ShippingMethodScreenState createState() => _ShippingMethodScreenState();
 }
 
 class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
+  ProductPurchaseRequestModel get productPurchaseRequestModel => widget.productPurchaseRequestModel;
+
   ShippingMethodStore shippingStore = Modular.get<ShippingMethodStore>();
+
+  @override
+  void initState() {
+    shippingStore.setTotalPurchase(productPurchaseRequestModel.totalPurchase!);
+    shippingStore.totalPurchaseProduct = productPurchaseRequestModel.totalPurchase!;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +113,10 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Total', style: customTextStyle(FontWeight.w600, 18, Color(0XFF4D0351))),
-                  Text('R\$ 29,90', style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351))),
+                  Observer(builder: (_) {
+                    return Text('R\$ ${shippingStore.totalPurchase.toStringAsFixed(2)}',
+                        style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351)));
+                  }),
                 ],
               ),
             ),
@@ -118,7 +133,12 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
                   textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.greenBorderColor,
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/products/products_purchase/payment_method');
+                    productPurchaseRequestModel.shippingMethodEntity = shippingStore.shippingMethodEntity;
+                    productPurchaseRequestModel.totalPurchase = shippingStore.totalPurchase;
+
+                    Navigator.of(context).pushNamed('/products/products_purchase/payment_method', arguments: {
+                      'productPurchaseRequestModel': productPurchaseRequestModel,
+                    });
                   },
                 );
               }),

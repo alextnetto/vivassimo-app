@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DropdownListWidget extends StatelessWidget {
-  final String storeValue;
-  final List<String> contentList;
-  final Function(String? value) onChanged;
+import '../app_style.dart';
+
+class DropdownListWithModelWidget extends StatelessWidget {
+  final dynamic storeValue;
+  // final List<String> contentList;
+  final List<dynamic> contentList;
+  final Function(dynamic value) onChanged;
   final String? labelText;
   final Color? fillCollor;
   final TextStyle? contentStyle;
   final Widget? icon;
 
-  const DropdownListWidget({
+  const DropdownListWithModelWidget({
     Key? key,
     required this.storeValue,
     required this.contentList,
@@ -31,7 +34,7 @@ class DropdownListWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2.0,
-                color: Color(0XFF006633),
+                color: VivassimoTheme.purpleActive,
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
@@ -41,22 +44,22 @@ class DropdownListWidget extends StatelessWidget {
           ),
           // isEmpty: _currentSelectedValue == '',
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: storeValue,
+            child: DropdownButton<dynamic>(
+              value: storeValue.name,
               isDense: true,
               style: contentStyle,
               dropdownColor: fillCollor,
               icon: icon,
               // isExpanded: true,
               // style: ,
-              onChanged: (String? value) {
+              onChanged: (dynamic value) {
                 onChanged(value);
-                state.didChange(value);
+                state.didChange(value.name);
               },
-              items: contentList.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
+              items: contentList.map((dynamic value) {
+                return DropdownMenuItem<dynamic>(
+                  value: value.name,
+                  child: Text(value.name),
                 );
               }).toList(),
             ),

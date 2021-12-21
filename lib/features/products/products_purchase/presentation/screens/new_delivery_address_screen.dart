@@ -161,15 +161,16 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                   onPressed: newAddressStore.enableButton
                       ? () {
                           deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
-                            id: 2,
+                            id: deliveryStore.deliveryAddresses.length + 1,
                             cep: newAddressStore.cep,
                             city: newAddressStore.city,
                             neighborhood: newAddressStore.neighborhood,
                             number: newAddressStore.number,
                             street: newAddressStore.address,
                             uf: newAddressStore.uf,
+                            complement: newAddressStore.complement,
                           ));
-                          print('sdjfiosdj');
+                          
                           Navigator.of(context).pop();
                         }
                       : null,

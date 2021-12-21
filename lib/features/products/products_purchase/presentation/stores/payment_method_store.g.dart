@@ -16,6 +16,29 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
           Computed<num>(() => super.getInstallmentAmount,
               name: '_PaymentMethodStoreBase.getInstallmentAmount'))
       .value;
+  Computed<bool>? _$enableButtonComputed;
+
+  @override
+  bool get enableButton =>
+      (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
+              name: '_PaymentMethodStoreBase.enableButton'))
+          .value;
+
+  final _$creditCardSelectedAtom =
+      Atom(name: '_PaymentMethodStoreBase.creditCardSelected');
+
+  @override
+  PaymentMethodEntity? get creditCardSelected {
+    _$creditCardSelectedAtom.reportRead();
+    return super.creditCardSelected;
+  }
+
+  @override
+  set creditCardSelected(PaymentMethodEntity? value) {
+    _$creditCardSelectedAtom.reportWrite(value, super.creditCardSelected, () {
+      super.creditCardSelected = value;
+    });
+  }
 
   final _$purchaseValueAtom =
       Atom(name: '_PaymentMethodStoreBase.purchaseValue');
@@ -114,10 +137,12 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
   @override
   String toString() {
     return '''
+creditCardSelected: ${creditCardSelected},
 purchaseValue: ${purchaseValue},
 installment: ${installment},
 paymentMethod: ${paymentMethod},
-getInstallmentAmount: ${getInstallmentAmount}
+getInstallmentAmount: ${getInstallmentAmount},
+enableButton: ${enableButton}
     ''';
   }
 }

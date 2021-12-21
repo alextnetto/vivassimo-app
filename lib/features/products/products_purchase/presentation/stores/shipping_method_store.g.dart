@@ -25,8 +25,74 @@ mixin _$ShippingMethodStore on _ShippingMethodStoreBase, Store {
     });
   }
 
+  final _$shippingMethodEntityAtom =
+      Atom(name: '_ShippingMethodStoreBase.shippingMethodEntity');
+
+  @override
+  ShippingMethodEntity? get shippingMethodEntity {
+    _$shippingMethodEntityAtom.reportRead();
+    return super.shippingMethodEntity;
+  }
+
+  @override
+  set shippingMethodEntity(ShippingMethodEntity? value) {
+    _$shippingMethodEntityAtom.reportWrite(value, super.shippingMethodEntity,
+        () {
+      super.shippingMethodEntity = value;
+    });
+  }
+
+  final _$totalPurchaseAtom =
+      Atom(name: '_ShippingMethodStoreBase.totalPurchase');
+
+  @override
+  num get totalPurchase {
+    _$totalPurchaseAtom.reportRead();
+    return super.totalPurchase;
+  }
+
+  @override
+  set totalPurchase(num value) {
+    _$totalPurchaseAtom.reportWrite(value, super.totalPurchase, () {
+      super.totalPurchase = value;
+    });
+  }
+
   final _$_ShippingMethodStoreBaseActionController =
       ActionController(name: '_ShippingMethodStoreBase');
+
+  @override
+  dynamic setTotalPurchase(num value) {
+    final _$actionInfo = _$_ShippingMethodStoreBaseActionController.startAction(
+        name: '_ShippingMethodStoreBase.setTotalPurchase');
+    try {
+      return super.setTotalPurchase(value);
+    } finally {
+      _$_ShippingMethodStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic calculateShippingPrice(num price) {
+    final _$actionInfo = _$_ShippingMethodStoreBaseActionController.startAction(
+        name: '_ShippingMethodStoreBase.calculateShippingPrice');
+    try {
+      return super.calculateShippingPrice(price);
+    } finally {
+      _$_ShippingMethodStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setShippingMethodEntity(int value) {
+    final _$actionInfo = _$_ShippingMethodStoreBaseActionController.startAction(
+        name: '_ShippingMethodStoreBase.setShippingMethodEntity');
+    try {
+      return super.setShippingMethodEntity(value);
+    } finally {
+      _$_ShippingMethodStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setShippingMethodType(String value) {
@@ -42,7 +108,9 @@ mixin _$ShippingMethodStore on _ShippingMethodStoreBase, Store {
   @override
   String toString() {
     return '''
-shippingMethodType: ${shippingMethodType}
+shippingMethodType: ${shippingMethodType},
+shippingMethodEntity: ${shippingMethodEntity},
+totalPurchase: ${totalPurchase}
     ''';
   }
 }

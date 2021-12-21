@@ -8,7 +8,7 @@ class AppButton extends StatelessWidget {
   final Color textColor;
   final Color buttonColor;
   final Color borderColor;
-  final Function() onPressed;
+  final Function()? onPressed;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
 

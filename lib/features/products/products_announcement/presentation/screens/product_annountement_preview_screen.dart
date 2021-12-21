@@ -44,7 +44,7 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                 padding: const EdgeInsets.only(top: 8),
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 272,
                       width: MediaQuery.of(context).size.width,
                       child: Image.file(
