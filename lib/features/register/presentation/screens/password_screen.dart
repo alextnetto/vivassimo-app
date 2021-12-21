@@ -160,6 +160,9 @@ class PasswordScreenState extends State<PasswordScreen> {
                     borderColor: VivassimoTheme.white,
                     onPressed: passwordStore!.enableButton
                         ? () {
+                            registerUserRequestModel.password =
+                                passwordStore!.password;
+
                             Navigator.pushNamed(
                               context,
                               '/register/cpf',

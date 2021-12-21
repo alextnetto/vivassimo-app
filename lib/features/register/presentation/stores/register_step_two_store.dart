@@ -12,7 +12,7 @@ abstract class _RegisterStepTwoStoreBase with Store {
 
   _RegisterStepTwoStoreBase(this.registerUsecase);
 
-  var birthdayFormatter = MaskTextInputFormatter(
+  var dataNascimentoFormatter = MaskTextInputFormatter(
     mask: '##/##/####',
     filter: {
       "#": RegExp(r'[0-9]'),
@@ -29,13 +29,13 @@ abstract class _RegisterStepTwoStoreBase with Store {
   bool hasChangedDataNascimento = false;
 
   @action
-  setBrithday(String value) {
+  setDataNascimento(String value) {
     hasChangedDataNascimento = true;
     return dataNascimento = value;
   }
 
   @action
-  setGender(String? value) {
+  setGenero(String? value) {
     return genero = value!;
   }
 
@@ -43,7 +43,7 @@ abstract class _RegisterStepTwoStoreBase with Store {
   bool get enableButton {
     return getDataNascimentoError == null &&
         hasChangedDataNascimento &&
-        genero.isEmpty;
+        genero.isNotEmpty;
   }
 
   @computed
@@ -52,7 +52,7 @@ abstract class _RegisterStepTwoStoreBase with Store {
       return null;
     } else if (dataNascimento.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (dataNascimento.isValidBirthday) {
+    } else if (!dataNascimento.isValidBirthday) {
       return 'Data inválida';
     }
 

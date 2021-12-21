@@ -21,15 +21,17 @@ extension StringExtension on String {
   }
 
   bool get isValidBirthday {
-    String datePattern = "dd/MM/yyyy";
+    try {
+      String datePattern = "dd/MM/yyyy";
+      DateTime birthDate = DateFormat(datePattern).parse(this);
+      DateTime today = DateTime.now();
 
-    DateTime birthDate = DateFormat(datePattern).parse(this);
-
-    DateTime today = DateTime.now();
-
-    if (birthDate.isAfter(today) || birthDate.year < 1900) {
+      if (birthDate.isAfter(today) || birthDate.year < 1900) {
+        return false;
+      }
+      return true;
+    } on FormatException {
       return false;
     }
-    return true;
   }
 }

@@ -5,7 +5,6 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
-import 'package:my_app/models/register/user.dart';
 import 'package:my_app/services/backend.dart';
 
 class EstadoScreen extends StatelessWidget {
@@ -103,10 +102,8 @@ class EstadoFormState extends State<EstadoForm> {
                   height: 90,
                   // TODO: Select for estados
                   child: TextFormField(
-                    initialValue: RegisterUser.instance.estado,
-                    onSaved: (value) {
-                      RegisterUser.instance.estado = value;
-                    },
+                    initialValue: '',
+                    onSaved: (value) {},
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Campo vazio';
@@ -127,10 +124,6 @@ class EstadoFormState extends State<EstadoForm> {
                   height: 90,
                   // TODO: Select for cidades
                   child: TextFormField(
-                    initialValue: RegisterUser.instance.cidade,
-                    onSaved: (value) {
-                      RegisterUser.instance.cidade = value;
-                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Campo vazio';
@@ -153,10 +146,6 @@ class EstadoFormState extends State<EstadoForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: RegisterUser.instance.bairro,
-              onSaved: (value) {
-                RegisterUser.instance.bairro = value;
-              },
               decoration: customInputDecoration1('Digite aqui o bairro'),
               textAlign: TextAlign.center,
               style: customTextStyle(
@@ -171,10 +160,6 @@ class EstadoFormState extends State<EstadoForm> {
             height: 90,
             // TODO: Select for logradouro
             child: TextFormField(
-              initialValue: RegisterUser.instance.logradouro,
-              onSaved: (value) {
-                RegisterUser.instance.logradouro = value;
-              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo vazio';
@@ -194,10 +179,6 @@ class EstadoFormState extends State<EstadoForm> {
             width: 324,
             height: 90,
             child: TextFormField(
-              initialValue: RegisterUser.instance.numero,
-              onSaved: (value) {
-                RegisterUser.instance.numero = value;
-              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo vazio';
@@ -224,17 +205,19 @@ class EstadoFormState extends State<EstadoForm> {
                 onPrimary: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+                  // if (_formKey.currentState!.validate()) {
+                  //   _formKey.currentState!.save();
 
-                    LoadingIndicator.show(context);
-                    var response = await BackendService.instance.registerUser(RegisterUser.instance);
-                    LoadingIndicator.hide(context);
+                  //   LoadingIndicator.show(context);
+                  //   var response = await BackendService.instance
+                  //       .registerUser(RegisterUser.instance);
+                  //   LoadingIndicator.hide(context);
 
-                    if (response['valid']) {
-                      Navigator.of(context).pushNamed('/register/registerFinished');
-                    }
-                  }
+                  //   if (response['valid']) {
+                  //     Navigator.of(context)
+                  //         .pushNamed('/register/registerFinished');
+                  //   }
+                  // }
                 },
               ),
             ),

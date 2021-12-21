@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
@@ -8,7 +8,6 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/otp_store.dart';
-import 'package:my_app/services/backend.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpVerificationPage extends StatefulWidget {
@@ -26,18 +25,34 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   OtpStore? otpStore;
   String errorMessage = '';
 
-  validateOtp(String otp) async {
+  validateOtp() async {
     LoadingIndicator.show(context);
-    var response = await BackendService.instance
-        .verifyOtp(registerUserRequestModel.phoneNumber!, otp);
+    var response = await otpStore!.verifyOtp();
     LoadingIndicator.hide(context);
 
-    if (response['valid']) {
-      Navigator.pushNamed(context, '/register/password');
+    if (response.success) {
+      Navigator.pushNamed(
+        context,
+        '/register/password',
+        arguments: {'registerUserRequestModel': registerUserRequestModel},
+      );
     } else {
-      setState(() {
-        errorMessage = response['message'];
-      });
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Ops!'),
+          content: Text(response.message),
+          contentPadding: EdgeInsets.all(20),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -46,7 +61,29 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     otpStore = Modular.get<OtpStore>();
     otpStore!.setPhoneNumber(registerUserRequestModel.phoneNumber ?? '');
 
-    var response = otpStore!.sendOtp();
+    otpStore!.sendOtp().then(
+          (response) => {
+            if (!response.success)
+              {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Ops!'),
+                    content: Text(response.message),
+                    contentPadding: EdgeInsets.all(20),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                )
+              }
+          },
+        );
 
     super.initState();
   }
@@ -117,9 +154,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     keyboardType: TextInputType.number,
                     appContext: context,
                     length: 6,
-                    onChanged: (value) {},
+                    onChanged: otpStore!.setOtp,
                     onCompleted: (otp) async {
-                      validateOtp(otp);
+                      validateOtp();
                     },
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
@@ -159,13 +196,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   primary: VivassimoTheme.green,
                   onPrimary: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                      '/register/verifyOtp',
-                      arguments: {
-                        'registerUserRequestModel': registerUserRequestModel,
-                      },
-                    );
+                  onPressed: () async {
+                    await validateOtp();
                   },
                 ),
               ),

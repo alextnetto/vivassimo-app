@@ -81,10 +81,11 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                         child: Observer(builder: (_) {
                           return AppTextField(
                             label: 'Digite aqui a data',
-                            onChanged: registerStepTwoStore!.setBrithday,
-                            errorText: registerStepTwoStore!.getBirthdayError,
+                            onChanged: registerStepTwoStore!.setDataNascimento,
+                            errorText:
+                                registerStepTwoStore!.getDataNascimentoError,
                             inputFormatters: [
-                              registerStepTwoStore!.birthdayFormatter
+                              registerStepTwoStore!.dataNascimentoFormatter
                             ],
                           );
                         }),
@@ -138,7 +139,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                             child: Text(value),
                           );
                         }).toList(),
-                        onChanged: registerStepTwoStore!.setGender,
+                        onChanged: registerStepTwoStore!.setGenero,
                       ),
                     ),
                   ],
@@ -149,29 +150,31 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
               tag: 'registerButtonConfirm',
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: ButtonConfirm(
-                    label: 'Continuar',
-                    primary: VivassimoTheme.green,
-                    onPrimary: VivassimoTheme.white,
-                    borderColor: VivassimoTheme.white,
-                    onPressed: registerStepTwoStore!.enableButton
-                        ? () {
-                            registerUserRequestModel.genero =
-                                registerStepTwoStore!.genero;
-                            registerUserRequestModel.dataNascimento =
-                                registerStepTwoStore!.dataNascimento;
+                  child: Observer(builder: (_) {
+                    return ButtonConfirm(
+                      label: 'Continuar',
+                      primary: VivassimoTheme.green,
+                      onPrimary: VivassimoTheme.white,
+                      borderColor: VivassimoTheme.white,
+                      onPressed: registerStepTwoStore!.enableButton
+                          ? () {
+                              registerUserRequestModel.genero =
+                                  registerStepTwoStore!.genero;
+                              registerUserRequestModel.dataNascimento =
+                                  registerStepTwoStore!.dataNascimento;
 
-                            Navigator.pushNamed(
-                              context,
-                              '/register/address1',
-                              arguments: {
-                                'registerUserRequestModel':
-                                    registerUserRequestModel
-                              },
-                            );
-                          }
-                        : null,
-                  )),
+                              Navigator.pushNamed(
+                                context,
+                                '/register/address1',
+                                arguments: {
+                                  'registerUserRequestModel':
+                                      registerUserRequestModel
+                                },
+                              );
+                            }
+                          : null,
+                    );
+                  })),
             ),
           ],
         ),

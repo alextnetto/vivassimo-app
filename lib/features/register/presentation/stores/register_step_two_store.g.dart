@@ -76,22 +76,22 @@ mixin _$RegisterStepTwoStore on _RegisterStepTwoStoreBase, Store {
       ActionController(name: '_RegisterStepTwoStoreBase');
 
   @override
-  dynamic setBrithday(String value) {
+  dynamic setDataNascimento(String value) {
     final _$actionInfo = _$_RegisterStepTwoStoreBaseActionController
-        .startAction(name: '_RegisterStepTwoStoreBase.setBrithday');
+        .startAction(name: '_RegisterStepTwoStoreBase.setDataNascimento');
     try {
-      return super.setBrithday(value);
+      return super.setDataNascimento(value);
     } finally {
       _$_RegisterStepTwoStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setGender(String? value) {
+  dynamic setGenero(String? value) {
     final _$actionInfo = _$_RegisterStepTwoStoreBaseActionController
-        .startAction(name: '_RegisterStepTwoStoreBase.setGender');
+        .startAction(name: '_RegisterStepTwoStoreBase.setGenero');
     try {
-      return super.setGender(value);
+      return super.setGenero(value);
     } finally {
       _$_RegisterStepTwoStoreBaseActionController.endAction(_$actionInfo);
     }

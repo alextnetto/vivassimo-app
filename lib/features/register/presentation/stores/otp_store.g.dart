@@ -9,6 +9,14 @@ part of 'otp_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$OtpStore on _OtpStoreBase, Store {
+  Computed<bool>? _$isValidOtpComputed;
+
+  @override
+  bool get isValidOtp =>
+      (_$isValidOtpComputed ??= Computed<bool>(() => super.isValidOtp,
+              name: '_OtpStoreBase.isValidOtp'))
+          .value;
+
   final _$phoneNumberAtom = Atom(name: '_OtpStoreBase.phoneNumber');
 
   @override
@@ -68,7 +76,8 @@ mixin _$OtpStore on _OtpStoreBase, Store {
   String toString() {
     return '''
 phoneNumber: ${phoneNumber},
-otp: ${otp}
+otp: ${otp},
+isValidOtp: ${isValidOtp}
     ''';
   }
 }

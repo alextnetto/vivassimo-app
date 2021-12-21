@@ -17,7 +17,7 @@ import 'package:my_app/features/register/presentation/screens/register_step_one_
 import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
 import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
 import 'package:my_app/pages/register/address2_page.dart';
-import 'package:my_app/pages/register/address_1.dart';
+import 'package:my_app/features/register/presentation/screens/address_step_one_screen.dart';
 import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
 import 'package:my_app/pages/register/register_finished.dart';
@@ -80,10 +80,6 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => ProductPurchaseSuccessScreen());
 
-      case '/register/address2':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => EstadoScreen());
-
       case '/product/product-details':
         // if (args is String) {
         return MaterialPageRoute(
@@ -97,21 +93,14 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => TermsScreen());
 
-      case '/register/verifyOtp':
-        // if (args is String) {
-        return MaterialPageRoute(
-            builder: (_) => OtpVerificationPage(
-                  registerUserRequestModel: args['registerUserRequestModel'],
-                ));
-
       case '/register/1':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => RegisterStepOneScreen());
 
-      case '/register/2':
+      case '/register/verifyOtp':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => RegisterStepTwoScreen(
+            builder: (_) => OtpVerificationPage(
                   registerUserRequestModel: args['registerUserRequestModel'],
                 ));
 
@@ -129,9 +118,23 @@ class RouteGenerator {
                   registerUserRequestModel: args['registerUserRequestModel'],
                 ));
 
+      case '/register/2':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => RegisterStepTwoScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
+
       case '/register/address1':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => AddressStepOneScreen());
+        return MaterialPageRoute(
+            builder: (_) => AddressStepOneScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
+
+      case '/register/address2':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => EstadoScreen());
 
       case '/register/registerFinished':
         // if (args is String) {
