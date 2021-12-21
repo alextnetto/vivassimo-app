@@ -11,8 +11,8 @@ import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/utils/constants/constants.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/new_delivery_address_store.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/delivery_address_store.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/new_delivery_address_store.dart';
 
 class NewDeliveryAddressScreen extends StatefulWidget {
   final DeliveryAddressStore deliveryStore;

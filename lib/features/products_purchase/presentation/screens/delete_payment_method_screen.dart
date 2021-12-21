@@ -6,7 +6,7 @@ import 'package:my_app/core/ui/components/modal_bottom_sheet_delete_component.da
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/delete_payment_method_store.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/delete_payment_method_store.dart';
 
 class DeletePaymentMethodScreen extends StatefulWidget {
   const DeletePaymentMethodScreen({Key? key}) : super(key: key);

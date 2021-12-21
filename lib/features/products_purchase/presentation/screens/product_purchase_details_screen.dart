@@ -7,9 +7,9 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products/products_purchase/domain/entities/payment_method_entity.dart';
-import 'package:my_app/features/products/products_purchase/domain/entities/shipping_method_entity.dart';
-import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
+import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
+import 'package:my_app/features/products_purchase/domain/entities/shipping_method_entity.dart';
+import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
 
 class ProductPurchaseDetailsScreen extends StatefulWidget {
   final ProductPurchaseRequestModel productPurchaseRequestModel;

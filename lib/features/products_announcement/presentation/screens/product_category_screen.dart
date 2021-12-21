@@ -3,7 +3,7 @@ import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
-import 'package:my_app/features/products/products_announcement/presentation/widgets/category_item_widget.dart';
+import 'package:my_app/features/products_announcement/presentation/widgets/category_item_widget.dart';
 import '../../products_announcement_module.dart';
 import 'model.dart';
 

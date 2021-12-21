@@ -5,7 +5,7 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/utils/formatters/currency_pt_br_input_formatter.dart';
-import 'package:my_app/features/products/products_announcement/presentation/screens/product_announcement_delivery_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_delivery_screen.dart';
 
 class ProductValueScreen extends StatefulWidget {
   final List img;

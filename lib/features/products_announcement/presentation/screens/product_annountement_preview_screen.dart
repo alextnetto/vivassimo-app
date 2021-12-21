@@ -5,7 +5,7 @@ import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/bottom_navigator_bar_app.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
-import 'package:my_app/features/products/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
+import 'package:my_app/features/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
 
 class ProductAnnouncementPreviewScreen extends StatefulWidget {
   final List img;

@@ -10,9 +10,9 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
-import 'package:my_app/features/products/products_purchase/presentation/widgets/address_card_widget.dart';
+import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/delivery_address_store.dart';
+import 'package:my_app/features/products_purchase/presentation/widgets/address_card_widget.dart';
 
 import '../../products_purchase_module.dart';
 

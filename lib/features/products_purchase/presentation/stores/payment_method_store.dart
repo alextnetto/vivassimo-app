@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:my_app/features/products/products_purchase/domain/entities/payment_method_entity.dart';
+import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 part 'payment_method_store.g.dart';
 
 class PaymentMethodStore = _PaymentMethodStoreBase with _$PaymentMethodStore;

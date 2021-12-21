@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:my_app/features/products/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
 
 class ProductAnnouncementSuccessScreen extends StatefulWidget {
   final List img;

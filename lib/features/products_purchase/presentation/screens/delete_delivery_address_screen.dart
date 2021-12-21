@@ -5,9 +5,9 @@ import 'package:my_app/core/entities/delivery_address_entity.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/delete_delivery_address_store.dart';
-import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
-import 'package:my_app/features/products/products_purchase/presentation/widgets/address_card_widget.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/delete_delivery_address_store.dart';
+import 'package:my_app/features/products_purchase/presentation/stores/delivery_address_store.dart';
+import 'package:my_app/features/products_purchase/presentation/widgets/address_card_widget.dart';
 import 'package:my_app/core/ui/components/modal_bottom_sheet_delete_component.dart';
 
 class DeleteDeliveryAddressScreen extends StatefulWidget {

@@ -5,8 +5,8 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products/products_announcement/presentation/stores/product_announcement_delivery_store.dart';
-import 'package:my_app/features/products/products_announcement/presentation/widgets/delivery_type_card_widget.dart';
+import 'package:my_app/features/products_announcement/presentation/stores/product_announcement_delivery_store.dart';
+import 'package:my_app/features/products_announcement/presentation/widgets/delivery_type_card_widget.dart';
 
 class ProductAnnouncementDeliveryScreen extends StatefulWidget {
   final List img;

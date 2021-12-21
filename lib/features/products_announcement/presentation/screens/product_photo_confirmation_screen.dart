@@ -6,8 +6,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
-import 'package:my_app/features/products/products_announcement/presentation/screens/product_value_screen.dart';
-import 'package:my_app/features/products/products_announcement/presentation/stores/product_photo_confirmation_store.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/stores/product_photo_confirmation_store.dart';
 
 class ProductPhotoConfirmationScreen extends StatefulWidget {
   final String productPhotoTaken;
