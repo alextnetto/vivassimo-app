@@ -45,27 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 height: 90,
                 color: VivassimoTheme.white,
+                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: Column(
                   children: const [
-                    SizedBox(height: 40),
                     AppBarDefaultWidget(title: 'Acesso a conta'),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     ButtonBack(),
-                    //     Padding(
-                    //       padding: const EdgeInsets.only(right: 30),
-                    //       child: Text(
-                    //         'Acesso a conta',
-                    //         style: customTextStyle(
-                    //           FontWeight.w700,
-                    //           18,
-                    //           VivassimoTheme.purpleActive,
-                    //         ),
-                    //       ),
-                    //     )
-                    //   ],
-                    // ),
                   ],
                 ),
               ),

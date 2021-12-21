@@ -39,6 +39,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: VivassimoTheme.white,
         height: MediaQuery.of(context).size.height,
@@ -110,8 +111,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                             }
                             return null;
                           },
-                          decoration: customInputDecoration1(
-                              'Digite aqui seu nome completo'),
+                          decoration: customInputDecoration1('Digite aqui seu nome completo'),
                           textAlign: TextAlign.center,
                           style: customTextStyle(
                             FontWeight.w700,
@@ -137,8 +137,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                             }
                             return null;
                           },
-                          decoration:
-                              customInputDecoration1('Digite aqui seu email'),
+                          decoration: customInputDecoration1('Digite aqui seu email'),
                           textAlign: TextAlign.center,
                           style: customTextStyle(
                             FontWeight.w700,
@@ -157,8 +156,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                           keyboardType: TextInputType.phone,
                           inputFormatters: [phoneFormatter],
                           onSaved: (value) {
-                            RegisterUser.instance.phoneNumber =
-                                phoneFormatter.getUnmaskedText();
+                            RegisterUser.instance.phoneNumber = phoneFormatter.getUnmaskedText();
                           },
                           validator: (value) {
                             if (!isValidPhonenumber()) {
@@ -168,8 +166,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                             }
                             return null;
                           },
-                          decoration: customInputDecoration1(
-                              'Digite aqui seu número de celular'),
+                          decoration: customInputDecoration1('Digite aqui seu número de celular'),
                           textAlign: TextAlign.center,
                           style: customTextStyle(
                             FontWeight.w700,
@@ -195,8 +192,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                   onPressed: () async {
                     // Checks if phonenumber is already registered
                     LoadingIndicator.show(context);
-                    var response = await BackendService.instance
-                        .userExists(phoneFormatter.getUnmaskedText());
+                    var response = await BackendService.instance.userExists(phoneFormatter.getUnmaskedText());
 
                     if (response['valid']) {
                       _phonenumberExistsAsync = response['data'];
@@ -204,8 +200,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
 
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      await BackendService.instance
-                          .sendOtp(phoneFormatter.getUnmaskedText());
+                      await BackendService.instance.sendOtp(phoneFormatter.getUnmaskedText());
                       LoadingIndicator.hide(context);
                       Navigator.of(context).pushNamed('/register/verifyOtp');
                       return;
