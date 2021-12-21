@@ -12,13 +12,16 @@ import 'package:my_app/features/login/presentation/stores/login_store.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final String redirectTo;
+  const LoginScreen({Key? key, required this.redirectTo}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String get redirectTo => widget.redirectTo;
+
   LoginStore? loginStore;
 
   @override
@@ -140,7 +143,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                     LoadingIndicator.hide(context);
 
                                     if (response.success) {
-                                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                                      if (redirectTo == 'my_announcements') {
+                                        Navigator.of(context).pushNamedAndRemoveUntil(
+                                            '/announcements/my_announcements', (route) => false);
+                                      } else if (redirectTo == 'products_purchase') {
+                                        Navigator.of(context).pushNamedAndRemoveUntil(
+                                            '/products/products_purchase/delivery_address', (route) => false);
+                                      } else if (redirectTo == 'service_purchase') {
+                                        // Navigator.of(context).pushNamedAndRemoveUntil(
+                                        //     '/products/products_purchase/delivery_address', (route) => false);
+                                      }
+                                      // Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
                                     } else {
                                       showDialog(
                                         context: context,

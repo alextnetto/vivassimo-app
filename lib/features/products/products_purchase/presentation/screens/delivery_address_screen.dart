@@ -3,12 +3,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/entities/delivery_address_entity.dart';
+import 'package:my_app/core/entities/product_entity.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
 import 'package:my_app/features/products/products_purchase/presentation/stores/delivery_address_store.dart';
 import 'package:my_app/features/products/products_purchase/presentation/widgets/address_card_widget.dart';
 
@@ -37,12 +39,17 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       body: ListView(
         children: [
           Container(
-            height: 131,
-            padding: const EdgeInsets.only(top: 25),
+            height: 95,
+            // padding: const EdgeInsets.only(top: 25),
             decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
             child: Column(
-              children: const [
-                AppBarDefaultWidget(title: 'Endereço de Entrega'),
+              children: [
+                AppBarDefaultWidget(
+                  title: 'Endereço de Entrega',
+                  handleBackButton: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                  },
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -88,7 +95,8 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     for (int index = 1; index <= deliveryStore!.deliveryAddresses.length; index++)
                       GestureDetector(
                         onTap: () {
-                          deliveryStore!.setSelectedDeliveryAddressId(index);
+                          // deliveryStore!.setSelectedDeliveryAddressId(index);
+                          deliveryStore!.setSelectedDeliveryAddress(deliveryStore!.deliveryAddresses[index - 1].id);
                         },
                         child: buildAddressCard(deliveryStore!.deliveryAddresses[index - 1]),
                       ),
@@ -109,19 +117,27 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     primary: Color(0xFFFFB640),
                   ),
                 ),
-                Container(
-                  height: 60,
-                  margin: const EdgeInsets.only(top: 45),
-                  child: CustomButton1(
-                    borderColor: Color(0xFFB4D8D8),
-                    label: 'Excluir um Endereço',
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/products/products_purchase/delete_delivery_address');
-                    },
-                    onPrimary: Color(0XFF4D0351),
-                    primary: Color(0xFFE9F3F4),
-                  ),
-                ),
+                Observer(builder: (_) {
+                  if (deliveryStore!.deliveryAddresses.isNotEmpty) {
+                    return Container(
+                      height: 60,
+                      margin: const EdgeInsets.only(top: 45),
+                      child: CustomButton1(
+                        borderColor: Color(0xFFB4D8D8),
+                        label: 'Excluir um Endereço',
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed('/products/products_purchase/delete_delivery_address', arguments: {
+                            'deliveryStore': deliveryStore,
+                          });
+                        },
+                        onPrimary: Color(0XFF4D0351),
+                        primary: Color(0xFFE9F3F4),
+                      ),
+                    );
+                  }
+                  return Container();
+                }),
               ],
             ),
           ),
@@ -130,10 +146,22 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
             child: ButtonConfirm(
               label: 'Continuar',
               primary: VivassimoTheme.green,
-              onPrimary: VivassimoTheme.white,
+              textColor: VivassimoTheme.white,
               borderColor: VivassimoTheme.greenBorderColor,
               onPressed: () {
-                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method');
+                //TODO: Mockado
+                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method', arguments: {
+                  'productPurchaseRequestModel': ProductPurchaseRequestModel(
+                    productEntity: ProductEntity(
+                      id: 1,
+                      ownerName: 'Glória Maria',
+                      name: 'Bolo Caseiro de Cholocate',
+                      value: 29.90,
+                    ),
+                    deliveryAddressEntity: deliveryStore!.deliveryAddressEntity,
+                    totalPurchase: 29.90,
+                  )
+                });
               },
             ),
           ),
@@ -146,7 +174,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return AddressCardWidget(
       streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
       cep: '${deliveryAddress.cep}',
-      checkIconPath: deliveryAddress.id == deliveryStore!.selectedDeliveryAddressId
+      checkIconPath: deliveryAddress.id == deliveryStore!.deliveryAddressEntity!.id
           ? 'assets/icon/checked_icon.png'
           : 'assets/icon/unchecked_icon.png',
       cityAndState: 'Centro - São Paulo/SP',

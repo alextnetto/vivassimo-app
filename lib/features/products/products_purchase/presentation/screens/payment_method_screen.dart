@@ -6,19 +6,29 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/core/ui/widgets/app_dropdown_list.dart';
+import 'package:my_app/features/products/products_purchase/domain/entities/payment_method_entity.dart';
+import 'package:my_app/features/products/products_purchase/infra/models/request/product_purchase_request_model.dart';
 import 'package:my_app/features/products/products_purchase/presentation/stores/payment_method_store.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
-  const PaymentMethodScreen({Key? key}) : super(key: key);
+  final ProductPurchaseRequestModel productPurchaseRequestModel;
+
+  const PaymentMethodScreen({Key? key, required this.productPurchaseRequestModel}) : super(key: key);
 
   @override
   _PaymentMethodScreenState createState() => _PaymentMethodScreenState();
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
+  ProductPurchaseRequestModel get productPurchaseRequestModel => widget.productPurchaseRequestModel;
   PaymentMethodStore paymentStore = Modular.get<PaymentMethodStore>();
 
-  int installments = 1;
+  @override
+  void initState() {
+    paymentStore.setPurchaseValue(productPurchaseRequestModel.totalPurchase!);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,22 +203,27 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         ),
                       );
                     }),
-                    Container(
-                      margin: const EdgeInsets.only(top: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            child: Image.asset('assets/icon/mastercard.png'),
+                    Observer(builder: (_) {
+                      if (paymentStore.paymentMethod != 'Selecione um cartão') {
+                        return Container(
+                          margin: const EdgeInsets.only(top: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                child: Image.asset('assets/icon/mastercard.png'),
+                              ),
+                              SizedBox(width: 15),
+                              Text(
+                                'Matercard ****${paymentStore.paymentMethod.substring(paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length)}',
+                                style: customTextStyle(FontWeight.w600, 18, Color(0XFF635F75)),
+                              )
+                            ],
                           ),
-                          SizedBox(width: 15),
-                          Text(
-                            'Matercard ****4555',
-                            style: customTextStyle(FontWeight.w600, 18, Color(0XFF635F75)),
-                          )
-                        ],
-                      ),
-                    )
+                        );
+                      }
+                      return Container();
+                    })
                   ],
                 ),
                 Positioned(
@@ -219,17 +234,31 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.only(top: 30),
-                        child: AppButton(
-                          borderColor: Color(0XFF006633),
-                          buttonColor: Color(0XFF22AB86),
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                          textColor: Color(0XFFFFFFFF),
-                          title: 'Continuar',
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/products/products_purchase/product_purchase_details');
-                          },
-                        ),
+                        child: Observer(builder: (_) {
+                          return AppButton(
+                            borderColor: paymentStore.enableButton ? Color(0XFF006633) : Colors.grey,
+                            buttonColor: Color(0XFF22AB86),
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold,
+                            textColor: Color(0XFFFFFFFF),
+                            title: 'Continuar',
+                            onPressed: paymentStore.enableButton
+                                ? () {
+                                    productPurchaseRequestModel.paymentMethodEntity = PaymentMethodEntity(
+                                      id: 1,
+                                      installments: paymentStore.installment,
+                                      name: paymentStore.paymentMethod.substring(
+                                          paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length),
+                                      installmentAmount: paymentStore.getInstallmentAmount,
+                                    );
+                                    Navigator.of(context)
+                                        .pushNamed('/products/products_purchase/product_purchase_details', arguments: {
+                                      'productPurchaseRequestModel': productPurchaseRequestModel,
+                                    });
+                                  }
+                                : null,
+                          );
+                        }),
                       ),
                     ],
                   ),

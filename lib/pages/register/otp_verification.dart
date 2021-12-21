@@ -140,7 +140,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 child: ButtonConfirm(
                   label: 'Continuar',
                   primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
+                  textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
                   onPressed: () {},
                 ),

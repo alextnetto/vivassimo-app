@@ -190,7 +190,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                 child: ButtonConfirm(
                   label: 'Continuar',
                   primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
+                  textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
                   onPressed: () async {
                     // Checks if phonenumber is already registered

@@ -59,7 +59,7 @@ abstract class _LoginStoreBase with Store {
       return null;
     } else if (phoneNumber.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (phoneNumber.length < Constants.phoneNumberValidLength) {
+    } else if (phoneNumber.length < IntConstants.phoneNumberValidLength) {
       return 'Telefone inválido';
     }
 

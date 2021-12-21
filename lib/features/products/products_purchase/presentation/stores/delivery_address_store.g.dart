@@ -26,6 +26,23 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
     });
   }
 
+  final _$deliveryAddressEntityAtom =
+      Atom(name: '_DeliveryAddressStoreBase.deliveryAddressEntity');
+
+  @override
+  DeliveryAddressEntity? get deliveryAddressEntity {
+    _$deliveryAddressEntityAtom.reportRead();
+    return super.deliveryAddressEntity;
+  }
+
+  @override
+  set deliveryAddressEntity(DeliveryAddressEntity? value) {
+    _$deliveryAddressEntityAtom.reportWrite(value, super.deliveryAddressEntity,
+        () {
+      super.deliveryAddressEntity = value;
+    });
+  }
+
   final _$_DeliveryAddressStoreBaseActionController =
       ActionController(name: '_DeliveryAddressStoreBase');
 
@@ -36,6 +53,18 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
             name: '_DeliveryAddressStoreBase.setSelectedDeliveryAddressId');
     try {
       return super.setSelectedDeliveryAddressId(value);
+    } finally {
+      _$_DeliveryAddressStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setSelectedDeliveryAddress(int value) {
+    final _$actionInfo =
+        _$_DeliveryAddressStoreBaseActionController.startAction(
+            name: '_DeliveryAddressStoreBase.setSelectedDeliveryAddress');
+    try {
+      return super.setSelectedDeliveryAddress(value);
     } finally {
       _$_DeliveryAddressStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -53,9 +82,21 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
   }
 
   @override
+  dynamic removeDeliveryAddress(DeliveryAddressEntity addressEntity) {
+    final _$actionInfo = _$_DeliveryAddressStoreBaseActionController
+        .startAction(name: '_DeliveryAddressStoreBase.removeDeliveryAddress');
+    try {
+      return super.removeDeliveryAddress(addressEntity);
+    } finally {
+      _$_DeliveryAddressStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-selectedDeliveryAddressId: ${selectedDeliveryAddressId}
+selectedDeliveryAddressId: ${selectedDeliveryAddressId},
+deliveryAddressEntity: ${deliveryAddressEntity}
     ''';
   }
 }

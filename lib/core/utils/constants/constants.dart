@@ -1,4 +1,4 @@
-class Constants {
+class IntConstants {
   static const int phoneNumberValidLength = 11;
 }
 
