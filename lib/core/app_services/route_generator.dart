@@ -23,7 +23,7 @@ import 'package:my_app/features/products_purchase/presentation/screens/payment_m
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
-import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_type_description_screen.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
