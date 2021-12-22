@@ -4,14 +4,14 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/stores_list_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 
-class ServiceTypeDescriptionScreen extends StatefulWidget {
-  const ServiceTypeDescriptionScreen({Key? key}) : super(key: key);
+class ServiceDescriptionScreen extends StatefulWidget {
+  const ServiceDescriptionScreen({Key? key}) : super(key: key);
 
   @override
-  _ServiceTypeDescriptionScreenState createState() => _ServiceTypeDescriptionScreenState();
+  _ServiceDescriptionScreenState createState() => _ServiceDescriptionScreenState();
 }
 
-class _ServiceTypeDescriptionScreenState extends State<ServiceTypeDescriptionScreen> {
+class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +19,11 @@ class _ServiceTypeDescriptionScreenState extends State<ServiceTypeDescriptionScr
         children: [
           AppBarDefaultWidget(title: 'Serviços'),
           SizedBox(
-              child:
-                  Hero(tag: 'image_carousel_home', child: Image.asset('assets/backgrounds/pilates_class_banner.png'))),
+            child: Hero(
+              tag: 'image_carousel_home',
+              child: Image.asset('assets/backgrounds/pilates_class_banner.png'),
+            ),
+          ),
           Container(
             margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 22),
@@ -46,36 +49,54 @@ class _ServiceTypeDescriptionScreenState extends State<ServiceTypeDescriptionScr
           ),
           StoresListComponent(
             title: 'Lojas em sua região',
-            storeEntities: const [
+            storeEntities: [
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
               StoreEntity(
                 description: 'Saúde & Bem-estar',
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                },
               ),
             ],
           ),

@@ -23,7 +23,8 @@ import 'package:my_app/features/products_purchase/presentation/screens/payment_m
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
-import 'package:my_app/features/services_purchase/presentation/screens/service_type_description_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_store_offer_description_screen.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
@@ -114,10 +115,6 @@ class RouteGenerator {
       case '/register/address2':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => EstadoScreen());
-
-      case '/product/product-details':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ServiceTypeDescriptionScreen());
 
       case '/register/acceptTerms':
         // if (args is String) {
@@ -242,6 +239,15 @@ class RouteGenerator {
       case '/announcements/choose_announcement':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ChooseAnnouncementTypeScreen());
+
+      /*==================Service purchase =================*/
+      case '/services-purchase/service-description':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => ServiceDescriptionScreen());
+
+      case '/services-purchase/service-store-offer-description':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => ServiceStoreOfferDescriptionScreen());
 
       // case '/verifyCode':
       //   return MaterialPageRoute(
