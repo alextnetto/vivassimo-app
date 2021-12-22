@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 
 class ProductPhotosScreen extends StatefulWidget {
-  const ProductPhotosScreen({Key? key}) : super(key: key);
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
+
+  const ProductPhotosScreen({Key? key, required this.productAnnouncementRequestModel}) : super(key: key);
 
   @override
   _ProductPhotosScreenState createState() => _ProductPhotosScreenState();
 }
 
 class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
   final picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
-    // changeStatusBar();
   }
-
-  // changeStatusBar() {
-  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //       statusBarIconBrightness: Brightness.dark,
-  //       statusBarColor: Colors.white,
-  //       systemNavigationBarColor: Color(0xFF4D0351)));
-  // }
 
   Future<String> takePhotoFromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
@@ -113,10 +109,13 @@ class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
                       var imagePath = await getImageFromGalery();
 
                       if (imagePath.isNotEmpty) {
+                        productModel.productImages!
+                          ..clear()
+                          ..add(imagePath);
                         Navigator.of(context).pushNamed(
                           '/product/products_announcement/product_photo_confirmation',
                           arguments: {
-                            'imagePath': imagePath,
+                            'productAnnouncementRequestModel': productModel,
                           },
                         );
                       }
@@ -151,10 +150,13 @@ class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
                     var imagePath = await takePhotoFromCamera();
 
                     if (imagePath.isNotEmpty) {
+                      productModel.productImages!
+                        ..clear()
+                        ..add(imagePath);
                       Navigator.of(context).pushNamed(
                         '/product/products_announcement/product_photo_confirmation',
                         arguments: {
-                          'imagePath': imagePath,
+                          'productAnnouncementRequestModel': productModel,
                         },
                       );
                     }

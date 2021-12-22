@@ -4,22 +4,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
-import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
+import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/stores/product_photo_confirmation_store.dart';
 
 class ProductPhotoConfirmationScreen extends StatefulWidget {
-  final String productPhotoTaken;
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
 
-  const ProductPhotoConfirmationScreen({Key? key, required this.productPhotoTaken}) : super(key: key);
+  const ProductPhotoConfirmationScreen({Key? key, required this.productAnnouncementRequestModel}) : super(key: key);
 
   @override
   _ProductPhotoConfirmationScreenState createState() => _ProductPhotoConfirmationScreenState();
 }
 
 class _ProductPhotoConfirmationScreenState extends State<ProductPhotoConfirmationScreen> {
-  String get productPhotoTaken => widget.productPhotoTaken;
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
   ProductPhotoConfirmationStore? productPhotoConfirmationStore;
 
   double? altura;
@@ -32,7 +34,7 @@ class _ProductPhotoConfirmationScreenState extends State<ProductPhotoConfirmatio
   @override
   void initState() {
     productPhotoConfirmationStore = Modular.get<ProductPhotoConfirmationStore>();
-    productPhotoConfirmationStore!.imagesPathList.add(productPhotoTaken);
+    productPhotoConfirmationStore!.imagesPathList.add(productModel.productImages![0]);
     changeStatusBar();
     super.initState();
   }
@@ -206,45 +208,65 @@ class _ProductPhotoConfirmationScreenState extends State<ProductPhotoConfirmatio
           hasScrollBody: false,
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.only(top: 30, bottom: 50, right: 45, left: 45),
-              alignment: Alignment.bottomCenter,
-              height: 170,
-              color: Color.fromRGBO(180, 216, 216, 0.2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(
-                    height: 60,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          elevation: 0,
-                          primary: Color(0xFF22AB86),
-                          // fixedSize: Size(324, 60),
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 2.0,
-                              color: Color(0xFF006633),
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ProductValueScreen(img: productPhotoConfirmationStore!.imagesPathList)));
-                        },
-                        child: Text(
-                          'Confirmar',
-                          style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w600),
-                        )),
-                  ),
-                ],
-              ),
+            child: ButtonConfirm(
+              label: 'Continuar',
+              primary: VivassimoTheme.green,
+              textColor: VivassimoTheme.white,
+              borderColor: VivassimoTheme.greenBorderColor,
+              onPressed: () async {
+                productModel.productImages!
+                  ..clear()
+                  ..addAll(productPhotoConfirmationStore!.imagesPathList);
+
+                Navigator.of(context).pushNamed('/product/products_announcement/product_value', arguments: {
+                  'productAnnouncementRequestModel': productModel,
+                });
+              },
             ),
+            // child: Container(
+            //   padding: EdgeInsets.only(top: 30, bottom: 50, right: 45, left: 45),
+            //   alignment: Alignment.bottomCenter,
+            //   height: 170,
+            //   color: Color.fromRGBO(180, 216, 216, 0.2),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.stretch,
+            //     children: [
+            //       SizedBox(
+            //         height: 60,
+            //         child: ElevatedButton(
+            //           style: ElevatedButton.styleFrom(
+            //             alignment: Alignment.center,
+            //             elevation: 0,
+            //             primary: Color(0xFF22AB86),
+            //             // fixedSize: Size(324, 60),
+            //             shape: RoundedRectangleBorder(
+            //               side: BorderSide(
+            //                 width: 2.0,
+            //                 color: Color(0xFF006633),
+            //               ),
+            //               borderRadius: BorderRadius.all(
+            //                 Radius.circular(10),
+            //               ),
+            //             ),
+            //           ),
+            //           onPressed: () async {
+            //             productModel.productImages!
+            //               ..clear()
+            //               ..addAll(productPhotoConfirmationStore!.imagesPathList);
+
+            //             Navigator.of(context).pushNamed('/product/products_announcement/product_value', arguments: {
+            //               'productAnnouncementRequestModel': productModel,
+            //             });
+            //           },
+            //           child: Text(
+            //             'Confirmar',
+            //             style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w600),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ),
         ),
       ]),

@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
-
-import 'product_description_screen.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 
 class ProductNewOrUsedScreen extends StatefulWidget {
-  const ProductNewOrUsedScreen({Key? key}) : super(key: key);
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
+  const ProductNewOrUsedScreen({Key? key, required this.productAnnouncementRequestModel}) : super(key: key);
 
   @override
   _ProductNewOrUsedScreenState createState() => _ProductNewOrUsedScreenState();
 }
 
 class _ProductNewOrUsedScreenState extends State<ProductNewOrUsedScreen> {
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
   @override
   void initState() {
     super.initState();
@@ -62,7 +63,11 @@ class _ProductNewOrUsedScreenState extends State<ProductNewOrUsedScreen> {
                 primary: Color(0xFF22AB86),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDescriptionScreen()));
+                productModel.productCondition = 'Novo';
+
+                Navigator.of(context).pushNamed('/product/products_announcement/product_description', arguments: {
+                  'productAnnouncementRequestModel': productModel,
+                });
               },
               child: Text(
                 "Novo",
@@ -84,7 +89,11 @@ class _ProductNewOrUsedScreenState extends State<ProductNewOrUsedScreen> {
                 primary: Color(0xFF22AB86),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDescriptionScreen()));
+                productModel.productCondition = 'Usado';
+
+                Navigator.of(context).pushNamed('/product/products_announcement/product_description', arguments: {
+                  'productAnnouncementRequestModel': productModel,
+                });
               },
               child: Text(
                 "Usado",

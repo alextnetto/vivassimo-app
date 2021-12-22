@@ -5,21 +5,22 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/stores/product_announcement_delivery_store.dart';
 import 'package:my_app/features/products_announcement/presentation/widgets/delivery_type_card_widget.dart';
 
-class ProductAnnouncementDeliveryScreen extends StatefulWidget {
-  final List img;
-  const ProductAnnouncementDeliveryScreen({
-    Key? key,
-    required this.img,
-  }) : super(key: key);
+class ProductAnnouncementDeliveryTypeScreen extends StatefulWidget {
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
+
+  const ProductAnnouncementDeliveryTypeScreen({Key? key, required this.productAnnouncementRequestModel})
+      : super(key: key);
 
   @override
-  _ProductAnnouncementDeliveryScreenState createState() => _ProductAnnouncementDeliveryScreenState();
+  _ProductAnnouncementDeliveryTypeScreenState createState() => _ProductAnnouncementDeliveryTypeScreenState();
 }
 
-class _ProductAnnouncementDeliveryScreenState extends State<ProductAnnouncementDeliveryScreen> {
+class _ProductAnnouncementDeliveryTypeScreenState extends State<ProductAnnouncementDeliveryTypeScreen> {
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
   ProductAnnouncementDeliveryStore deliveryAnnouncementStore = Modular.get<ProductAnnouncementDeliveryStore>();
 
   bool isChecked = false;
@@ -69,7 +70,7 @@ class _ProductAnnouncementDeliveryScreenState extends State<ProductAnnouncementD
                   children: [
                     GestureDetector(
                       onTap: () {
-                        deliveryAnnouncementStore.setDeliveryTypeId(1);
+                        deliveryAnnouncementStore.setDeliveryTypeId(1, 'Enviar pelos Correios');
                       },
                       child: DeliveryTypeCardWidget(
                         textCard: 'Enviar pelos \n Correios',
@@ -83,7 +84,7 @@ class _ProductAnnouncementDeliveryScreenState extends State<ProductAnnouncementD
                     SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
-                        deliveryAnnouncementStore.setDeliveryTypeId(2);
+                        deliveryAnnouncementStore.setDeliveryTypeId(2, 'Combinar com o comprador');
                       },
                       child: DeliveryTypeCardWidget(
                         textCard: 'Combinar com \n o comprador',
@@ -109,8 +110,13 @@ class _ProductAnnouncementDeliveryScreenState extends State<ProductAnnouncementD
                 textColor: Color(0xFFFFFFFF),
                 borderColor: Color(0xFF006633),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_review',
-                      arguments: {'img': widget.img});
+                  productModel.deliveryTypeId = deliveryAnnouncementStore.deliveryTypeId;
+                  productModel.deliveryTypeDescription = deliveryAnnouncementStore.deliveryTypeDescription;
+
+                  Navigator.of(context)
+                      .pushNamed('/product/products_announcement/product_announcement_review', arguments: {
+                    'productAnnouncementRequestModel': productModel,
+                  });
                 },
               ),
             ),

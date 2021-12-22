@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
+import 'package:my_app/features/products_announcement/presentation/stores/product_description_store.dart';
 
-class ProductDescriptionScreen extends StatefulWidget {
-  const ProductDescriptionScreen({Key? key}) : super(key: key);
+class ProductAnnouncementDescriptionScreen extends StatefulWidget {
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
+  const ProductAnnouncementDescriptionScreen({Key? key, required this.productAnnouncementRequestModel})
+      : super(key: key);
 
   @override
-  _ProductDescriptionScreenState createState() => _ProductDescriptionScreenState();
+  _ProductAnnouncementDescriptionScreenState createState() => _ProductAnnouncementDescriptionScreenState();
 }
 
-class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
-  TextEditingController? _controller;
-  String _enteredText = '';
+class _ProductAnnouncementDescriptionScreenState extends State<ProductAnnouncementDescriptionScreen> {
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
+  ProductDescriptionStore productStore = Modular.get<ProductDescriptionStore>();
 
   @override
   void initState() {
     super.initState();
-    // changeStatusBar();
-    _controller = TextEditingController();
   }
 
   @override
@@ -67,26 +73,29 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
                   border: Border.all(width: 2, color: Color(0xFF4D0351)),
                   borderRadius: BorderRadius.all(Radius.circular(7)),
                 ),
+                // child: AppTextField(
+                //   label: '',
+                //   maxLength: 2000,
+                //   maxLines: 2000,
+                //   maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                // )
                 child: TextField(
                   maxLines: 2000,
                   maxLength: 2000,
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  onChanged: (value) {
-                    setState(() {
-                      _enteredText = value;
-                    });
-                  },
+                  onChanged: productStore.setProductDescription,
                   decoration: InputDecoration(
-                      counter: Offstage(),
-                      contentPadding: EdgeInsets.only(right: 25, left: 25, top: 25),
-                      focusedBorder: InputBorder.none,
-                      border: InputBorder.none,
-                      disabledBorder: InputBorder.none),
+                    counter: Offstage(),
+                    contentPadding: EdgeInsets.only(right: 25, left: 25, top: 25),
+                    focusedBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    errorText: productStore.getProductDescriptionError,
+                  ),
                   cursorColor: Color(0xFF4D0351),
                   style: TextStyle(
                       fontFamily: 'Manrope', color: Color(0xFF4D0351), fontSize: 18, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.start,
-                  controller: _controller,
                 ),
               ),
             ),
@@ -97,50 +106,40 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
                   SizedBox(
                     width: 84,
                     height: 25,
-                    child: Text(
-                      '${_enteredText.length.toString()}/2000',
-                      style: TextStyle(
-                          fontSize: 18, fontFamily: 'Manrope', fontWeight: FontWeight.w900, color: Color(0xFF4D0351)),
-                    ),
+                    child: Observer(builder: (context) {
+                      return Text(
+                        '${productStore.productDescription.length.toString()}/2000',
+                        style: TextStyle(
+                            fontSize: 18, fontFamily: 'Manrope', fontWeight: FontWeight.w900, color: Color(0xFF4D0351)),
+                      );
+                    }),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Container(
-                padding: EdgeInsets.only(top: 30, bottom: 80),
-                height: 170,
-                width: 414,
-                color: Color.fromRGBO(180, 216, 216, 0.2),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        alignment: Alignment.center,
-                        primary: Color(0xFF22AB86),
-                        fixedSize: Size(324, 60),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.all(const Radius.circular(10)))),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/product/products_announcement/product_photos');
-                    },
-                    child: Text(
-                      'Continuar',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 23,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: 'Manrope',
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            SizedBox(height: 20),
+            Observer(builder: (_) {
+              return SizedBox(
+                child: Observer(builder: (_) {
+                  return ButtonConfirm(
+                    label: 'Continuar',
+                    primary: VivassimoTheme.green,
+                    textColor: VivassimoTheme.white,
+                    borderColor: productStore.enableButton ? VivassimoTheme.greenBorderColor : Colors.grey,
+                    onPressed: productStore.enableButton
+                        ? () {
+                            productModel.productDescription = productStore.productDescription;
+
+                            Navigator.of(context)
+                                .pushNamed('/product/products_announcement/product_photos', arguments: {
+                              'productAnnouncementRequestModel': productModel,
+                            });
+                          }
+                        : null,
+                  );
+                }),
+              );
+            }),
           ],
         ),
       ),

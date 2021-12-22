@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'model.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
+import 'package:my_app/features/products_announcement/presentation/stores/product_announcement_info_store.dart';
 
 class ProductAnnouncementInfoScreen extends StatefulWidget {
-  final CategoryAnnouncementEntity categoryEntity;
+  // final CategoryAnnouncementEntity categoryEntity;
+  final ProductAnnouncementRequestModel productAnnouncementRequestModel;
 
-  const ProductAnnouncementInfoScreen({Key? key, required this.categoryEntity}) : super(key: key);
+  const ProductAnnouncementInfoScreen({Key? key, required this.productAnnouncementRequestModel}) : super(key: key);
 
   @override
   _ProductAnnouncementInfoScreenState createState() => _ProductAnnouncementInfoScreenState();
 }
 
 class _ProductAnnouncementInfoScreenState extends State<ProductAnnouncementInfoScreen> {
-  TextEditingController? _controller;
-
-  get categoryEntity => widget.categoryEntity;
+  ProductAnnouncementRequestModel get productModel => widget.productAnnouncementRequestModel;
+  ProducAnnouncementInfoStore productStore = Modular.get<ProducAnnouncementInfoStore>();
+  // TextEditingController? _controller;
 
   @override
   void initState() {
-    _controller = TextEditingController();
+    // _controller = TextEditingController();
     super.initState();
-    // changeStatusBar();
   }
-
-  // changeStatusBar() {
-  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //       statusBarColor: Color.fromRGBO(180, 216, 216, 0.2), systemNavigationBarColor: Color(0xFF4D0351)));
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +66,10 @@ class _ProductAnnouncementInfoScreenState extends State<ProductAnnouncementInfoS
           ),
           Container(
             margin: EdgeInsets.only(right: 46, left: 46, top: 46),
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: Color(0xFF4D0351),
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(10)),
-            child: TextField(
-              decoration: InputDecoration(
-                  hintText: widget.categoryEntity.productCategory,
-                  focusedBorder: InputBorder.none,
-                  border: InputBorder.none,
-                  disabledBorder: InputBorder.none),
-              cursorColor: Color(0xFF4D0351),
-              style: TextStyle(color: Color(0xFF4D0351), fontSize: 18, fontWeight: FontWeight.w600),
+            child: AppTextField(
               textAlign: TextAlign.center,
-              controller: _controller,
+              onChanged: productStore.setProductName,
+              label: 'Nome do produto',
             ),
           ),
           Padding(
@@ -108,15 +95,24 @@ class _ProductAnnouncementInfoScreenState extends State<ProductAnnouncementInfoS
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ButtonConfirm(
-                        label: 'Continuar',
-                        primary: Color(0xFF22AB86),
-                        textColor: Color(0xFFFFFFFF),
-                        borderColor: Color(0xFF006633),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/product/products_announcement/product_new_or_used');
-                        },
-                      ),
+                      Observer(builder: (_) {
+                        return ButtonConfirm(
+                          label: 'Continuar',
+                          primary: Color(0xFF22AB86),
+                          textColor: Color(0xFFFFFFFF),
+                          borderColor: productStore.enableButton ? Color(0xFF006633) : Colors.grey,
+                          onPressed: productStore.enableButton
+                              ? () {
+                                  productModel.productName = productStore.productName;
+
+                                  Navigator.of(context)
+                                      .pushNamed('/product/products_announcement/product_new_or_used', arguments: {
+                                    'productAnnouncementRequestModel': productModel,
+                                  });
+                                }
+                              : null,
+                        );
+                      }),
                     ],
                   ),
                 ),

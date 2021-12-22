@@ -47,37 +47,20 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                     SizedBox(
                       height: 272,
                       width: MediaQuery.of(context).size.width,
-                      child: Image.file(
-                        File(widget.img[0]),
-                        fit: BoxFit.fill,
-                      ),
+                      child: widget.img[0].contains('assets/')
+                          ? Image.asset(
+                              widget.img[0],
+                              fit: BoxFit.fill,
+                            )
+                          : Image.file(
+                              File(widget.img[0]),
+                              fit: BoxFit.fill,
+                            ),
                     ),
                     Positioned(right: 30, bottom: 20, child: Image.asset('assets/icon/btn_next_yellow.png')),
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8),
-              //   child: Container(
-              //       height: 272,
-              //       width: MediaQuery.of(context).size.width,
-              //       decoration: BoxDecoration(
-              //         image: DecorationImage(
-              //           fit: BoxFit.fill,
-              //           image: FileImage(
-              //             File(widget.img[0]),
-              //           ),
-              //         ),
-              //       ),
-              //       child: Container(
-              //         width: 55,
-              //         height: 55,
-              //         child: FloatingActionButton(
-              //           child: Text('x'),
-              //           onPressed: () {},
-              //         ),
-              //       )),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 28, right: 22, left: 22),
                 child: Container(

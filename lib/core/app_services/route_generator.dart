@@ -4,14 +4,17 @@ import 'package:my_app/features/announcements/presentation/screens/choose_announ
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/home/presentation/screens/product_category_screen.dart';
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_delivery_type_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_success_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_photos_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_description_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_new_or_used_screen.dart';
-import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_info_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_category_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_photo_confirmation_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_review_screen.dart';
+import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delete_delivery_address_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delivery_address_screen.dart';
@@ -159,40 +162,76 @@ class RouteGenerator {
       case '/product/products_announcement/product_announcement_info':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => ProductAnnouncementInfoScreen(
-                  categoryEntity: args['model'],
-                ));
+          builder: (_) => ProductAnnouncementInfoScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
 
       case '/product/products_announcement/product_new_or_used':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductNewOrUsedScreen());
+        return MaterialPageRoute(
+          builder: (_) => ProductNewOrUsedScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
 
       case '/product/products_announcement/product_description':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductDescriptionScreen());
+        return MaterialPageRoute(
+          builder: (_) => ProductAnnouncementDescriptionScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
 
       case '/product/products_announcement/product_photos':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductPhotosScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProductPhotosScreen(
+                  productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+                ));
 
       case '/product/products_announcement/product_photo_confirmation':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => ProductPhotoConfirmationScreen(
-                  productPhotoTaken: args['imagePath'],
-                ));
+          builder: (_) => ProductPhotoConfirmationScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
+
+      case '/product/products_announcement/product_value':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => ProductValueScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
+
+      case '/product/products_announcement/product_delivery_type':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => ProductAnnouncementDeliveryTypeScreen(
+            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+          ),
+        );
 
       case '/product/products_announcement/product_announcement_review':
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductAnnouncementReviewScreen(
-                  img: args['img'],
+                  productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
                 ));
 
-      case '/product/products_announcement/produc_announcement_success':
+      case '/product/products_announcement/product_announcement_success':
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductAnnouncementSuccessScreen(
+                  img: args['img'],
+                ));
+
+      case '/product/products_announcement/product_announcement_preview':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => ProductAnnouncementPreviewScreen(
                   img: args['img'],
                 ));
 

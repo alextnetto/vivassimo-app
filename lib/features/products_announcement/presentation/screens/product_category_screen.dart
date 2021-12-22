@@ -3,9 +3,9 @@ import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/widgets/category_item_widget.dart';
 import '../../products_announcement_module.dart';
-import 'model.dart';
 
 class ProductAnnouncementCategoryScreen extends StatefulWidget {
   const ProductAnnouncementCategoryScreen({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _ProductAnnouncementCategoryScreenState extends State<ProductAnnouncementC
   @override
   void initState() {
     // changeStatusBar();
-    initModule(ProductsAnnouncementModule());
+    initModule(ProductAnnouncementModule());
     super.initState();
   }
 
@@ -87,8 +87,13 @@ class _ProductAnnouncementCategoryScreenState extends State<ProductAnnouncementC
             for (int index = 1; index <= items.length - 1; index++)
               GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_info', arguments: {
-                      'model': CategoryAnnouncementEntity(productCategory: items[index].text),
+                    Navigator.of(context)
+                        .pushNamed('/product/products_announcement/product_announcement_info', arguments: {
+                      'productAnnouncementRequestModel': ProductAnnouncementRequestModel(
+                        categoryName: items[index].text,
+                        categoryId: index,
+                        productImages: [],
+                      ),
                     });
                   },
                   child: buildCategoryCard(index)),
