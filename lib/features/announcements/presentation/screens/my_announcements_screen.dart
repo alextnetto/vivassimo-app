@@ -94,6 +94,13 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                       ),
                                     ),
                                     GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/product/products_announcement/product_announcement_preview',
+                                            arguments: {
+                                              'img': ['assets/images/announcement/chocolate_cake.png']
+                                            });
+                                      },
                                       child: Container(
                                         margin: EdgeInsets.only(top: 19),
                                         child: Text(
@@ -194,6 +201,13 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                       ),
                                     ),
                                     GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/product/products_announcement/product_announcement_preview',
+                                            arguments: {
+                                              'img': ['assets/images/announcement/chocolate_cake.png']
+                                            });
+                                      },
                                       child: Container(
                                         margin: EdgeInsets.only(top: 19),
                                         child: Text(

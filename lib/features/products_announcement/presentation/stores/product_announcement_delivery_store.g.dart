@@ -30,12 +30,12 @@ mixin _$ProductAnnouncementDeliveryStore
       ActionController(name: '_ProductAnnouncementDeliveryStoreBase');
 
   @override
-  dynamic setDeliveryTypeId(int value) {
+  dynamic setDeliveryTypeId(int value, String description) {
     final _$actionInfo =
         _$_ProductAnnouncementDeliveryStoreBaseActionController.startAction(
             name: '_ProductAnnouncementDeliveryStoreBase.setDeliveryTypeId');
     try {
-      return super.setDeliveryTypeId(value);
+      return super.setDeliveryTypeId(value, description);
     } finally {
       _$_ProductAnnouncementDeliveryStoreBaseActionController
           .endAction(_$actionInfo);

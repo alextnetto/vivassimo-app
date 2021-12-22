@@ -17,6 +17,9 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyBoardType;
   final TextAlign textAlign;
   final FocusNode? focusNode;
+  final bool readOnly;
+  final Color? borderColor;
+  final Color? textColor;
 
   const AppTextField({
     required this.label,
@@ -31,6 +34,9 @@ class AppTextField extends StatelessWidget {
     this.keyBoardType,
     this.textAlign = TextAlign.center,
     this.focusNode,
+    this.readOnly = false,
+    this.borderColor,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -38,6 +44,7 @@ class AppTextField extends StatelessWidget {
     return TextField(
       obscureText: obscureText,
       focusNode: focusNode,
+      readOnly: readOnly,
       keyboardType: keyBoardType,
       controller: controller,
       onChanged: onChanged,
@@ -47,12 +54,13 @@ class AppTextField extends StatelessWidget {
         errorText: errorText,
         suffixIcon: suffixIcon,
         placeholder: placeholder,
+        borderColor: borderColor,
       ),
       textAlign: textAlign,
       style: customTextStyle(
         FontWeight.w700,
         18,
-        VivassimoTheme.purpleActive,
+        textColor ?? VivassimoTheme.purpleActive,
       ),
     );
   }
