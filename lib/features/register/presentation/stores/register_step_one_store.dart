@@ -1,5 +1,6 @@
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
@@ -13,13 +14,6 @@ abstract class _RegisterStepOneStoreBase with Store {
   final IRegisterUsecase registerUsecase;
 
   _RegisterStepOneStoreBase(this.registerUsecase);
-
-  var phoneNumberMask = MaskTextInputFormatter(
-    mask: '+55 (##) #####-####',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-  );
 
   @observable
   String name = '';
@@ -48,8 +42,7 @@ abstract class _RegisterStepOneStoreBase with Store {
   @action
   setPhoneNumber(String value) {
     hasChangedPhoneNumber = true;
-
-    return phoneNumber = phoneNumberMask.getUnmaskedText();
+    return phoneNumber = AppMasks.phone.getUnmaskedText();
   }
 
   @action

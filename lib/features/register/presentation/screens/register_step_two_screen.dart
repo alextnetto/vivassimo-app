@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
@@ -84,9 +85,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                             onChanged: registerStepTwoStore!.setDataNascimento,
                             errorText:
                                 registerStepTwoStore!.getDataNascimentoError,
-                            inputFormatters: [
-                              registerStepTwoStore!.dataNascimentoFormatter
-                            ],
+                            inputFormatters: [AppMasks.dataNascimento],
                           );
                         }),
                       ),

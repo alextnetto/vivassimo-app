@@ -1,5 +1,5 @@
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 part 'cpf_store.g.dart';
@@ -11,13 +11,6 @@ abstract class _CpfStoreBase with Store {
 
   _CpfStoreBase(this.registerUsecase);
 
-  var cpfFormatter = MaskTextInputFormatter(
-    mask: '###.###.###-##',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-  );
-
   @observable
   String cpf = '';
 
@@ -27,7 +20,7 @@ abstract class _CpfStoreBase with Store {
   @action
   setCpf(String value) {
     hasChangedCpf = true;
-    return cpf = value;
+    return cpf = AppMasks.cpf.getUnmaskedText();
   }
 
   @computed

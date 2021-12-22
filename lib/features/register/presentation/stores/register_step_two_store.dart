@@ -1,4 +1,3 @@
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
@@ -11,13 +10,6 @@ abstract class _RegisterStepTwoStoreBase with Store {
   final IRegisterUsecase registerUsecase;
 
   _RegisterStepTwoStoreBase(this.registerUsecase);
-
-  var dataNascimentoFormatter = MaskTextInputFormatter(
-    mask: '##/##/####',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-  );
 
   @observable
   String dataNascimento = '';
