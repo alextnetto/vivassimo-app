@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/entities/service_entity.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/components/customer_contact_component.dart';
+import 'package:my_app/core/ui/components/payment_methods_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/features/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
+import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
 
 class ServiceStoreOfferDescriptionScreen extends StatefulWidget {
   const ServiceStoreOfferDescriptionScreen({Key? key}) : super(key: key);
@@ -138,7 +143,21 @@ class _ServiceStoreOfferDescriptionScreenState extends State<ServiceStoreOfferDe
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/services-purchase/select-section-amount', arguments: {
+                            'servicePurchaseRequestModel': ServicePurchaseRequestModel(
+                              serviceEntity: ServiceEntity(
+                                id: 1,
+                                name: 'Pilates Clássico',
+                                description: 'Pilates Clássico + aconselhamento e acompanhamento individual',
+                                ownerName: 'Academia Health Fit',
+                                value: 165,
+                                sessionDuration: '1 hora',
+                              ),
+                              maxInstallments: 3,
+                            ),
+                          });
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
@@ -161,6 +180,102 @@ class _ServiceStoreOfferDescriptionScreenState extends State<ServiceStoreOfferDe
                 ],
               ),
             ),
+          ),
+          SizedBox(height: 15),
+          Divider(color: Color(0xFFB4D8D8), thickness: 1),
+          PaymentMethodsComponent(),
+          Container(
+            padding: const EdgeInsets.only(left: 22, right: 18),
+            margin: const EdgeInsets.only(top: 30),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Tenha mais saúde e qualidade de vida com a Health Fit',
+                        style: AppTextStyles.defaultTextStyleTitle,
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Envelhecer é bom e faz bem quando o corpo e mente permanecem ativos. Previna doenças como Alzheimer e Parkinson. Comece hoje com Pilates e aumente suas chances de viver plenamente a melhor idade.',
+                          style: AppTextStyles.defaultTextStyleDescriptionGrey,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 25),
+                  child: Text('Atendimento Health Fit', style: AppTextStyles.defaultTextStyleTitle),
+                ),
+                SizedBox(height: 20),
+                CustomerContactComponent(phoneNumber: '(11) 99999-9999'),
+                SizedBox(height: 25),
+                Text(
+                  'Av. Paulista, 323',
+                  style: customTextStyle(FontWeight.bold, 18, Color(0XFF635F75)),
+                ),
+                Text(
+                  'São Paulo/SP',
+                  style: customTextStyle(FontWeight.bold, 18, Color(0XFF635F75)),
+                ),
+                SizedBox(height: 25),
+                Text(
+                  'Segunda à sexta',
+                  style: customTextStyle(FontWeight.bold, 18, Color(0XFF635F75)),
+                ),
+                Text(
+                  '6h às 21h',
+                  style: customTextStyle(FontWeight.bold, 18, Color(0XFF635F75)),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.only(top: 35, left: 22),
+            child: Text('O que dizem sobre a Health Fit', style: AppTextStyles.defaultTextStyleDescriptionPurple),
+          ),
+          SizedBox(height: 10),
+          ProductAnnouncementRatingWidget(
+            amountStars: 5,
+            customerName: 'José Carlos',
+            ratingDate: '02/08/21',
+            ratingDescription:
+                'Excelentes profissionais!!! Bem qualificados, muito atenciosos e dedicados!!! Super recomendo!!',
+            ratingIcon: 'assets/icon/smile_rating_icon.png',
+          ),
+          ProductAnnouncementRatingWidget(
+            amountStars: 5,
+            customerName: 'Maria Oliveira',
+            ratingDate: '02/08/21',
+            ratingDescription:
+                'Excelentes profissionais!!! Bem qualificados, muito atenciosos e dedicados!!! Super recomendo!!',
+            ratingIcon: 'assets/icon/smile_rating_icon.png',
+          ),
+          ProductAnnouncementRatingWidget(
+            amountStars: 5,
+            customerName: 'Alberto Torres',
+            ratingDate: '02/08/21',
+            ratingDescription:
+                'Excelentes profissionais!!! Bem qualificados, muito atenciosos e dedicados!!! Super recomendo!!',
+            ratingIcon: 'assets/icon/smile_rating_icon.png',
           ),
         ],
       ),

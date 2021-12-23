@@ -8,25 +8,26 @@ import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/core/ui/widgets/app_dropdown_list.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
-import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
-import 'package:my_app/features/products_purchase/presentation/stores/payment_method_store.dart';
+import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
+import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
 
-class PaymentMethodScreen extends StatefulWidget {
-  final ProductPurchaseRequestModel productPurchaseRequestModel;
+class PaymentMethodServiceScreen extends StatefulWidget {
+  final ServicePurchaseRequestModel servicePurchaseRequestModel;
 
-  const PaymentMethodScreen({Key? key, required this.productPurchaseRequestModel}) : super(key: key);
+  const PaymentMethodServiceScreen({Key? key, required this.servicePurchaseRequestModel}) : super(key: key);
 
   @override
-  _PaymentMethodScreenState createState() => _PaymentMethodScreenState();
+  _PaymentMethodServiceScreenState createState() => _PaymentMethodServiceScreenState();
 }
 
-class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
-  ProductPurchaseRequestModel get productPurchaseRequestModel => widget.productPurchaseRequestModel;
-  PaymentMethodStore paymentStore = Modular.get<PaymentMethodStore>();
+class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen> {
+  ServicePurchaseRequestModel get servicePurchaseRequestModel => widget.servicePurchaseRequestModel;
+  PaymentMethodServiceStore paymentStore = Modular.get<PaymentMethodServiceStore>();
 
   @override
   void initState() {
-    paymentStore.setPurchaseValue(productPurchaseRequestModel.totalPurchase!);
+    paymentStore.setPurchaseValue(servicePurchaseRequestModel.totalPurchase!);
+    paymentStore.maxInstallments = servicePurchaseRequestModel.maxInstallments!;
     super.initState();
   }
 
@@ -46,7 +47,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                LinearProgressBar(textIndicator: '3/4', percentageValue: 0.75),
+                LinearProgressBar(textIndicator: '2/3', percentageValue: 0.66),
               ],
             ),
           ),
@@ -123,6 +124,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(180, 216, 216, 0.2),
                     borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Color.fromRGBO(99, 95, 117, 0.2)),
                   ),
                 ),
                 Column(
@@ -141,61 +143,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         ],
                       ),
                     ),
-                    SelectAmountComponent(
-                      installments: paymentStore.formatInstallment(),
-                      onTapDecrease: paymentStore.decreaseInstallment,
-                      onTapIncrease: paymentStore.increaseInstallment,
-                    ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 20),
-                    //   child: Stack(
-                    //     children: [
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 15, top: 8, right: 10),
-                    //         decoration: BoxDecoration(
-                    //           border: Border.all(color: Color(0XFF635F75)),
-                    //           color: Colors.white,
-                    //         ),
-                    //         height: 47,
-                    //         width: 246,
-                    //         child: Row(
-                    //           children: [
-                    //             Expanded(
-                    //               child: Observer(
-                    //                 builder: (_) {
-                    //                   return Text(
-                    //                     paymentStore.formatInstallment(),
-                    //                     textAlign: TextAlign.center,
-                    //                     style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351)),
-                    //                   );
-                    //                 },
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       SizedBox(
-                    //         child: GestureDetector(
-                    //           child: Image.asset('assets/icon/minus_button.png'),
-                    //           onTap: () {
-                    //             paymentStore.decreaseInstallment();
-                    //           },
-                    //         ),
-                    //       ),
-                    //       Positioned(
-                    //         right: 0,
-                    //         child: SizedBox(
-                    //           child: GestureDetector(
-                    //             child: Image.asset('assets/icon/plus_button.png'),
-                    //             onTap: () {
-                    //               paymentStore.increaseInstallment();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    Observer(builder: (_) {
+                      return SelectAmountComponent(
+                        installments: paymentStore.formatInstallment(),
+                        onTapDecrease: paymentStore.decreaseInstallment,
+                        onTapIncrease: paymentStore.increaseInstallment,
+                      );
+                    }),
                     Observer(builder: (_) {
                       return RichText(
                         text: TextSpan(
@@ -250,7 +204,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                             title: 'Continuar',
                             onPressed: paymentStore.enableButton
                                 ? () {
-                                    productPurchaseRequestModel.paymentMethodEntity = PaymentMethodEntity(
+                                    servicePurchaseRequestModel.paymentMethodEntity = PaymentMethodEntity(
                                       id: 1,
                                       installments: paymentStore.installment,
                                       name: paymentStore.paymentMethod.substring(
@@ -258,8 +212,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                       installmentAmount: paymentStore.getInstallmentAmount,
                                     );
                                     Navigator.of(context)
-                                        .pushNamed('/products/products_purchase/product_purchase_details', arguments: {
-                                      'productPurchaseRequestModel': productPurchaseRequestModel,
+                                        .pushNamed('/services-purchase/service-purchase-details', arguments: {
+                                      'servicePurchaseRequestModel': servicePurchaseRequestModel,
                                     });
                                   }
                                 : null,

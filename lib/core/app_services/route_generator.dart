@@ -23,7 +23,10 @@ import 'package:my_app/features/products_purchase/presentation/screens/payment_m
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/payment_method_service_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_purchase_details_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_select_section_amount_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_store_offer_description_screen.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/address2_page.dart';
@@ -248,6 +251,29 @@ class RouteGenerator {
       case '/services-purchase/service-store-offer-description':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ServiceStoreOfferDescriptionScreen());
+
+      case '/services-purchase/select-section-amount':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => ServiceSelectSectionAmountScreen(
+                  servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+                ));
+
+      case '/services-purchase/payment-method-service':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => PaymentMethodServiceScreen(
+            servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
+
+      case '/services-purchase/service-purchase-details':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => ServicePurchaseDetailsScreen(
+            servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
 
       // case '/verifyCode':
       //   return MaterialPageRoute(

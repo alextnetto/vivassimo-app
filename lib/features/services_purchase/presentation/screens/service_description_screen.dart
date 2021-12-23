@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/entities/store_entity.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/stores_list_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/features/services_purchase/presentation/stores/service_select_section_amount_store.dart';
+
+import '../../services_purchase_module.dart';
 
 class ServiceDescriptionScreen extends StatefulWidget {
   const ServiceDescriptionScreen({Key? key}) : super(key: key);
@@ -12,6 +17,13 @@ class ServiceDescriptionScreen extends StatefulWidget {
 }
 
 class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
+  @override
+  void initState() {
+    initModule(ServicesPurchaseModule());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

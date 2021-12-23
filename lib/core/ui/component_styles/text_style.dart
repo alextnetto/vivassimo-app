@@ -36,5 +36,6 @@ class AppTextStyles {
 
   static TextStyle defaultTextStyleTitle = customTextStyle(FontWeight.bold, 18, Color(0XFF560955));
   static TextStyle defaultTextStyleDescriptionGrey = customTextStyle(FontWeight.w600, 18, Color(0XFF635F75));
+  static TextStyle defaultTextStyleDescriptionGreyBold = customTextStyle(FontWeight.bold, 18, Color(0XFF635F75));
   static TextStyle defaultTextStyleDescriptionPurple = customTextStyle(FontWeight.w600, 18, Color(0XFF4D0351));
 }

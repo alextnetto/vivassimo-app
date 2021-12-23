@@ -4,6 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/bottom_navigator_bar_app.dart';
+import 'package:my_app/core/ui/components/customer_contact_component.dart';
+import 'package:my_app/core/ui/components/payment_methods_component.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/features/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
 
@@ -141,37 +143,8 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 45),
-                child: Container(
-                  height: 20,
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Formas de Pagamento',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF4D0351)),
-                  ),
-                ),
-              ),
-              Container(
-                // height: 50,
-                padding: const EdgeInsets.only(top: 20),
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Image.asset('assets/icon/payment_methods_icons/visa.png'),
-                    SizedBox(width: 10),
-                    Image.asset('assets/icon/payment_methods_icons/mastercard.png'),
-                    SizedBox(width: 10),
-                    Image.asset('assets/icon/payment_methods_icons/elo.png'),
-                    SizedBox(width: 10),
-                    Image.asset('assets/icon/payment_methods_icons/amex.png'),
-                    SizedBox(width: 10),
-                    Image.asset('assets/icon/payment_methods_icons/pix.png'),
-                    SizedBox(width: 10),
-                  ],
-                ),
-              ),
+              SizedBox(height: 20),
+              PaymentMethodsComponent(),
               Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: Container(
@@ -260,39 +233,7 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                           children: [
                             Text('Glória Silva', style: AppTextStyles.defaultTextStyleDescriptionPurple),
                             SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '(011 99999-9999)',
-                                  style: customTextStyle(FontWeight.bold, 23, Color(0xff635F75)),
-                                ),
-                                Container(
-                                  height: 40,
-                                  width: 140,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff22AB86),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Ligar',
-                                          style: customTextStyle(FontWeight.bold, 18, Colors.white),
-                                        ),
-                                        SizedBox(width: 15),
-                                        Icon(Icons.phone, color: Colors.white),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            CustomerContactComponent(phoneNumber: '(11) 99999-9999'),
                             SizedBox(height: 25),
                             Text(
                               'Centro - São Paulo/SP',
