@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:my_app/core/entities/delivery_address_entity.dart';
+
 class RegisterUserRequestModel {
   String? name;
   String? email;
@@ -8,11 +10,7 @@ class RegisterUserRequestModel {
   String? genero;
   String? cpf;
   String? dataNascimento;
-  String? cep;
-  String? bairro;
-  String? rua;
-  String? numero;
-  String? complemento;
+  DeliveryAddressEntity? deliveryAddress;
 
   RegisterUserRequestModel({
     this.name,
@@ -22,11 +20,7 @@ class RegisterUserRequestModel {
     this.genero,
     this.cpf,
     this.dataNascimento,
-    this.cep,
-    this.bairro,
-    this.rua,
-    this.numero,
-    this.complemento,
+    this.deliveryAddress,
   });
 
   Map<String, dynamic> toMap() {
@@ -38,28 +32,22 @@ class RegisterUserRequestModel {
       'genero': genero,
       'cpf': cpf,
       'dataNascimento': dataNascimento,
-      'cep': cep,
-      'bairro': bairro,
-      'rua': rua,
-      'numero': numero,
-      'complemento': complemento,
+      'deliveryAddress': deliveryAddress?.toMap(),
     };
   }
 
   factory RegisterUserRequestModel.fromMap(Map<String, dynamic> map) {
     return RegisterUserRequestModel(
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
-      password: map['password'] ?? '',
-      genero: map['genero'] ?? '',
-      cpf: map['cpf'] ?? '',
-      dataNascimento: map['dataNascimento'] ?? '',
-      cep: map['cep'] ?? '',
-      bairro: map['bairro'] ?? '',
-      rua: map['rua'] ?? '',
-      numero: map['numero'] ?? '',
-      complemento: map['complemento'] ?? '',
+      name: map['name'],
+      email: map['email'],
+      phoneNumber: map['phoneNumber'],
+      password: map['password'],
+      genero: map['genero'],
+      cpf: map['cpf'],
+      dataNascimento: map['dataNascimento'],
+      deliveryAddress: map['deliveryAddress'] != null
+          ? DeliveryAddressEntity.fromMap(map['deliveryAddress'])
+          : null,
     );
   }
 

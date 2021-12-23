@@ -16,16 +16,19 @@ import 'package:my_app/features/products/products_purchase/presentation/stores/n
 
 class NewDeliveryAddressScreen extends StatefulWidget {
   final DeliveryAddressStore deliveryStore;
-  const NewDeliveryAddressScreen({Key? key, required this.deliveryStore}) : super(key: key);
+  const NewDeliveryAddressScreen({Key? key, required this.deliveryStore})
+      : super(key: key);
 
   @override
-  _NewDeliveryAddressScreenState createState() => _NewDeliveryAddressScreenState();
+  _NewDeliveryAddressScreenState createState() =>
+      _NewDeliveryAddressScreenState();
 }
 
 class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
   DeliveryAddressStore get deliveryStore => widget.deliveryStore;
 
-  NewDeliveryAddressStore newAddressStore = Modular.get<NewDeliveryAddressStore>();
+  NewDeliveryAddressStore newAddressStore =
+      Modular.get<NewDeliveryAddressStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +68,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                     onChanged: (value) async {
                       if (value.length == 9) {
                         LoadingIndicator.show(context);
-                        newAddressStore.getAddressByCep(value, context).then((value) {
+                        newAddressStore.getAddressByCep(value).then((value) {
                           LoadingIndicator.hide(context);
                         });
                       }
@@ -150,7 +153,9 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
             label: 'Salvar Endereço',
             primary: VivassimoTheme.green,
             onPrimary: VivassimoTheme.white,
-            borderColor: newAddressStore.enableButton ? VivassimoTheme.greenBorderColor : Colors.grey,
+            borderColor: newAddressStore.enableButton
+                ? VivassimoTheme.greenBorderColor
+                : Colors.grey,
             // onPressed: newAddressStore.ena () {
             onPressed: newAddressStore.enableButton
                 ? () {
@@ -163,7 +168,6 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                       street: newAddressStore.address,
                       uf: newAddressStore.uf,
                     ));
-                    print('sdjfiosdj');
                     Navigator.of(context).pop();
                   }
                 : null,

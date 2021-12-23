@@ -83,22 +83,6 @@ mixin _$NewDeliveryAddressValidation
     });
   }
 
-  final _$hasChangedUfAtom =
-      Atom(name: '_NewDeliveryAddressValidationBase.hasChangedUf');
-
-  @override
-  bool get hasChangedUf {
-    _$hasChangedUfAtom.reportRead();
-    return super.hasChangedUf;
-  }
-
-  @override
-  set hasChangedUf(bool value) {
-    _$hasChangedUfAtom.reportWrite(value, super.hasChangedUf, () {
-      super.hasChangedUf = value;
-    });
-  }
-
   final _$hasChangedCityAtom =
       Atom(name: '_NewDeliveryAddressValidationBase.hasChangedCity');
 
@@ -139,7 +123,6 @@ hasChangedCep: ${hasChangedCep},
 hasChangedAddress: ${hasChangedAddress},
 hasChangedNumber: ${hasChangedNumber},
 hasChangedNeighborhood: ${hasChangedNeighborhood},
-hasChangedUf: ${hasChangedUf},
 hasChangedCity: ${hasChangedCity},
 hasChangedComplement: ${hasChangedComplement},
 hasChangedAllFields: ${hasChangedAllFields}

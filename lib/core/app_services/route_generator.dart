@@ -11,6 +11,7 @@ import 'package:my_app/features/products/products_purchase/presentation/screens/
 import 'package:my_app/features/products/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products/products_purchase/presentation/screens/shipping_method_screen.dart';
 import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
+import 'package:my_app/features/register/presentation/screens/address_step_two_screen.dart';
 import 'package:my_app/features/register/presentation/screens/otp_screen.dart';
 import 'package:my_app/features/register/presentation/screens/password_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
@@ -134,7 +135,11 @@ class RouteGenerator {
 
       case '/register/address2':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => EstadoScreen());
+        return MaterialPageRoute(
+            builder: (_) => AddressStepTwoScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                  cepResponseModel: args['cepResponseModel'],
+                ));
 
       case '/register/registerFinished':
         // if (args is String) {

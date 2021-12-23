@@ -15,6 +15,7 @@ class LocationHandler {
       if (data['erro'] == true) {
         return CepResponseModel(success: false);
       } else {
+        data['success'] = true;
         return CepResponseModel.fromMap(data);
       }
     } else {

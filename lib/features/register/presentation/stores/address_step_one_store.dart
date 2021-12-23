@@ -1,9 +1,7 @@
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/utils/extensions/string_extensions.dart';
+import 'package:my_app/core/app_services/location_handler/location_handler.dart';
+import 'package:my_app/core/app_services/location_handler/models/cep_response_model.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
-import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
-import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 part 'address_step_one_store.g.dart';
 
 class AddressStepOneStore = _AddressStepOneStoreBase with _$AddressStepOneStore;
@@ -13,12 +11,7 @@ abstract class _AddressStepOneStoreBase with Store {
 
   _AddressStepOneStoreBase(this.registerUsecase);
 
-  var phoneNumberMask = MaskTextInputFormatter(
-    mask: '+55 (##) #####-####',
-    filter: {
-      "#": RegExp(r'[0-9]'),
-    },
-  );
+  CepResponseModel? cepResponseModel;
 
   @observable
   String cep = '';
@@ -26,9 +19,24 @@ abstract class _AddressStepOneStoreBase with Store {
   @observable
   bool hasChangedCep = false;
 
+  @observable
+  bool isValidCep = false;
+
+  @action
+  setIsValidCep(bool value) {
+    return isValidCep = value;
+  }
+
   @action
   setCep(String value) {
     hasChangedCep = true;
+
+    if (value.length == 9) {
+      getAddressByCep(value);
+    } else {
+      setIsValidCep(false);
+    }
+
     return cep = value;
   }
 
@@ -38,8 +46,26 @@ abstract class _AddressStepOneStoreBase with Store {
       return null;
     } else if (cep.isEmpty) {
       return 'Esse campo é obrigatório';
+    } else if (cep.length != 9 || !isValidCep) {
+      return 'CEP inválido';
     }
 
     return null;
+  }
+
+  @computed
+  bool get enableButton => getCepError == null && hasChangedCep;
+
+  Future<void> getAddressByCep(String value) async {
+    CepResponseModel cepResponseModel =
+        await LocationHandler.getAddressByCep(value);
+
+    if (cepResponseModel.success) {
+      setIsValidCep(true);
+      this.cepResponseModel = cepResponseModel;
+    } else {
+      setIsValidCep(false);
+      this.cepResponseModel = null;
+    }
   }
 }

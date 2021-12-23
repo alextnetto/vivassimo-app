@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/app_services/location_handler/location_handler.dart';
 import 'package:my_app/core/app_services/location_handler/models/cep_response_model.dart';
-import 'package:my_app/core/ui/widgets/loading_indicator.dart';
+import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
+part 'address_step_two_store.g.dart';
 
-import 'new_delivery_address_validation.dart';
-part 'new_delivery_address_store.g.dart';
+class AddressStepTwoStore = _AddressStepTwoStoreBase with _$AddressStepTwoStore;
 
-class NewDeliveryAddressStore = _NewDeliveryAddressStoreBase
-    with _$NewDeliveryAddressStore;
+abstract class _AddressStepTwoStoreBase with Store {
+  final IRegisterUsecase registerUsecase;
 
-abstract class _NewDeliveryAddressStoreBase with Store {
-  NewDeliveryAddressValidation validation = NewDeliveryAddressValidation();
+  _AddressStepTwoStoreBase(this.registerUsecase);
+
   TextEditingController cepController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController numberController = TextEditingController();
@@ -25,6 +25,9 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   bool isValidCep = false;
 
+  @observable
+  bool hasChangedCep = false;
+
   @action
   setIsValidCep(bool value) {
     return isValidCep = value;
@@ -32,14 +35,14 @@ abstract class _NewDeliveryAddressStoreBase with Store {
 
   @action
   setCep(String value) {
-    validation.hasChangedCep = true;
+    hasChangedCep = true;
 
     return cep = value;
   }
 
   @computed
   String? get getCepError {
-    if (!validation.hasChangedCep) {
+    if (!hasChangedCep) {
       return null;
     } else if (cep.isEmpty) {
       return 'Este campo é obrigatório';
@@ -55,15 +58,18 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   String address = '';
 
+  @observable
+  bool hasChangedAddress = false;
+
   @action
   setAddress(String value) {
-    validation.hasChangedAddress = true;
+    hasChangedAddress = true;
     return address = value;
   }
 
   @computed
   String? get getAddressError {
-    if (!validation.hasChangedAddress) {
+    if (!hasChangedAddress) {
       return null;
     } else if (address.isEmpty) {
       return 'Este campo é obrigatório';
@@ -77,15 +83,18 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   String number = '';
 
+  @observable
+  bool hasChangedNumber = false;
+
   @action
   setNumber(String value) {
-    validation.hasChangedNumber = true;
+    hasChangedNumber = true;
     return number = value;
   }
 
   @computed
   String? get getNumberError {
-    if (!validation.hasChangedNumber) {
+    if (!hasChangedNumber) {
       return null;
     } else if (number.isEmpty) {
       return 'Este campo é obrigatório';
@@ -97,15 +106,18 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   String neighborhood = '';
 
+  @observable
+  bool hasChangedNeighborhood = false;
+
   @action
   setNeighborhood(String value) {
-    validation.hasChangedNeighborhood = true;
+    hasChangedNeighborhood = true;
     return neighborhood = value;
   }
 
   @computed
   String? get getNeighborhoodError {
-    if (!validation.hasChangedNeighborhood) {
+    if (!hasChangedNeighborhood) {
       return null;
     } else if (neighborhood.isEmpty) {
       return 'Este campo é obrigatório';
@@ -127,15 +139,18 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   String city = '';
 
+  @observable
+  bool hasChangedCity = false;
+
   @action
   setCity(String value) {
-    validation.hasChangedCity = true;
+    hasChangedCity = true;
     return city = value;
   }
 
   @computed
   String? get getCityError {
-    if (!validation.hasChangedCity) {
+    if (!hasChangedCity) {
       return null;
     } else if (city.isEmpty) {
       return 'Este campo é obrigatório';
@@ -149,23 +164,34 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   @observable
   String complement = '';
 
+  @observable
+  bool hasChangedComplement = false;
+
   @action
   setComplement(String value) {
-    validation.hasChangedComplement = true;
+    hasChangedComplement = true;
     return complement = value;
   }
 
   @computed
+  bool get hasChangedAllFields =>
+      hasChangedCep &&
+      hasChangedAddress &&
+      hasChangedNumber &&
+      hasChangedNeighborhood &&
+      // hasChangedUf &&
+      hasChangedCity;
+
+  @computed
   bool get enableButton =>
-      validation.hasChangedAllFields &&
+      hasChangedAllFields &&
       getCityError == null &&
       getAddressError == null &&
       getCepError == null &&
       getNeighborhoodError == null &&
-      // getUfError == null &&
       getNumberError == null;
 
-  Future<void> getAddressByCep(String value) async {
+  Future<void> getAddressByCep(String value, BuildContext context) async {
     CepResponseModel address = await LocationHandler.getAddressByCep(value);
 
     if (address.success) {

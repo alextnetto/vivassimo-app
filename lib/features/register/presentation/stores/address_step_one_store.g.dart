@@ -16,6 +16,13 @@ mixin _$AddressStepOneStore on _AddressStepOneStoreBase, Store {
       (_$getCepErrorComputed ??= Computed<String?>(() => super.getCepError,
               name: '_AddressStepOneStoreBase.getCepError'))
           .value;
+  Computed<bool>? _$enableButtonComputed;
+
+  @override
+  bool get enableButton =>
+      (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
+              name: '_AddressStepOneStoreBase.enableButton'))
+          .value;
 
   final _$cepAtom = Atom(name: '_AddressStepOneStoreBase.cep');
 
@@ -48,8 +55,34 @@ mixin _$AddressStepOneStore on _AddressStepOneStoreBase, Store {
     });
   }
 
+  final _$isValidCepAtom = Atom(name: '_AddressStepOneStoreBase.isValidCep');
+
+  @override
+  bool get isValidCep {
+    _$isValidCepAtom.reportRead();
+    return super.isValidCep;
+  }
+
+  @override
+  set isValidCep(bool value) {
+    _$isValidCepAtom.reportWrite(value, super.isValidCep, () {
+      super.isValidCep = value;
+    });
+  }
+
   final _$_AddressStepOneStoreBaseActionController =
       ActionController(name: '_AddressStepOneStoreBase');
+
+  @override
+  dynamic setIsValidCep(bool value) {
+    final _$actionInfo = _$_AddressStepOneStoreBaseActionController.startAction(
+        name: '_AddressStepOneStoreBase.setIsValidCep');
+    try {
+      return super.setIsValidCep(value);
+    } finally {
+      _$_AddressStepOneStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setCep(String value) {
@@ -67,7 +100,9 @@ mixin _$AddressStepOneStore on _AddressStepOneStoreBase, Store {
     return '''
 cep: ${cep},
 hasChangedCep: ${hasChangedCep},
-getCepError: ${getCepError}
+isValidCep: ${isValidCep},
+getCepError: ${getCepError},
+enableButton: ${enableButton}
     ''';
   }
 }

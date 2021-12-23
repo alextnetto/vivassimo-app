@@ -108,6 +108,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                       child: DropdownButtonFormField(
                         decoration: InputDecoration(
                           enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
                           contentPadding: EdgeInsets.only(left: 10, right: 10),
                           filled: true,
                           fillColor: VivassimoTheme.yellow,

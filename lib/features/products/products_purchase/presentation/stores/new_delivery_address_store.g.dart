@@ -37,13 +37,6 @@ mixin _$NewDeliveryAddressStore on _NewDeliveryAddressStoreBase, Store {
           Computed<String?>(() => super.getNeighborhoodError,
               name: '_NewDeliveryAddressStoreBase.getNeighborhoodError'))
       .value;
-  Computed<String?>? _$getUfErrorComputed;
-
-  @override
-  String? get getUfError =>
-      (_$getUfErrorComputed ??= Computed<String?>(() => super.getUfError,
-              name: '_NewDeliveryAddressStoreBase.getUfError'))
-          .value;
   Computed<String?>? _$getCityErrorComputed;
 
   @override
@@ -288,7 +281,6 @@ getCepError: ${getCepError},
 getAddressError: ${getAddressError},
 getNumberError: ${getNumberError},
 getNeighborhoodError: ${getNeighborhoodError},
-getUfError: ${getUfError},
 getCityError: ${getCityError},
 enableButton: ${enableButton}
     ''';

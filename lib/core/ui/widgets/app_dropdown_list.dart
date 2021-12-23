@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/ui/component_styles/text_style.dart';
 
 import '../app_style.dart';
 
@@ -40,6 +41,15 @@ class DropdownListWidget extends StatelessWidget {
               ),
             ),
             labelText: labelText,
+            labelStyle: customTextStyle(
+              FontWeight.w700,
+              20,
+              VivassimoTheme.purpleActive,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 20,
+            ),
           ),
           // isEmpty: _currentSelectedValue == '',
           child: DropdownButtonHideUnderline(
