@@ -92,6 +92,28 @@ mixin _$PaymentMethodServiceStore on _PaymentMethodServiceStoreBase, Store {
       ActionController(name: '_PaymentMethodServiceStoreBase');
 
   @override
+  dynamic addCreditCard(CreditCardEntity creditCard) {
+    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
+        .startAction(name: '_PaymentMethodServiceStoreBase.addCreditCard');
+    try {
+      return super.addCreditCard(creditCard);
+    } finally {
+      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeCreditCard(CreditCardEntity creditCard) {
+    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
+        .startAction(name: '_PaymentMethodServiceStoreBase.removeCreditCard');
+    try {
+      return super.removeCreditCard(creditCard);
+    } finally {
+      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setPurchaseValue(num value) {
     final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
         .startAction(name: '_PaymentMethodServiceStoreBase.setPurchaseValue');

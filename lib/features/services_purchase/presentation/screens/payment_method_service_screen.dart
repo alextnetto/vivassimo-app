@@ -51,6 +51,14 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
               ],
             ),
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
+                'paymentStore': paymentStore,
+              });
+            },
+            child: Text('Clia aqui não, mano!'),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             width: 150,

@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:my_app/core/entities/credit_card_entity.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 part 'payment_method_service_store.g.dart';
 
@@ -6,9 +7,9 @@ class PaymentMethodServiceStore = _PaymentMethodServiceStoreBase with _$PaymentM
 
 abstract class _PaymentMethodServiceStoreBase with Store {
   _PaymentMethodServiceStoreBase() {
-    creditCardEntities.add(PaymentMethodEntity(id: 0, name: 'Selecione um cartão'));
-    creditCardEntities.add(PaymentMethodEntity(id: 1, image: 'assets/icon/mastercard.png', name: '1234'));
-    creditCardEntities.add(PaymentMethodEntity(id: 2, image: 'assets/icon/mastercard.png', name: '5678'));
+    creditCardEntities.add(CreditCardEntity(id: 0, number: 'Selecione um cartão'));
+    creditCardEntities.add(CreditCardEntity(id: 1, imagePath: 'assets/icon/mastercard.png', number: '1234'));
+    creditCardEntities.add(CreditCardEntity(id: 2, imagePath: 'assets/icon/mastercard.png', number: '5678'));
   }
 
   int maxInstallments = 0;
@@ -16,9 +17,24 @@ abstract class _PaymentMethodServiceStoreBase with Store {
   @observable
   PaymentMethodEntity? creditCardSelected;
 
-  ObservableList<PaymentMethodEntity> creditCardEntities = ObservableList<PaymentMethodEntity>();
+  ObservableList<CreditCardEntity> creditCardEntities = ObservableList<CreditCardEntity>();
 
-  List<String> creditCards = ['Selecione um cartão', 'Cartão final 6545'];
+  @action
+  addCreditCard(CreditCardEntity creditCard) {
+    creditCards
+        .add('Cartão final ${creditCard.number!.substring(creditCard.number!.length - 4, creditCard.number!.length)}');
+    creditCardEntities.add(creditCard);
+  }
+
+  @action
+  removeCreditCard(CreditCardEntity creditCard) {
+    var index = creditCardEntities.indexOf(creditCard);
+
+    creditCards.removeAt(index);
+    creditCardEntities.remove(creditCard);
+  }
+
+  List<String> creditCards = ['Selecione um cartão', 'Cartão final 1234', 'Cartão final 5678'];
 
   @observable
   num purchaseValue = 0.0;

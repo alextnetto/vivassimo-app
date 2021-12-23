@@ -23,6 +23,8 @@ import 'package:my_app/features/products_purchase/presentation/screens/payment_m
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_cvv_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/payment_method_service_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_purchase_details_screen.dart';
@@ -272,6 +274,23 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => ServicePurchaseDetailsScreen(
             servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
+
+      case '/services-purchase/new-credit-card':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardScreen(
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
+      case '/services-purchase/new-credit-card-cvv':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardCvvScreen(
+            creditCardStore: args['creditCardStore'],
+            paymentStore: args['paymentStore'],
           ),
         );
 

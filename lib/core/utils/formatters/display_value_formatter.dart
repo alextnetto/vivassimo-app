@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class AppFormatter {
   static String displayValueFormatter(num valor) {
@@ -17,4 +18,18 @@ class AppFormatter {
     assert(myDouble is double);
     return myDouble;
   }
+
+  static var creditCardInputFormatter = MaskTextInputFormatter(
+    mask: "#### #### #### ####",
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
+
+    static var dateInputFormatter = MaskTextInputFormatter(
+    mask: "##/####",
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
 }
