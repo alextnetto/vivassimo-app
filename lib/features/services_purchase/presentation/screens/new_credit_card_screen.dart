@@ -6,6 +6,7 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/enums/credit_card_enum.dart';
 import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/new_credit_card_store.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
@@ -21,6 +22,9 @@ class NewCreditCardScreen extends StatefulWidget {
 class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
   PaymentMethodServiceStore get paymentStore => widget.paymentStore;
   NewCreditCardStore creditCardStore = Modular.get<NewCreditCardStore>();
+  String cvv = '';
+  bool iscvvFocused = false;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,28 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                       ],
                     ),
                   ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width,
+                  //     // padding: const EdgeInsets.only(right: 22),
+                  //     child: Container(
+                  //       child: CreditCardWidget(
+                  //         cardNumber: creditCardStore.number,
+                  //         cardBgColor: VivassimoTheme.purpleActive,
+                  //         expiryDate: creditCardStore.expireDate,
+                  //         cardHolderName: creditCardStore.name,
+                  //         cvvCode: cvv,
+                  //         showBackView: iscvvFocused,
+                  //         // labelExpiredDate: ,
+                  //         onCreditCardWidgetChange: (creditCardBrand) {
+                  //           // setState(() {});
+                  //           print('fasdf');
+                  //         }, //true when you want to show cvv(back) view
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Positioned(
                     bottom: 0,
                     child: Container(
@@ -69,15 +95,25 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                         child: Observer(builder: (_) {
                           return Column(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [Image.asset('assets/icon/payment_methods_icons/visa_logo_white.png')],
-                              ),
+                              Observer(builder: (_) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    if (creditCardStore.cardBrand != CardBrand.otherBrand)
+                                      Image.asset(getCredtiCardLogo())
+                                    else
+                                      SizedBox(
+                                        height: 24,
+                                        width: 20,
+                                      )
+                                  ],
+                                );
+                              }),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 margin: const EdgeInsets.only(top: 52),
                                 child: Text(
-                                  creditCardStore.number,
+                                  creditCardStore.number.isNotEmpty ? creditCardStore.number : 'xxxx xxxx xxxx xxxx',
                                   style: customTextStyle(FontWeight.w800, 26, Colors.white),
                                 ),
                               ),
@@ -96,7 +132,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      creditCardStore.expireDate,
+                                      creditCardStore.expireDate.isNotEmpty ? creditCardStore.expireDate : 'xx/xxxx',
                                       style: customTextStyle(FontWeight.bold, 18, Colors.white),
                                     ),
                                   ],
@@ -112,6 +148,25 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
               ),
             ),
           ),
+          // SliverToBoxAdapter(
+          //   child: CreditCardForm(
+          //     onCreditCardModelChange: (creditCardModel) {
+          //       setState(() {
+          //         creditCardStore.number = creditCardModel.cardNumber;
+          //         creditCardStore.name = creditCardModel.cardHolderName;
+          //         creditCardStore.expireDate = creditCardModel.expiryDate;
+          //         cvv = creditCardModel.cvvCode;
+          //         iscvvFocused = creditCardModel.isCvvFocused;
+          //       });
+          //     },
+          //     cardNumber: creditCardStore.number,
+          //     expiryDate: creditCardStore.expireDate,
+          //     cardHolderName: creditCardStore.name,
+          //     cvvCode: cvv,
+          //     formKey: formKey,
+          //     themeColor: Colors.purple,
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 46),
@@ -174,5 +229,20 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
         ],
       ),
     );
+  }
+
+  String getCredtiCardLogo() {
+    switch (creditCardStore.cardBrand) {
+      case CardBrand.otherBrand:
+        return '';
+      case CardBrand.mastercard:
+        return 'assets/icon/payment_methods_icons/mastercard.png';
+      case CardBrand.visa:
+        return 'assets/icon/payment_methods_icons/visa_logo_white.png';
+      case CardBrand.americanExpress:
+        return 'assets/icon/payment_methods_icons/amex.png';
+      default:
+        return '';
+    }
   }
 }

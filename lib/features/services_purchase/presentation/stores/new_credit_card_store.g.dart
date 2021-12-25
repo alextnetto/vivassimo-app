@@ -38,6 +38,21 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
               name: '_NewCreditCardStoreBase.enableButton'))
           .value;
 
+  final _$cardTypeAtom = Atom(name: '_NewCreditCardStoreBase.cardType');
+
+  @override
+  CardBrand get cardBrand {
+    _$cardTypeAtom.reportRead();
+    return super.cardBrand;
+  }
+
+  @override
+  set cardBrand(CardBrand value) {
+    _$cardTypeAtom.reportWrite(value, super.cardBrand, () {
+      super.cardBrand = value;
+    });
+  }
+
   final _$numberAtom = Atom(name: '_NewCreditCardStoreBase.number');
 
   @override
@@ -136,6 +151,17 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
       ActionController(name: '_NewCreditCardStoreBase');
 
   @override
+  dynamic setCardBrand(CardBrand value) {
+    final _$actionInfo = _$_NewCreditCardStoreBaseActionController.startAction(
+        name: '_NewCreditCardStoreBase.setCardType');
+    try {
+      return super.setCardBrand(value);
+    } finally {
+      _$_NewCreditCardStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setNumber(String value) {
     final _$actionInfo = _$_NewCreditCardStoreBaseActionController.startAction(
         name: '_NewCreditCardStoreBase.setNumber');
@@ -171,6 +197,7 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
   @override
   String toString() {
     return '''
+cardType: ${cardBrand},
 number: ${number},
 hasChangedNumber: ${hasChangedNumber},
 name: ${name},

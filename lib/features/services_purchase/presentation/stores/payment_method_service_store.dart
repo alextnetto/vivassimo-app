@@ -18,6 +18,7 @@ abstract class _PaymentMethodServiceStoreBase with Store {
   PaymentMethodEntity? creditCardSelected;
 
   ObservableList<CreditCardEntity> creditCardEntities = ObservableList<CreditCardEntity>();
+  List<String> creditCards = ['Selecione um cartão', 'Cartão final 1234', 'Cartão final 5678'];
 
   @action
   addCreditCard(CreditCardEntity creditCard) {
@@ -33,8 +34,6 @@ abstract class _PaymentMethodServiceStoreBase with Store {
     creditCards.removeAt(index);
     creditCardEntities.remove(creditCard);
   }
-
-  List<String> creditCards = ['Selecione um cartão', 'Cartão final 1234', 'Cartão final 5678'];
 
   @observable
   num purchaseValue = 0.0;
