@@ -174,7 +174,7 @@ class _RegisterStepOneState extends State<RegisterStepOneScreen> {
                                 );
                               } else {
                                 Navigator.of(context).pushNamed(
-                                  '/register/verifyOtp',
+                                  '/register/address1',
                                   arguments: {
                                     'registerUserRequestModel':
                                         RegisterUserRequestModel(

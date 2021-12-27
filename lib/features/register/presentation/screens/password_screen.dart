@@ -25,14 +25,7 @@ class PasswordScreen extends StatefulWidget {
 class PasswordScreenState extends State<PasswordScreen> {
   RegisterUserRequestModel get registerUserRequestModel =>
       widget.registerUserRequestModel;
-  PasswordStore? passwordStore;
-
-  @override
-  void initState() {
-    initModule(RegisterModule());
-    passwordStore = Modular.get<PasswordStore>();
-    super.initState();
-  }
+  PasswordStore passwordStore = Modular.get<PasswordStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -99,18 +92,18 @@ class PasswordScreenState extends State<PasswordScreen> {
                         child: Observer(builder: (_) {
                           return AppTextField(
                             label: 'Digite uma senha',
-                            onChanged: passwordStore!.setPassword,
-                            errorText: passwordStore!.getPasswordError,
-                            obscureText: passwordStore!.isPasswordVisible,
+                            onChanged: passwordStore.setPassword,
+                            errorText: passwordStore.getPasswordError,
+                            obscureText: passwordStore.isPasswordVisible,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                passwordStore!.isPasswordVisible
+                                passwordStore.isPasswordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
-                                passwordStore!.changePasswordVisibity();
+                                passwordStore.changePasswordVisibity();
                               },
                             ),
                           );
@@ -125,19 +118,19 @@ class PasswordScreenState extends State<PasswordScreen> {
                         child: Observer(builder: (_) {
                           return AppTextField(
                             label: 'Digite novamente a senha',
-                            onChanged: passwordStore!.setPasswordConfirmation,
+                            onChanged: passwordStore.setPasswordConfirmation,
                             errorText:
-                                passwordStore!.getPasswordConfirmationError,
-                            obscureText: passwordStore!.isPasswordVisible,
+                                passwordStore.getPasswordConfirmationError,
+                            obscureText: passwordStore.isPasswordVisible,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                passwordStore!.isPasswordVisible
+                                passwordStore.isPasswordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
-                                passwordStore!.changePasswordVisibity();
+                                passwordStore.changePasswordVisibity();
                               },
                             ),
                           );
@@ -158,10 +151,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                     primary: VivassimoTheme.green,
                     onPrimary: VivassimoTheme.white,
                     borderColor: VivassimoTheme.white,
-                    onPressed: passwordStore!.enableButton
+                    onPressed: passwordStore.enableButton
                         ? () {
                             registerUserRequestModel.password =
-                                passwordStore!.password;
+                                passwordStore.password;
 
                             Navigator.pushNamed(
                               context,

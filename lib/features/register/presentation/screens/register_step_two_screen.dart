@@ -23,13 +23,9 @@ class RegisterStepTwoScreen extends StatefulWidget {
 class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
   RegisterUserRequestModel get registerUserRequestModel =>
       widget.registerUserRequestModel;
-  RegisterStepTwoStore? registerStepTwoStore;
 
-  @override
-  void initState() {
-    registerStepTwoStore = Modular.get<RegisterStepTwoStore>();
-    super.initState();
-  }
+  RegisterStepTwoStore registerStepTwoStore =
+      Modular.get<RegisterStepTwoStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +78,9 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                         child: Observer(builder: (_) {
                           return AppTextField(
                             label: 'Digite aqui a data',
-                            onChanged: registerStepTwoStore!.setDataNascimento,
+                            onChanged: registerStepTwoStore.setDataNascimento,
                             errorText:
-                                registerStepTwoStore!.getDataNascimentoError,
+                                registerStepTwoStore.getDataNascimentoError,
                             inputFormatters: [AppMasks.dataNascimento],
                           );
                         }),
@@ -139,7 +135,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                             child: Text(value),
                           );
                         }).toList(),
-                        onChanged: registerStepTwoStore!.setGenero,
+                        onChanged: registerStepTwoStore.setGenero,
                       ),
                     ),
                   ],
@@ -156,12 +152,12 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                       primary: VivassimoTheme.green,
                       onPrimary: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
-                      onPressed: registerStepTwoStore!.enableButton
+                      onPressed: registerStepTwoStore.enableButton
                           ? () {
                               registerUserRequestModel.genero =
-                                  registerStepTwoStore!.genero;
+                                  registerStepTwoStore.genero;
                               registerUserRequestModel.dataNascimento =
-                                  registerStepTwoStore!.dataNascimento;
+                                  registerStepTwoStore.dataNascimento;
 
                               Navigator.pushNamed(
                                 context,

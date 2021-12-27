@@ -31,8 +31,15 @@ class AddressStepTwoScreen extends StatefulWidget {
 class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
   RegisterUserRequestModel get registerUserRequestModel =>
       widget.registerUserRequestModel;
+  CepResponseModel get cepResponseModel => widget.cepResponseModel;
 
   AddressStepTwoStore addressStepTwoStore = Modular.get<AddressStepTwoStore>();
+
+  @override
+  void initState() {
+    addressStepTwoStore.setAddressByCep(cepResponseModel);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

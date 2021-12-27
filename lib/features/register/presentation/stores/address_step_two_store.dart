@@ -203,6 +203,10 @@ abstract class _AddressStepTwoStoreBase with Store {
   }
 
   Future<void> setAddressByCep(CepResponseModel addressData) async {
+    setCep(addressData.cep);
+    setIsValidCep(true);
+    cepController.text = addressData.cep;
+
     setAddress(addressData.logradouro);
     addressController.text = addressData.logradouro;
 

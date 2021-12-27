@@ -17,7 +17,6 @@ import 'package:my_app/features/register/presentation/screens/password_screen.da
 import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
 import 'package:my_app/features/services/services_purchase/presentation/screens/service_type_description_screen.dart';
-import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/features/register/presentation/screens/address_step_one_screen.dart';
 import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
