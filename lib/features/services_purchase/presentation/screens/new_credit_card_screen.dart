@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/credit_card_animation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_app/core/ui/app_style.dart';
-import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/core/utils/enums/credit_card_enum.dart';
 import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/new_credit_card_store.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
+import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_back_widget.dart';
+import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_widget.dart';
+import 'dart:math';
+
+import 'cvv_indicator_screen.dart';
 
 class NewCreditCardScreen extends StatefulWidget {
   final PaymentMethodServiceStore paymentStore;
@@ -19,15 +23,59 @@ class NewCreditCardScreen extends StatefulWidget {
   _NewCreditCardScreenState createState() => _NewCreditCardScreenState();
 }
 
-class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
+class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTickerProviderStateMixin {
   PaymentMethodServiceStore get paymentStore => widget.paymentStore;
   NewCreditCardStore creditCardStore = Modular.get<NewCreditCardStore>();
   String cvv = '';
   bool iscvvFocused = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  //Card Animation
+  late bool isFrontVisible = true;
+  late bool isGestureUpdate = false;
+  late AnimationController controller;
+  late Animation<double> _frontRotation;
+  late Animation<double> _backRotation;
+  FocusNode cvvFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    cvvFocusNode.addListener(textFieldFocusDidChange);
+
+    _updateRotations(false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    cvvFocusNode.dispose();
+    super.dispose();
+  }
+
+  void textFieldFocusDidChange() {
+    setState(() {
+      creditCardStore.setShowBackView(cvvFocusNode.hasFocus);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!isGestureUpdate) {
+      _updateRotations(false);
+      if (creditCardStore.showBackView) {
+        controller.forward();
+      } else {
+        controller.reverse();
+      }
+    } else {
+      isGestureUpdate = false;
+    }
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -57,8 +105,8 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                   //       child: CreditCardWidget(
                   //         cardNumber: creditCardStore.number,
                   //         cardBgColor: VivassimoTheme.purpleActive,
-                  //         expiryDate: creditCardStore.expireDate,
-                  //         cardHolderName: creditCardStore.name,
+                  //         expiryDate: creditCardStore.expirationDate,
+                  //         cardHolderName: creditCardStore.ownerName,
                   //         cvvCode: cvv,
                   //         showBackView: iscvvFocused,
                   //         // labelExpiredDate: ,
@@ -73,75 +121,43 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      // margin: const EdgeInsets.only(left: 22, right: 22),
                       padding: const EdgeInsets.only(left: 22, right: 22),
                       width: MediaQuery.of(context).size.width,
-                      child: Container(
-                        height: 223.14,
-                        padding: const EdgeInsets.only(left: 22, right: 22, top: 29.39),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                            colors: const [
-                              Color(0xff4D0351),
-                              Color(0xff2C0833),
-                            ],
-                            begin: const FractionalOffset(0.5, 0.0),
-                            end: const FractionalOffset(0.8, 0.5),
-                            stops: const [0.0, 1.0],
-                            tileMode: TileMode.clamp,
-                          ),
-                        ),
-                        child: Observer(builder: (_) {
-                          return Column(
-                            children: [
-                              Observer(builder: (_) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    if (creditCardStore.cardBrand != CardBrand.otherBrand)
-                                      Image.asset(getCredtiCardLogo())
-                                    else
-                                      SizedBox(
-                                        height: 24,
-                                        width: 20,
-                                      )
-                                  ],
-                                );
-                              }),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                margin: const EdgeInsets.only(top: 52),
-                                child: Text(
-                                  creditCardStore.number.isNotEmpty ? creditCardStore.number : 'xxxx xxxx xxxx xxxx',
-                                  style: customTextStyle(FontWeight.w800, 26, Colors.white),
+                      child:
+                          // Observer(builder: (_) {
+                          //   return CreditCardWidgettTT(
+                          //     brand: creditCardStore.cardBrand,
+                          //     expirationDate: creditCardStore.expirationDate,
+                          //     number: creditCardStore.number,
+                          //     ownerName: creditCardStore.ownerName,
+                          //   );
+                          // }),
+
+                          Observer(builder: (_) {
+                        return Stack(
+                          children: [
+                            _cardGesture(
+                                child: AnimationCard(
+                              animation: _frontRotation,
+                              child: CreditCardWidgettTT(
+                                brand: creditCardStore.cardBrand,
+                                expirationDate: creditCardStore.expirationDate,
+                                number: creditCardStore.number,
+                                ownerName: creditCardStore.ownerName,
+                              ),
+                            )),
+                            _cardGesture(
+                              child: AnimationCard(
+                                animation: _backRotation,
+                                child: CreditCardBackWidget(
+                                  brand: creditCardStore.cardBrand,
+                                  cvv: creditCardStore.cvv,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    creditCardStore.name.toUpperCase(),
-                                    style: customTextStyle(FontWeight.bold, 18, Colors.white),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(right: 25, top: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      creditCardStore.expireDate.isNotEmpty ? creditCardStore.expireDate : 'xx/xxxx',
-                                      style: customTextStyle(FontWeight.bold, 18, Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          );
-                        }),
-                      ),
+                            ),
+                          ],
+                        );
+                      }),
                     ),
                   )
                 ],
@@ -153,55 +169,93 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
           //     onCreditCardModelChange: (creditCardModel) {
           //       setState(() {
           //         creditCardStore.number = creditCardModel.cardNumber;
-          //         creditCardStore.name = creditCardModel.cardHolderName;
-          //         creditCardStore.expireDate = creditCardModel.expiryDate;
+          //         creditCardStore.ownerName = creditCardModel.cardHolderName;
+          //         creditCardStore.expirationDate = creditCardModel.expiryDate;
           //         cvv = creditCardModel.cvvCode;
           //         iscvvFocused = creditCardModel.isCvvFocused;
           //       });
           //     },
           //     cardNumber: creditCardStore.number,
-          //     expiryDate: creditCardStore.expireDate,
-          //     cardHolderName: creditCardStore.name,
+          //     expiryDate: creditCardStore.expirationDate,
+          //     cardHolderName: creditCardStore.ownerName,
           //     cvvCode: cvv,
           //     formKey: formKey,
           //     themeColor: Colors.purple,
           //   ),
           // ),
           SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 46),
-              margin: const EdgeInsets.only(top: 35),
-              child: Column(
-                children: [
-                  AppTextField(
-                    label: 'Digite os números do cartão',
-                    onChanged: creditCardStore.setNumber,
-                    textAlign: TextAlign.center,
-                    inputFormatters: [
-                      AppFormatter.creditCardInputFormatter,
-                    ],
-                    errorText: creditCardStore.getNumberError,
-                  ),
-                  SizedBox(height: 25),
-                  AppTextField(
-                    label: 'Digite o nome impresso no cartão',
-                    onChanged: creditCardStore.setName,
-                    textAlign: TextAlign.center,
-                    errorText: creditCardStore.getNameError,
-                  ),
-                  SizedBox(height: 25),
-                  AppTextField(
-                    label: 'Digite a validade do cartão',
-                    onChanged: creditCardStore.setExpireDate,
-                    textAlign: TextAlign.center,
-                    inputFormatters: [
-                      AppFormatter.dateInputFormatter,
-                    ],
-                    errorText: creditCardStore.getExpireDateError,
-                  ),
-                ],
-              ),
-            ),
+            child: Observer(builder: (_) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 46),
+                margin: const EdgeInsets.only(top: 35),
+                child: Column(
+                  children: [
+                    AppTextField(
+                      label: 'Digite os números do cartão',
+                      onChanged: creditCardStore.setNumber,
+                      textAlign: TextAlign.center,
+                      inputFormatters: [
+                        AppFormatter.creditCardInputFormatter,
+                      ],
+                      errorText: creditCardStore.getNumberError,
+                    ),
+                    SizedBox(height: 20),
+                    AppTextField(
+                      label: 'Digite o nome no cartão',
+                      onChanged: creditCardStore.setName,
+                      textAlign: TextAlign.center,
+                      errorText: creditCardStore.getNameError,
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => CvvIndicatorScreen()));
+                          },
+                          child: Icon(
+                            Icons.info_rounded,
+                            color: Colors.grey,
+                            size: 30,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 2),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppTextField(
+                            label: 'Validade',
+                            onChanged: creditCardStore.setExpireDate,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              AppFormatter.dateInputFormatter,
+                            ],
+                            // errorText: creditCardStore.getExpireDateError,
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: AppTextField(
+                            label: 'CVV',
+                            onChanged: creditCardStore.setCvv,
+                            textAlign: TextAlign.center,
+                            // errorText: creditCardStore.getCvvError,
+                            focusNode: cvvFocusNode,
+                            // onEditingComplete: () {
+                            //   FocusScope.of(context).requestFocus(cvvFocusNode);
+                            // },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // SizedBox(height: 20),
+                  ],
+                ),
+              );
+            }),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 65)),
           SliverFillRemaining(
@@ -231,18 +285,85 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
     );
   }
 
-  String getCredtiCardLogo() {
-    switch (creditCardStore.cardBrand) {
-      case CardBrand.otherBrand:
-        return '';
-      case CardBrand.mastercard:
-        return 'assets/icon/payment_methods_icons/mastercard.png';
-      case CardBrand.visa:
-        return 'assets/icon/payment_methods_icons/visa_logo_white.png';
-      case CardBrand.americanExpress:
-        return 'assets/icon/payment_methods_icons/amex.png';
-      default:
-        return '';
+  Widget _cardGesture({required Widget child}) {
+    bool isRightSwipe = true;
+    return GestureDetector(
+      onPanEnd: (_) {
+        isGestureUpdate = true;
+        if (isRightSwipe) {
+          _leftRotation();
+        } else {
+          _rightRotation();
+        }
+      },
+      onPanUpdate: (DragUpdateDetails details) {
+        // Swiping in right direction.
+        if (details.delta.dx > 0) {
+          isRightSwipe = true;
+        }
+
+        // Swiping in left direction.
+        if (details.delta.dx < 0) {
+          isRightSwipe = false;
+        }
+      },
+      child: child,
+    );
+  }
+
+  void _leftRotation() {
+    _toggleSide(false);
+  }
+
+  void _rightRotation() {
+    _toggleSide(true);
+  }
+
+  void _toggleSide(bool isRightTap) {
+    _updateRotations(!isRightTap);
+    if (isFrontVisible) {
+      controller.forward();
+      isFrontVisible = false;
+    } else {
+      controller.reverse();
+      isFrontVisible = true;
     }
+  }
+
+  void _updateRotations(bool isRightSwipe) {
+    setState(() {
+      final bool rotateToLeft = (isFrontVisible && !isRightSwipe) || !isFrontVisible && isRightSwipe;
+
+      ///Initialize the Front to back rotation tween sequence.
+      _frontRotation = TweenSequence<double>(
+        <TweenSequenceItem<double>>[
+          TweenSequenceItem<double>(
+            tween: Tween<double>(begin: 0.0, end: rotateToLeft ? (pi / 2) : (-pi / 2))
+                .chain(CurveTween(curve: Curves.linear)),
+            weight: 50.0,
+          ),
+          TweenSequenceItem<double>(
+            tween: ConstantTween<double>(rotateToLeft ? (-pi / 2) : (pi / 2)),
+            weight: 50.0,
+          ),
+        ],
+      ).animate(controller);
+
+      ///Initialize the Back to Front rotation tween sequence.
+      _backRotation = TweenSequence<double>(
+        <TweenSequenceItem<double>>[
+          TweenSequenceItem<double>(
+            tween: ConstantTween<double>(rotateToLeft ? (pi / 2) : (-pi / 2)),
+            weight: 50.0,
+          ),
+          TweenSequenceItem<double>(
+            tween: Tween<double>(begin: rotateToLeft ? (-pi / 2) : (pi / 2), end: 0.0).chain(
+              CurveTween(curve: Curves.linear),
+            ),
+            weight: 50.0,
+          ),
+        ],
+      ).animate(controller);
+    });
   }
 }

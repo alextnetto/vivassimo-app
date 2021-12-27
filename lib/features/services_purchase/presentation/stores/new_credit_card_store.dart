@@ -7,6 +7,12 @@ class NewCreditCardStore = _NewCreditCardStoreBase with _$NewCreditCardStore;
 
 abstract class _NewCreditCardStoreBase with Store {
   @observable
+  bool showBackView = false;
+
+  @action
+  setShowBackView(bool value) => showBackView = value;
+
+  @observable
   CardBrand cardBrand = CardBrand.otherBrand;
 
   @action
@@ -31,7 +37,7 @@ abstract class _NewCreditCardStoreBase with Store {
       return null;
     } else if (number.isEmpty) {
       return 'Este campo é obrigatório';
-    } else if (number.length < 16) {
+    } else if (number.length < 19) {
       return 'Número inválido';
     }
 
@@ -39,7 +45,7 @@ abstract class _NewCreditCardStoreBase with Store {
   }
 
   @observable
-  String name = '';
+  String ownerName = '';
 
   @observable
   bool hasChangedName = false;
@@ -47,16 +53,16 @@ abstract class _NewCreditCardStoreBase with Store {
   @action
   setName(String value) {
     hasChangedName = true;
-    return name = value;
+    return ownerName = value;
   }
 
   @computed
   String? get getNameError {
     if (!hasChangedName) {
       return null;
-    } else if (name.isEmpty) {
+    } else if (ownerName.isEmpty) {
       return 'Este campo é obrigatório';
-    } else if (name.length < 5) {
+    } else if (ownerName.length < 5) {
       return 'Nome inválido';
     }
 
@@ -64,7 +70,7 @@ abstract class _NewCreditCardStoreBase with Store {
   }
 
   @observable
-  String expireDate = '';
+  String expirationDate = '';
 
   @observable
   bool hasChangedExpireDate = false;
@@ -72,17 +78,42 @@ abstract class _NewCreditCardStoreBase with Store {
   @action
   setExpireDate(String value) {
     hasChangedExpireDate = true;
-    return expireDate = value;
+    return expirationDate = value;
   }
 
   @computed
   String? get getExpireDateError {
     if (!hasChangedExpireDate) {
       return null;
-    } else if (expireDate.isEmpty) {
+    } else if (expirationDate.isEmpty) {
       return 'Este campo é obrigatório';
-    } else if (expireDate.length < 6) {
+    } else if (expirationDate.length < 6) {
       return 'Nome inválido';
+    }
+
+    return null;
+  }
+
+  @observable
+  String cvv = '';
+
+  @observable
+  bool hasChangedCvv = false;
+
+  @action
+  setCvv(String value) {
+    hasChangedCvv = true;
+    return cvv = value;
+  }
+
+  @computed
+  String? get getCvvError {
+    if (!hasChangedCvv) {
+      return null;
+    } else if (cvv.isEmpty) {
+      return 'Este campo é obrigatório';
+    } else if (cvv.length < 3) {
+      return 'CVV inválido';
     }
 
     return null;
@@ -93,8 +124,10 @@ abstract class _NewCreditCardStoreBase with Store {
       getNumberError == null &&
       getNameError == null &&
       getExpireDateError == null &&
+      getCvvError == null &&
       hasChangedNumber &&
       hasChangedName &&
+      hasChangedCvv &&
       hasChangedExpireDate;
 
   detectCreditCardBrand(String cardNumber) {

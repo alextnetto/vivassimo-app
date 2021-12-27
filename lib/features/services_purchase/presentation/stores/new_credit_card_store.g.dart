@@ -30,6 +30,13 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
           Computed<String?>(() => super.getExpireDateError,
               name: '_NewCreditCardStoreBase.getExpireDateError'))
       .value;
+  Computed<String?>? _$getCvvErrorComputed;
+
+  @override
+  String? get getCvvError =>
+      (_$getCvvErrorComputed ??= Computed<String?>(() => super.getCvvError,
+              name: '_NewCreditCardStoreBase.getCvvError'))
+          .value;
   Computed<bool>? _$enableButtonComputed;
 
   @override
@@ -38,17 +45,32 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
               name: '_NewCreditCardStoreBase.enableButton'))
           .value;
 
-  final _$cardTypeAtom = Atom(name: '_NewCreditCardStoreBase.cardType');
+  final _$showBackViewAtom = Atom(name: '_NewCreditCardStoreBase.showBackView');
+
+  @override
+  bool get showBackView {
+    _$showBackViewAtom.reportRead();
+    return super.showBackView;
+  }
+
+  @override
+  set showBackView(bool value) {
+    _$showBackViewAtom.reportWrite(value, super.showBackView, () {
+      super.showBackView = value;
+    });
+  }
+
+  final _$cardBrandAtom = Atom(name: '_NewCreditCardStoreBase.cardBrand');
 
   @override
   CardBrand get cardBrand {
-    _$cardTypeAtom.reportRead();
+    _$cardBrandAtom.reportRead();
     return super.cardBrand;
   }
 
   @override
   set cardBrand(CardBrand value) {
-    _$cardTypeAtom.reportWrite(value, super.cardBrand, () {
+    _$cardBrandAtom.reportWrite(value, super.cardBrand, () {
       super.cardBrand = value;
     });
   }
@@ -84,18 +106,18 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
     });
   }
 
-  final _$nameAtom = Atom(name: '_NewCreditCardStoreBase.name');
+  final _$ownerNameAtom = Atom(name: '_NewCreditCardStoreBase.ownerName');
 
   @override
-  String get name {
-    _$nameAtom.reportRead();
-    return super.name;
+  String get ownerName {
+    _$ownerNameAtom.reportRead();
+    return super.ownerName;
   }
 
   @override
-  set name(String value) {
-    _$nameAtom.reportWrite(value, super.name, () {
-      super.name = value;
+  set ownerName(String value) {
+    _$ownerNameAtom.reportWrite(value, super.ownerName, () {
+      super.ownerName = value;
     });
   }
 
@@ -115,18 +137,19 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
     });
   }
 
-  final _$expireDateAtom = Atom(name: '_NewCreditCardStoreBase.expireDate');
+  final _$expirationDateAtom =
+      Atom(name: '_NewCreditCardStoreBase.expirationDate');
 
   @override
-  String get expireDate {
-    _$expireDateAtom.reportRead();
-    return super.expireDate;
+  String get expirationDate {
+    _$expirationDateAtom.reportRead();
+    return super.expirationDate;
   }
 
   @override
-  set expireDate(String value) {
-    _$expireDateAtom.reportWrite(value, super.expireDate, () {
-      super.expireDate = value;
+  set expirationDate(String value) {
+    _$expirationDateAtom.reportWrite(value, super.expirationDate, () {
+      super.expirationDate = value;
     });
   }
 
@@ -147,13 +170,55 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
     });
   }
 
+  final _$cvvAtom = Atom(name: '_NewCreditCardStoreBase.cvv');
+
+  @override
+  String get cvv {
+    _$cvvAtom.reportRead();
+    return super.cvv;
+  }
+
+  @override
+  set cvv(String value) {
+    _$cvvAtom.reportWrite(value, super.cvv, () {
+      super.cvv = value;
+    });
+  }
+
+  final _$hasChangedCvvAtom =
+      Atom(name: '_NewCreditCardStoreBase.hasChangedCvv');
+
+  @override
+  bool get hasChangedCvv {
+    _$hasChangedCvvAtom.reportRead();
+    return super.hasChangedCvv;
+  }
+
+  @override
+  set hasChangedCvv(bool value) {
+    _$hasChangedCvvAtom.reportWrite(value, super.hasChangedCvv, () {
+      super.hasChangedCvv = value;
+    });
+  }
+
   final _$_NewCreditCardStoreBaseActionController =
       ActionController(name: '_NewCreditCardStoreBase');
 
   @override
+  dynamic setShowBackView(bool value) {
+    final _$actionInfo = _$_NewCreditCardStoreBaseActionController.startAction(
+        name: '_NewCreditCardStoreBase.setShowBackView');
+    try {
+      return super.setShowBackView(value);
+    } finally {
+      _$_NewCreditCardStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setCardBrand(CardBrand value) {
     final _$actionInfo = _$_NewCreditCardStoreBaseActionController.startAction(
-        name: '_NewCreditCardStoreBase.setCardType');
+        name: '_NewCreditCardStoreBase.setCardBrand');
     try {
       return super.setCardBrand(value);
     } finally {
@@ -195,18 +260,33 @@ mixin _$NewCreditCardStore on _NewCreditCardStoreBase, Store {
   }
 
   @override
+  dynamic setCvv(String value) {
+    final _$actionInfo = _$_NewCreditCardStoreBaseActionController.startAction(
+        name: '_NewCreditCardStoreBase.setCvv');
+    try {
+      return super.setCvv(value);
+    } finally {
+      _$_NewCreditCardStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-cardType: ${cardBrand},
+showBackView: ${showBackView},
+cardBrand: ${cardBrand},
 number: ${number},
 hasChangedNumber: ${hasChangedNumber},
-name: ${name},
+ownerName: ${ownerName},
 hasChangedName: ${hasChangedName},
-expireDate: ${expireDate},
+expirationDate: ${expirationDate},
 hasChangedExpireDate: ${hasChangedExpireDate},
+cvv: ${cvv},
+hasChangedCvv: ${hasChangedCvv},
 getNumberError: ${getNumberError},
 getNameError: ${getNameError},
 getExpireDateError: ${getExpireDateError},
+getCvvError: ${getCvvError},
 enableButton: ${enableButton}
     ''';
   }

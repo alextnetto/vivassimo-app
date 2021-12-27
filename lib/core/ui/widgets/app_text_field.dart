@@ -20,6 +20,7 @@ class AppTextField extends StatelessWidget {
   final bool readOnly;
   final Color? borderColor;
   final Color? textColor;
+  final Function()? onEditingComplete;
 
   const AppTextField({
     required this.label,
@@ -37,6 +38,7 @@ class AppTextField extends StatelessWidget {
     this.readOnly = false,
     this.borderColor,
     this.textColor,
+    this.onEditingComplete,
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
+      onEditingComplete: onEditingComplete,
       decoration: customInputDecoration1(
         label,
         errorText: errorText,
