@@ -6,10 +6,10 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/select_installments_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
-import 'package:my_app/core/ui/widgets/app_dropdown_list.dart';
+import 'package:my_app/core/ui/widgets/app_dropdown_list_with_model.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
-import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/payment_method_store.dart';
 
 class PaymentMethodServiceScreen extends StatefulWidget {
   final ServicePurchaseRequestModel servicePurchaseRequestModel;
@@ -22,7 +22,7 @@ class PaymentMethodServiceScreen extends StatefulWidget {
 
 class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen> {
   ServicePurchaseRequestModel get servicePurchaseRequestModel => widget.servicePurchaseRequestModel;
-  PaymentMethodServiceStore paymentStore = Modular.get<PaymentMethodServiceStore>();
+  PaymentMethodStore paymentStore = Modular.get<PaymentMethodStore>();
 
   @override
   void initState() {
@@ -51,14 +51,6 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
               ],
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
-                'paymentStore': paymentStore,
-              });
-            },
-            child: Text('Clia aqui não, mano!'),
-          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             width: 150,
@@ -78,8 +70,8 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
             return Container(
               margin: const EdgeInsets.only(top: 25),
               padding: const EdgeInsets.symmetric(horizontal: 45),
-              child: DropdownListWidget(
-                contentList: paymentStore.creditCards,
+              child: DropdownListWithModelWidget(
+                contentList: paymentStore.creditCardEntities,
                 contentStyle: customTextStyle(FontWeight.bold, 18, Colors.white),
                 fillCollor: Color(0XFF22AB86),
                 icon: Padding(
@@ -90,13 +82,30 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
                   ),
                 ),
                 onChanged: (value) {
-                  paymentStore.setPaymentMethod(value ?? '');
+                  paymentStore.setPaymentMethod(value);
                 },
-                storeValue: paymentStore.paymentMethod,
+                selectedValue: paymentStore.paymentMethod,
               ),
             );
           }),
           AppButton(
+            margin: const EdgeInsets.only(top: 20),
+            borderColor: Color(0XFFB4D8D8),
+            buttonColor: Color(0XFFE9F3F4),
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            textColor: Color(0XFF635F75),
+            title: 'Adicionar um cartão',
+            onPressed: () {
+              Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
+                'paymentStore': paymentStore,
+              }).then((value) {
+                setState(() {});
+              });
+            },
+          ),
+          AppButton(
+            margin: const EdgeInsets.only(top: 20),
             borderColor: Color(0XFFB4D8D8),
             buttonColor: Color(0XFFE9F3F4),
             fontSize: 23,
@@ -104,7 +113,9 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
             textColor: Color(0XFF635F75),
             title: 'Excluir um cartão',
             onPressed: () {
-              Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method');
+              Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method', arguments: {
+                'paymentStore': paymentStore,
+              });
             },
           ),
           Container(
@@ -172,18 +183,18 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
                       );
                     }),
                     Observer(builder: (_) {
-                      if (paymentStore.paymentMethod != 'Selecione um cartão') {
+                      if (paymentStore.paymentMethod.number != 'Selecione um cartão') {
                         return Container(
                           margin: const EdgeInsets.only(top: 40),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                child: Image.asset('assets/icon/mastercard.png'),
+                                child: Image.asset(paymentStore.paymentMethod.imagePath!),
                               ),
                               SizedBox(width: 15),
                               Text(
-                                'Matercard ****${paymentStore.paymentMethod.substring(paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length)}',
+                                '${paymentStore.paymentMethod.brandName} ****${paymentStore.paymentMethod.number!.substring(paymentStore.paymentMethod.number!.length - 4, paymentStore.paymentMethod.number!.length)}',
                                 style: customTextStyle(FontWeight.w600, 18, Color(0XFF635F75)),
                               )
                             ],
@@ -215,8 +226,9 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
                                     servicePurchaseRequestModel.paymentMethodEntity = PaymentMethodEntity(
                                       id: 1,
                                       installments: paymentStore.installment,
-                                      name: paymentStore.paymentMethod.substring(
-                                          paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length),
+                                      name: paymentStore.paymentMethod.number!.substring(
+                                          paymentStore.paymentMethod.number!.length - 4,
+                                          paymentStore.paymentMethod.number!.length),
                                       installmentAmount: paymentStore.getInstallmentAmount,
                                     );
                                     Navigator.of(context)

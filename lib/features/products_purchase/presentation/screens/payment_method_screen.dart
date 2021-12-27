@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/payment_method_store.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/select_installments_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
-import 'package:my_app/core/ui/widgets/app_dropdown_list.dart';
+import 'package:my_app/core/ui/widgets/app_dropdown_list_with_model.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
-import 'package:my_app/features/products_purchase/presentation/stores/payment_method_store.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   final ProductPurchaseRequestModel productPurchaseRequestModel;
@@ -69,8 +69,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             return Container(
               margin: const EdgeInsets.only(top: 25),
               padding: const EdgeInsets.symmetric(horizontal: 45),
-              child: DropdownListWidget(
-                contentList: paymentStore.creditCards,
+              child: DropdownListWithModelWidget(
+                contentList: paymentStore.creditCardEntities,
                 contentStyle: customTextStyle(FontWeight.bold, 18, Colors.white),
                 fillCollor: Color(0XFF22AB86),
                 icon: Padding(
@@ -81,13 +81,30 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   ),
                 ),
                 onChanged: (value) {
-                  paymentStore.setPaymentMethod(value ?? '');
+                  paymentStore.setPaymentMethod(value);
                 },
-                storeValue: paymentStore.paymentMethod,
+                selectedValue: paymentStore.paymentMethod,
               ),
             );
           }),
           AppButton(
+            margin: const EdgeInsets.only(top: 20),
+            borderColor: Color(0XFFB4D8D8),
+            buttonColor: Color(0XFFE9F3F4),
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            textColor: Color(0XFF635F75),
+            title: 'Adicionar um cartão',
+            onPressed: () {
+              Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
+                'paymentStore': paymentStore,
+              }).then((value) {
+                setState(() {});
+              });
+            },
+          ),
+          AppButton(
+            margin: const EdgeInsets.only(top: 20),
             borderColor: Color(0XFFB4D8D8),
             buttonColor: Color(0XFFE9F3F4),
             fontSize: 23,
@@ -95,7 +112,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             textColor: Color(0XFF635F75),
             title: 'Excluir um cartão',
             onPressed: () {
-              Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method');
+              Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method', arguments: {
+                'paymentStore': paymentStore,
+              });
             },
           ),
           Container(
@@ -146,56 +165,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       onTapDecrease: paymentStore.decreaseInstallment,
                       onTapIncrease: paymentStore.increaseInstallment,
                     ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 20),
-                    //   child: Stack(
-                    //     children: [
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 15, top: 8, right: 10),
-                    //         decoration: BoxDecoration(
-                    //           border: Border.all(color: Color(0XFF635F75)),
-                    //           color: Colors.white,
-                    //         ),
-                    //         height: 47,
-                    //         width: 246,
-                    //         child: Row(
-                    //           children: [
-                    //             Expanded(
-                    //               child: Observer(
-                    //                 builder: (_) {
-                    //                   return Text(
-                    //                     paymentStore.formatInstallment(),
-                    //                     textAlign: TextAlign.center,
-                    //                     style: customTextStyle(FontWeight.w800, 30, Color(0XFF4D0351)),
-                    //                   );
-                    //                 },
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       SizedBox(
-                    //         child: GestureDetector(
-                    //           child: Image.asset('assets/icon/minus_button.png'),
-                    //           onTap: () {
-                    //             paymentStore.decreaseInstallment();
-                    //           },
-                    //         ),
-                    //       ),
-                    //       Positioned(
-                    //         right: 0,
-                    //         child: SizedBox(
-                    //           child: GestureDetector(
-                    //             child: Image.asset('assets/icon/plus_button.png'),
-                    //             onTap: () {
-                    //               paymentStore.increaseInstallment();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Observer(builder: (_) {
                       return RichText(
                         text: TextSpan(
@@ -210,18 +179,18 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       );
                     }),
                     Observer(builder: (_) {
-                      if (paymentStore.paymentMethod != 'Selecione um cartão') {
+                      if (paymentStore.paymentMethod.number != 'Selecione um cartão') {
                         return Container(
                           margin: const EdgeInsets.only(top: 40),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                child: Image.asset('assets/icon/mastercard.png'),
+                                child: Image.asset(paymentStore.paymentMethod.imagePath!),
                               ),
                               SizedBox(width: 15),
                               Text(
-                                'Matercard ****${paymentStore.paymentMethod.substring(paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length)}',
+                                '${paymentStore.paymentMethod.brandName} ****${paymentStore.paymentMethod.number!.substring(paymentStore.paymentMethod.number!.length - 4, paymentStore.paymentMethod.number!.length)}',
                                 style: customTextStyle(FontWeight.w600, 18, Color(0XFF635F75)),
                               )
                             ],
@@ -253,8 +222,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                     productPurchaseRequestModel.paymentMethodEntity = PaymentMethodEntity(
                                       id: 1,
                                       installments: paymentStore.installment,
-                                      name: paymentStore.paymentMethod.substring(
-                                          paymentStore.paymentMethod.length - 4, paymentStore.paymentMethod.length),
+                                      name: paymentStore.paymentMethod.number!.substring(
+                                          paymentStore.paymentMethod.number!.length - 4,
+                                          paymentStore.paymentMethod.number!.length),
                                       installmentAmount: paymentStore.getInstallmentAmount,
                                     );
                                     Navigator.of(context)

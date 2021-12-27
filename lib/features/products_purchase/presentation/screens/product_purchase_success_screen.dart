@@ -37,7 +37,7 @@ class _ProductPurchaseSuccessScreenState extends State<ProductPurchaseSuccessScr
                       ],
                     ),
                   ),
-                  SizedBox(height: 150),
+                  SizedBox(height: 80),
                   Container(
                     margin: const EdgeInsets.only(bottom: 205),
                     width: double.infinity,

@@ -1,37 +1,41 @@
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/entities/credit_card_entity.dart';
-import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
-part 'payment_method_service_store.g.dart';
+import 'package:my_app/core/utils/enums/credit_card_enum.dart';
+part 'payment_method_store.g.dart';
 
-class PaymentMethodServiceStore = _PaymentMethodServiceStoreBase with _$PaymentMethodServiceStore;
+class PaymentMethodStore = _PaymentMethodStoreBase with _$PaymentMethodStore;
 
-abstract class _PaymentMethodServiceStoreBase with Store {
-  _PaymentMethodServiceStoreBase() {
+abstract class _PaymentMethodStoreBase with Store {
+  _PaymentMethodStoreBase() {
     creditCardEntities.add(CreditCardEntity(id: 0, number: 'Selecione um cartão'));
-    creditCardEntities.add(CreditCardEntity(id: 1, imagePath: 'assets/icon/mastercard.png', number: '1234'));
-    creditCardEntities.add(CreditCardEntity(id: 2, imagePath: 'assets/icon/mastercard.png', number: '5678'));
+    creditCardEntities.add(CreditCardEntity(
+      id: 1,
+      imagePath: 'assets/icon/mastercard.png',
+      number: '1234',
+      brand: CardBrand.mastercard,
+      brandName: 'Mastercard',
+    ));
+
+    creditCardEntities.add(CreditCardEntity(
+      id: 2,
+      imagePath: 'assets/icon/mastercard.png',
+      number: '5678',
+      brand: CardBrand.mastercard,
+      brandName: 'Mastercard',
+    ));
   }
 
   int maxInstallments = 0;
 
-  @observable
-  PaymentMethodEntity? creditCardSelected;
-
   ObservableList<CreditCardEntity> creditCardEntities = ObservableList<CreditCardEntity>();
-  List<String> creditCards = ['Selecione um cartão', 'Cartão final 1234', 'Cartão final 5678'];
 
   @action
   addCreditCard(CreditCardEntity creditCard) {
-    creditCards
-        .add('Cartão final ${creditCard.number!.substring(creditCard.number!.length - 4, creditCard.number!.length)}');
     creditCardEntities.add(creditCard);
   }
 
   @action
   removeCreditCard(CreditCardEntity creditCard) {
-    var index = creditCardEntities.indexOf(creditCard);
-
-    creditCards.removeAt(index);
     creditCardEntities.remove(creditCard);
   }
 
@@ -58,16 +62,16 @@ abstract class _PaymentMethodServiceStoreBase with Store {
   }
 
   @observable
-  String paymentMethod = 'Selecione um cartão';
-  // CreditCardEntity paymentMethod = CreditCardEntity(name: 'Selecione um cartão', id: 0);
+  // CreditCardEntity paymentMethod = CreditCardEntity(id: 0, number: 'Selecione um cartão');
+  CreditCardEntity paymentMethod = CreditCardEntity(id: 0, number: 'Selecione um cartão');
 
   @action
-  setPaymentMethod(String value) {
+  setPaymentMethod(CreditCardEntity value) {
     return paymentMethod = value;
   }
 
   @computed
-  bool get enableButton => paymentMethod != 'Selecione um cartão';
+  bool get enableButton => paymentMethod.number != 'Selecione um cartão';
 
   String formatInstallment() {
     if (installment < 10) {

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/utils/enums/credit_card_enum.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
-class CreditCardWidgettTT extends StatelessWidget {
+class CreditCardWidget extends StatelessWidget {
   final CardBrand brand;
   final String number;
   final String ownerName;
   final String expirationDate;
 
-  const CreditCardWidgettTT({
+  const CreditCardWidget({
     Key? key,
     required this.brand,
     required this.number,
@@ -40,7 +41,7 @@ class CreditCardWidgettTT extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (brand != CardBrand.otherBrand)
-                Image.asset(getCredtiCardLogo())
+                Image.asset(AppHelpers.getCredtiCardLogoWhite(brand))
               else
                 SizedBox(
                   height: 24,
@@ -87,20 +88,5 @@ class CreditCardWidgettTT extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String getCredtiCardLogo() {
-    switch (brand) {
-      case CardBrand.otherBrand:
-        return '';
-      case CardBrand.mastercard:
-        return 'assets/icon/payment_methods_icons/mastercard.png';
-      case CardBrand.visa:
-        return 'assets/icon/payment_methods_icons/visa_logo_white.png';
-      case CardBrand.americanExpress:
-        return 'assets/icon/payment_methods_icons/amex.png';
-      default:
-        return '';
-    }
   }
 }

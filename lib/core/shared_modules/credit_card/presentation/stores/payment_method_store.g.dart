@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'payment_method_service_store.dart';
+part of 'payment_method_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,40 +8,24 @@ part of 'payment_method_service_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$PaymentMethodServiceStore on _PaymentMethodServiceStoreBase, Store {
+mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
   Computed<num>? _$getInstallmentAmountComputed;
 
   @override
   num get getInstallmentAmount => (_$getInstallmentAmountComputed ??=
           Computed<num>(() => super.getInstallmentAmount,
-              name: '_PaymentMethodServiceStoreBase.getInstallmentAmount'))
+              name: '_PaymentMethodStoreBase.getInstallmentAmount'))
       .value;
   Computed<bool>? _$enableButtonComputed;
 
   @override
   bool get enableButton =>
       (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
-              name: '_PaymentMethodServiceStoreBase.enableButton'))
+              name: '_PaymentMethodStoreBase.enableButton'))
           .value;
 
-  final _$creditCardSelectedAtom =
-      Atom(name: '_PaymentMethodServiceStoreBase.creditCardSelected');
-
-  @override
-  PaymentMethodEntity? get creditCardSelected {
-    _$creditCardSelectedAtom.reportRead();
-    return super.creditCardSelected;
-  }
-
-  @override
-  set creditCardSelected(PaymentMethodEntity? value) {
-    _$creditCardSelectedAtom.reportWrite(value, super.creditCardSelected, () {
-      super.creditCardSelected = value;
-    });
-  }
-
   final _$purchaseValueAtom =
-      Atom(name: '_PaymentMethodServiceStoreBase.purchaseValue');
+      Atom(name: '_PaymentMethodStoreBase.purchaseValue');
 
   @override
   num get purchaseValue {
@@ -56,8 +40,7 @@ mixin _$PaymentMethodServiceStore on _PaymentMethodServiceStoreBase, Store {
     });
   }
 
-  final _$installmentAtom =
-      Atom(name: '_PaymentMethodServiceStoreBase.installment');
+  final _$installmentAtom = Atom(name: '_PaymentMethodStoreBase.installment');
 
   @override
   int get installment {
@@ -73,96 +56,93 @@ mixin _$PaymentMethodServiceStore on _PaymentMethodServiceStoreBase, Store {
   }
 
   final _$paymentMethodAtom =
-      Atom(name: '_PaymentMethodServiceStoreBase.paymentMethod');
+      Atom(name: '_PaymentMethodStoreBase.paymentMethod');
 
   @override
-  String get paymentMethod {
+  CreditCardEntity get paymentMethod {
     _$paymentMethodAtom.reportRead();
     return super.paymentMethod;
   }
 
   @override
-  set paymentMethod(String value) {
+  set paymentMethod(CreditCardEntity value) {
     _$paymentMethodAtom.reportWrite(value, super.paymentMethod, () {
       super.paymentMethod = value;
     });
   }
 
-  final _$_PaymentMethodServiceStoreBaseActionController =
-      ActionController(name: '_PaymentMethodServiceStoreBase');
+  final _$_PaymentMethodStoreBaseActionController =
+      ActionController(name: '_PaymentMethodStoreBase');
 
   @override
   dynamic addCreditCard(CreditCardEntity creditCard) {
-    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
-        .startAction(name: '_PaymentMethodServiceStoreBase.addCreditCard');
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.addCreditCard');
     try {
       return super.addCreditCard(creditCard);
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic removeCreditCard(CreditCardEntity creditCard) {
-    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
-        .startAction(name: '_PaymentMethodServiceStoreBase.removeCreditCard');
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.removeCreditCard');
     try {
       return super.removeCreditCard(creditCard);
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setPurchaseValue(num value) {
-    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
-        .startAction(name: '_PaymentMethodServiceStoreBase.setPurchaseValue');
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.setPurchaseValue');
     try {
       return super.setPurchaseValue(value);
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic increaseInstallment() {
-    final _$actionInfo =
-        _$_PaymentMethodServiceStoreBaseActionController.startAction(
-            name: '_PaymentMethodServiceStoreBase.increaseInstallment');
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.increaseInstallment');
     try {
       return super.increaseInstallment();
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic decreaseInstallment() {
-    final _$actionInfo =
-        _$_PaymentMethodServiceStoreBaseActionController.startAction(
-            name: '_PaymentMethodServiceStoreBase.decreaseInstallment');
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.decreaseInstallment');
     try {
       return super.decreaseInstallment();
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setPaymentMethod(String value) {
-    final _$actionInfo = _$_PaymentMethodServiceStoreBaseActionController
-        .startAction(name: '_PaymentMethodServiceStoreBase.setPaymentMethod');
+  dynamic setPaymentMethod(CreditCardEntity value) {
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.setPaymentMethod');
     try {
       return super.setPaymentMethod(value);
     } finally {
-      _$_PaymentMethodServiceStoreBaseActionController.endAction(_$actionInfo);
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-creditCardSelected: ${creditCardSelected},
 purchaseValue: ${purchaseValue},
 installment: ${installment},
 paymentMethod: ${paymentMethod},

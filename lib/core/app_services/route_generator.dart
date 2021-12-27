@@ -16,15 +16,15 @@ import 'package:my_app/features/products_announcement/presentation/screens/produ
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_review_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delete_delivery_address_screen.dart';
-import 'package:my_app/features/products_purchase/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delivery_address_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/new_credit_card_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/new_delivery_address_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_cvv_screen.dart';
-import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/payment_method_service_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_purchase_details_screen.dart';
@@ -98,13 +98,10 @@ class RouteGenerator {
       case '/products/products_purchase/payment_method':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => PaymentMethodScreen(
-                  productPurchaseRequestModel: args['productPurchaseRequestModel'],
-                ));
-
-      case '/products/products_purchase/delete_payment_method':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => DeletePaymentMethodScreen());
+          builder: (_) => PaymentMethodScreen(
+            productPurchaseRequestModel: args['productPurchaseRequestModel'],
+          ),
+        );
 
       case '/products/products_purchase/product_purchase_details':
         // if (args is String) {
@@ -245,7 +242,16 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ChooseAnnouncementTypeScreen());
 
+      case '/services-purchase/new-credit-card':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardScreen(
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
       /*==================Service purchase =================*/
+
       case '/services-purchase/service-description':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ServiceDescriptionScreen());
@@ -277,7 +283,7 @@ class RouteGenerator {
           ),
         );
 
-      case '/services-purchase/new-credit-card':
+      case '/services-purchase/new-credit-card-service':
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => NewCreditCardScreen(
@@ -290,6 +296,14 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => NewCreditCardCvvScreen(
             creditCardStore: args['creditCardStore'],
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
+      case '/products/products_purchase/delete_payment_method':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => DeletePaymentMethodScreen(
             paymentStore: args['paymentStore'],
           ),
         );

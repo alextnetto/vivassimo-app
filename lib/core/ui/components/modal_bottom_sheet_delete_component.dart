@@ -9,6 +9,8 @@ class ModalBottomSheetDeleteComponentWidget {
     required String deleteMessage,
     required String confirmButtomText,
     required String cancelButtomText,
+    required Function() onPressedConfirm,
+    required Function() onPressedCancel,
   }) {
     return showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -46,7 +48,7 @@ class ModalBottomSheetDeleteComponentWidget {
                         fontWeight: FontWeight.bold,
                         textColor: Color(0XFFFFFFFF),
                         title: confirmButtomText,
-                        onPressed: Navigator.of(context).pop,
+                        onPressed: onPressedConfirm,
                       ),
                     ),
                     SizedBox(
@@ -58,7 +60,7 @@ class ModalBottomSheetDeleteComponentWidget {
                         fontWeight: FontWeight.bold,
                         textColor: Color(0XFF4D0351),
                         title: cancelButtomText,
-                        onPressed: Navigator.of(context).pop,
+                        onPressed: onPressedCancel,
                       ),
                     ),
                   ],

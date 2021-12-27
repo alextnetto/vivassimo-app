@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'new_credit_card_store.dart';
+part of '../../../../core/shared_modules/credit_card/presentation/stores/new_credit_card_store.dart';
 
 // **************************************************************************
 // StoreGenerator

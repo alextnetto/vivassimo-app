@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/utils/enums/credit_card_enum.dart';
 import 'package:my_app/core/utils/patterns/app_patterns.dart';
-part 'new_credit_card_store.g.dart';
+part '../../../../../features/services_purchase/presentation/stores/new_credit_card_store.g.dart';
 
 class NewCreditCardStore = _NewCreditCardStoreBase with _$NewCreditCardStore;
 
@@ -176,4 +176,6 @@ abstract class _NewCreditCardStoreBase with Store {
 
     setCardBrand(cardType);
   }
+
+
 }

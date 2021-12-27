@@ -7,13 +7,12 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/new_credit_card_cvv_store.dart';
-import 'package:my_app/features/services_purchase/presentation/stores/new_credit_card_store.dart';
-import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/new_credit_card_store.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/payment_method_store.dart';
 
 class NewCreditCardCvvScreen extends StatefulWidget {
-  final PaymentMethodServiceStore paymentStore;
+  final PaymentMethodStore paymentStore;
   final NewCreditCardStore creditCardStore;
 
   const NewCreditCardCvvScreen({Key? key, required this.paymentStore, required this.creditCardStore}) : super(key: key);
@@ -23,7 +22,7 @@ class NewCreditCardCvvScreen extends StatefulWidget {
 }
 
 class _NewCreditCardCvvScreenState extends State<NewCreditCardCvvScreen> {
-  PaymentMethodServiceStore get paymentStore => widget.paymentStore;
+  PaymentMethodStore get paymentStore => widget.paymentStore;
   NewCreditCardStore get creditCardStore => widget.creditCardStore;
   NewCreditCardCvvStore creditCardCvvStore = Modular.get<NewCreditCardCvvStore>();
 
@@ -92,6 +91,7 @@ class _NewCreditCardCvvScreenState extends State<NewCreditCardCvvScreen> {
                             paymentStore.addCreditCard(CreditCardEntity(
                               id: paymentStore.creditCardEntities.length + 1,
                               number: creditCardStore.number,
+                              brand: creditCardStore.cardBrand,
                             ));
 
                             Navigator.of(context).pop();

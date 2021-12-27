@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_animation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:my_app/core/entities/credit_card_entity.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/payment_method_store.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
-import 'package:my_app/features/services_purchase/presentation/stores/new_credit_card_store.dart';
-import 'package:my_app/features/services_purchase/presentation/stores/payment_method_service_store.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/cvv_indicator_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/stores/new_credit_card_store.dart';
 import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_back_widget.dart';
 import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_widget.dart';
 import 'dart:math';
 
-import 'cvv_indicator_screen.dart';
-
 class NewCreditCardScreen extends StatefulWidget {
-  final PaymentMethodServiceStore paymentStore;
+  final PaymentMethodStore paymentStore;
   const NewCreditCardScreen({Key? key, required this.paymentStore}) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class NewCreditCardScreen extends StatefulWidget {
 }
 
 class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTickerProviderStateMixin {
-  PaymentMethodServiceStore get paymentStore => widget.paymentStore;
+  PaymentMethodStore get paymentStore => widget.paymentStore;
   NewCreditCardStore creditCardStore = Modular.get<NewCreditCardStore>();
   String cvv = '';
   bool iscvvFocused = false;
@@ -139,7 +140,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                             _cardGesture(
                                 child: AnimationCard(
                               animation: _frontRotation,
-                              child: CreditCardWidgettTT(
+                              child: CreditCardWidget(
                                 brand: creditCardStore.cardBrand,
                                 expirationDate: creditCardStore.expirationDate,
                                 number: creditCardStore.number,
@@ -270,10 +271,19 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                   borderColor: creditCardStore.enableButton ? VivassimoTheme.greenBorderColor : Colors.grey,
                   onPressed: creditCardStore.enableButton
                       ? () {
-                          Navigator.of(context).pushNamed('/services-purchase/new-credit-card-cvv', arguments: {
-                            'paymentStore': paymentStore,
-                            'creditCardStore': creditCardStore,
-                          });
+                          paymentStore.addCreditCard(CreditCardEntity(
+                            id: paymentStore.creditCardEntities.length + 1,
+                            number: creditCardStore.number,
+                            cvv: creditCardStore.cvv,
+                            expirationDate: creditCardStore.expirationDate,
+                            ownerName: creditCardStore.ownerName,
+                            imagePath: AppHelpers.getCredtiCardLogo(creditCardStore.cardBrand),
+                            imagePathWhite: AppHelpers.getCredtiCardLogoWhite(creditCardStore.cardBrand),
+                            brand: creditCardStore.cardBrand,
+                            brandName: AppHelpers.getCreditCardBrandName(creditCardStore.cardBrand),
+                          ));
+
+                          Navigator.of(context).pop();
                         }
                       : null,
                 );

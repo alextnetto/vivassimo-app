@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
-import 'package:my_app/core/ui/widgets/button_confirm.dart';
 
 class CvvIndicatorScreen extends StatelessWidget {
   const CvvIndicatorScreen({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class CvvIndicatorScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 50),
-                Container(
+                SizedBox(
                   child: Image.asset(
                     'assets/images/services_purchase/cvv_indicator.png',
                     width: MediaQuery.of(context).size.width * 0.9,
