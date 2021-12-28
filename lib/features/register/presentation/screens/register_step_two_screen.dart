@@ -150,7 +150,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                     return ButtonConfirm(
                       label: 'Continuar',
                       primary: VivassimoTheme.green,
-                      onPrimary: VivassimoTheme.white,
+                      textColor: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
                       onPressed: registerStepTwoStore.enableButton
                           ? () {

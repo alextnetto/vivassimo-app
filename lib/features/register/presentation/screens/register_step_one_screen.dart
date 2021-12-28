@@ -144,7 +144,7 @@ class _RegisterStepOneState extends State<RegisterStepOneScreen> {
                   return ButtonConfirm(
                     label: 'Continuar',
                     primary: VivassimoTheme.green,
-                    onPrimary: VivassimoTheme.white,
+                    textColor: VivassimoTheme.white,
                     borderColor: VivassimoTheme.white,
                     onPressed: registerStepOneStore!.enableButton
                         ? () async {

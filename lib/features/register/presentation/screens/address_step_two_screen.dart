@@ -182,7 +182,7 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                   return ButtonConfirm(
                     label: 'Salvar Endereço',
                     primary: VivassimoTheme.green,
-                    onPrimary: VivassimoTheme.white,
+                    textColor: VivassimoTheme.white,
                     borderColor: addressStepTwoStore.enableButton
                         ? VivassimoTheme.greenBorderColor
                         : Colors.grey,

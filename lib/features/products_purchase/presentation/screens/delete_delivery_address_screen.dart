@@ -13,14 +13,18 @@ import 'package:my_app/core/ui/components/modal_bottom_sheet_delete_component.da
 class DeleteDeliveryAddressScreen extends StatefulWidget {
   final DeliveryAddressStore deliveryStore;
 
-  const DeleteDeliveryAddressScreen({Key? key, required this.deliveryStore}) : super(key: key);
+  const DeleteDeliveryAddressScreen({Key? key, required this.deliveryStore})
+      : super(key: key);
 
   @override
-  _DeleteDeliveryAddressScreenState createState() => _DeleteDeliveryAddressScreenState();
+  _DeleteDeliveryAddressScreenState createState() =>
+      _DeleteDeliveryAddressScreenState();
 }
 
-class _DeleteDeliveryAddressScreenState extends State<DeleteDeliveryAddressScreen> {
-  DeleteDeliveryAddressStore deleteAddressStore = Modular.get<DeleteDeliveryAddressStore>();
+class _DeleteDeliveryAddressScreenState
+    extends State<DeleteDeliveryAddressScreen> {
+  DeleteDeliveryAddressStore deleteAddressStore =
+      Modular.get<DeleteDeliveryAddressStore>();
   DeliveryAddressStore get deliveryStore => widget.deliveryStore;
 
   @override
@@ -54,8 +58,11 @@ class _DeleteDeliveryAddressScreenState extends State<DeleteDeliveryAddressScree
                     Observer(builder: (_) {
                       return Column(
                         children: [
-                          for (int index = 1; index <= deliveryStore.deliveryAddresses.length; index++)
-                            buildAddressToDelete(deliveryStore.deliveryAddresses[index - 1]),
+                          for (int index = 1;
+                              index <= deliveryStore.deliveryAddresses.length;
+                              index++)
+                            buildAddressToDelete(
+                                deliveryStore.deliveryAddresses[index - 1]),
                         ],
                       );
                     }),
@@ -112,17 +119,16 @@ class _DeleteDeliveryAddressScreenState extends State<DeleteDeliveryAddressScree
             onPressedCancel: Navigator.of(context).pop,
             confirmButtomText: 'Sim, excluir',
             onPressedConfirm: () {
-            var addressToRemove = deliveryStore.deliveryAddresses
-                .where((element) => element.id == deleteAddressStore.deliveryAddressId)
-                .first;
+              var addressToRemove = deliveryStore.deliveryAddresses
+                  .where((element) =>
+                      element.id == deleteAddressStore.deliveryAddressId)
+                  .first;
 
-            deliveryStore.removeDeliveryAddress(addressToRemove);
-            Navigator.of(context).pop();
+              deliveryStore.removeDeliveryAddress(addressToRemove);
+              Navigator.of(context).pop();
             },
             deleteMessage: 'Deseja excluir \n este endereço?',
-          ).then((value) {
-
-          });
+          ).then((value) {});
         },
       ),
     );
@@ -131,15 +137,17 @@ class _DeleteDeliveryAddressScreenState extends State<DeleteDeliveryAddressScree
   Widget buildAddressToDelete(DeliveryAddressEntity deliveryAddress) {
     return GestureDetector(
       onTap: () {
-        deleteAddressStore.setDeliveryAddressId(deliveryAddress.id);
+        deleteAddressStore.setDeliveryAddressId(deliveryAddress.id!);
       },
       child: AddressCardWidget(
         streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
         cep: 'CEP ${deliveryAddress.cep}',
-        checkIconPath: deleteAddressStore.deliveryAddressId == deliveryAddress.id
-            ? 'assets/icon/checked_icon.png'
-            : 'assets/icon/unchecked_icon.png',
-        cityAndState: '${deliveryAddress.neighborhood} - ${deliveryAddress.city}/${deliveryAddress.uf}',
+        checkIconPath:
+            deleteAddressStore.deliveryAddressId == deliveryAddress.id
+                ? 'assets/icon/checked_icon.png'
+                : 'assets/icon/unchecked_icon.png',
+        cityAndState:
+            '${deliveryAddress.neighborhood} - ${deliveryAddress.city}/${deliveryAddress.uf}',
         cardColor: Color(0XFFFF3300),
       ),
     );

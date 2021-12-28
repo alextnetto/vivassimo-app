@@ -95,7 +95,7 @@ class CpfScreenState extends State<CpfScreen> {
                   return ButtonConfirm(
                     label: 'Continuar',
                     primary: VivassimoTheme.green,
-                    onPrimary: VivassimoTheme.white,
+                    textColor: VivassimoTheme.white,
                     borderColor: VivassimoTheme.white,
                     onPressed: cpfStore!.enableButton
                         ? () {

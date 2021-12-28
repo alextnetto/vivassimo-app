@@ -46,8 +46,8 @@ import 'package:my_app/features/register/presentation/screens/register_terms_scr
 import 'package:my_app/features/register/presentation/screens/address_step_one_screen.dart';
 import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
+import 'package:my_app/features/signin_signup_redirect_screen.dart';
 import 'package:my_app/pages/register/register_finished.dart';
-import '../../home_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -90,11 +90,15 @@ class RouteGenerator {
 
       case '/products/products_purchase/new_delivery_address':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => NewDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
+        return MaterialPageRoute(
+            builder: (_) =>
+                NewDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
 
       case '/products/products_purchase/delete_delivery_address':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => DeleteDeliveryAddressScreen(deliveryStore: args['deliveryStore']));
+        return MaterialPageRoute(
+            builder: (_) => DeleteDeliveryAddressScreen(
+                deliveryStore: args['deliveryStore']));
 
       case '/products/products_purchase/shipping_method':
         // if (args is String) {
@@ -116,18 +120,14 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductPurchaseDetailsScreen(
-                  productPurchaseRequestModel: args['productPurchaseRequestModel'],
+                  productPurchaseRequestModel:
+                      args['productPurchaseRequestModel'],
                 ));
 
       case '/products/products_purchase/product_purchase_success':
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductPurchaseSuccessScreen());
-
-      case '/product/product-details':
-        // if (args is String) {
-        return MaterialPageRoute(
-            builder: (_) => ServiceTypeDescriptionScreen());
 
       case '/register/acceptTerms':
         // if (args is String) {
@@ -136,28 +136,22 @@ class RouteGenerator {
       case '/register/terms':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => TermsScreen());
-        return MaterialPageRoute(builder: (_) => TermsPage());
 
       case '/register/verifyOtp':
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => OtpVerificationScreen(
-            redirectTo: args != null ? args['redirectTo'] : '/register/password',
+            redirectTo:
+                args != null ? args['redirectTo'] : '/register/password',
             phoneNumber: args != null ? args['phoneNumber'] : '',
-            nextPageArguments: args != null ?  args['nextPageArguments'] : null,
+            nextPageArguments: args != null ? args['nextPageArguments'] : null,
+            registerUserRequestModel: args['registerUserRequestModel'],
           ),
         );
 
       case '/register/1':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => RegisterStepOneScreen());
-
-      case '/register/verifyOtp':
-        // if (args is String) {
-        return MaterialPageRoute(
-            builder: (_) => OtpVerificationPage(
-                  registerUserRequestModel: args['registerUserRequestModel'],
-                ));
 
       case '/register/password':
         // if (args is String) {
@@ -201,13 +195,15 @@ class RouteGenerator {
 
       case '/product/products_announcement/product_category':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ProductAnnouncementCategoryScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProductAnnouncementCategoryScreen());
 
       case '/product/products_announcement/product_announcement_info':
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductAnnouncementInfoScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -215,7 +211,8 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductNewOrUsedScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -223,7 +220,8 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductAnnouncementDescriptionScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -231,14 +229,16 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductPhotosScreen(
-                  productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+                  productAnnouncementRequestModel:
+                      args['productAnnouncementRequestModel'],
                 ));
 
       case '/product/products_announcement/product_photo_confirmation':
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductPhotoConfirmationScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -246,7 +246,8 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductValueScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -254,7 +255,8 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => ProductAnnouncementDeliveryTypeScreen(
-            productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+            productAnnouncementRequestModel:
+                args['productAnnouncementRequestModel'],
           ),
         );
 
@@ -262,7 +264,8 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductAnnouncementReviewScreen(
-                  productAnnouncementRequestModel: args['productAnnouncementRequestModel'],
+                  productAnnouncementRequestModel:
+                      args['productAnnouncementRequestModel'],
                 ));
 
       case '/product/products_announcement/product_announcement_success':
@@ -285,7 +288,8 @@ class RouteGenerator {
 
       case '/announcements/choose_announcement':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ChooseAnnouncementTypeScreen());
+        return MaterialPageRoute(
+            builder: (_) => ChooseAnnouncementTypeScreen());
 
       case '/services-purchase/new-credit-card':
         // if (args is String) {
@@ -303,7 +307,8 @@ class RouteGenerator {
 
       case '/services-purchase/service-store-offer-description':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ServiceStoreOfferDescriptionScreen());
+        return MaterialPageRoute(
+            builder: (_) => ServiceStoreOfferDescriptionScreen());
 
       case '/services-purchase/select-section-amount':
         // if (args is String) {

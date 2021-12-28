@@ -41,13 +41,15 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
           Container(
             height: 95,
             // padding: const EdgeInsets.only(top: 25),
-            decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+            decoration:
+                BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
             child: Column(
               children: [
                 AppBarDefaultWidget(
                   title: 'Endereço de Entrega',
                   handleBackButton: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/home', (route) => false);
                   },
                 ),
                 SizedBox(
@@ -70,7 +72,8 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                         child: Text(
                           'Compre com segurança e tenha a garantia do dinheiro de volta com a Vivássimo.',
                           textAlign: TextAlign.center,
-                          style: AppTextStyles.defaultTextStyleDescriptionPurple,
+                          style:
+                              AppTextStyles.defaultTextStyleDescriptionPurple,
                         ),
                       )
                     ],
@@ -92,13 +95,17 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                 ),
                 Observer(builder: (_) {
                   return Column(children: [
-                    for (int index = 1; index <= deliveryStore!.deliveryAddresses.length; index++)
+                    for (int index = 1;
+                        index <= deliveryStore!.deliveryAddresses.length;
+                        index++)
                       GestureDetector(
                         onTap: () {
                           // deliveryStore!.setSelectedDeliveryAddressId(index);
-                          deliveryStore!.setSelectedDeliveryAddress(deliveryStore!.deliveryAddresses[index - 1].id);
+                          deliveryStore!.setSelectedDeliveryAddress(
+                              deliveryStore!.deliveryAddresses[index - 1].id!);
                         },
-                        child: buildAddressCard(deliveryStore!.deliveryAddresses[index - 1]),
+                        child: buildAddressCard(
+                            deliveryStore!.deliveryAddresses[index - 1]),
                       ),
                   ]);
                 }),
@@ -109,9 +116,11 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     borderColor: Color(0xFFDE674B),
                     label: 'Novo Endereço',
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/products/products_purchase/new_delivery_address', arguments: {
-                        'deliveryStore': deliveryStore,
-                      });
+                      Navigator.of(context).pushNamed(
+                          '/products/products_purchase/new_delivery_address',
+                          arguments: {
+                            'deliveryStore': deliveryStore,
+                          });
                     },
                     onPrimary: Color(0XFF4D0351),
                     primary: Color(0xFFFFB640),
@@ -126,10 +135,11 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                         borderColor: Color(0xFFB4D8D8),
                         label: 'Excluir um Endereço',
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed('/products/products_purchase/delete_delivery_address', arguments: {
-                            'deliveryStore': deliveryStore,
-                          });
+                          Navigator.of(context).pushNamed(
+                              '/products/products_purchase/delete_delivery_address',
+                              arguments: {
+                                'deliveryStore': deliveryStore,
+                              });
                         },
                         onPrimary: Color(0XFF4D0351),
                         primary: Color(0xFFE9F3F4),
@@ -150,18 +160,22 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
               borderColor: VivassimoTheme.greenBorderColor,
               onPressed: () {
                 //TODO: Mockado
-                Navigator.of(context).pushNamed('/products/products_purchase/shipping_method', arguments: {
-                  'productPurchaseRequestModel': ProductPurchaseRequestModel(
-                    productEntity: ProductEntity(
-                      id: 1,
-                      ownerName: 'Glória Maria',
-                      name: 'Bolo Caseiro de Cholocate',
-                      value: 29.90,
-                    ),
-                    deliveryAddressEntity: deliveryStore!.deliveryAddressEntity,
-                    totalPurchase: 29.90,
-                  )
-                });
+                Navigator.of(context).pushNamed(
+                    '/products/products_purchase/shipping_method',
+                    arguments: {
+                      'productPurchaseRequestModel':
+                          ProductPurchaseRequestModel(
+                        productEntity: ProductEntity(
+                          id: 1,
+                          ownerName: 'Glória Maria',
+                          name: 'Bolo Caseiro de Cholocate',
+                          value: 29.90,
+                        ),
+                        deliveryAddressEntity:
+                            deliveryStore!.deliveryAddressEntity,
+                        totalPurchase: 29.90,
+                      )
+                    });
               },
             ),
           ),
@@ -174,9 +188,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return AddressCardWidget(
       streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
       cep: '${deliveryAddress.cep}',
-      checkIconPath: deliveryAddress.id == deliveryStore!.deliveryAddressEntity!.id
-          ? 'assets/icon/checked_icon.png'
-          : 'assets/icon/unchecked_icon.png',
+      checkIconPath:
+          deliveryAddress.id == deliveryStore!.deliveryAddressEntity!.id
+              ? 'assets/icon/checked_icon.png'
+              : 'assets/icon/unchecked_icon.png',
       cityAndState: 'Centro - São Paulo/SP',
       cardColor: Color(0XFF22AB86),
     );

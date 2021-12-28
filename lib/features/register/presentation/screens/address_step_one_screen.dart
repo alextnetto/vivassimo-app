@@ -238,7 +238,7 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                     return ButtonConfirm(
                       label: 'Continuar',
                       primary: VivassimoTheme.green,
-                      onPrimary: VivassimoTheme.white,
+                      textColor: VivassimoTheme.white,
                       borderColor: VivassimoTheme.white,
                       onPressed: addressStepOneStore.enableButton
                           ? () {

@@ -149,7 +149,7 @@ class PasswordScreenState extends State<PasswordScreen> {
                   return ButtonConfirm(
                     label: 'Continuar',
                     primary: VivassimoTheme.green,
-                    onPrimary: VivassimoTheme.white,
+                    textColor: VivassimoTheme.white,
                     borderColor: VivassimoTheme.white,
                     onPressed: passwordStore.enableButton
                         ? () {
