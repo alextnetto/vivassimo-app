@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/entities/store_entity.dart';
+import 'package:my_app/core/ui/components/bottom_navigator_bar_app.dart';
 import 'package:my_app/core/ui/components/stores_list_component.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
-import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,13 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: buildBodyWithoutStack(context),
-      bottomNavigationBar: bottomNavigationBar(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        extendBody: true,
+        body: buildBodyWithoutStack(context),
+        bottomNavigationBar: BottomNavigatorBarApp(selectedIndex: 1),
+      ),
     );
   }
 
@@ -128,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/product/product-details');
+                          Navigator.of(context).pushNamed('/services-purchase/service-description');
                         },
                         child: Container(
                           height: 177,
@@ -140,9 +142,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(9),
-                              child: Image.asset(
-                                'assets/backgrounds/pilates_class_banner.png',
-                                fit: BoxFit.cover,
+                              child: Hero(
+                                tag: 'image_carousel_home',
+                                child: Image.asset(
+                                  'assets/backgrounds/pilates_class_banner.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -186,26 +191,29 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             itemCount: 4,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/home/product-category');
-                },
-                child: Container(
-                  alignment: Alignment.topRight,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
-                    ),
-                    // color: Colors.blue,
-                  ),
-                  height: 130,
-                  width: 188,
+              return Hero(
+                tag: 'image_category_home_$index',
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/home/product-category', arguments: {'index': index});
+                  },
                   child: Container(
-                    padding: EdgeInsets.only(right: 8, top: 5),
-                    child: Image.asset(
-                      'assets/products_type/product_type_item_${index + 1}.png',
-                      // width: 100,
+                    alignment: Alignment.topRight,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        image: AssetImage('assets/products_type/product_type_background_${index + 1}.png'),
+                      ),
+                      // color: Colors.blue,
+                    ),
+                    height: 130,
+                    width: 188,
+                    child: Container(
+                      padding: EdgeInsets.only(right: 8, top: 5),
+                      child: Image.asset(
+                        'assets/products_type/product_type_item_${index + 1}.png',
+                        // width: 100,
+                      ),
                     ),
                   ),
                 ),
@@ -254,74 +262,77 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget bottomNavigationBar() {
-    return Container(
-      height: 72,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(20)),
-        boxShadow: const [BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10)],
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        child: Material(
-          elevation: 40,
-          child: SizedBox(
-            height: 60,
-            child: Material(
-              elevation: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  TabItemWidget(
-                    iconPath: 'assets/icon/home_icon.png',
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 0;
-                      });
-                    },
-                    selectedIndex: _selectedIndex,
-                    title: "Inicio",
-                  ),
-                  VerticalDivider(color: Color(0xffA480BD), width: 1),
-                  TabItemWidget(
-                    iconPath: 'assets/icon/announce_icon.png',
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                    },
-                    selectedIndex: _selectedIndex,
-                    title: "Anunciar",
-                  ),
-                  VerticalDivider(color: Color(0xffA480BD), width: 1),
-                  TabItemWidget(
-                    iconPath: 'assets/icon/order_icon.png',
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
-                    },
-                    selectedIndex: _selectedIndex,
-                    title: "Pedidos",
-                  ),
-                  VerticalDivider(color: Color(0xffA480BD), width: 1),
-                  TabItemWidget(
-                    iconPath: 'assets/icon/person_icon.png',
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 3;
-                      });
-                    },
-                    selectedIndex: _selectedIndex,
-                    title: "Perfil",
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget bottomNavigationBar() {
+  //   return Container(
+  //     height: 72,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(20)),
+  //       boxShadow: const [BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10)],
+  //     ),
+  //     child: ClipRRect(
+  //       borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+  //       child: Material(
+  //         elevation: 40,
+  //         child: SizedBox(
+  //           height: 60,
+  //           child: Material(
+  //             elevation: 40,
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: <Widget>[
+  //                 TabItemWidget(
+  //                   iconPath: 'assets/icon/home_icon.png',
+  //                   onTap: () {
+  //                     // setState(() {
+  //                     //   _selectedIndex = 0;
+  //                     // });
+  //                   },
+  //                   selectedIndex: _selectedIndex,
+  //                   title: "Inicio",
+  //                 ),
+  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
+  //                 TabItemWidget(
+  //                   iconPath: 'assets/icon/announce_icon.png',
+  //                   onTap: () {
+  //                     // Navigator.of(context).pushNamed('/product/products_announcement/product_category');
+  //                     Navigator.of(context).pushNamed('/announcements/my_announcements');
+
+  //                     // setState(() {
+  //                     //   _selectedIndex = 1;
+  //                     // });
+  //                   },
+  //                   selectedIndex: _selectedIndex,
+  //                   title: "Anunciar",
+  //                 ),
+  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
+  //                 TabItemWidget(
+  //                   iconPath: 'assets/icon/order_icon.png',
+  //                   onTap: () {
+  //                     // setState(() {
+  //                     //   _selectedIndex = 2;
+  //                     // });
+  //                   },
+  //                   selectedIndex: _selectedIndex,
+  //                   title: "Pedidos",
+  //                 ),
+  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
+  //                 TabItemWidget(
+  //                   iconPath: 'assets/icon/person_icon.png',
+  //                   onTap: () {
+  //                     // setState(() {
+  //                     //   _selectedIndex = 3;
+  //                     // });
+  //                   },
+  //                   selectedIndex: _selectedIndex,
+  //                   title: "Perfil",
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

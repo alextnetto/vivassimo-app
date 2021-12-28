@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 
-import '../app_style.dart';
-
 class DropdownListWidget extends StatelessWidget {
   final String storeValue;
   final List<String> contentList;
@@ -34,7 +32,7 @@ class DropdownListWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2.0,
-                color: VivassimoTheme.purpleActive,
+                color: Color(0XFF006633),
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),

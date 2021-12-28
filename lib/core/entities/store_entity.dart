@@ -8,10 +8,12 @@ class StoreEntity extends Equatable {
   final String? kmDistance;
   final String? deliveryTime;
   final double? deliveryFee;
+  final Function()? onPressed;
 
   const StoreEntity(
       {this.rate,
       this.kmDistance,
+      this.onPressed,
       this.deliveryTime,
       this.deliveryFee,
       required this.name,
@@ -19,5 +21,5 @@ class StoreEntity extends Equatable {
       required this.imagePath});
 
   @override
-  List<Object?> get props => [name, description, imagePath, rate, kmDistance, deliveryFee, deliveryTime];
+  List<Object?> get props => [name, description, imagePath, rate, kmDistance, deliveryFee, deliveryTime, onPressed];
 }

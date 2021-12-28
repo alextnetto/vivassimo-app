@@ -10,6 +10,14 @@ import 'package:my_app/features/register/infra/models/request/register_user_requ
 import 'package:my_app/features/register/presentation/stores/otp_store.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+class OtpVerificationScreen extends StatefulWidget {
+  final String redirectTo;
+  final String phoneNumber;
+  final Object? nextPageArguments;
+
+  const OtpVerificationScreen(
+      {Key? key, this.redirectTo = '/register/password', this.phoneNumber = '', this.nextPageArguments})
+      : super(key: key);
 class OtpVerificationPage extends StatefulWidget {
   const OtpVerificationPage({Key? key, required this.registerUserRequestModel})
       : super(key: key);
@@ -18,6 +26,10 @@ class OtpVerificationPage extends StatefulWidget {
   @override
   _OtpVerificationPageState createState() => _OtpVerificationPageState();
 }
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  String get redirectTo => widget.redirectTo;
+  String get phoneNumber => widget.phoneNumber;
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   RegisterUserRequestModel get registerUserRequestModel =>
@@ -30,6 +42,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     var response = await otpStore!.verifyOtp();
     LoadingIndicator.hide(context);
 
+    if (response['valid']) {
+      Navigator.pushNamed(context, redirectTo, arguments: widget.nextPageArguments);
     if (response.success) {
       Navigator.pushNamed(
         context,
@@ -88,6 +102,13 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     super.initState();
   }
 
+  // @override
+  // void initState() {
+  //   BackendService.instance.sendOtp(phoneNumber.isNotEmpty ? phoneNumber : RegisterUser.instance.phoneNumber ?? '');
+  //
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,28 +125,29 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     height: 130,
                     color: VivassimoTheme.blue,
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonBack(),
-                            // texto
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'Criar uma conta',
-                                style: customTextStyle(
-                                  FontWeight.w700,
-                                  18,
-                                  VivassimoTheme.purpleActive,
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     ButtonBack(),
+                        //     // texto
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 30),
+                        //       child: Text(
+                        //         'Criar uma conta',
+                        //         style: customTextStyle(
+                        //           FontWeight.w700,
+                        //           18,
+                        //           VivassimoTheme.purpleActive,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
@@ -194,7 +216,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: ButtonConfirm(
                   label: 'Continuar',
                   primary: VivassimoTheme.green,
-                  onPrimary: VivassimoTheme.white,
+                  textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.white,
                   onPressed: () async {
                     await validateOtp();

@@ -4,13 +4,13 @@ import 'package:my_app/core/ui/app_style.dart';
 
 class ButtonConfirm extends StatelessWidget {
   final String label;
-  final Color primary, onPrimary, borderColor;
+  final Color primary, textColor, borderColor;
   final Function()? onPressed;
   const ButtonConfirm({
     Key? key,
     required this.label,
     required this.primary,
-    required this.onPrimary,
+    required this.textColor,
     required this.borderColor,
     required this.onPressed,
   }) : super(key: key);
@@ -36,7 +36,7 @@ class ButtonConfirm extends StatelessWidget {
               style: customTextStyle(
                 FontWeight.w700,
                 23,
-                onPrimary,
+                textColor,
               ),
             ),
             style: ElevatedButton.styleFrom(

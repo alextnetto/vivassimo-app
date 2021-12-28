@@ -24,10 +24,7 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                VivassimoTheme.gradientMainBegin,
-                VivassimoTheme.gradientMainEnd
-              ],
+              colors: [VivassimoTheme.gradientMainBegin, VivassimoTheme.gradientMainEnd],
             ),
           ),
           child: Stack(
@@ -86,7 +83,9 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
                       onPrimary: VivassimoTheme.purpleActive,
                       borderColor: VivassimoTheme.red,
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/login');
+                        Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
+                          'redirectTo': '/home',
+                        });
                       },
                     ),
                   ),

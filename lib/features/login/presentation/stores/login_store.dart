@@ -59,7 +59,7 @@ abstract class _LoginStoreBase with Store {
       return null;
     } else if (phoneNumber.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (phoneNumber.length < Constants.phoneNumberValidLength) {
+    } else if (phoneNumber.length < IntConstants.phoneNumberValidLength) {
       return 'Telefone inválido';
     }
 
@@ -72,7 +72,7 @@ abstract class _LoginStoreBase with Store {
       return null;
     } else if (password.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (!password.isStrongPassword) {
+    } else if (password.length < 6) {
       return 'Senha inválida';
     }
 
@@ -81,10 +81,7 @@ abstract class _LoginStoreBase with Store {
 
   @computed
   bool get enableButton {
-    return getPhoneNumberError == null &&
-        getPasswordError == null &&
-        hasChangedPhoneNumber &&
-        hasChangedPassword;
+    return getPhoneNumberError == null && getPasswordError == null && hasChangedPhoneNumber && hasChangedPassword;
   }
 
   Future<LoginResponseModel> login() async {
@@ -94,22 +91,5 @@ abstract class _LoginStoreBase with Store {
     );
 
     return await loginUseCase.login(loginRequestModel);
-
-    // return resultUsecase.fold((l) {
-    //   if (l is LoginNotFoundError || l is LoginNotAuthorizedError) {
-    //     return l.message.isNotEmpty ? l.message : 'Não foi possível realizar o login. Tente novamente mais tarde.';
-    //   } else {
-    //     print(l.toString());
-    //     return 'Não foi possível realizar o login. Tente novamente mais tarde.';
-    //   }
-    // }, (r) => 'Success');
-
-    // if (resultUsecase.isRight()) {
-    //   return 'Success';
-    // } else {
-    //   resultUsecase.fold((l) {
-    //     if(l )
-    //   }, (r) => null) ;
-    // }
   }
 }

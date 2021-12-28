@@ -7,6 +7,7 @@ InputDecoration customInputDecoration1(
   Widget? suffixIcon,
   String? errorText,
   String? placeholder,
+  Color? borderColor,
 }) {
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
@@ -35,7 +36,7 @@ InputDecoration customInputDecoration1(
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
         width: 2.0,
-        color: VivassimoTheme.purpleActive,
+        color: borderColor ?? VivassimoTheme.purpleActive,
       ),
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -44,7 +45,7 @@ InputDecoration customInputDecoration1(
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
         width: 2.0,
-        color: VivassimoTheme.purpleActive,
+        color: borderColor ?? VivassimoTheme.purpleActive,
       ),
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -53,7 +54,7 @@ InputDecoration customInputDecoration1(
     border: OutlineInputBorder(
       borderSide: BorderSide(
         width: 2.0,
-        color: VivassimoTheme.purpleActive,
+        color: borderColor ?? VivassimoTheme.purpleActive,
       ),
       borderRadius: BorderRadius.all(
         Radius.circular(10),

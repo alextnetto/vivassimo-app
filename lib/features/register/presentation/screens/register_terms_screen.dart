@@ -95,7 +95,7 @@ class TermsScreen extends StatelessWidget {
               child: ButtonConfirm(
                 label: 'Continuar',
                 primary: VivassimoTheme.green,
-                onPrimary: VivassimoTheme.white,
+                textColor: VivassimoTheme.white,
                 borderColor: VivassimoTheme.white,
                 onPressed: () {
                   Navigator.of(context).pop();
