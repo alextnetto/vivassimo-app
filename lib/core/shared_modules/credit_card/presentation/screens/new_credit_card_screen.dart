@@ -82,12 +82,12 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
         slivers: [
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 320,
+              height: 280 + MediaQuery.of(context).padding.top,
               child: Stack(
                 children: [
                   Container(
-                    height: 131,
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    height: 95,
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(180, 216, 216, 0.2),
                         border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2)))),
