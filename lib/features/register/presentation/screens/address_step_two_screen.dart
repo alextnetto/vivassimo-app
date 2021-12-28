@@ -189,17 +189,16 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                     // onPressed: addressStepTwoStore.ena () {
                     onPressed: addressStepTwoStore.enableButton
                         ? () {
-                            // deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
-                            //   id: 2,
-                            //   cep: addressStepTwoStore.cep,
-                            //   city: addressStepTwoStore.city,
-                            //   neighborhood: addressStepTwoStore.neighborhood,
-                            //   number: addressStepTwoStore.number,
-                            //   street: addressStepTwoStore.address,
-                            //   uf: addressStepTwoStore.uf,
-                            // ));
-                            // print('sdjfiosdj');
-                            // Navigator.of(context).pop();
+                            registerUserRequestModel.deliveryAddress =
+                                DeliveryAddressEntity(
+                              cep: addressStepTwoStore.cep,
+                              street: addressStepTwoStore.address,
+                              number: addressStepTwoStore.number,
+                              neighborhood: addressStepTwoStore.neighborhood,
+                              city: addressStepTwoStore.city,
+                              uf: addressStepTwoStore.uf,
+                            );
+                            print(registerUserRequestModel.toJson());
                           }
                         : null,
                   );

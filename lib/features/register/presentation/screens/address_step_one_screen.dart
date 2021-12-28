@@ -77,12 +77,12 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
     Placemark placemark = await LocationHandler.getAddressByCoordinates(
         _locationData.latitude, _locationData.longitude);
 
-    CepResponseModel addressData = await LocationHandler.getAddressByCep(
+    CepResponseModel cepResponseModel = await LocationHandler.getAddressByCep(
         placemark.postalCode?.replaceAll('-', ''));
 
     LoadingIndicator.hide(context);
 
-    if (!addressData.success) {
+    if (!cepResponseModel.success) {
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -103,20 +103,11 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
       return;
     }
 
-    registerUserRequestModel.deliveryAddress = DeliveryAddressEntity(
-      cep: addressData.cep,
-      street: addressData.logradouro,
-      number: placemark.subThoroughfare,
-      neighborhood: addressData.bairro,
-      city: addressData.localidade,
-      uf: addressData.uf,
-    );
-
     Navigator.of(context).pushNamed(
       '/register/address2',
       arguments: {
         'registerUserRequestModel': registerUserRequestModel,
-        'cepResponseModel': addressStepOneStore.cepResponseModel
+        'cepResponseModel': cepResponseModel
       },
     );
   }

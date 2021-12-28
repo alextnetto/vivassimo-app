@@ -3,6 +3,8 @@ import 'package:mobx/mobx.dart';
 import 'package:my_app/core/app_services/location_handler/location_handler.dart';
 import 'package:my_app/core/app_services/location_handler/models/cep_response_model.dart';
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
+import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
+import 'package:my_app/features/register/infra/models/response/register_user_response_model.dart';
 part 'address_step_two_store.g.dart';
 
 class AddressStepTwoStore = _AddressStepTwoStoreBase with _$AddressStepTwoStore;
@@ -218,5 +220,10 @@ abstract class _AddressStepTwoStoreBase with Store {
 
     setCity(addressData.localidade);
     cityController.text = addressData.localidade;
+  }
+
+  Future<RegisterUserResponseModel> register(
+      RegisterUserRequestModel registerUserRequestModel) async {
+    return await registerUsecase.register(registerUserRequestModel);
   }
 }
