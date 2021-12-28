@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_back.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
@@ -9,7 +8,6 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/password_store.dart';
-import 'package:my_app/features/register/register_module.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({Key? key, required this.registerUserRequestModel})

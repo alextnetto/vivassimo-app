@@ -6,8 +6,7 @@ import 'package:my_app/core/app_services/location_handler/models/cep_response_mo
 import 'new_delivery_address_validation.dart';
 part 'new_delivery_address_store.g.dart';
 
-class NewDeliveryAddressStore = _NewDeliveryAddressStoreBase
-    with _$NewDeliveryAddressStore;
+class NewDeliveryAddressStore = _NewDeliveryAddressStoreBase with _$NewDeliveryAddressStore;
 
 abstract class _NewDeliveryAddressStoreBase with Store {
   NewDeliveryAddressValidation validation = NewDeliveryAddressValidation();
@@ -165,8 +164,7 @@ abstract class _NewDeliveryAddressStoreBase with Store {
       getNumberError == null;
 
   Future<void> getAddressByCep(String value, BuildContext context) async {
-    CepResponseModel cepResponseModel =
-        await LocationHandler.getAddressByCep(cep);
+    CepResponseModel cepResponseModel = await LocationHandler.getAddressByCep(value);
 
     if (cepResponseModel.success) {
       setIsValidCep(true);

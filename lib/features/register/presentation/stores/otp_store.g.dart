@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'otp_store.dart';
+part of '../../../../core/shared_modules/otp/presentation/stores/otp_store.dart';
 
 // **************************************************************************
 // StoreGenerator

@@ -1,17 +1,17 @@
 import 'package:mobx/mobx.dart';
-import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
+import 'package:my_app/core/shared_modules/otp/domain/usecases/otp_usecase.dart';
 import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
-part 'otp_store.g.dart';
+part '../../../../../features/register/presentation/stores/otp_store.g.dart';
 
 class OtpStore = _OtpStoreBase with _$OtpStore;
 
 abstract class _OtpStoreBase with Store {
-  final IRegisterUsecase registerUsecase;
+  final IOtpUsecase otpUsecase;
 
-  _OtpStoreBase(this.registerUsecase);
+  _OtpStoreBase(this.otpUsecase);
 
   @observable
   String? phoneNumber = '';
@@ -38,15 +38,15 @@ abstract class _OtpStoreBase with Store {
       phoneNumber: phoneNumber!,
     );
 
-    return await registerUsecase.sendOtp(sendOtpRequestModel);
+    return await otpUsecase.sendOtp(sendOtpRequestModel);
   }
 
   Future<VerifyOtpResponseModel> verifyOtp() async {
     VerifyOtpRequestModel verifyOtpRequestModel = VerifyOtpRequestModel(
       phoneNumber: phoneNumber!,
-      otp: otp!,
+      token: otp!,
     );
 
-    return await registerUsecase.verifyOtp(verifyOtpRequestModel);
+    return await otpUsecase.verifyOtp(verifyOtpRequestModel);
   }
 }

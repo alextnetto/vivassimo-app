@@ -1,30 +1,29 @@
 import 'dart:convert';
 
 class VerifyOtpRequestModel {
-  final String otp;
+  final String token;
   final String phoneNumber;
 
   VerifyOtpRequestModel({
-    required this.otp,
+    required this.token,
     required this.phoneNumber,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'otp': otp,
+      'token': token,
       'phoneNumber': phoneNumber,
     };
   }
 
   factory VerifyOtpRequestModel.fromMap(Map<String, dynamic> map) {
     return VerifyOtpRequestModel(
-      otp: map['otp'] ?? '',
+      token: map['token'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory VerifyOtpRequestModel.fromJson(String source) =>
-      VerifyOtpRequestModel.fromMap(json.decode(source));
+  factory VerifyOtpRequestModel.fromJson(String source) => VerifyOtpRequestModel.fromMap(json.decode(source));
 }

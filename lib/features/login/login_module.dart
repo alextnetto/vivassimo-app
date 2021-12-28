@@ -4,6 +4,7 @@ import 'package:my_app/features/login/domain/usecases/login_usecase.dart';
 import 'package:my_app/features/login/external/datasources/login_datasource.dart';
 import 'package:my_app/features/login/infra/repositories/login_repository.dart';
 import 'package:my_app/features/login/presentation/stores/login_store.dart';
+import 'package:my_app/core/shared_modules/otp/presentation/stores/otp_store.dart';
 
 class LoginModule extends Module {
   @override
@@ -14,6 +15,7 @@ class LoginModule extends Module {
       Bind.factory((i) => LoginRepository(i())),
       Bind.factory((i) => LoginUsecase(i(), i())),
       Bind.factory((i) => LoginStore(i())),
+      Bind.factory((i) => OtpStore(i())),
     ];
   }
 }

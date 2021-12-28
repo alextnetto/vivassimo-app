@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geocoding/geocoding.dart' show Placemark;
 import 'package:my_app/core/app_services/location_handler/location_handler.dart';
 import 'package:my_app/core/app_services/location_handler/models/cep_response_model.dart';
-import 'package:my_app/core/entities/delivery_address_entity.dart';
 import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';

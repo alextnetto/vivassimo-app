@@ -7,7 +7,6 @@ class BackendService {
   final String _baseUrl = '10.14.133.167';
   // final String _baseUrl = '172.17.208.1';
 
-  //TODO: Implement error handling
 
   userExists(String phoneNumber) async {
     Uri url = Uri.http(_baseUrl, '/userExists', {'phoneNumber': phoneNumber});

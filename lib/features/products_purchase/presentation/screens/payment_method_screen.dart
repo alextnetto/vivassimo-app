@@ -226,6 +226,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                           paymentStore.paymentMethod.number!.length - 4,
                                           paymentStore.paymentMethod.number!.length),
                                       installmentAmount: paymentStore.getInstallmentAmount,
+                                      brandName: paymentStore.paymentMethod.brandName,
+                                      imagePath: paymentStore.paymentMethod.imagePath,
                                     );
                                     Navigator.of(context)
                                         .pushNamed('/products/products_purchase/product_purchase_details', arguments: {

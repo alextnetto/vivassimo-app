@@ -1,4 +1,3 @@
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
 import 'package:my_app/core/ui/app_masks/app_masks.dart';
 import 'package:my_app/core/utils/extensions/string_extensions.dart';

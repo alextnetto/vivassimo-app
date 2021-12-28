@@ -6,7 +6,7 @@ import 'package:my_app/features/register/infra/repositories/register_repository.
 import 'package:my_app/features/register/presentation/stores/address_step_one_store.dart';
 import 'package:my_app/features/register/presentation/stores/address_step_two_store.dart';
 import 'package:my_app/features/register/presentation/stores/cpf_store.dart';
-import 'package:my_app/features/register/presentation/stores/otp_store.dart';
+import 'package:my_app/core/shared_modules/otp/presentation/stores/otp_store.dart';
 import 'package:my_app/features/register/presentation/stores/password_store.dart';
 import 'package:my_app/features/register/presentation/stores/register_step_one_store.dart';
 import 'package:my_app/features/register/presentation/stores/register_step_two_store.dart';
