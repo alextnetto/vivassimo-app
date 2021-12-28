@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/shared_modules/get_address_by_cep/external/get_address_by_cep.dart';
+import 'package:my_app/core/app_services/location_handler/location_handler.dart';
+import 'package:my_app/core/app_services/location_handler/models/cep_response_model.dart';
 
 import 'new_delivery_address_validation.dart';
 part 'new_delivery_address_store.g.dart';
@@ -118,21 +119,7 @@ abstract class _NewDeliveryAddressStoreBase with Store {
 
   @action
   setUf(String value) {
-    validation.hasChangedUf = true;
     return uf = value;
-  }
-
-  @computed
-  String? get getUfError {
-    if (!validation.hasChangedUf) {
-      return null;
-    } else if (uf.isEmpty) {
-      return 'Este campo é obrigatório';
-    } else if (uf.length < 2) {
-      return 'UF inválida';
-    }
-
-    return null;
   }
 
   @observable
@@ -177,28 +164,26 @@ abstract class _NewDeliveryAddressStoreBase with Store {
       getNumberError == null;
 
   Future<void> getAddressByCep(String value, BuildContext context) async {
-    var address = await cepToAddress(value);
+    CepResponseModel cepResponseModel = await LocationHandler.getAddressByCep(value);
 
-    if (address['valid']) {
+    if (cepResponseModel.success) {
       setIsValidCep(true);
-      await setAddressByCep(address['data']);
+      await setAddressByCep(cepResponseModel);
     } else {
       setIsValidCep(false);
     }
   }
 
-  Future<void> setAddressByCep(Map<dynamic, dynamic> addressFromCep) async {
-    await Future.delayed(Duration(seconds: 2));
-    setAddress(addressFromCep['logradouro']);
-    addressController.text = addressFromCep['logradouro'];
+  Future<void> setAddressByCep(CepResponseModel cepResponseModel) async {
+    setAddress(cepResponseModel.logradouro);
+    addressController.text = cepResponseModel.logradouro;
 
-    setNeighborhood(addressFromCep['bairro']);
-    neighborhoodController.text = addressFromCep['bairro'];
+    setNeighborhood(cepResponseModel.bairro);
+    neighborhoodController.text = cepResponseModel.bairro;
 
-    setUf(addressFromCep['uf']);
-    // ufController.text = addressFromCep['uf'];
+    setUf(cepResponseModel.uf);
 
-    setCity(addressFromCep['localidade']);
-    cityController.text = addressFromCep['localidade'];
+    setCity(cepResponseModel.localidade);
+    cityController.text = cepResponseModel.localidade;
   }
 }

@@ -1,7 +1,8 @@
 import 'package:mobx/mobx.dart';
 part 'new_delivery_address_validation.g.dart';
 
-class NewDeliveryAddressValidation = _NewDeliveryAddressValidationBase with _$NewDeliveryAddressValidation;
+class NewDeliveryAddressValidation = _NewDeliveryAddressValidationBase
+    with _$NewDeliveryAddressValidation;
 
 abstract class _NewDeliveryAddressValidationBase with Store {
   @observable
@@ -17,9 +18,6 @@ abstract class _NewDeliveryAddressValidationBase with Store {
   bool hasChangedNeighborhood = false;
 
   @observable
-  bool hasChangedUf = false;
-
-  @observable
   bool hasChangedCity = false;
 
   @observable
@@ -31,6 +29,5 @@ abstract class _NewDeliveryAddressValidationBase with Store {
       hasChangedAddress &&
       hasChangedNumber &&
       hasChangedNeighborhood &&
-      // hasChangedUf &&
       hasChangedCity;
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_app/features/announcements/presentation/screens/my_announcements_screen.dart';
 import 'package:my_app/features/announcements/presentation/screens/choose_announcement_type_screen.dart';
+
 import 'package:my_app/features/home/presentation/screens/home_screen.dart';
 import 'package:my_app/features/home/presentation/screens/product_category_screen.dart';
+
 import 'package:my_app/features/login/presentation/screens/login_screen.dart';
+
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_delivery_type_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_success_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
@@ -15,33 +19,35 @@ import 'package:my_app/features/products_announcement/presentation/screens/produ
 import 'package:my_app/features/products_announcement/presentation/screens/product_photo_confirmation_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_review_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
+
 import 'package:my_app/features/products_purchase/presentation/screens/delete_delivery_address_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delivery_address_screen.dart';
-import 'package:my_app/core/shared_modules/credit_card/presentation/screens/new_credit_card_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/new_delivery_address_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
-import 'package:my_app/core/shared_modules/credit_card/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_cvv_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/payment_method_service_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_purchase_details_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_select_section_amount_screen.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/service_store_offer_description_screen.dart';
-import 'package:my_app/pages/register/accept_terms.dart';
-import 'package:my_app/pages/register/address2_page.dart';
-import 'package:my_app/pages/register/address_1.dart';
-import 'package:my_app/pages/register/cpf_page.dart';
-import 'package:my_app/pages/register/otp_verification.dart';
-import 'package:my_app/pages/register/password.dart';
-import 'package:my_app/pages/register/register_1.dart';
-import 'package:my_app/pages/register/register_2.dart';
-import 'package:my_app/pages/register/register_finished.dart';
-import 'package:my_app/pages/register/terms.dart';
 
-import '../../features/signin_signup_redirect_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/delete_payment_method_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/new_credit_card_screen.dart';
+
+import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
+import 'package:my_app/features/register/presentation/screens/address_step_two_screen.dart';
+import 'package:my_app/core/shared_modules/otp/presentation/screens/otp_screen.dart';
+import 'package:my_app/features/register/presentation/screens/password_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
+import 'package:my_app/features/register/presentation/screens/address_step_one_screen.dart';
+import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
+import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
+import 'package:my_app/features/signin_signup_redirect_screen.dart';
+import 'package:my_app/pages/register/register_finished.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -117,17 +123,13 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ProductPurchaseSuccessScreen());
 
-      case '/register/address2':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => EstadoScreen());
-
       case '/register/acceptTerms':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => RegisterTerms());
+        return MaterialPageRoute(builder: (_) => AcceptRegisterTermsScreen());
 
       case '/register/terms':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => TermsPage());
+        return MaterialPageRoute(builder: (_) => TermsScreen());
 
       case '/register/verifyOtp':
         // if (args is String) {
@@ -135,7 +137,8 @@ class RouteGenerator {
           builder: (_) => OtpVerificationScreen(
             redirectTo: args != null ? args['redirectTo'] : '/register/password',
             phoneNumber: args != null ? args['phoneNumber'] : '',
-            nextPageArguments: args != null ?  args['nextPageArguments'] : null,
+            nextPageArguments: args != null ? args['nextPageArguments'] : null,
+            registerUserRequestModel: args != null ? args['registerUserRequestModel'] : null,
           ),
         );
 
@@ -143,21 +146,41 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => RegisterStepOneScreen());
 
-      case '/register/2':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => RegisterStepTwoScreen());
-
       case '/register/password':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => PasswordScreen());
+        return MaterialPageRoute(
+            builder: (_) => PasswordScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/cpf':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => CpfScreen());
+        return MaterialPageRoute(
+            builder: (_) => CpfScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
+
+      case '/register/2':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => RegisterStepTwoScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
 
       case '/register/address1':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => AddressStepOneScreen());
+        return MaterialPageRoute(
+            builder: (_) => AddressStepOneScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                ));
+
+      case '/register/address2':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => AddressStepTwoScreen(
+                  registerUserRequestModel: args['registerUserRequestModel'],
+                  cepResponseModel: args['cepResponseModel'],
+                ));
 
       case '/register/registerFinished':
         // if (args is String) {

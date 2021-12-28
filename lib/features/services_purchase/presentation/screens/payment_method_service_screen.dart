@@ -234,6 +234,8 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
                                           paymentStore.paymentMethod.number!.length - 4,
                                           paymentStore.paymentMethod.number!.length),
                                       installmentAmount: paymentStore.getInstallmentAmount,
+                                      brandName: paymentStore.paymentMethod.brandName,
+                                      imagePath: paymentStore.paymentMethod.imagePath,
                                     );
                                     Navigator.of(context)
                                         .pushNamed('/services-purchase/service-purchase-details', arguments: {

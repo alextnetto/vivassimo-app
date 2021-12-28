@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:my_app/models/register/user.dart';
 
 class BackendService {
   static BackendService instance = BackendService();
   final String _baseUrl = '10.14.133.167';
   // final String _baseUrl = '172.17.208.1';
 
-  //TODO: Implement error handling
 
   userExists(String phoneNumber) async {
     Uri url = Uri.http(_baseUrl, '/userExists', {'phoneNumber': phoneNumber});
@@ -68,7 +66,7 @@ class BackendService {
     }
   }
 
-  registerUser(RegisterUser user) async {
+  registerUser(user) async {
     String body = jsonEncode(user.toJson());
     Uri url = Uri.http(_baseUrl, '/users');
     const customHeaders = {"content-type": "application/json"};

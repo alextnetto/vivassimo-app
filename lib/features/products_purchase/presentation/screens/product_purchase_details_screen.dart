@@ -109,7 +109,7 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                         Text(
                           paymentEntity.installments! > 1
                               ? '${paymentEntity.installments!} Parcelas de R\$ ${paymentEntity.installmentAmount!.toStringAsFixed(2)}'
-                              : '1 Parcela de R\$ ${productEntity.value!.toStringAsFixed(2)}',
+                              : '1 Parcela de R\$ ${productPurchaseRequestModel.totalPurchase!.toStringAsFixed(2)}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         SizedBox(height: 20),
@@ -123,11 +123,11 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                child: Image.asset('assets/icon/mastercard.png'),
+                                child: Image.asset(paymentEntity.imagePath ?? ''),
                               ),
                               SizedBox(width: 15),
                               Text(
-                                'Matercard ****${paymentEntity.name}',
+                                '${paymentEntity.brandName} ****${paymentEntity.name}',
                                 style: AppTextStyles.defaultTextStyleTitleSmall600,
                               )
                             ],

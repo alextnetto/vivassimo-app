@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
-import 'package:my_app/models/register/user.dart';
 
 class RegisterFinishedScreen extends StatefulWidget {
   const RegisterFinishedScreen({Key? key}) : super(key: key);
@@ -62,7 +61,8 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
                   SizedBox(
                     width: 232,
                     child: Text(
-                      '${RegisterUser.instance.name}, te damos as boas-vindas ao Vivássimo!',
+                      //'${RegisterUser.instance.name}, te damos as boas-vindas ao Vivássimo!',
+                      '',
                       textAlign: TextAlign.center,
                       style: customTextStyle(
                         FontWeight.w800,

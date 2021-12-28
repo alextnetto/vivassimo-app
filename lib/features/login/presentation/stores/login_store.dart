@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:my_app/core/utils/constants/constants.dart';
 import 'package:my_app/features/login/domain/usecases/login_usecase.dart';
 import 'package:my_app/features/login/infra/models/request/login_request_model.dart';
-import 'package:my_app/core/utils/extensions/string_extensions.dart';
 import 'package:my_app/features/login/infra/models/response/login_response_model.dart';
 part 'login_store.g.dart';
 
