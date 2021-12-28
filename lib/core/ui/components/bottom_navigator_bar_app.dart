@@ -39,7 +39,8 @@ class BottomNavigatorBarApp extends StatelessWidget {
                   TabItemWidget(
                     iconPath: 'assets/icon/announce_icon.png',
                     onTap: () {
-                      Navigator.of(context).pushNamed('/sign_or_signup', arguments: {'redirectTo': 'my_announcements'});
+                      Navigator.of(context)
+                          .pushNamed('/signin_or_signup', arguments: {'redirectTo': '/announcements/my_announcements'});
                     },
                     selectedIndex: selectedIndex,
                     setBorderBottom: selectedIndex == 2,

@@ -8,7 +8,7 @@ class HttpService implements IRequestService {
   @override
   Future<dynamic> post({required String endpoint, required String body}) async {
     // var baseUrl = 'localhost';
-    var baseUrl = '172.23.240.1';
+    var baseUrl = '10.14.133.167';
     var customHeaders = {"content-type": "application/json"};
 
     var url = Uri.http(baseUrl, endpoint);

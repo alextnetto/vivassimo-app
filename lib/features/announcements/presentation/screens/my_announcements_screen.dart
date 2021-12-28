@@ -16,15 +16,19 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
       child: Scaffold(
           body: CustomScrollView(slivers: [
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 50, right: 100, left: 100),
-                child: SizedBox(
-                  child: Text(
-                    'Meus anúncios',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFF4D0351), fontSize: 26, fontWeight: FontWeight.w800),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10),
+                    child: SizedBox(
+                      child: Text(
+                        'Meus Anúncios',
+                        style: TextStyle(color: Color(0xFF4D0351), fontSize: 26, fontWeight: FontWeight.w800),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             SliverToBoxAdapter(
@@ -98,7 +102,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                         Navigator.of(context).pushNamed(
                                             '/product/products_announcement/product_announcement_preview',
                                             arguments: {
-                                              'img': ['assets/images/announcement/chocolate_cake.png']
+                                              'imagePath': 'assets/images/announcement/chocolate_cake.png',
                                             });
                                       },
                                       child: Container(
@@ -205,7 +209,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                         Navigator.of(context).pushNamed(
                                             '/product/products_announcement/product_announcement_preview',
                                             arguments: {
-                                              'img': ['assets/images/announcement/chocolate_cake.png']
+                                              'imagePath': 'assets/images/announcement/chocolate_cake.png',
                                             });
                                       },
                                       child: Container(

@@ -100,10 +100,11 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
               ),
             ),
             Container(
+              // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
               margin: EdgeInsets.fromLTRB(45, 0, 45, 0),
-              // height: calculateHeight(),
               child: GridView.builder(
                 shrinkWrap: true,
+                padding: EdgeInsets.only(top: 10),
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: productModel.productImages!.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -155,43 +156,6 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 borderColor: Color(0xff635F75),
                 textColor: Color(0xff635F75),
               ),
-              // child: Container(
-              //   padding: const EdgeInsets.only(top: 15, left: 20, right: 0, bottom: 10),
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Color(0xFF635F75)),
-              //     borderRadius: BorderRadius.all(Radius.circular(7)),
-              //   ),
-              //   child: Directionality(
-              //     textDirection: TextDirection.rtl,
-              //     child: TextField(
-              //       keyboardType: TextInputType.number,
-              //       // readOnly: true,
-              //       maxLines: 2000,
-              //       maxLength: 2000,
-              //       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              //       onChanged: (value) {},
-              //       decoration: InputDecoration(
-              //           prefixIcon: Icon(
-              //             Icons.arrow_back,
-              //             color: Color(0xFF635F75),
-              //           ),
-              //           counter: Offstage(),
-              //           contentPadding: EdgeInsets.only(right: 0, left: 0, bottom: 0),
-              //           focusedBorder: InputBorder.none,
-              //           border: InputBorder.none,
-              //           disabledBorder: InputBorder.none),
-              //       cursorColor: Color(0xFF635F75),
-              //       style: TextStyle(
-              //           // fontFamily: 'Manrope',
-              //           color: Color(0xFF635F75),
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w800),
-              //       textAlign: TextAlign.end,
-              //       controller: controller1,
-              //     ),
-              //   ),
-              // ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 45, top: 21),
@@ -222,42 +186,6 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                   ),
                 ],
               ),
-              // child: Container(
-              //   padding: const EdgeInsets.only(top: 15, left: 20, right: 0, bottom: 10),
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Color(0xFF635F75)),
-              //     borderRadius: BorderRadius.all(Radius.circular(7)),
-              //   ),
-              //   child: Directionality(
-              //     textDirection: TextDirection.rtl,
-              //     child: TextField(
-              //       keyboardType: TextInputType.number,
-              //       maxLines: 2000,
-              //       maxLength: 2000,
-              //       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              //       onChanged: (value) {},
-              //       decoration: InputDecoration(
-              //           prefixIcon: Icon(
-              //             Icons.arrow_back,
-              //             color: Color(0xFF635F75),
-              //           ),
-              //           counter: Offstage(),
-              //           contentPadding: EdgeInsets.only(right: 0, left: 0, bottom: 0),
-              //           focusedBorder: InputBorder.none,
-              //           border: InputBorder.none,
-              //           disabledBorder: InputBorder.none),
-              //       cursorColor: Color(0xFF635F75),
-              //       style: TextStyle(
-              //           // fontFamily: 'Manrope',
-              //           color: Color(0xFF635F75),
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w800),
-              //       textAlign: TextAlign.end,
-              //       controller: controller2,
-              //     ),
-              //   ),
-              // ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 45, top: 21),
@@ -338,42 +266,6 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 borderColor: Color(0xff635F75),
                 textColor: Color(0xff635F75),
               ),
-              // child: Container(
-              //   padding: const EdgeInsets.only(top: 15, left: 20, right: 0, bottom: 10),
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Color(0xFF635F75)),
-              //     borderRadius: BorderRadius.all(Radius.circular(7)),
-              //   ),
-              //   child: Directionality(
-              //     textDirection: TextDirection.rtl,
-              //     child: TextField(
-              //       keyboardType: TextInputType.number,
-              //       maxLines: 2000,
-              //       maxLength: 2000,
-              //       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              //       onChanged: (value) {},
-              //       decoration: InputDecoration(
-              //           prefixIcon: Icon(
-              //             Icons.arrow_back,
-              //             color: Color(0xFF635F75),
-              //           ),
-              //           counter: Offstage(),
-              //           contentPadding: EdgeInsets.only(right: 0, left: 0, bottom: 0),
-              //           focusedBorder: InputBorder.none,
-              //           border: InputBorder.none,
-              //           disabledBorder: InputBorder.none),
-              //       cursorColor: Color(0xFF635F75),
-              //       style: TextStyle(
-              //           // fontFamily: 'Manrope',
-              //           color: Color(0xFF635F75),
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w800),
-              //       textAlign: TextAlign.end,
-              //       controller: controller4,
-              //     ),
-              //   ),
-              // ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 45, top: 21),
@@ -398,42 +290,6 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 borderColor: Color(0xff635F75),
                 textColor: Color(0xff635F75),
               ),
-              // child: Container(
-              //   padding: const EdgeInsets.only(top: 15, left: 20, right: 0, bottom: 10),
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Color(0xFF635F75)),
-              //     borderRadius: BorderRadius.all(Radius.circular(7)),
-              //   ),
-              //   child: Directionality(
-              //     textDirection: TextDirection.rtl,
-              //     child: TextField(
-              //       keyboardType: TextInputType.number,
-              //       maxLines: 2000,
-              //       maxLength: 2000,
-              //       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              //       onChanged: (value) {},
-              //       decoration: InputDecoration(
-              //           prefixIcon: Icon(
-              //             Icons.arrow_back,
-              //             color: Color(0xFF635F75),
-              //           ),
-              //           counter: Offstage(),
-              //           contentPadding: EdgeInsets.only(right: 0, left: 0, bottom: 0),
-              //           focusedBorder: InputBorder.none,
-              //           border: InputBorder.none,
-              //           disabledBorder: InputBorder.none),
-              //       cursorColor: Color(0xFF635F75),
-              //       style: TextStyle(
-              //           // fontFamily: 'Manrope',
-              //           color: Color(0xFF635F75),
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w800),
-              //       textAlign: TextAlign.end,
-              //       controller: controller5,
-              //     ),
-              //   ),
-              // ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 45, top: 21),
@@ -458,43 +314,6 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 borderColor: Color(0xff635F75),
                 textColor: Color(0xffDE674B),
               ),
-              // child: Container(
-              //   padding: const EdgeInsets.only(top: 15, left: 20, right: 0, bottom: 10),
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Color(0xFF635F75)),
-              //     borderRadius: BorderRadius.all(Radius.circular(7)),
-              //   ),
-              //   child: Directionality(
-              //     textDirection: TextDirection.rtl,
-              //     child: TextField(
-              //       keyboardType: TextInputType.number,
-              //       readOnly: true,
-              //       maxLines: 2000,
-              //       maxLength: 2000,
-              //       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              //       onChanged: (value) {},
-              //       decoration: InputDecoration(
-              //           prefixIcon: Icon(
-              //             Icons.arrow_back,
-              //             color: Color(0xFF635F75),
-              //           ),
-              //           counter: Offstage(),
-              //           contentPadding: EdgeInsets.only(right: 0, left: 0, bottom: 0),
-              //           focusedBorder: InputBorder.none,
-              //           border: InputBorder.none,
-              //           disabledBorder: InputBorder.none),
-              //       cursorColor: Color(0xFF635F75),
-              //       style: TextStyle(
-              //           // fontFamily: 'Manrope',
-              //           color: Color(0xFFFF0000),
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w800),
-              //       textAlign: TextAlign.end,
-              //       controller: controller6,
-              //     ),
-              //   ),
-              // ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20),

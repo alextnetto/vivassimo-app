@@ -5,7 +5,7 @@ import 'package:my_app/models/register/user.dart';
 
 class BackendService {
   static BackendService instance = BackendService();
-  final String _baseUrl = 'localhost';
+  final String _baseUrl = '10.14.133.167';
   // final String _baseUrl = '172.17.208.1';
 
   //TODO: Implement error handling

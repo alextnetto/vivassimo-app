@@ -144,18 +144,21 @@ class _ServiceStoreOfferDescriptionScreenState extends State<ServiceStoreOfferDe
                                   Radius.circular(10),
                                 ))),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/services-purchase/select-section-amount', arguments: {
-                            'servicePurchaseRequestModel': ServicePurchaseRequestModel(
-                              serviceEntity: ServiceEntity(
-                                id: 1,
-                                name: 'Pilates Clássico',
-                                description: 'Pilates Clássico + aconselhamento e acompanhamento individual',
-                                ownerName: 'Academia Health Fit',
-                                value: 165,
-                                sessionDuration: '1 hora',
+                          Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
+                            'redirectTo': '/services-purchase/select-section-amount',
+                            'nextPageArguments': {
+                              'servicePurchaseRequestModel': ServicePurchaseRequestModel(
+                                serviceEntity: ServiceEntity(
+                                  id: 1,
+                                  name: 'Pilates Clássico',
+                                  description: 'Pilates Clássico + aconselhamento e acompanhamento individual',
+                                  ownerName: 'Academia Health Fit',
+                                  value: 165,
+                                  sessionDuration: '1 hora',
+                                ),
+                                maxInstallments: 3,
                               ),
-                              maxInstallments: 3,
-                            ),
+                            }
                           });
                         },
                         child: Row(

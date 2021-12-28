@@ -72,7 +72,7 @@ abstract class _LoginStoreBase with Store {
       return null;
     } else if (password.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (!password.isStrongPassword) {
+    } else if (password.length < 6) {
       return 'Senha inválida';
     }
 

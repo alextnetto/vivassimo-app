@@ -99,7 +99,7 @@ class _ServiceSelectSectionAmountScreenState extends State<ServiceSelectSectionA
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Valo total',
+                          'Valor total',
                           style: AppTextStyles.defaultTextStyleDescriptionGreyBold,
                         ),
                         Observer(builder: (_) {
@@ -133,22 +133,20 @@ class _ServiceSelectSectionAmountScreenState extends State<ServiceSelectSectionA
             hasScrollBody: false,
             child: SizedBox(
               // margin: const EdgeInsets.only(top: 66),
-              child: Observer(builder: (_) {
-                return ButtonConfirm(
-                  label: 'Continuar',
-                  primary: VivassimoTheme.green,
-                  textColor: VivassimoTheme.white,
-                  borderColor: VivassimoTheme.greenBorderColor,
-                  onPressed: () {
-                    servicePurchaseRequestModel.amountSessions = serviceStore.amountSessions;
-                    servicePurchaseRequestModel.totalPurchase = serviceStore.amountSessions * serviceEntity.value!;
+              child: ButtonConfirm(
+                label: 'Continuar',
+                primary: VivassimoTheme.green,
+                textColor: VivassimoTheme.white,
+                borderColor: VivassimoTheme.greenBorderColor,
+                onPressed: () {
+                  servicePurchaseRequestModel.amountSessions = serviceStore.amountSessions;
+                  servicePurchaseRequestModel.totalPurchase = serviceStore.amountSessions * serviceEntity.value!;
 
-                    Navigator.of(context).pushNamed('/services-purchase/payment-method-service', arguments: {
-                      'servicePurchaseRequestModel': servicePurchaseRequestModel,
-                    });
-                  },
-                );
-              }),
+                  Navigator.of(context).pushNamed('/services-purchase/payment-method-service', arguments: {
+                    'servicePurchaseRequestModel': servicePurchaseRequestModel,
+                  });
+                },
+              ),
             ),
           ),
         ],

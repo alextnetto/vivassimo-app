@@ -97,44 +97,12 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                       ],
                     ),
                   ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width,
-                  //     // padding: const EdgeInsets.only(right: 22),
-                  //     child: Container(
-                  //       child: CreditCardWidget(
-                  //         cardNumber: creditCardStore.number,
-                  //         cardBgColor: VivassimoTheme.purpleActive,
-                  //         expiryDate: creditCardStore.expirationDate,
-                  //         cardHolderName: creditCardStore.ownerName,
-                  //         cvvCode: cvv,
-                  //         showBackView: iscvvFocused,
-                  //         // labelExpiredDate: ,
-                  //         onCreditCardWidgetChange: (creditCardBrand) {
-                  //           // setState(() {});
-                  //           print('fasdf');
-                  //         }, //true when you want to show cvv(back) view
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Positioned(
                     bottom: 0,
                     child: Container(
                       padding: const EdgeInsets.only(left: 22, right: 22),
                       width: MediaQuery.of(context).size.width,
-                      child:
-                          // Observer(builder: (_) {
-                          //   return CreditCardWidgettTT(
-                          //     brand: creditCardStore.cardBrand,
-                          //     expirationDate: creditCardStore.expirationDate,
-                          //     number: creditCardStore.number,
-                          //     ownerName: creditCardStore.ownerName,
-                          //   );
-                          // }),
-
-                          Observer(builder: (_) {
+                      child: Observer(builder: (_) {
                         return Stack(
                           children: [
                             _cardGesture(
@@ -165,25 +133,6 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
               ),
             ),
           ),
-          // SliverToBoxAdapter(
-          //   child: CreditCardForm(
-          //     onCreditCardModelChange: (creditCardModel) {
-          //       setState(() {
-          //         creditCardStore.number = creditCardModel.cardNumber;
-          //         creditCardStore.ownerName = creditCardModel.cardHolderName;
-          //         creditCardStore.expirationDate = creditCardModel.expiryDate;
-          //         cvv = creditCardModel.cvvCode;
-          //         iscvvFocused = creditCardModel.isCvvFocused;
-          //       });
-          //     },
-          //     cardNumber: creditCardStore.number,
-          //     expiryDate: creditCardStore.expirationDate,
-          //     cardHolderName: creditCardStore.ownerName,
-          //     cvvCode: cvv,
-          //     formKey: formKey,
-          //     themeColor: Colors.purple,
-          //   ),
-          // ),
           SliverToBoxAdapter(
             child: Observer(builder: (_) {
               return Container(

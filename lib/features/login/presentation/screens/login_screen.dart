@@ -7,13 +7,15 @@ import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 import 'package:my_app/features/login/login_module.dart';
 import 'package:my_app/features/login/presentation/stores/login_store.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 
 class LoginScreen extends StatefulWidget {
   final String redirectTo;
-  const LoginScreen({Key? key, required this.redirectTo}) : super(key: key);
+  final Object? nextPageArguments;
+  const LoginScreen({Key? key, required this.redirectTo, this.nextPageArguments}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -90,9 +92,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 90,
                         child: Observer(builder: (_) {
                           return AppTextField(
-                            label: 'Digite sua senha',
+                            label: 'Digite a senha com 6 digitos',
                             onChanged: loginStore!.setPassword,
                             errorText: loginStore!.getPasswordError,
+                            keyBoardType: TextInputType.number,
+                            inputFormatters: [
+                              AppFormatter.passwordFormatter,
+                            ],
                             obscureText: loginStore!.isPasswordVisible,
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -127,13 +133,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                       LoadingIndicator.hide(context);
 
                                       if (response.success) {
-                                        if (redirectTo == 'my_announcements') {
-                                          Navigator.of(context).pushNamedAndRemoveUntil(
-                                              '/announcements/my_announcements', (route) => false);
-                                        } else if (redirectTo == 'products_purchase') {
-                                          Navigator.of(context).pushNamedAndRemoveUntil(
-                                              '/products/products_purchase/delivery_address', (route) => false);
-                                        } else if (redirectTo == 'service_purchase') {}
+                                        Navigator.of(context).pushNamed('/register/verifyOtp', arguments: {
+                                          'redirectTo': redirectTo,
+                                          'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
+                                          'nextPageArguments': widget.nextPageArguments,
+                                          // loginStore!.phoneNumberFormatter.unmaskText(loginStore!.phoneNumber),
+                                        });
+                                        // if (redirectTo == 'my_announcements') {
+                                        //   Navigator.of(context).pushNamedAndRemoveUntil(
+                                        //       '/announcements/my_announcements', (route) => false);
+                                        // } else if (redirectTo == 'products_purchase') {
+                                        //   Navigator.of(context).pushNamedAndRemoveUntil(
+                                        //       '/products/products_purchase/delivery_address', (route) => false);
+                                        // } else if (redirectTo == 'service_purchase') {}
                                       } else {
                                         showDialog(
                                           context: context,

@@ -50,11 +50,13 @@ class RouteGenerator {
     if (settings.arguments != null) args = settings.arguments as Map;
 
     switch (settings.name) {
-      case '/sign_or_signup':
+      case '/signin_or_signup':
         return MaterialPageRoute(
-            builder: (_) => SignInOrSignUpRedirectScreen(
-                  redirectTo: args['redirectTo'],
-                ));
+          builder: (_) => SignInOrSignUpRedirectScreen(
+            redirectTo: args['redirectTo'],
+            nextPageArguments: args['nextPageArguments'],
+          ),
+        );
 
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
@@ -64,6 +66,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => LoginScreen(
             redirectTo: args['redirectTo'],
+            nextPageArguments: args['nextPageArguments'],
           ),
         );
 
@@ -128,7 +131,13 @@ class RouteGenerator {
 
       case '/register/verifyOtp':
         // if (args is String) {
-        return MaterialPageRoute(builder: (_) => OtpVerificationScreen());
+        return MaterialPageRoute(
+          builder: (_) => OtpVerificationScreen(
+            redirectTo: args != null ? args['redirectTo'] : '/register/password',
+            phoneNumber: args != null ? args['phoneNumber'] : '',
+            nextPageArguments: args != null ?  args['nextPageArguments'] : null,
+          ),
+        );
 
       case '/register/1':
         // if (args is String) {
@@ -263,9 +272,10 @@ class RouteGenerator {
       case '/services-purchase/select-section-amount':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => ServiceSelectSectionAmountScreen(
-                  servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
-                ));
+          builder: (_) => ServiceSelectSectionAmountScreen(
+            servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
 
       case '/services-purchase/payment-method-service':
         // if (args is String) {

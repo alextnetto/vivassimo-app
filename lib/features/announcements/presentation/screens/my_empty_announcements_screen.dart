@@ -21,11 +21,11 @@ class _MyEmptyAnnouncementScreenState extends State<MyEmptyAnnouncementScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 53, left: 100, right: 100),
+            Container(
+              margin:  EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10),
               child: SizedBox(
                 child: Text(
-                  'Meus Anúncios',
+                  'Meus Anúnciosss',
                   style: TextStyle(color: Color(0xFF4D0351), fontSize: 26, fontWeight: FontWeight.w800),
                 ),
               ),
