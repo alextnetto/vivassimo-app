@@ -31,9 +31,15 @@ class _ProductAnnouncementDeliveryTypeScreenState extends State<ProductAnnouncem
         slivers: [
           SliverToBoxAdapter(
             child: Container(
-              height: 120,
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+              // height: 120,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                bottom: 15,
+              ),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(180, 216, 216, 0.2),
+                border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+              ),
               child: Column(
                 children: const [
                   AppBarDefaultWidget(title: 'Anunciar'),
@@ -70,11 +76,11 @@ class _ProductAnnouncementDeliveryTypeScreenState extends State<ProductAnnouncem
                   children: [
                     GestureDetector(
                       onTap: () {
-                        deliveryAnnouncementStore.setDeliveryTypeId(1, 'Enviar pelos Correios');
+                        deliveryAnnouncementStore.setIsToSendByCorreios(!deliveryAnnouncementStore.isToSendByCorreios);
                       },
                       child: DeliveryTypeCardWidget(
                         textCard: 'Enviar pelos \n Correios',
-                        checkIconPath: deliveryAnnouncementStore.deliveryTypeId == 1
+                        checkIconPath: deliveryAnnouncementStore.isToSendByCorreios
                             ? 'assets/icon/checked_icon.png'
                             : 'assets/icon/unchecked_icon.png',
                         cardColor: Color(0XFF22AB86),
@@ -84,11 +90,12 @@ class _ProductAnnouncementDeliveryTypeScreenState extends State<ProductAnnouncem
                     SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
-                        deliveryAnnouncementStore.setDeliveryTypeId(2, 'Combinar com o comprador');
+                        deliveryAnnouncementStore
+                            .setIsToNegotiateWithBuyer(!deliveryAnnouncementStore.isToNegotiateWithBuyer);
                       },
                       child: DeliveryTypeCardWidget(
                         textCard: 'Combinar com \n o comprador',
-                        checkIconPath: deliveryAnnouncementStore.deliveryTypeId == 2
+                        checkIconPath: deliveryAnnouncementStore.isToNegotiateWithBuyer
                             ? 'assets/icon/checked_icon_yellow.png'
                             : 'assets/icon/unchecked_icon_yellow.png',
                         cardColor: Color(0XFFFFB640),
@@ -104,21 +111,26 @@ class _ProductAnnouncementDeliveryTypeScreenState extends State<ProductAnnouncem
             hasScrollBody: false,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: ButtonConfirm(
-                label: 'Continuar',
-                primary: Color(0xFF22AB86),
-                textColor: Color(0xFFFFFFFF),
-                borderColor: Color(0xFF006633),
-                onPressed: () {
-                  productModel.deliveryTypeId = deliveryAnnouncementStore.deliveryTypeId;
-                  productModel.deliveryTypeDescription = deliveryAnnouncementStore.deliveryTypeDescription;
+              child: Observer(builder: (_) {
+                return ButtonConfirm(
+                  label: 'Continuar',
+                  primary: Color(0xFF22AB86),
+                  textColor: Color(0xFFFFFFFF),
+                  borderColor: deliveryAnnouncementStore.enableButton ? Color(0xFF006633) : Colors.grey,
+                  onPressed: deliveryAnnouncementStore.enableButton
+                      ? () {
+                          productModel.isToSendByCorreios = deliveryAnnouncementStore.isToSendByCorreios;
+                          productModel.isToNegotiateDeliveryWithBuyer =
+                              deliveryAnnouncementStore.isToNegotiateWithBuyer;
 
-                  Navigator.of(context)
-                      .pushNamed('/product/products_announcement/product_announcement_review', arguments: {
-                    'productAnnouncementRequestModel': productModel,
-                  });
-                },
-              ),
+                          Navigator.of(context)
+                              .pushNamed('/product/products_announcement/product_announcement_review', arguments: {
+                            'productAnnouncementRequestModel': productModel,
+                          });
+                        }
+                      : null,
+                );
+              }),
             ),
           ),
         ],

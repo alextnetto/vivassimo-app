@@ -10,14 +10,15 @@ import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/features/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
 
 class ProductAnnouncementPreviewScreen extends StatefulWidget {
-  final List img;
-  const ProductAnnouncementPreviewScreen({Key? key, required this.img}) : super(key: key);
+  final String imagePath;
+  const ProductAnnouncementPreviewScreen({Key? key, required this.imagePath}) : super(key: key);
 
   @override
   _ProductAnnouncementPreviewScreenState createState() => _ProductAnnouncementPreviewScreenState();
 }
 
 class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPreviewScreen> {
+  String get imagePath => widget.imagePath;
   @override
   void initState() {
     super.initState();
@@ -49,13 +50,13 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                     SizedBox(
                       height: 272,
                       width: MediaQuery.of(context).size.width,
-                      child: widget.img[0].contains('assets/')
+                      child: imagePath.contains('assets/')
                           ? Image.asset(
-                              widget.img[0],
+                              imagePath,
                               fit: BoxFit.fill,
                             )
                           : Image.file(
-                              File(widget.img[0]),
+                              File(imagePath),
                               fit: BoxFit.fill,
                             ),
                     ),
@@ -83,7 +84,7 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                       Padding(
                         padding: const EdgeInsets.only(right: 22),
                         child: Container(
-                          padding: EdgeInsets.only(top: 13, right: 23, bottom: 56),
+                          padding: EdgeInsets.only(top: 13, right: 23),
                           alignment: Alignment.topRight,
                           height: 101,
                           child: Text(
@@ -284,73 +285,4 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
       bottomNavigationBar: BottomNavigatorBarApp(selectedIndex: 2),
     );
   }
-
-  // Widget bottomNavigationBar() {
-  //   return Container(
-  //     height: 72,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(20)),
-  //       boxShadow: const [BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10)],
-  //     ),
-  //     child: ClipRRect(
-  //       borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-  //       child: Material(
-  //         elevation: 40,
-  //         child: SizedBox(
-  //           height: 60,
-  //           child: Material(
-  //             elevation: 40,
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               crossAxisAlignment: CrossAxisAlignment.center,
-  //               children: <Widget>[
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/home_icon.png',
-  //                   onTap: () {
-  //                     Navigator.of(context).pushNamed('/home');
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Inicio",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/announce_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 1;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Anunciar",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/order_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 2;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Pedidos",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/person_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 3;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Perfil",
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

@@ -224,14 +224,14 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductAnnouncementSuccessScreen(
-                  img: args['img'],
+                  imagePath: args['imagePath'],
                 ));
 
       case '/product/products_announcement/product_announcement_preview':
         // if (args is String) {
         return MaterialPageRoute(
             builder: (_) => ProductAnnouncementPreviewScreen(
-                  img: args['img'],
+                  imagePath: args['imagePath'],
                 ));
 
       case '/announcements/my_announcements':

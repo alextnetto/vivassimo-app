@@ -10,6 +10,14 @@ part of 'product_announcement_delivery_store.dart';
 
 mixin _$ProductAnnouncementDeliveryStore
     on _ProductAnnouncementDeliveryStoreBase, Store {
+  Computed<bool>? _$enableButtonComputed;
+
+  @override
+  bool get enableButton =>
+      (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
+              name: '_ProductAnnouncementDeliveryStoreBase.enableButton'))
+          .value;
+
   final _$deliveryTypeIdAtom =
       Atom(name: '_ProductAnnouncementDeliveryStoreBase.deliveryTypeId');
 
@@ -23,6 +31,39 @@ mixin _$ProductAnnouncementDeliveryStore
   set deliveryTypeId(int value) {
     _$deliveryTypeIdAtom.reportWrite(value, super.deliveryTypeId, () {
       super.deliveryTypeId = value;
+    });
+  }
+
+  final _$isToSendByCorreiosAtom =
+      Atom(name: '_ProductAnnouncementDeliveryStoreBase.isToSendByCorreios');
+
+  @override
+  bool get isToSendByCorreios {
+    _$isToSendByCorreiosAtom.reportRead();
+    return super.isToSendByCorreios;
+  }
+
+  @override
+  set isToSendByCorreios(bool value) {
+    _$isToSendByCorreiosAtom.reportWrite(value, super.isToSendByCorreios, () {
+      super.isToSendByCorreios = value;
+    });
+  }
+
+  final _$isToNegotiateWithBuyerAtom = Atom(
+      name: '_ProductAnnouncementDeliveryStoreBase.isToNegotiateWithBuyer');
+
+  @override
+  bool get isToNegotiateWithBuyer {
+    _$isToNegotiateWithBuyerAtom.reportRead();
+    return super.isToNegotiateWithBuyer;
+  }
+
+  @override
+  set isToNegotiateWithBuyer(bool value) {
+    _$isToNegotiateWithBuyerAtom
+        .reportWrite(value, super.isToNegotiateWithBuyer, () {
+      super.isToNegotiateWithBuyer = value;
     });
   }
 
@@ -43,9 +84,40 @@ mixin _$ProductAnnouncementDeliveryStore
   }
 
   @override
+  dynamic setIsToSendByCorreios(bool value) {
+    final _$actionInfo =
+        _$_ProductAnnouncementDeliveryStoreBaseActionController.startAction(
+            name:
+                '_ProductAnnouncementDeliveryStoreBase.setIsToSendByCorreios');
+    try {
+      return super.setIsToSendByCorreios(value);
+    } finally {
+      _$_ProductAnnouncementDeliveryStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setIsToNegotiateWithBuyer(bool value) {
+    final _$actionInfo =
+        _$_ProductAnnouncementDeliveryStoreBaseActionController.startAction(
+            name:
+                '_ProductAnnouncementDeliveryStoreBase.setIsToNegotiateWithBuyer');
+    try {
+      return super.setIsToNegotiateWithBuyer(value);
+    } finally {
+      _$_ProductAnnouncementDeliveryStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-deliveryTypeId: ${deliveryTypeId}
+deliveryTypeId: ${deliveryTypeId},
+isToSendByCorreios: ${isToSendByCorreios},
+isToNegotiateWithBuyer: ${isToNegotiateWithBuyer},
+enableButton: ${enableButton}
     ''';
   }
 }

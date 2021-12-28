@@ -43,10 +43,16 @@ class _ProductValueScreenState extends State<ProductValueScreen> {
                     Column(
                       children: <Widget>[
                         Container(
-                          height: 120,
+                          // height: 120,
                           // padding: const EdgeInsets.only(top: 25),
-                          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                          decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top,
+                            bottom: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(180, 216, 216, 0.2),
+                            border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+                          ),
                           child: Column(
                             children: const [
                               AppBarDefaultWidget(title: 'Anunciar'),

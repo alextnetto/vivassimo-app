@@ -11,8 +11,7 @@ class LoginRepository implements ILoginRepository {
   LoginRepository(this.loginDatasource);
 
   @override
-  Future<Either<LoginError, LoginResponseModel>> login(
-      LoginRequestModel loginRequestModel) async {
+  Future<Either<LoginError, LoginResponseModel>> login(LoginRequestModel loginRequestModel) async {
     try {
       var resultDatasource = await loginDatasource.login(loginRequestModel);
 
@@ -21,8 +20,9 @@ class LoginRepository implements ILoginRepository {
       return Left(e);
     } on LoginNotAuthorizedError catch (e) {
       return Left(e);
-    } on LoginTimeoutError catch (e) {
-      return Left(LoginTimeoutError(message: 'Não foi possível realizar o login. Verifique sua internet e tente novamente.'));
+    } on LoginTimeoutError {
+      return Left(
+          LoginTimeoutError(message: 'Não foi possível realizar o login. Verifique sua internet e tente novamente.'));
     } catch (e) {
       return Left(LoginDatasourceError(message: e.toString()));
     }

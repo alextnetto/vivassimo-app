@@ -6,8 +6,10 @@ class ProductAnnouncementRequestModel {
   String? productDescription;
   List<String>? productImages;
   num? productValue;
-  int? deliveryTypeId;
-  String? deliveryTypeDescription;
+  bool isToSendByCorreios;
+  bool isToNegotiateDeliveryWithBuyer;
+  // int? deliveryTypeId;
+  // String? deliveryTypeDescription;
 
   ProductAnnouncementRequestModel({
     this.categoryId,
@@ -17,7 +19,9 @@ class ProductAnnouncementRequestModel {
     this.productDescription,
     this.productImages,
     this.productValue,
-    this.deliveryTypeId,
-    this.deliveryTypeDescription,
+    this.isToSendByCorreios = false,
+    this.isToNegotiateDeliveryWithBuyer = false,
+    // this.deliveryTypeId,
+    // this.deliveryTypeDescription,
   });
 }

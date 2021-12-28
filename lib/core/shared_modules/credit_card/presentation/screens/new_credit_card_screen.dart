@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/credit_card_animation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_app/core/entities/credit_card_entity.dart';
@@ -12,6 +11,7 @@ import 'package:my_app/core/utils/formatters/app_formatter.dart';
 import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/cvv_indicator_screen.dart';
 import 'package:my_app/core/shared_modules/credit_card/presentation/stores/new_credit_card_store.dart';
+import 'package:my_app/features/services_purchase/presentation/widgets/animation_card_widget.dart';
 import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_back_widget.dart';
 import 'package:my_app/features/services_purchase/presentation/widgets/credit_card_widget.dart';
 import 'dart:math';

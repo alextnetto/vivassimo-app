@@ -36,9 +36,15 @@ class _ProductAnnouncementInfoScreenState extends State<ProductAnnouncementInfoS
       body: Column(
         children: [
           Container(
-            height: 120,
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+            // height: 120,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+              bottom: 15,
+            ),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(180, 216, 216, 0.2),
+              border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+            ),
             child: Column(
               children: const [
                 AppBarDefaultWidget(title: 'Anunciar'),

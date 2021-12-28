@@ -40,7 +40,8 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
     valueController.text = productStore.formatToReal(productModel.productValue!);
     descriptionController.text = productModel.productDescription!;
     conditionController.text = productModel.productCondition!;
-    deliveryTypeController.text = productModel.deliveryTypeDescription!;
+    deliveryTypeController.text =
+        productModel.isToSendByCorreios ? 'Enviar pelos Correios' : 'Combinar com o comprador';
     contributionController.text = productStore.calculateContributionText(productModel.productValue!);
   }
 
@@ -51,9 +52,15 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
         child: Column(
           children: [
             Container(
-              height: 120,
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+              // height: 120,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                bottom: 15,
+              ),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(180, 216, 216, 0.2),
+                border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+              ),
               child: Column(
                 children: const [
                   AppBarDefaultWidget(title: 'Anunciar'),
@@ -498,7 +505,7 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 borderColor: Color(0xFF006633),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_success',
-                      arguments: {'productAnnouncementRequestModel': productModel.productImages![0]});
+                      arguments: {'imagePath': productModel.productImages![0]});
                 },
               ),
             ),

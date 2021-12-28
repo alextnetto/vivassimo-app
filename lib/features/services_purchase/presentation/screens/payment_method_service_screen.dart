@@ -38,9 +38,12 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
         padding: const EdgeInsets.only(bottom: 100),
         children: [
           Container(
-            height: 131,
-            padding: const EdgeInsets.only(top: 25),
-            decoration: BoxDecoration(color: Color.fromRGBO(180, 216, 216, 0.2)),
+            // height: 131,
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, bottom: 15),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(180, 216, 216, 0.2),
+              border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2))),
+            ),
             child: Column(
               children: const [
                 AppBarDefaultWidget(title: 'Pagamento'),

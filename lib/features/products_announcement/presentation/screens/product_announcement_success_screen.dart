@@ -3,27 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_annountement_preview_screen.dart';
 
 class ProductAnnouncementSuccessScreen extends StatefulWidget {
-  final List img;
+  final String imagePath;
 
-  const ProductAnnouncementSuccessScreen({Key? key, required this.img}) : super(key: key);
+  const ProductAnnouncementSuccessScreen({Key? key, required this.imagePath}) : super(key: key);
 
   @override
   _ProductAnnouncementSuccessScreenState createState() => _ProductAnnouncementSuccessScreenState();
 }
 
 class _ProductAnnouncementSuccessScreenState extends State<ProductAnnouncementSuccessScreen> {
+  String get imagePath => widget.imagePath;
   @override
   void initState() {
     super.initState();
-    // changeStatusBar();
   }
-
-  // changeStatusBar() {
-  //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //       statusBarIconBrightness: Brightness.dark,
-  //       statusBarColor: Colors.white,
-  //       systemNavigationBarColor: Color(0xFF4D0351)));
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +27,7 @@ class _ProductAnnouncementSuccessScreenState extends State<ProductAnnouncementSu
           Padding(
             padding: const EdgeInsets.only(left: 50, right: 50, top: 90),
             child: SizedBox(
-              height: 120,
+              // height: 120,
               child: Text(
                 'Muito bem! Anúncio realizado com sucesso!',
                 textAlign: TextAlign.center,
@@ -63,7 +56,7 @@ class _ProductAnnouncementSuccessScreenState extends State<ProductAnnouncementSu
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: FileImage(
-                            File(widget.img[0]),
+                            File(imagePath),
                           ),
                         ),
                       ),
@@ -134,7 +127,7 @@ class _ProductAnnouncementSuccessScreenState extends State<ProductAnnouncementSu
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProductAnnouncementPreviewScreen(
-                            img: widget.img,
+                            imagePath: imagePath,
                           ),
                         ),
                       );
