@@ -24,22 +24,6 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
               name: '_PaymentMethodStoreBase.enableButton'))
           .value;
 
-  final _$creditCardSelectedAtom =
-      Atom(name: '_PaymentMethodStoreBase.creditCardSelected');
-
-  @override
-  PaymentMethodEntity? get creditCardSelected {
-    _$creditCardSelectedAtom.reportRead();
-    return super.creditCardSelected;
-  }
-
-  @override
-  set creditCardSelected(PaymentMethodEntity? value) {
-    _$creditCardSelectedAtom.reportWrite(value, super.creditCardSelected, () {
-      super.creditCardSelected = value;
-    });
-  }
-
   final _$purchaseValueAtom =
       Atom(name: '_PaymentMethodStoreBase.purchaseValue');
 
@@ -75,13 +59,13 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
       Atom(name: '_PaymentMethodStoreBase.paymentMethod');
 
   @override
-  String get paymentMethod {
+  CreditCardEntity get paymentMethod {
     _$paymentMethodAtom.reportRead();
     return super.paymentMethod;
   }
 
   @override
-  set paymentMethod(String value) {
+  set paymentMethod(CreditCardEntity value) {
     _$paymentMethodAtom.reportWrite(value, super.paymentMethod, () {
       super.paymentMethod = value;
     });
@@ -89,6 +73,28 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
 
   final _$_PaymentMethodStoreBaseActionController =
       ActionController(name: '_PaymentMethodStoreBase');
+
+  @override
+  dynamic addCreditCard(CreditCardEntity creditCard) {
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.addCreditCard');
+    try {
+      return super.addCreditCard(creditCard);
+    } finally {
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeCreditCard(CreditCardEntity creditCard) {
+    final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
+        name: '_PaymentMethodStoreBase.removeCreditCard');
+    try {
+      return super.removeCreditCard(creditCard);
+    } finally {
+      _$_PaymentMethodStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setPurchaseValue(num value) {
@@ -124,7 +130,7 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
   }
 
   @override
-  dynamic setPaymentMethod(String value) {
+  dynamic setPaymentMethod(CreditCardEntity value) {
     final _$actionInfo = _$_PaymentMethodStoreBaseActionController.startAction(
         name: '_PaymentMethodStoreBase.setPaymentMethod');
     try {
@@ -137,7 +143,6 @@ mixin _$PaymentMethodStore on _PaymentMethodStoreBase, Store {
   @override
   String toString() {
     return '''
-creditCardSelected: ${creditCardSelected},
 purchaseValue: ${purchaseValue},
 installment: ${installment},
 paymentMethod: ${paymentMethod},

@@ -30,6 +30,7 @@ dependencies:
   pin_code_fields: ^7.3.0
   shared_preferences: ^2.0.9
   image_picker: ^0.8.4+4
+  flutter_credit_card: ^3.0.1
 
 dev_dependencies:
   build_runner: ^2.1.5
@@ -56,6 +57,7 @@ flutter:
     - assets/images/
     - assets/images/announcement/
     - assets/images/stores/
+    - assets/images/services_purchase/
     - assets/icon/
     - assets/icon/payment_methods_icons/
     - assets/logos/

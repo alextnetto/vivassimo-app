@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-TextStyle customTextStyle(FontWeight fontWeight, double fontSize, Color color,
-    {double? letterSpacing, double? lineHeight}) {
+TextStyle customTextStyle(
+  FontWeight fontWeight,
+  double fontSize,
+  Color color, {
+  double? letterSpacing,
+  double? lineHeight,
+  TextDecoration? decoration,
+}) {
   return GoogleFonts.manrope(
     textStyle: TextStyle(
       fontWeight: fontWeight,
@@ -10,8 +16,11 @@ TextStyle customTextStyle(FontWeight fontWeight, double fontSize, Color color,
       color: color,
       letterSpacing: letterSpacing,
       height: lineHeight,
+      decoration: decoration,
+      decorationColor: decoration != null ? Colors.red : null,
+      decorationThickness: 2,
     ),
-    decoration: TextDecoration.none,
+    // decoration: TextDecoration.none,
   );
 }
 
@@ -27,5 +36,6 @@ class AppTextStyles {
 
   static TextStyle defaultTextStyleTitle = customTextStyle(FontWeight.bold, 18, Color(0XFF560955));
   static TextStyle defaultTextStyleDescriptionGrey = customTextStyle(FontWeight.w600, 18, Color(0XFF635F75));
+  static TextStyle defaultTextStyleDescriptionGreyBold = customTextStyle(FontWeight.bold, 18, Color(0XFF635F75));
   static TextStyle defaultTextStyleDescriptionPurple = customTextStyle(FontWeight.w600, 18, Color(0XFF4D0351));
 }

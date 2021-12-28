@@ -28,7 +28,9 @@ class StoresListComponent extends StatelessWidget {
           child: Column(
             children: [
               for (int index = 0; index < storeEntities.length; index++)
-                buildStoreTileWidget(storeEntities[index], needsToSetStyle(index + 1)),
+                GestureDetector(
+                    onTap: storeEntities[index].onPressed,
+                    child: buildStoreTileWidget(storeEntities[index], needsToSetStyle(index + 1))),
             ],
           ),
         ),
@@ -44,7 +46,7 @@ class StoresListComponent extends StatelessWidget {
     return false;
   }
 
-  buildStoreTileWidget(StoreEntity storeEntity, bool hasToSetStyle) {
+  Widget buildStoreTileWidget(StoreEntity storeEntity, bool hasToSetStyle) {
     return StoreTileWidget(
       title: storeEntity.name,
       description: storeEntity.description ?? '',

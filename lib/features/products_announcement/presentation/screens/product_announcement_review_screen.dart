@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,7 +8,6 @@ import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/utils/formatters/currency_pt_br_input_formatter.dart';
-import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
 import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/stores/product_announcement_review_store.dart';
 

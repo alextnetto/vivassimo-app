@@ -16,14 +16,20 @@ import 'package:my_app/features/products_announcement/presentation/screens/produ
 import 'package:my_app/features/products_announcement/presentation/screens/product_announcement_review_screen.dart';
 import 'package:my_app/features/products_announcement/presentation/screens/product_value_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delete_delivery_address_screen.dart';
-import 'package:my_app/features/products_purchase/presentation/screens/delete_payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/delivery_address_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/new_credit_card_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/new_delivery_address_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/payment_method_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_details_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/product_purchase_success_screen.dart';
 import 'package:my_app/features/products_purchase/presentation/screens/shipping_method_screen.dart';
-import 'package:my_app/features/services_purchase/presentation/screens/service_type_description_screen.dart';
+import 'package:my_app/core/shared_modules/credit_card/presentation/screens/delete_payment_method_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/new_credit_card_cvv_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/payment_method_service_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_description_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_purchase_details_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_select_section_amount_screen.dart';
+import 'package:my_app/features/services_purchase/presentation/screens/service_store_offer_description_screen.dart';
 import 'package:my_app/pages/register/accept_terms.dart';
 import 'package:my_app/pages/register/address2_page.dart';
 import 'package:my_app/pages/register/address_1.dart';
@@ -92,13 +98,10 @@ class RouteGenerator {
       case '/products/products_purchase/payment_method':
         // if (args is String) {
         return MaterialPageRoute(
-            builder: (_) => PaymentMethodScreen(
-                  productPurchaseRequestModel: args['productPurchaseRequestModel'],
-                ));
-
-      case '/products/products_purchase/delete_payment_method':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => DeletePaymentMethodScreen());
+          builder: (_) => PaymentMethodScreen(
+            productPurchaseRequestModel: args['productPurchaseRequestModel'],
+          ),
+        );
 
       case '/products/products_purchase/product_purchase_details':
         // if (args is String) {
@@ -114,10 +117,6 @@ class RouteGenerator {
       case '/register/address2':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => EstadoScreen());
-
-      case '/product/product-details':
-        // if (args is String) {
-        return MaterialPageRoute(builder: (_) => ServiceTypeDescriptionScreen());
 
       case '/register/acceptTerms':
         // if (args is String) {
@@ -242,6 +241,72 @@ class RouteGenerator {
       case '/announcements/choose_announcement':
         // if (args is String) {
         return MaterialPageRoute(builder: (_) => ChooseAnnouncementTypeScreen());
+
+      case '/services-purchase/new-credit-card':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardScreen(
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
+      /*==================Service purchase =================*/
+
+      case '/services-purchase/service-description':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => ServiceDescriptionScreen());
+
+      case '/services-purchase/service-store-offer-description':
+        // if (args is String) {
+        return MaterialPageRoute(builder: (_) => ServiceStoreOfferDescriptionScreen());
+
+      case '/services-purchase/select-section-amount':
+        // if (args is String) {
+        return MaterialPageRoute(
+            builder: (_) => ServiceSelectSectionAmountScreen(
+                  servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+                ));
+
+      case '/services-purchase/payment-method-service':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => PaymentMethodServiceScreen(
+            servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
+
+      case '/services-purchase/service-purchase-details':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => ServicePurchaseDetailsScreen(
+            servicePurchaseRequestModel: args['servicePurchaseRequestModel'],
+          ),
+        );
+
+      case '/services-purchase/new-credit-card-service':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardScreen(
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
+      case '/services-purchase/new-credit-card-cvv':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => NewCreditCardCvvScreen(
+            creditCardStore: args['creditCardStore'],
+            paymentStore: args['paymentStore'],
+          ),
+        );
+
+      case '/products/products_purchase/delete_payment_method':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => DeletePaymentMethodScreen(
+            paymentStore: args['paymentStore'],
+          ),
+        );
 
       // case '/verifyCode':
       //   return MaterialPageRoute(

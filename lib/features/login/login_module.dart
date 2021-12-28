@@ -8,7 +8,6 @@ import 'package:my_app/features/login/presentation/stores/login_store.dart';
 class LoginModule extends Module {
   @override
   List<Bind> get binds {
-    // var http = HttpService();
     return [
       Bind.factory((i) => HttpService()),
       Bind.factory((i) => LoginDatasource(i())),
@@ -17,11 +16,4 @@ class LoginModule extends Module {
       Bind.factory((i) => LoginStore(i())),
     ];
   }
-
-  // @override
-  // List<Router> get routers => [
-  //       Router(Modular.initialRoute, child: (_, args) => LoginPage()),
-  //     ];
-
-  // static Inject get to => Inject<LoginModule>.of();
 }

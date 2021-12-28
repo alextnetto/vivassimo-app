@@ -109,15 +109,19 @@ class _DeleteDeliveryAddressScreenState extends State<DeleteDeliveryAddressScree
           ModalBottomSheetDeleteComponentWidget.showModalDeleteComponent(
             context: context,
             cancelButtomText: 'Cancelar',
+            onPressedCancel: Navigator.of(context).pop,
             confirmButtomText: 'Sim, excluir',
-            deleteMessage: 'Deseja excluir \n este endereço?',
-          ).then((value) {
+            onPressedConfirm: () {
             var addressToRemove = deliveryStore.deliveryAddresses
                 .where((element) => element.id == deleteAddressStore.deliveryAddressId)
                 .first;
 
             deliveryStore.removeDeliveryAddress(addressToRemove);
             Navigator.of(context).pop();
+            },
+            deleteMessage: 'Deseja excluir \n este endereço?',
+          ).then((value) {
+
           });
         },
       ),

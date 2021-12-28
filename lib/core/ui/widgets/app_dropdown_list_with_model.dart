@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/entities/credit_card_entity.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 import '../app_style.dart';
 
 class DropdownListWithModelWidget extends StatelessWidget {
-  final dynamic storeValue;
+  final CreditCardEntity selectedValue;
   // final List<String> contentList;
-  final List<dynamic> contentList;
-  final Function(dynamic value) onChanged;
+  final List<CreditCardEntity> contentList;
+  final Function(CreditCardEntity value) onChanged;
   final String? labelText;
   final Color? fillCollor;
   final TextStyle? contentStyle;
@@ -14,7 +16,7 @@ class DropdownListWithModelWidget extends StatelessWidget {
 
   const DropdownListWithModelWidget({
     Key? key,
-    required this.storeValue,
+    required this.selectedValue,
     required this.contentList,
     required this.onChanged,
     this.labelText,
@@ -25,8 +27,8 @@ class DropdownListWithModelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormField<String>(
-      builder: (FormFieldState<String> state) {
+    return FormField<CreditCardEntity>(
+      builder: (FormFieldState<CreditCardEntity> state) {
         return InputDecorator(
           decoration: InputDecoration(
             fillColor: fillCollor,
@@ -44,22 +46,22 @@ class DropdownListWithModelWidget extends StatelessWidget {
           ),
           // isEmpty: _currentSelectedValue == '',
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<dynamic>(
-              value: storeValue.name,
+            child: DropdownButton<CreditCardEntity>(
+              value: selectedValue,
               isDense: true,
               style: contentStyle,
               dropdownColor: fillCollor,
               icon: icon,
               // isExpanded: true,
               // style: ,
-              onChanged: (dynamic value) {
-                onChanged(value);
-                state.didChange(value.name);
+              onChanged: (CreditCardEntity? value) {
+                onChanged(value!);
+                state.didChange(value);
               },
-              items: contentList.map((dynamic value) {
-                return DropdownMenuItem<dynamic>(
-                  value: value.name,
-                  child: Text(value.name),
+              items: contentList.map((CreditCardEntity value) {
+                return DropdownMenuItem<CreditCardEntity>(
+                  value: value,
+                  child: Text(value.id == 0 ? value.number ?? '' : AppHelpers.formatItemToDropDown(value.number ?? '')),
                 );
               }).toList(),
             ),
