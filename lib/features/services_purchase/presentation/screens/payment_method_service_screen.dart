@@ -56,7 +56,8 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            width: 150,
+            margin: const EdgeInsets.only(top: 15),
+            // width: 150,
             child: Row(
               children: [
                 Expanded(

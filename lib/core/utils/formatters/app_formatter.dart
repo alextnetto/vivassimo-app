@@ -26,8 +26,15 @@ class AppFormatter {
     },
   );
 
-    static var dateInputFormatter = MaskTextInputFormatter(
+  static var dateInputFormatter = MaskTextInputFormatter(
     mask: "##/####",
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
+
+  static var passwordFormatter = MaskTextInputFormatter(
+    mask: "######",
     filter: {
       "#": RegExp(r'[0-9]'),
     },

@@ -4,6 +4,7 @@ import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/input_decoration.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 import 'package:my_app/models/register/user.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -88,6 +89,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                           controller: _passwordController,
                           obscureText: !_passwordVisible,
                           enableSuggestions: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            AppFormatter.passwordFormatter,
+                          ],
                           autocorrect: false,
                           onSaved: (value) {
                             RegisterUser.instance.password = value;
@@ -99,12 +104,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                             return null;
                           },
                           decoration: customInputDecoration1(
-                            'Digite uma senha',
+                            'Digite a senha de 6 digitos',
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
+                                _passwordVisible ? Icons.visibility : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
@@ -129,6 +132,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                           obscureText: !_passwordVisible,
                           enableSuggestions: false,
                           autocorrect: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            AppFormatter.passwordFormatter,
+                          ],
                           onSaved: (value) {
                             RegisterUser.instance.password = value;
                           },
@@ -144,9 +151,7 @@ class PasswordScreenState extends State<PasswordScreen> {
                             'Digite novamente a senha',
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
+                                _passwordVisible ? Icons.visibility : Icons.visibility_off,
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {

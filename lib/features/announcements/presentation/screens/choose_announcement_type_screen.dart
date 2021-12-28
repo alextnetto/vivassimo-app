@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 
 class ChooseAnnouncementTypeScreen extends StatefulWidget {
   const ChooseAnnouncementTypeScreen({Key? key}) : super(key: key);
@@ -18,43 +20,13 @@ class _ChooseAnnouncementTypeScreenState extends State<ChooseAnnouncementTypeScr
     return Scaffold(
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      alignment: AlignmentDirectional.center,
-                      primary: Color(0xFF4D0351),
-                      fixedSize: Size(140, 40),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10)))),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.arrow_back_sharp),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Voltar",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text('Anunciar',
-                        style: TextStyle(color: Color(0xFF4D0351), fontSize: 18.0, fontWeight: FontWeight.w700)),
-                  ),
-                ),
+          Container(
+            // height: 90,
+            color: VivassimoTheme.white,
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: Column(
+              children: const [
+                AppBarDefaultWidget(title: 'Anunciar'),
               ],
             ),
           ),

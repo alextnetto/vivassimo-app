@@ -9,28 +9,44 @@ import 'package:my_app/services/backend.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({Key? key}) : super(key: key);
+  final String redirectTo;
+  final String phoneNumber;
+  final Object? nextPageArguments;
+
+  const OtpVerificationScreen(
+      {Key? key, this.redirectTo = '/register/password', this.phoneNumber = '', this.nextPageArguments})
+      : super(key: key);
 
   @override
   _OtpVerificationScreenState createState() => _OtpVerificationScreenState();
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  String get redirectTo => widget.redirectTo;
+  String get phoneNumber => widget.phoneNumber;
+
   String errorMessage = '';
 
   validateOtp(String otp) async {
     LoadingIndicator.show(context);
     var response = await BackendService.instance
-        .verifyOtp(RegisterUser.instance.phoneNumber!, otp);
+        .verifyOtp(phoneNumber.isNotEmpty ? phoneNumber : RegisterUser.instance.phoneNumber ?? '', otp);
     LoadingIndicator.hide(context);
 
     if (response['valid']) {
-      Navigator.pushNamed(context, '/register/password');
+      Navigator.pushNamed(context, redirectTo, arguments: widget.nextPageArguments);
     } else {
       setState(() {
         errorMessage = response['message'];
       });
     }
+  }
+
+  @override
+  void initState() {
+    BackendService.instance.sendOtp(phoneNumber.isNotEmpty ? phoneNumber : RegisterUser.instance.phoneNumber ?? '');
+
+    super.initState();
   }
 
   @override

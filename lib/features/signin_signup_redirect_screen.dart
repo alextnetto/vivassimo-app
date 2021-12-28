@@ -5,7 +5,9 @@ import 'package:my_app/core/ui/app_style.dart';
 
 class SignInOrSignUpRedirectScreen extends StatefulWidget {
   final String redirectTo;
-  const SignInOrSignUpRedirectScreen({Key? key, required this.redirectTo}) : super(key: key);
+  final Object? nextPageArguments;
+
+  const SignInOrSignUpRedirectScreen({Key? key, required this.redirectTo, this.nextPageArguments}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -73,7 +75,10 @@ class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScre
                         onPrimary: VivassimoTheme.white,
                         borderColor: VivassimoTheme.purple,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/login', arguments: {'redirectTo': redirectTo});
+                          Navigator.of(context).pushNamed('/login', arguments: {
+                            'redirectTo': redirectTo,
+                            'nextPageArguments': widget.nextPageArguments,
+                          });
                         }),
                   ),
                   SizedBox(
