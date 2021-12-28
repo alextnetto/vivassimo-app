@@ -8,7 +8,7 @@ import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
-import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/services_purchase/presentation/screens/cvv_indicator_screen.dart';
 import 'package:my_app/core/shared_modules/credit_card/presentation/stores/new_credit_card_store.dart';

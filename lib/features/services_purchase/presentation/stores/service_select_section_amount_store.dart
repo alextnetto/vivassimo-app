@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 part 'service_select_section_amount_store.g.dart';
 
 class ServiceSelectSectionAmountStore = _ServiceSelectSectionAmountStoreBase with _$ServiceSelectSectionAmountStore;

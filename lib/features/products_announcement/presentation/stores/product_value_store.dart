@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:my_app/core/utils/formatters/display_value_formatter.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 part 'product_value_store.g.dart';
 
 class ProductValueStore = _ProductValueStoreBase with _$ProductValueStore;
@@ -41,11 +41,4 @@ abstract class _ProductValueStoreBase with Store {
 
     return null;
   }
-
-  // formatProductValueStringToDouble(String value) {
-  //   var valueFormatted =
-
-  //   productValue = double.parse(valueFormatted);
-  //   print(valueFormatted);
-  // }
 }

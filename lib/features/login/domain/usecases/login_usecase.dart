@@ -9,7 +9,7 @@ abstract class ILoginUsecase {
 
 class LoginUsecase implements ILoginUsecase {
   final ILoginRepository loginRepository;
-  final ICacheUsecase cacheUsecase; 
+  final ICacheUsecase cacheUsecase;
 
   LoginUsecase(this.loginRepository, this.cacheUsecase);
 

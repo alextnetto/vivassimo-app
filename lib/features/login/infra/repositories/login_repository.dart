@@ -22,7 +22,7 @@ class LoginRepository implements ILoginRepository {
     } on LoginNotAuthorizedError catch (e) {
       return Left(e);
     } on LoginTimeoutError catch (e) {
-      return Left(e);
+      return Left(LoginTimeoutError(message: 'Não foi possível realizar o login. Verifique sua internet e tente novamente.'));
     } catch (e) {
       return Left(LoginDatasourceError(message: e.toString()));
     }

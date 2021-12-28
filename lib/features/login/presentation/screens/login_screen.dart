@@ -38,134 +38,132 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         color: VivassimoTheme.white,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Hero(
-              tag: 'registerAppBar',
-              child: Container(
-                height: 90,
-                color: VivassimoTheme.white,
-                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                child: Column(
-                  children: const [
-                    AppBarDefaultWidget(title: 'Acesso a conta'),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 30),
-              width: 320,
-              child: Text(
-                'Informe seu telefone cadastrado e a senha',
-                style: customTextStyle(
-                  FontWeight.w700,
-                  23,
-                  VivassimoTheme.purpleActive,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 28),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    height: 90,
-                    child: Observer(builder: (_) {
-                      return AppTextField(
-                        label: 'Digite aqui seu telefone',
-                        onChanged: loginStore!.setPhoneNumber,
-                        errorText: loginStore!.getPhoneNumberError,
-                        inputFormatters: [loginStore!.phoneNumberFormatter],
-                      );
-                    }),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Hero(
+                tag: 'registerAppBar',
+                child: Container(
+                  // height: 90,
+                  color: VivassimoTheme.white,
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  child: Column(
+                    children: const [
+                      AppBarDefaultWidget(title: 'Acesso a conta'),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 12),
-                    child: Container(
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30),
+                width: 320,
+                child: Text(
+                  'Informe seu telefone cadastrado e a senha',
+                  style: customTextStyle(
+                    FontWeight.w700,
+                    23,
+                    VivassimoTheme.purpleActive,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 28),
+                child: Column(
+                  children: [
+                    Container(
                       padding: EdgeInsets.symmetric(horizontal: 30),
                       height: 90,
                       child: Observer(builder: (_) {
                         return AppTextField(
-                          label: 'Digite sua senha',
-                          onChanged: loginStore!.setPassword,
-                          errorText: loginStore!.getPasswordError,
-                          obscureText: loginStore!.isPasswordVisible,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              loginStore!.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                              color: Theme.of(context).primaryColorDark,
+                          label: 'Digite aqui seu telefone',
+                          onChanged: loginStore!.setPhoneNumber,
+                          errorText: loginStore!.getPhoneNumberError,
+                          inputFormatters: [loginStore!.phoneNumberFormatter],
+                        );
+                      }),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        height: 90,
+                        child: Observer(builder: (_) {
+                          return AppTextField(
+                            label: 'Digite sua senha',
+                            onChanged: loginStore!.setPassword,
+                            errorText: loginStore!.getPasswordError,
+                            obscureText: loginStore!.isPasswordVisible,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                loginStore!.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                              onPressed: () {
+                                loginStore!.changePasswordVisibity();
+                              },
                             ),
-                            onPressed: () {
-                              loginStore!.changePasswordVisibity();
-                            },
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 12),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
-                      height: 60,
-                      child: Observer(builder: (_) {
-                        return SizedBox(
-                          width: double.infinity,
-                          child: CustomButton1(
-                            label: 'Entrar',
-                            primary: VivassimoTheme.green,
-                            onPrimary: VivassimoTheme.white,
-                            borderColor: VivassimoTheme.white,
-                            onPressed: loginStore!.enableButton
-                                ? () async {
-                                    LoadingIndicator.show(context);
-                                    var response = await loginStore!.login();
-                                    LoadingIndicator.hide(context);
+                    Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        height: 60,
+                        child: Observer(builder: (_) {
+                          return SizedBox(
+                            width: double.infinity,
+                            child: CustomButton1(
+                              label: 'Entrar',
+                              primary: VivassimoTheme.green,
+                              onPrimary: VivassimoTheme.white,
+                              borderColor: VivassimoTheme.white,
+                              onPressed: loginStore!.enableButton
+                                  ? () async {
+                                      LoadingIndicator.show(context);
+                                      var response = await loginStore!.login();
+                                      LoadingIndicator.hide(context);
 
-                                    if (response.success) {
-                                      if (redirectTo == 'my_announcements') {
-                                        Navigator.of(context).pushNamedAndRemoveUntil(
-                                            '/announcements/my_announcements', (route) => false);
-                                      } else if (redirectTo == 'products_purchase') {
-                                        Navigator.of(context).pushNamedAndRemoveUntil(
-                                            '/products/products_purchase/delivery_address', (route) => false);
-                                      } else if (redirectTo == 'service_purchase') {
-                                        // Navigator.of(context).pushNamedAndRemoveUntil(
-                                        //     '/products/products_purchase/delivery_address', (route) => false);
+                                      if (response.success) {
+                                        if (redirectTo == 'my_announcements') {
+                                          Navigator.of(context).pushNamedAndRemoveUntil(
+                                              '/announcements/my_announcements', (route) => false);
+                                        } else if (redirectTo == 'products_purchase') {
+                                          Navigator.of(context).pushNamedAndRemoveUntil(
+                                              '/products/products_purchase/delivery_address', (route) => false);
+                                        } else if (redirectTo == 'service_purchase') {}
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => AlertDialog(
+                                            title: Text('Ops!'),
+                                            content: Text(response.message),
+                                            contentPadding: EdgeInsets.all(20),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
                                       }
-                                      // Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: Text('Ops!'),
-                                          content: Text(response.message),
-                                          contentPadding: EdgeInsets.all(20),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
                                     }
-                                  }
-                                : null,
-                          ),
-                        );
-                      }),
+                                  : null,
+                            ),
+                          );
+                        }),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
