@@ -114,7 +114,7 @@ class _RegisterStepOneState extends State<RegisterStepOneScreen> {
                           label: 'Digite seu telefone',
                           onChanged: registerStepOneStore!.setPhoneNumber,
                           errorText: registerStepOneStore!.getPhoneNumberError,
-                          inputFormatters: [AppMasks.phone],
+                          inputFormatters: [AppMasks.phoneFormatter],
                         );
                       }),
                     ),

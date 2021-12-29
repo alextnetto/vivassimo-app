@@ -90,7 +90,7 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                         addressStepTwoStore.setCep(value);
                       },
                       label: 'CEP',
-                      inputFormatters: [AppMasks.cep],
+                      inputFormatters: [AppMasks.cepFormatter],
                       errorText: addressStepTwoStore.getCepError,
                     );
                   }),
@@ -182,13 +182,13 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                     // onPressed: addressStepTwoStore.ena () {
                     onPressed: addressStepTwoStore.enableButton
                         ? () {
-                            registerUserRequestModel.deliveryAddress = DeliveryAddressEntity(
-                              cep: addressStepTwoStore.cep,
+                            registerUserRequestModel.address = AddressEntity(
+                              zipCode: addressStepTwoStore.cep,
                               street: addressStepTwoStore.address,
                               number: addressStepTwoStore.number,
                               neighborhood: addressStepTwoStore.neighborhood,
                               city: addressStepTwoStore.city,
-                              uf: addressStepTwoStore.uf,
+                              state: addressStepTwoStore.uf,
                             );
                             print(registerUserRequestModel.toJson());
                           }

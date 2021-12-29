@@ -184,10 +184,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     );
   }
 
-  buildAddressCard(DeliveryAddressEntity deliveryAddress) {
+  buildAddressCard(AddressEntity deliveryAddress) {
     return AddressCardWidget(
       streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
-      cep: '${deliveryAddress.cep}',
+      cep: '${deliveryAddress.zipCode}',
       checkIconPath:
           deliveryAddress.id == deliveryStore!.deliveryAddressEntity!.id
               ? 'assets/icon/checked_icon.png'

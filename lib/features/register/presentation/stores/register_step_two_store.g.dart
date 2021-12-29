@@ -16,59 +16,57 @@ mixin _$RegisterStepTwoStore on _RegisterStepTwoStoreBase, Store {
       (_$enableButtonComputed ??= Computed<bool>(() => super.enableButton,
               name: '_RegisterStepTwoStoreBase.enableButton'))
           .value;
-  Computed<String?>? _$getDataNascimentoErrorComputed;
+  Computed<String?>? _$getBirthDateErrorComputed;
 
   @override
-  String? get getDataNascimentoError => (_$getDataNascimentoErrorComputed ??=
-          Computed<String?>(() => super.getDataNascimentoError,
-              name: '_RegisterStepTwoStoreBase.getDataNascimentoError'))
+  String? get getBirthDateError => (_$getBirthDateErrorComputed ??=
+          Computed<String?>(() => super.getBirthDateError,
+              name: '_RegisterStepTwoStoreBase.getBirthDateError'))
       .value;
 
-  final _$dataNascimentoAtom =
-      Atom(name: '_RegisterStepTwoStoreBase.dataNascimento');
+  final _$birthDateAtom = Atom(name: '_RegisterStepTwoStoreBase.birthDate');
 
   @override
-  String get dataNascimento {
-    _$dataNascimentoAtom.reportRead();
-    return super.dataNascimento;
+  String get birthDate {
+    _$birthDateAtom.reportRead();
+    return super.birthDate;
   }
 
   @override
-  set dataNascimento(String value) {
-    _$dataNascimentoAtom.reportWrite(value, super.dataNascimento, () {
-      super.dataNascimento = value;
+  set birthDate(String value) {
+    _$birthDateAtom.reportWrite(value, super.birthDate, () {
+      super.birthDate = value;
     });
   }
 
-  final _$generoAtom = Atom(name: '_RegisterStepTwoStoreBase.genero');
+  final _$genderAtom = Atom(name: '_RegisterStepTwoStoreBase.gender');
 
   @override
-  String get genero {
-    _$generoAtom.reportRead();
-    return super.genero;
+  String get gender {
+    _$genderAtom.reportRead();
+    return super.gender;
   }
 
   @override
-  set genero(String value) {
-    _$generoAtom.reportWrite(value, super.genero, () {
-      super.genero = value;
+  set gender(String value) {
+    _$genderAtom.reportWrite(value, super.gender, () {
+      super.gender = value;
     });
   }
 
-  final _$hasChangedDataNascimentoAtom =
-      Atom(name: '_RegisterStepTwoStoreBase.hasChangedDataNascimento');
+  final _$hasChangedBirthDateAtom =
+      Atom(name: '_RegisterStepTwoStoreBase.hasChangedBirthDate');
 
   @override
-  bool get hasChangedDataNascimento {
-    _$hasChangedDataNascimentoAtom.reportRead();
-    return super.hasChangedDataNascimento;
+  bool get hasChangedBirthDate {
+    _$hasChangedBirthDateAtom.reportRead();
+    return super.hasChangedBirthDate;
   }
 
   @override
-  set hasChangedDataNascimento(bool value) {
-    _$hasChangedDataNascimentoAtom
-        .reportWrite(value, super.hasChangedDataNascimento, () {
-      super.hasChangedDataNascimento = value;
+  set hasChangedBirthDate(bool value) {
+    _$hasChangedBirthDateAtom.reportWrite(value, super.hasChangedBirthDate, () {
+      super.hasChangedBirthDate = value;
     });
   }
 
@@ -76,22 +74,22 @@ mixin _$RegisterStepTwoStore on _RegisterStepTwoStoreBase, Store {
       ActionController(name: '_RegisterStepTwoStoreBase');
 
   @override
-  dynamic setDataNascimento(String value) {
+  dynamic setBirthDate(String value) {
     final _$actionInfo = _$_RegisterStepTwoStoreBaseActionController
-        .startAction(name: '_RegisterStepTwoStoreBase.setDataNascimento');
+        .startAction(name: '_RegisterStepTwoStoreBase.setBirthDate');
     try {
-      return super.setDataNascimento(value);
+      return super.setBirthDate(value);
     } finally {
       _$_RegisterStepTwoStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setGenero(String? value) {
+  dynamic setGender(String? value) {
     final _$actionInfo = _$_RegisterStepTwoStoreBaseActionController
-        .startAction(name: '_RegisterStepTwoStoreBase.setGenero');
+        .startAction(name: '_RegisterStepTwoStoreBase.setGender');
     try {
-      return super.setGenero(value);
+      return super.setGender(value);
     } finally {
       _$_RegisterStepTwoStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -100,11 +98,11 @@ mixin _$RegisterStepTwoStore on _RegisterStepTwoStoreBase, Store {
   @override
   String toString() {
     return '''
-dataNascimento: ${dataNascimento},
-genero: ${genero},
-hasChangedDataNascimento: ${hasChangedDataNascimento},
+birthDate: ${birthDate},
+gender: ${gender},
+hasChangedBirthDate: ${hasChangedBirthDate},
 enableButton: ${enableButton},
-getDataNascimentoError: ${getDataNascimentoError}
+getBirthDateError: ${getBirthDateError}
     ''';
   }
 }

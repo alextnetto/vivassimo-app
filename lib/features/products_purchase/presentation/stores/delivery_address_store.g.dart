@@ -30,13 +30,13 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
       Atom(name: '_DeliveryAddressStoreBase.deliveryAddressEntity');
 
   @override
-  DeliveryAddressEntity? get deliveryAddressEntity {
+  AddressEntity? get deliveryAddressEntity {
     _$deliveryAddressEntityAtom.reportRead();
     return super.deliveryAddressEntity;
   }
 
   @override
-  set deliveryAddressEntity(DeliveryAddressEntity? value) {
+  set deliveryAddressEntity(AddressEntity? value) {
     _$deliveryAddressEntityAtom.reportWrite(value, super.deliveryAddressEntity,
         () {
       super.deliveryAddressEntity = value;
@@ -71,7 +71,7 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
   }
 
   @override
-  dynamic addDeliveryAddress(DeliveryAddressEntity addressEntity) {
+  dynamic addDeliveryAddress(AddressEntity addressEntity) {
     final _$actionInfo = _$_DeliveryAddressStoreBaseActionController
         .startAction(name: '_DeliveryAddressStoreBase.addDeliveryAddress');
     try {
@@ -82,7 +82,7 @@ mixin _$DeliveryAddressStore on _DeliveryAddressStoreBase, Store {
   }
 
   @override
-  dynamic removeDeliveryAddress(DeliveryAddressEntity addressEntity) {
+  dynamic removeDeliveryAddress(AddressEntity addressEntity) {
     final _$actionInfo = _$_DeliveryAddressStoreBaseActionController
         .startAction(name: '_DeliveryAddressStoreBase.removeDeliveryAddress');
     try {

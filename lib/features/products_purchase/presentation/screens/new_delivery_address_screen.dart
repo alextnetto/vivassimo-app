@@ -82,7 +82,7 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                         newAddressStore.setCep(value);
                       },
                       label: 'CEP',
-                      inputFormatters: [AppMasks.cep],
+                      inputFormatters: [AppMasks.cepFormatter],
                       errorText: newAddressStore.getCepError,
                     );
                   }),
@@ -166,14 +166,14 @@ class _NewDeliveryAddressScreenState extends State<NewDeliveryAddressScreen> {
                   // onPressed: newAddressStore.ena () {
                   onPressed: newAddressStore.enableButton
                       ? () {
-                          deliveryStore.addDeliveryAddress(DeliveryAddressEntity(
+                          deliveryStore.addDeliveryAddress(AddressEntity(
                             id: deliveryStore.deliveryAddresses.length + 1,
-                            cep: newAddressStore.cep,
+                            zipCode: newAddressStore.cep,
                             city: newAddressStore.city,
                             neighborhood: newAddressStore.neighborhood,
                             number: newAddressStore.number,
                             street: newAddressStore.address,
-                            uf: newAddressStore.uf,
+                            state: newAddressStore.uf,
                             complement: newAddressStore.complement,
                           ));
 

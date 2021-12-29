@@ -20,7 +20,7 @@ extension StringExtension on String {
     return CPFValidator.isValid(this);
   }
 
-  bool get isValidBirthday {
+  bool get isValidBirthDate {
     try {
       String datePattern = "dd/MM/yyyy";
       DateTime birthDate = DateFormat(datePattern).parse(this);

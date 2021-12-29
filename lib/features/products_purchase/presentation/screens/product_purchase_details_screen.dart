@@ -23,7 +23,7 @@ class ProductPurchaseDetailsScreen extends StatefulWidget {
 class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScreen> {
   ProductPurchaseRequestModel get productPurchaseRequestModel => widget.productPurchaseRequestModel;
   ProductEntity get productEntity => productPurchaseRequestModel.productEntity!;
-  DeliveryAddressEntity get addressEntity => productPurchaseRequestModel.deliveryAddressEntity!;
+  AddressEntity get addressEntity => productPurchaseRequestModel.deliveryAddressEntity!;
   ShippingMethodEntity get shippingEntity => productPurchaseRequestModel.shippingMethodEntity!;
   PaymentMethodEntity get paymentEntity => productPurchaseRequestModel.paymentMethodEntity!;
 
@@ -143,11 +143,11 @@ class _ProductPurchaseDetailsScreenState extends State<ProductPurchaseDetailsScr
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          '${addressEntity.neighborhood} - ${addressEntity.city}/${addressEntity.uf}',
+                          '${addressEntity.neighborhood} - ${addressEntity.city}/${addressEntity.state}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(
-                          'CEP: ${addressEntity.cep}',
+                          'CEP: ${addressEntity.zipCode}',
                           style: AppTextStyles.defaultTextStyleTitleSmall600,
                         ),
                         Text(

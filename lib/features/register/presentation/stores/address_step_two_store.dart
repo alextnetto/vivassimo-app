@@ -205,21 +205,21 @@ abstract class _AddressStepTwoStoreBase with Store {
   }
 
   Future<void> setAddressByCep(CepResponseModel addressData) async {
-    setCep(addressData.cep);
+    setCep(addressData.zipCode);
     setIsValidCep(true);
-    cepController.text = addressData.cep;
+    cepController.text = addressData.zipCode;
 
-    setAddress(addressData.logradouro);
-    addressController.text = addressData.logradouro;
+    setAddress(addressData.street);
+    addressController.text = addressData.street;
 
-    setNeighborhood(addressData.bairro);
-    neighborhoodController.text = addressData.bairro;
+    setNeighborhood(addressData.neighborhood);
+    neighborhoodController.text = addressData.neighborhood;
 
-    setUf(addressData.uf);
+    setUf(addressData.state);
     // ufController.text = addressFromCep['uf'];
 
-    setCity(addressData.localidade);
-    cityController.text = addressData.localidade;
+    setCity(addressData.city);
+    cityController.text = addressData.city;
   }
 
   Future<RegisterUserResponseModel> register(

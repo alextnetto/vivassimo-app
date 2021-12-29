@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-class AddressEntity {
-  final int? id;
-  final String? street;
-  final String? number;
-  final String? neighborhood;
-  final String? city;
-  final String? state;
-  final String? zipCode;
-  final String? complement;
+class AddressModel {
+  int? id;
+  String? street;
+  String? number;
+  String? neighborhood;
+  String? city;
+  String? state;
+  String? zipCode;
+  String? complement;
 
-  AddressEntity({
+  AddressModel({
     this.id,
     this.street,
     this.number,
@@ -34,8 +34,8 @@ class AddressEntity {
     };
   }
 
-  factory AddressEntity.fromMap(Map<String, dynamic> map) {
-    return AddressEntity(
+  factory AddressModel.fromMap(Map<String, dynamic> map) {
+    return AddressModel(
       id: map['id']?.toInt(),
       street: map['street'],
       number: map['number'],
@@ -49,5 +49,5 @@ class AddressEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory AddressEntity.fromJson(String source) => AddressEntity.fromMap(json.decode(source));
+  factory AddressModel.fromJson(String source) => AddressModel.fromMap(json.decode(source));
 }

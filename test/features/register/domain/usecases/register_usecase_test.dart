@@ -40,8 +40,7 @@ void main() {
 
       var response = CheckExistingUserResponseModel(success: true, userExists: true);
 
-      when(() => repository.userExists(requestModel))
-          .thenAnswer((_) async => Right(CheckExistingUserResponseModel(success: true, userExists: true)));
+      when(() => repository.userExists(requestModel)).thenAnswer((_) async => Right(response));
 
       final result = await usecase.userExists(requestModel);
 

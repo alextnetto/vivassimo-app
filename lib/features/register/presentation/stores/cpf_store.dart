@@ -20,7 +20,7 @@ abstract class _CpfStoreBase with Store {
   @action
   setCpf(String value) {
     hasChangedCpf = true;
-    return cpf = AppMasks.cpf.getUnmaskedText();
+    return cpf = AppMasks.cpfFormatter.getUnmaskedText();
   }
 
   @computed

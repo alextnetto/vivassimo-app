@@ -207,7 +207,7 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                           label: 'Digite seu CEP',
                           onChanged: addressStepOneStore.setCep,
                           errorText: addressStepOneStore.getCepError,
-                          inputFormatters: [AppMasks.cep],
+                          inputFormatters: [AppMasks.cepFormatter],
                           textAlign: TextAlign.center,
                         );
                       }),

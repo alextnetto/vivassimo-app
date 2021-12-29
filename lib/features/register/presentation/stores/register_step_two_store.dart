@@ -12,39 +12,39 @@ abstract class _RegisterStepTwoStoreBase with Store {
   _RegisterStepTwoStoreBase(this.registerUsecase);
 
   @observable
-  String dataNascimento = '';
+  String birthDate = '';
 
   @observable
-  String genero = '';
+  String gender = '';
 
   @observable
-  bool hasChangedDataNascimento = false;
+  bool hasChangedBirthDate = false;
 
   @action
-  setDataNascimento(String value) {
-    hasChangedDataNascimento = true;
-    return dataNascimento = value;
+  setBirthDate(String value) {
+    hasChangedBirthDate = true;
+    return birthDate = value;
   }
 
   @action
-  setGenero(String? value) {
-    return genero = value!;
+  setGender(String? value) {
+    return gender = value!;
   }
 
   @computed
   bool get enableButton {
-    return getDataNascimentoError == null &&
-        hasChangedDataNascimento &&
-        genero.isNotEmpty;
+    return getBirthDateError == null &&
+        hasChangedBirthDate &&
+        gender.isNotEmpty;
   }
 
   @computed
-  String? get getDataNascimentoError {
-    if (!hasChangedDataNascimento) {
+  String? get getBirthDateError {
+    if (!hasChangedBirthDate) {
       return null;
-    } else if (dataNascimento.isEmpty) {
+    } else if (birthDate.isEmpty) {
       return 'Esse campo é obrigatório';
-    } else if (!dataNascimento.isValidBirthday) {
+    } else if (!birthDate.isValidBirthDate) {
       return 'Data inválida';
     }
 
