@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-class VerifyOtpRequestModel {
+import 'package:equatable/equatable.dart';
+
+class VerifyOtpRequestModel extends Equatable {
   final String token;
   final String phoneNumber;
 
-  VerifyOtpRequestModel({
+  const VerifyOtpRequestModel({
     required this.token,
     required this.phoneNumber,
   });
@@ -26,4 +28,7 @@ class VerifyOtpRequestModel {
   String toJson() => json.encode(toMap());
 
   factory VerifyOtpRequestModel.fromJson(String source) => VerifyOtpRequestModel.fromMap(json.decode(source));
+
+  @override
+  List<Object?> get props => [token, phoneNumber];
 }

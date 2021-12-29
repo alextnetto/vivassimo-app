@@ -1,21 +1,20 @@
 import 'dart:convert';
 
 import 'package:my_app/core/contracts/i_response_model_default.dart';
+import 'package:my_app/features/register/domain/entities/check_existing_user_entity.dart';
 
-class CheckExistingUserResponseModel implements IResponseModelDefault {
+class CheckExistingUserResponseModel extends CheckExistingUserEntity implements IResponseModelDefault {
   @override
   final String message;
 
   @override
   final bool success;
 
-  final bool userExists;
-
-  CheckExistingUserResponseModel({
-    this.userExists = false,
+  const CheckExistingUserResponseModel({
     this.message = '',
     this.success = false,
-  });
+    bool? userExists,
+  }) : super(userExists: userExists);
 
   Map<String, dynamic> toMap() {
     return {
