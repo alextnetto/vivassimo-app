@@ -57,10 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 30),
-                width: 320,
+                padding: EdgeInsets.only(top: 30, left: 30, right: 30),
                 child: Text(
-                  'Informe seu telefone cadastrado e a senha',
+                  'Informe o telefone cadastrado e a senha',
                   style: customTextStyle(
                     FontWeight.w700,
                     23,
@@ -125,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               label: 'Entrar',
                               primary: VivassimoTheme.green,
                               onPrimary: VivassimoTheme.white,
-                              borderColor: VivassimoTheme.white,
+                              borderColor: loginStore!.enableButton ? Color(0xff006633) : VivassimoTheme.grey,
                               onPressed: loginStore!.enableButton
                                   ? () async {
                                       LoadingIndicator.show(context);
@@ -137,15 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           'redirectTo': redirectTo,
                                           'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
                                           'nextPageArguments': widget.nextPageArguments,
-                                          // loginStore!.phoneNumberFormatter.unmaskText(loginStore!.phoneNumber),
                                         });
-                                        // if (redirectTo == 'my_announcements') {
-                                        //   Navigator.of(context).pushNamedAndRemoveUntil(
-                                        //       '/announcements/my_announcements', (route) => false);
-                                        // } else if (redirectTo == 'products_purchase') {
-                                        //   Navigator.of(context).pushNamedAndRemoveUntil(
-                                        //       '/products/products_purchase/delivery_address', (route) => false);
-                                        // } else if (redirectTo == 'service_purchase') {}
                                       } else {
                                         showDialog(
                                           context: context,

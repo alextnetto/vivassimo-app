@@ -47,7 +47,7 @@ import 'package:my_app/features/register/presentation/screens/address_step_one_s
 import 'package:my_app/features/register/presentation/screens/cpf_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_two_screen.dart';
 import 'package:my_app/features/signin_signup_redirect_screen.dart';
-import 'package:my_app/pages/register/register_finished.dart';
+import 'package:my_app/features/register/presentation/screens/register_finished_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
