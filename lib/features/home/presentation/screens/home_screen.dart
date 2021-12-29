@@ -18,13 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         extendBody: true,
-        body: buildBodyWithoutStack(context),
+        body: buildBody(context),
         bottomNavigationBar: BottomNavigatorBarApp(selectedIndex: 1),
       ),
     );
   }
 
-  Widget buildBodyWithoutStack(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return ListView(
       padding: EdgeInsets.zero,
       children: [

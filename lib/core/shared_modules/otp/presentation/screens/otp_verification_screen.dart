@@ -6,6 +6,7 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/core/shared_modules/otp/presentation/stores/otp_store.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -100,6 +101,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                 )
               }
+            else
+              {AppHelpers.showToast(context)}
           },
         );
 
@@ -116,23 +119,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           children: [
             Column(
               children: [
-                Hero(
-                  tag: 'registerAppBar',
-                  child: Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                    padding: const EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(180, 216, 216, 0.2),
-                        border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2)))),
-                    child: Column(
-                      children: const [
-                        AppBarDefaultWidget(title: 'Crie uma conta'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        LinearProgressBar(textIndicator: '2/5', percentageValue: 0.40),
-                      ],
-                    ),
+                Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  padding: const EdgeInsets.only(bottom: 15),
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(180, 216, 216, 0.2),
+                      border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2)))),
+                  child: Column(
+                    children: const [
+                      AppBarDefaultWidget(title: 'Crie uma conta'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      LinearProgressBar(textIndicator: '2/5', percentageValue: 0.40),
+                    ],
                   ),
                 ),
                 Container(
@@ -200,7 +200,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   label: 'Continuar',
                   primary: VivassimoTheme.green,
                   textColor: VivassimoTheme.white,
-                  borderColor: VivassimoTheme.white,
+                  borderColor: Color(0xff006633),
                   onPressed: () async {
                     await validateOtp();
                   },

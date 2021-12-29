@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:my_app/core/utils/enums/credit_card_enum.dart';
 
 class AppHelpers {
@@ -48,5 +49,25 @@ class AppHelpers {
 
   static String formatItemToDropDown(String value) {
     return 'Cartão final ${value.substring(value.length - 4, value.length)}';
+  }
+
+  static void showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),
+        // margin:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.6),
+        width: MediaQuery.of(context).size.width * 0.8,
+        duration: Duration(seconds: 6),
+        content: Text(
+          'Código enviado com sucesso',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        // action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
   }
 }
