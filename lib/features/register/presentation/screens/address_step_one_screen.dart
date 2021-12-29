@@ -16,8 +16,7 @@ import 'package:my_app/features/register/infra/models/request/register_user_requ
 import 'package:my_app/features/register/presentation/stores/address_step_one_store.dart';
 
 class AddressStepOneScreen extends StatefulWidget {
-  const AddressStepOneScreen({Key? key, required this.registerUserRequestModel})
-      : super(key: key);
+  const AddressStepOneScreen({Key? key, required this.registerUserRequestModel}) : super(key: key);
   final RegisterUserRequestModel registerUserRequestModel;
 
   @override
@@ -25,8 +24,7 @@ class AddressStepOneScreen extends StatefulWidget {
 }
 
 class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
-  RegisterUserRequestModel get registerUserRequestModel =>
-      widget.registerUserRequestModel;
+  RegisterUserRequestModel get registerUserRequestModel => widget.registerUserRequestModel;
 
   AddressStepOneStore addressStepOneStore = Modular.get<AddressStepOneStore>();
 
@@ -53,8 +51,7 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: Text('Permissão negada pelo usuário'),
-            content:
-                Text('Agora somente autorizando nas configurações do celular.'),
+            content: Text('Agora somente autorizando nas configurações do celular.'),
             contentPadding: EdgeInsets.all(20),
             actions: <Widget>[
               TextButton(
@@ -73,11 +70,11 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
 
     _locationData = await location.getLocation();
 
-    Placemark placemark = await LocationHandler.getAddressByCoordinates(
-        _locationData.latitude, _locationData.longitude);
+    Placemark placemark =
+        await LocationHandler.getAddressByCoordinates(_locationData.latitude, _locationData.longitude);
 
-    CepResponseModel cepResponseModel = await LocationHandler.getAddressByCep(
-        placemark.postalCode?.replaceAll('-', ''));
+    CepResponseModel cepResponseModel =
+        await LocationHandler.getAddressByCep(placemark.postalCode?.replaceAll('-', ''));
 
     LoadingIndicator.hide(context);
 
@@ -86,8 +83,7 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: Text('Localização falhou'),
-          content: Text(
-              'Não conseguimos o seu CEP através da localização, preencha manualmente'),
+          content: Text('Não conseguimos o seu CEP através da localização, preencha manualmente'),
           contentPadding: EdgeInsets.all(20),
           actions: <Widget>[
             TextButton(
@@ -104,131 +100,126 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
 
     Navigator.of(context).pushNamed(
       '/register/address2',
-      arguments: {
-        'registerUserRequestModel': registerUserRequestModel,
-        'cepResponseModel': cepResponseModel
-      },
+      arguments: {'registerUserRequestModel': registerUserRequestModel, 'cepResponseModel': cepResponseModel},
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: VivassimoTheme.white,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Hero(
-                  tag: 'registerAppBar',
-                  child: Container(
-                    height: 130,
-                    color: VivassimoTheme.white,
-                    child: Column(
-                      children: const [
-                        SizedBox(
-                          height: 40,
-                        ),
-                        AppBarDefaultWidget(title: 'Criar uma conta'),
-                      ],
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Hero(
+              tag: 'registerAppBar',
+              child: Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                color: VivassimoTheme.white,
+                child: Column(
+                  children: const [
+                    AppBarDefaultWidget(title: 'Criar uma conta'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                children: [
+                  Text(
+                    'Muito bem!',
+                    style: customTextStyle(
+                      FontWeight.w800,
+                      26,
+                      VivassimoTheme.purpleActive,
                     ),
                   ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Muito bem!',
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    width: 324,
+                    child: Text(
+                      'Para oferecermos os serviços mais próximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
+                      style: customTextStyle(
+                        FontWeight.w700,
+                        18,
+                        VivassimoTheme.purpleActive,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 324,
+                    height: 60,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        await getLocation(context);
+                      },
+                      icon: Icon(
+                        Icons.room,
+                        color: VivassimoTheme.purpleActive,
+                        size: 32,
+                      ),
+                      label: Text(
+                        'Usar localização',
                         style: customTextStyle(
-                          FontWeight.w800,
-                          26,
+                          FontWeight.w700,
+                          23,
                           VivassimoTheme.purpleActive,
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        width: 324,
-                        child: Text(
-                          'Para oferecermos os serviços mais próximos de você, precisamos que nos informe seu endereço ou autorizar usarmos sua localização.',
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                          textAlign: TextAlign.center,
+                      style: ElevatedButton.styleFrom(
+                        primary: VivassimoTheme.yellow,
+                        side: BorderSide(
+                          width: 2.0,
+                          color: VivassimoTheme.red,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: 324,
-                        height: 60,
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            await getLocation(context);
-                          },
-                          icon: Icon(
-                            Icons.room,
-                            color: VivassimoTheme.purpleActive,
-                            size: 32,
-                          ),
-                          label: Text(
-                            'Usar localização',
-                            style: customTextStyle(
-                              FontWeight.w700,
-                              23,
-                              VivassimoTheme.purpleActive,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: VivassimoTheme.yellow,
-                            side: BorderSide(
-                              width: 2.0,
-                              color: VivassimoTheme.red,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30),
-                        child: Text(
-                          'ou',
-                          style: customTextStyle(
-                            FontWeight.w700,
-                            18,
-                            VivassimoTheme.purpleActive,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 12),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          height: 90,
-                          child: Observer(builder: (_) {
-                            return AppTextField(
-                              label: 'Digite seu CEP',
-                              onChanged: addressStepOneStore.setCep,
-                              errorText: addressStepOneStore.getCepError,
-                              inputFormatters: [AppMasks.cep],
-                            );
-                          }),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      'ou',
+                      style: customTextStyle(
+                        FontWeight.w700,
+                        18,
+                        VivassimoTheme.purpleActive,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 12),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      height: 90,
+                      child: Observer(builder: (_) {
+                        return AppTextField(
+                          label: 'Digite seu CEP',
+                          onChanged: addressStepOneStore.setCep,
+                          errorText: addressStepOneStore.getCepError,
+                          inputFormatters: [AppMasks.cep],
+                          textAlign: TextAlign.center,
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Hero(
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Hero(
               tag: 'registerButtonConfirm',
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -245,10 +236,8 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                                 context,
                                 '/register/address2',
                                 arguments: {
-                                  'registerUserRequestModel':
-                                      registerUserRequestModel,
-                                  'cepResponseModel':
-                                      addressStepOneStore.cepResponseModel
+                                  'registerUserRequestModel': registerUserRequestModel,
+                                  'cepResponseModel': addressStepOneStore.cepResponseModel
                                 },
                               );
                             }
@@ -258,8 +247,8 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

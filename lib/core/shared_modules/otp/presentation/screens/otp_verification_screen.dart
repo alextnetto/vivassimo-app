@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
+import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
@@ -118,14 +119,18 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 Hero(
                   tag: 'registerAppBar',
                   child: Container(
-                    height: 130,
-                    color: VivassimoTheme.blue,
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    padding: const EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(180, 216, 216, 0.2),
+                        border: Border(bottom: BorderSide(color: Color.fromRGBO(99, 95, 117, 0.2)))),
                     child: Column(
                       children: const [
+                        AppBarDefaultWidget(title: 'Crie uma conta'),
                         SizedBox(
-                          height: 40,
+                          height: 10,
                         ),
-                        AppBarDefaultWidget(title: 'Criar uma conta'),
+                        LinearProgressBar(textIndicator: '2/5', percentageValue: 0.40),
                       ],
                     ),
                   ),

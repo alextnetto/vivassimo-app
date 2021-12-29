@@ -39,7 +39,7 @@ import 'package:my_app/core/shared_modules/credit_card/presentation/screens/new_
 
 import 'package:my_app/features/register/presentation/screens/accept_terms_screen.dart';
 import 'package:my_app/features/register/presentation/screens/address_step_two_screen.dart';
-import 'package:my_app/core/shared_modules/otp/presentation/screens/otp_screen.dart';
+import 'package:my_app/core/shared_modules/otp/presentation/screens/otp_verification_screen.dart';
 import 'package:my_app/features/register/presentation/screens/password_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_step_one_screen.dart';
 import 'package:my_app/features/register/presentation/screens/register_terms_screen.dart';
@@ -135,9 +135,9 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => OtpVerificationScreen(
-            redirectTo: args != null ? args['redirectTo'] : '/register/password',
-            phoneNumber: args != null ? args['phoneNumber'] : '',
-            nextPageArguments: args != null ? args['nextPageArguments'] : null,
+            redirectTo: args['registerUserRequestModel'] == null ? args['redirectTo'] : '/register/password',
+            phoneNumber: args['registerUserRequestModel'] == null ? args['phoneNumber'] : '',
+            nextPageArguments: args['registerUserRequestModel'] == null ? args['nextPageArguments'] : null,
             registerUserRequestModel: args != null ? args['registerUserRequestModel'] : null,
           ),
         );

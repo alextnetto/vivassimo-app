@@ -18,13 +18,12 @@ class RegisterDatasource implements IRegisterDatasource {
   RegisterDatasource(this.httpClient);
 
   @override
-  Future<CheckExistingUserResponseModel> userExists(
-      CheckExistingUserRequestModel existingUserRequestModel) async {
-    var response = await httpClient.get(
-        endpoint: '/userExists', queryParams: existingUserRequestModel.toMap());
+  Future<CheckExistingUserResponseModel> userExists(CheckExistingUserRequestModel existingUserRequestModel) async {
+    var response = await httpClient.get(endpoint: '/userExists', queryParams: existingUserRequestModel.toMap());
 
     if (response.statusCode == 200) {
       var resultModel = CheckExistingUserResponseModel.fromJson(response.body);
+      // var resultModel = CheckExistingUserResponseModel(userExists: response.body == 'true');
       return resultModel;
     } else {
       var message = json.decode(response.body)['message'];
@@ -34,10 +33,8 @@ class RegisterDatasource implements IRegisterDatasource {
   }
 
   @override
-  Future<SendOtpResponseModel> sendOtp(
-      SendOtpRequestModel sendOtpRequestModel) async {
-    var response = await httpClient.post(
-        endpoint: '/sendOtp', body: sendOtpRequestModel.toJson());
+  Future<SendOtpResponseModel> sendOtp(SendOtpRequestModel sendOtpRequestModel) async {
+    var response = await httpClient.post(endpoint: '/sendOtp', body: sendOtpRequestModel.toJson());
 
     if (response.statusCode == 200) {
       var resultModel = SendOtpResponseModel.fromJson(response.body);
@@ -50,10 +47,8 @@ class RegisterDatasource implements IRegisterDatasource {
   }
 
   @override
-  Future<VerifyOtpResponseModel> verifyOtp(
-      VerifyOtpRequestModel verifyOtpRequestModel) async {
-    var response = await httpClient.get(
-        endpoint: '/verifyOtp', queryParams: verifyOtpRequestModel.toMap());
+  Future<VerifyOtpResponseModel> verifyOtp(VerifyOtpRequestModel verifyOtpRequestModel) async {
+    var response = await httpClient.get(endpoint: '/verifyOtp', queryParams: verifyOtpRequestModel.toMap());
 
     if (response.statusCode == 200) {
       var resultModel = VerifyOtpResponseModel.fromJson(response.body);
@@ -66,10 +61,8 @@ class RegisterDatasource implements IRegisterDatasource {
   }
 
   @override
-  Future<RegisterUserResponseModel> register(
-      RegisterUserRequestModel registerUserRequestModel) async {
-    var response = await httpClient.post(
-        endpoint: '/users', body: registerUserRequestModel.toJson());
+  Future<RegisterUserResponseModel> register(RegisterUserRequestModel registerUserRequestModel) async {
+    var response = await httpClient.post(endpoint: '/users', body: registerUserRequestModel.toJson());
 
     if (response.statusCode == 201) {
       var resultModel = RegisterUserResponseModel.fromJson(response.body);

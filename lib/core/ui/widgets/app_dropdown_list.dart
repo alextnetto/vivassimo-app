@@ -10,6 +10,7 @@ class DropdownListWidget extends StatelessWidget {
   final Color? fillCollor;
   final TextStyle? contentStyle;
   final Widget? icon;
+  final Color? borderColor;
 
   const DropdownListWidget({
     Key? key,
@@ -20,6 +21,7 @@ class DropdownListWidget extends StatelessWidget {
     this.fillCollor,
     this.contentStyle,
     this.icon,
+    this.borderColor,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class DropdownListWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2.0,
-                color: Color(0XFF006633),
+                color: borderColor ?? const Color(0XFF006633),
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
@@ -47,7 +49,7 @@ class DropdownListWidget extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.symmetric(
               horizontal: 10,
-              vertical: 20,
+              vertical: 19,
             ),
           ),
           // isEmpty: _currentSelectedValue == '',
