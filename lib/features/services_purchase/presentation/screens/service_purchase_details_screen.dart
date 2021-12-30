@@ -6,6 +6,7 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
 
@@ -144,7 +145,13 @@ class ServicePurchaseDetailsScreenState extends State<ServicePurchaseDetailsScre
                   textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.greenBorderColor,
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/products/products_purchase/product_purchase_success');
+                    if (AppHelpers.isInternetActive) {
+                      executeServiceAction();
+                    } else {
+                      Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                        'executeAction': executeServiceAction,
+                      });
+                    }
                   },
                 );
               }),
@@ -153,5 +160,9 @@ class ServicePurchaseDetailsScreenState extends State<ServicePurchaseDetailsScre
         ],
       ),
     );
+  }
+
+  executeServiceAction() {
+    Navigator.of(context).pushNamed('/products/products_purchase/product_purchase_success');
   }
 }

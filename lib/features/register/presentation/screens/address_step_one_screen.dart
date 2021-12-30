@@ -12,6 +12,7 @@ import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:location/location.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/address_step_one_store.dart';
 
@@ -98,6 +99,16 @@ class _AddressStepOneScreenState extends State<AddressStepOneScreen> {
       return;
     }
 
+    if (AppHelpers.isInternetActive) {
+      executeAddressAction(cepResponseModel);
+    } else {
+      Navigator.of(context).pushNamed('/internet-connection', arguments: {
+        'executeAction': executeAddressAction,
+      });
+    }
+  }
+
+  executeAddressAction(cepResponseModel) {
     Navigator.of(context).pushNamed(
       '/register/address2',
       arguments: {'registerUserRequestModel': registerUserRequestModel, 'cepResponseModel': cepResponseModel},

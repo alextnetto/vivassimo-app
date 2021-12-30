@@ -4,6 +4,7 @@ import 'package:my_app/core/entities/store_entity.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/stores_list_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 import '../../services_purchase_module.dart';
 
@@ -65,7 +66,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
               StoreEntity(
@@ -73,7 +80,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
               StoreEntity(
@@ -81,7 +94,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
               StoreEntity(
@@ -89,7 +108,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
               StoreEntity(
@@ -97,7 +122,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Academia Health Fit',
                 imagePath: 'assets/images/stores/store1.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
               StoreEntity(
@@ -105,7 +136,13 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
                 name: 'Fitness Center',
                 imagePath: 'assets/images/stores/store2.png',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
             ],
@@ -113,5 +150,9 @@ class _ServiceDescriptionScreenState extends State<ServiceDescriptionScreen> {
         ],
       ),
     );
+  }
+
+  executeServiceAction() {
+    Navigator.of(context).pushNamed('/services-purchase/service-store-offer-description');
   }
 }

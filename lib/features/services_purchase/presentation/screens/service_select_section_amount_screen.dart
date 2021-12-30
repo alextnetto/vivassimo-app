@@ -8,6 +8,7 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/select_installments_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
 import 'package:my_app/features/services_purchase/presentation/stores/service_select_section_amount_store.dart';
 
@@ -139,12 +140,13 @@ class _ServiceSelectSectionAmountScreenState extends State<ServiceSelectSectionA
                 textColor: VivassimoTheme.white,
                 borderColor: VivassimoTheme.greenBorderColor,
                 onPressed: () {
-                  servicePurchaseRequestModel.amountSessions = serviceStore.amountSessions;
-                  servicePurchaseRequestModel.totalPurchase = serviceStore.amountSessions * serviceEntity.value!;
-
-                  Navigator.of(context).pushNamed('/services-purchase/payment-method-service', arguments: {
-                    'servicePurchaseRequestModel': servicePurchaseRequestModel,
-                  });
+                  if (AppHelpers.isInternetActive) {
+                    executeServiceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeServiceAction,
+                    });
+                  }
                 },
               ),
             ),
@@ -152,5 +154,14 @@ class _ServiceSelectSectionAmountScreenState extends State<ServiceSelectSectionA
         ],
       ),
     );
+  }
+
+  executeServiceAction() {
+    servicePurchaseRequestModel.amountSessions = serviceStore.amountSessions;
+    servicePurchaseRequestModel.totalPurchase = serviceStore.amountSessions * serviceEntity.value!;
+
+    Navigator.of(context).pushNamed('/services-purchase/payment-method-service', arguments: {
+      'servicePurchaseRequestModel': servicePurchaseRequestModel,
+    });
   }
 }

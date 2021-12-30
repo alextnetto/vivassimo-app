@@ -4,6 +4,7 @@ import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class AcceptRegisterTermsScreen extends StatelessWidget {
   const AcceptRegisterTermsScreen({Key? key}) : super(key: key);
@@ -65,7 +66,13 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
                           onPrimary: VivassimoTheme.grey,
                           borderColor: VivassimoTheme.blue,
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/register/terms');
+                            if (AppHelpers.isInternetActive) {
+                              executeTermsAction(context);
+                            } else {
+                              Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                                'executeAction': executeTermsAction,
+                              });
+                            }
                           }),
                     ),
                   ),
@@ -85,7 +92,13 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
                   textColor: VivassimoTheme.white,
                   borderColor: Color(0xff006633),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/register/1');
+                    if (AppHelpers.isInternetActive) {
+                      executeRedirectRegisterAction(context);
+                    } else {
+                      Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                        'executeAction': executeRedirectRegisterAction,
+                      });
+                    }
                   },
                 ),
               ),
@@ -94,5 +107,13 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  executeRedirectRegisterAction(context) {
+    Navigator.of(context).pushNamed('/register/1');
+  }
+
+  executeTermsAction(context) {
+    Navigator.of(context).pushNamed('/register/terms');
   }
 }

@@ -4,6 +4,7 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/components/customer_contact_component.dart';
 import 'package:my_app/core/ui/components/payment_methods_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_announcement/presentation/widgets/product_announcemente_rating_widget.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/service_purchase_request_model.dart';
 
@@ -144,22 +145,13 @@ class _ServiceStoreOfferDescriptionScreenState extends State<ServiceStoreOfferDe
                                   Radius.circular(10),
                                 ))),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
-                            'redirectTo': '/services-purchase/select-section-amount',
-                            'nextPageArguments': {
-                              'servicePurchaseRequestModel': ServicePurchaseRequestModel(
-                                serviceEntity: ServiceEntity(
-                                  id: 1,
-                                  name: 'Pilates Clássico',
-                                  description: 'Pilates Clássico + aconselhamento e acompanhamento individual',
-                                  ownerName: 'Academia Health Fit',
-                                  value: 165,
-                                  sessionDuration: '1 hora',
-                                ),
-                                maxInstallments: 3,
-                              ),
-                            }
-                          });
+                          if (AppHelpers.isInternetActive) {
+                            executeServiceAction();
+                          } else {
+                            Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                              'executeAction': executeServiceAction,
+                            });
+                          }
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -283,5 +275,24 @@ class _ServiceStoreOfferDescriptionScreenState extends State<ServiceStoreOfferDe
         ],
       ),
     );
+  }
+
+  void executeServiceAction() {
+    Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
+      'redirectTo': '/services-purchase/select-section-amount',
+      'nextPageArguments': {
+        'servicePurchaseRequestModel': ServicePurchaseRequestModel(
+          serviceEntity: ServiceEntity(
+            id: 1,
+            name: 'Pilates Clássico',
+            description: 'Pilates Clássico + aconselhamento e acompanhamento individual',
+            ownerName: 'Academia Health Fit',
+            value: 165,
+            sessionDuration: '1 hora',
+          ),
+          maxInstallments: 3,
+        ),
+      }
+    });
   }
 }

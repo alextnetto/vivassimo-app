@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class RegisterFinishedScreen extends StatefulWidget {
   const RegisterFinishedScreen({Key? key}) : super(key: key);
@@ -83,9 +84,13 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
                       onPrimary: VivassimoTheme.purpleActive,
                       borderColor: VivassimoTheme.red,
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
-                          'redirectTo': '/home',
-                        });
+                        if (AppHelpers.isInternetActive) {
+                          executeRegisterAction();
+                        } else {
+                          Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                            'executeAction': executeRegisterAction,
+                          });
+                        }
                       },
                     ),
                   ),
@@ -96,5 +101,11 @@ class RegisterFinishedScreenState extends State<RegisterFinishedScreen> {
         ),
       ),
     );
+  }
+
+  void executeRegisterAction() {
+    Navigator.of(context).pushNamed('/signin_or_signup', arguments: {
+      'redirectTo': '/home',
+    });
   }
 }

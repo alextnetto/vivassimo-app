@@ -12,6 +12,7 @@ import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/utils/constants/constants.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/address_step_two_store.dart';
 
@@ -182,37 +183,12 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                     // onPressed: addressStepTwoStore.ena () {
                     onPressed: addressStepTwoStore.enableButton
                         ? () async {
-                            registerUserRequestModel.address = AddressEntity(
-                              zipCode: addressStepTwoStore.cep,
-                              street: addressStepTwoStore.address,
-                              number: addressStepTwoStore.number,
-                              neighborhood: addressStepTwoStore.neighborhood,
-                              city: addressStepTwoStore.city,
-                              state: addressStepTwoStore.uf,
-                            );
-                            print(registerUserRequestModel.toJson());
-
-                            var response = await addressStepTwoStore.register(registerUserRequestModel);
-
-                            if (response.success) {
-                              Navigator.of(context).pushNamed('/register/registerFinished');
+                            if (AppHelpers.isInternetActive) {
+                              await executeAddressAction();
                             } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text('Ops!'),
-                                  content: Text(response.message),
-                                  contentPadding: EdgeInsets.all(20),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
+                              Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                                'executeAction': executeAddressAction,
+                              });
                             }
                           }
                         : null,
@@ -224,5 +200,40 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> executeAddressAction() async {
+    registerUserRequestModel.address = AddressEntity(
+      zipCode: addressStepTwoStore.cep,
+      street: addressStepTwoStore.address,
+      number: addressStepTwoStore.number,
+      neighborhood: addressStepTwoStore.neighborhood,
+      city: addressStepTwoStore.city,
+      state: addressStepTwoStore.uf,
+    );
+    print(registerUserRequestModel.toJson());
+
+    var response = await addressStepTwoStore.register(registerUserRequestModel);
+
+    if (response.success) {
+      Navigator.of(context).pushNamed('/register/registerFinished');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Ops!'),
+          content: Text(response.message),
+          contentPadding: EdgeInsets.all(20),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
