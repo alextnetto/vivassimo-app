@@ -5,12 +5,8 @@ import 'package:my_app/features/register/domain/errors/register_errors.dart';
 import 'package:my_app/features/register/infra/datasources/i_register_datasource.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
-import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
-import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/register_user_response_model.dart';
-import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
-import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
 import 'package:my_app/features/register/infra/repositories/register_repository.dart';
 
 class RegisterDatasourceMock extends Mock implements IRegisterDatasource {}
@@ -53,49 +49,6 @@ void main() {
     });
   });
 
-  group('Send OTP - ', () {
-    test('Should return success if otp code is sent to user', () async {
-      SendOtpRequestModel requestModel = SendOtpRequestModel(phoneNumber: '11988888888');
-
-      when(() => datasource.sendOtp(requestModel)).thenAnswer((_) async => SendOtpResponseModel(success: true));
-
-      var result = await repository.sendOtp(requestModel);
-
-      expect(result.fold(id, id), SendOtpResponseModel(success: true));
-    });
-
-    test('Should return success if user doesn\'t receive the otp code', () async {
-      SendOtpRequestModel requestModel = SendOtpRequestModel(phoneNumber: '11988888888');
-
-      when(() => datasource.sendOtp(requestModel)).thenThrow(RegisterDatasourceError(message: 'fff'));
-
-      var result = await repository.sendOtp(requestModel);
-
-      expect(result.fold(id, id), isA<RegisterDatasourceError>());
-    });
-  });
-
-  group('Validate OTP - ', () {
-    test('Should return success if otp code is validated', () async {
-      VerifyOtpRequestModel requestModel = VerifyOtpRequestModel(phoneNumber: '11988888888', token: '777777');
-
-      when(() => datasource.verifyOtp(requestModel)).thenAnswer((_) async => VerifyOtpResponseModel(success: true));
-
-      var result = await repository.verifyOtp(requestModel);
-
-      expect(result.fold(id, id), VerifyOtpResponseModel(success: true));
-    });
-
-    test('Should return success otp code is wrong', () async {
-      VerifyOtpRequestModel requestModel = VerifyOtpRequestModel(phoneNumber: '11988888888', token: '666666');
-
-      when(() => datasource.verifyOtp(requestModel)).thenThrow(RegisterDatasourceError(message: 'fff'));
-
-      var result = await repository.verifyOtp(requestModel);
-
-      expect(result.fold(id, id), isA<RegisterDatasourceError>());
-    });
-  });
 
   group('Register User - ', () {
     test('Should return success if user is registered successfully', () async {

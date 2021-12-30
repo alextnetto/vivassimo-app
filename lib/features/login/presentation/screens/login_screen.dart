@@ -124,7 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               label: 'Entrar',
                               primary: VivassimoTheme.green,
                               onPrimary: VivassimoTheme.white,
-                              borderColor: loginStore!.enableButton ? Color(0xff006633) : VivassimoTheme.grey,
+                              borderColor:
+                                  loginStore!.enableButton ? Color(0xff006633) : VivassimoTheme.grey.withAlpha(100),
                               onPressed: loginStore!.enableButton
                                   ? () async {
                                       LoadingIndicator.show(context);

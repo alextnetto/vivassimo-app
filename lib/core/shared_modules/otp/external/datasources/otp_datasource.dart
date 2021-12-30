@@ -8,10 +8,10 @@ import 'package:my_app/features/register/infra/models/response/send_otp_response
 import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
 
-class OtpDatasouce implements IOtpDatasource {
+class OtpDatasource implements IOtpDatasource {
   final IRequestService httpClient;
 
-  OtpDatasouce(this.httpClient);
+  OtpDatasource(this.httpClient);
   @override
   Future<SendOtpResponseModel> sendOtp(SendOtpRequestModel sendOtpRequestModel) async {
     var response = await httpClient.post(endpoint: '/sendOtp', body: sendOtpRequestModel.toJson());

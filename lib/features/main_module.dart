@@ -10,7 +10,7 @@ class MainModule extends Module {
   List<Bind> get binds {
     return [
       Bind.factory((i) => HttpService()),
-      Bind.factory((i) => OtpDatasouce(i())),
+      Bind.factory((i) => OtpDatasource(i())),
       Bind.factory((i) => OtpRepository(i())),
       Bind.factory((i) => OtpUsecase(i())),
       Bind.factory((i) => OtpStore(i())),

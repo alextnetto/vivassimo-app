@@ -6,12 +6,8 @@ import 'package:my_app/features/register/domain/repositories/i_register_reposito
 import 'package:my_app/features/register/domain/usecases/register_usecase.dart';
 import 'package:my_app/features/register/infra/models/request/check_existing_user_request_model.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
-import 'package:my_app/features/register/infra/models/request/send_otp_request_model.dart';
-import 'package:my_app/features/register/infra/models/request/verify_otp_request_model.dart';
 import 'package:my_app/features/register/infra/models/response/check_existing_user_response_model.dart';
 import 'package:my_app/features/register/infra/models/response/register_user_response_model.dart';
-import 'package:my_app/features/register/infra/models/response/send_otp_response_model.dart';
-import 'package:my_app/features/register/infra/models/response/verify_otp_response_model.dart';
 
 class IRegisterRepositoryMock extends Mock implements IRegisterRepository {}
 
@@ -58,67 +54,6 @@ void main() {
           .thenAnswer((_) async => Left(RegisterDatasourceError(message: 'fsdhu')));
 
       final result = await usecase.userExists(requestModel);
-
-      expect(result, response);
-      expect(result.success, false);
-      expect(result.message.isNotEmpty, true);
-    });
-  });
-
-  group('Send OTP -', () {
-    test('Should return success equals true when backend sends opt succesfully', () async {
-      SendOtpRequestModel requestModel = SendOtpRequestModel(phoneNumber: '11999999999');
-
-      var response = SendOtpResponseModel(success: true);
-
-      when(() => repository.sendOtp(requestModel)).thenAnswer((_) async => Right(SendOtpResponseModel(success: true)));
-
-      final result = await usecase.sendOtp(requestModel);
-
-      expect(result, response);
-      expect(result.success, true);
-    });
-
-    test('Should return success equals false when backend can\'t send otp', () async {
-      SendOtpRequestModel requestModel = SendOtpRequestModel(phoneNumber: '11999999999');
-
-      var response = SendOtpResponseModel(success: false, message: 'fff');
-
-      when(() => repository.sendOtp(requestModel))
-          .thenAnswer((_) async => Left(RegisterDatasourceError(message: 'fff')));
-
-      final result = await usecase.sendOtp(requestModel);
-
-      expect(result, response);
-      expect(result.success, false);
-      expect(result.message.isNotEmpty, true);
-    });
-  });
-
-  group('Verify OTP -', () {
-    test('Should return success equals true when backend validate opt succesfully', () async {
-      VerifyOtpRequestModel requestModel = VerifyOtpRequestModel(token: '555666', phoneNumber: '11999999999');
-
-      var response = VerifyOtpResponseModel(success: true);
-
-      when(() => repository.verifyOtp(requestModel))
-          .thenAnswer((_) async => Right(VerifyOtpResponseModel(success: true)));
-
-      final result = await usecase.verifyOtp(requestModel);
-
-      expect(result, response);
-      expect(result.success, true);
-    });
-
-    test('Should return success equals false when backend can\'t validate otp', () async {
-      VerifyOtpRequestModel requestModel = VerifyOtpRequestModel(token: '555666', phoneNumber: '11999999999');
-
-      var response = VerifyOtpResponseModel(success: false, message: 'fff');
-
-      when(() => repository.verifyOtp(requestModel))
-          .thenAnswer((_) async => Left(RegisterDatasourceError(message: 'fff')));
-
-      final result = await usecase.verifyOtp(requestModel);
 
       expect(result, response);
       expect(result.success, false);
