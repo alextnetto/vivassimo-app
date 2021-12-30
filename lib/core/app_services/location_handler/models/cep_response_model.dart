@@ -33,13 +33,13 @@ class CepResponseModel {
 
   factory CepResponseModel.fromMap(Map<String, dynamic> map) {
     return CepResponseModel(
-      success: map['success'] ?? false,
-      zipCode: map['zipCode'] ?? '',
-      street: map['street'] ?? '',
-      complement: map['complement'] ?? '',
-      neighborhood: map['neighborhood'] ?? '',
-      city: map['city'] ?? '',
-      state: map['state'] ?? '',
+      success: map['success'] ?? true,
+      zipCode: map['cep'] ?? '',
+      street: map['logradouro'] ?? '',
+      complement: map['complemento'] ?? '',
+      neighborhood: map['bairro'] ?? '',
+      city: map['localidade'] ?? '',
+      state: map['uf'] ?? '',
     );
   }
 

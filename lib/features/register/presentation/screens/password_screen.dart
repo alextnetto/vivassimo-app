@@ -7,6 +7,7 @@ import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/formatters/app_formatter.dart';
 import 'package:my_app/features/register/infra/models/request/register_user_request_model.dart';
 import 'package:my_app/features/register/presentation/stores/password_store.dart';
 
@@ -78,6 +79,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                         onChanged: passwordStore.setPassword,
                         errorText: passwordStore.getPasswordError,
                         obscureText: passwordStore.isPasswordVisible,
+                        keyBoardType: TextInputType.number,
+                        inputFormatters: [
+                          AppFormatter.passwordFormatter,
+                        ],
                         suffixIcon: IconButton(
                           icon: Icon(
                             passwordStore.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -102,6 +107,10 @@ class PasswordScreenState extends State<PasswordScreen> {
                         onChanged: passwordStore.setPasswordConfirmation,
                         errorText: passwordStore.getPasswordConfirmationError,
                         obscureText: passwordStore.isPasswordVisible,
+                        keyBoardType: TextInputType.number,
+                        inputFormatters: [
+                          AppFormatter.passwordFormatter,
+                        ],
                         suffixIcon: IconButton(
                           icon: Icon(
                             passwordStore.isPasswordVisible ? Icons.visibility : Icons.visibility_off,

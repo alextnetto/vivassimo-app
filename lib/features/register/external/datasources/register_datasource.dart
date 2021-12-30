@@ -17,6 +17,8 @@ class RegisterDatasource implements IRegisterDatasource {
     var response = await httpClient.get(endpoint: '/userExists', queryParams: existingUserRequestModel.toMap());
 
     if (response.statusCode == 200) {
+      //TODO: Backend ta retornando uma string, mas tem que retornar um bool ou um objeto
+
       // var resultModel = CheckExistingUserResponseModel.fromJson(response.body);
       var resultModel = CheckExistingUserResponseModel(userExists: response.body == 'true');
       return resultModel;
@@ -26,7 +28,6 @@ class RegisterDatasource implements IRegisterDatasource {
       throw RegisterDatasourceError(message: message);
     }
   }
-
 
   @override
   Future<RegisterUserResponseModel> register(RegisterUserRequestModel registerUserRequestModel) async {

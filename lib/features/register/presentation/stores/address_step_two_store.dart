@@ -222,8 +222,7 @@ abstract class _AddressStepTwoStoreBase with Store {
     cityController.text = addressData.city;
   }
 
-  Future<RegisterUserResponseModel> register(
-      RegisterUserRequestModel registerUserRequestModel) async {
+  Future<RegisterUserResponseModel> register(RegisterUserRequestModel registerUserRequestModel) async {
     return await registerUsecase.register(registerUserRequestModel);
   }
 }

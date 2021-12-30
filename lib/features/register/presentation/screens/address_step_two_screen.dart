@@ -181,7 +181,7 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                     borderColor: addressStepTwoStore.enableButton ? VivassimoTheme.greenBorderColor : Colors.grey,
                     // onPressed: addressStepTwoStore.ena () {
                     onPressed: addressStepTwoStore.enableButton
-                        ? () {
+                        ? () async {
                             registerUserRequestModel.address = AddressEntity(
                               zipCode: addressStepTwoStore.cep,
                               street: addressStepTwoStore.address,
@@ -191,6 +191,29 @@ class _AddressStepTwoScreenState extends State<AddressStepTwoScreen> {
                               state: addressStepTwoStore.uf,
                             );
                             print(registerUserRequestModel.toJson());
+
+                            var response = await addressStepTwoStore.register(registerUserRequestModel);
+
+                            if (response.success) {
+                              Navigator.of(context).pushNamed('/register/registerFinished');
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Ops!'),
+                                  content: Text(response.message),
+                                  contentPadding: EdgeInsets.all(20),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           }
                         : null,
                   );
