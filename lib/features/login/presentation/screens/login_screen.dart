@@ -8,6 +8,7 @@ import 'package:my_app/core/ui/widgets/loading_indicator.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/utils/formatters/app_formatter.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/login/login_module.dart';
 import 'package:my_app/features/login/presentation/stores/login_store.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
@@ -128,33 +129,37 @@ class _LoginScreenState extends State<LoginScreen> {
                                   loginStore!.enableButton ? Color(0xff006633) : VivassimoTheme.grey.withAlpha(100),
                               onPressed: loginStore!.enableButton
                                   ? () async {
-                                      LoadingIndicator.show(context);
-                                      var response = await loginStore!.login();
-                                      LoadingIndicator.hide(context);
+                                      if (AppHelpers.isInternetActive) {
+                                        LoadingIndicator.show(context);
+                                        var response = await loginStore!.login();
+                                        LoadingIndicator.hide(context);
 
-                                      if (response.success) {
-                                        Navigator.of(context).pushNamed('/register/verifyOtp', arguments: {
-                                          'redirectTo': redirectTo,
-                                          'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
-                                          'nextPageArguments': widget.nextPageArguments,
-                                        });
+                                        if (response.success) {
+                                          Navigator.of(context).pushNamed('/register/verifyOtp', arguments: {
+                                            'redirectTo': redirectTo,
+                                            'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
+                                            'nextPageArguments': widget.nextPageArguments,
+                                          });
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) => AlertDialog(
+                                              title: Text('Ops!'),
+                                              content: Text(response.message),
+                                              contentPadding: EdgeInsets.all(20),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }
                                       } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => AlertDialog(
-                                            title: Text('Ops!'),
-                                            content: Text(response.message),
-                                            contentPadding: EdgeInsets.all(20),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                        print('internet ta off');
                                       }
                                     }
                                   : null,

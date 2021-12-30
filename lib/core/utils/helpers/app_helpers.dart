@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/utils/enums/credit_card_enum.dart';
 
 class AppHelpers {
+  static bool isInternetActive = true;
+
   static String getCredtiCardLogo(CardBrand brand) {
     switch (brand) {
       case CardBrand.otherBrand:
