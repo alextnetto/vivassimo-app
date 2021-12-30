@@ -67,9 +67,12 @@ class RegisterDatasource implements IRegisterDatasource {
     if (response.statusCode == 201) {
       var resultModel = RegisterUserResponseModel.fromJson(response.body);
       return resultModel;
-    } else {
+    } else if (response.statusCode == 401) {
       var message = json.decode(response.body)['message'];
 
+      throw RegisterDatasourceError(message: message);
+    } else {
+      var message = json.decode(response.body)['message'];
       throw RegisterDatasourceError(message: message);
     }
   }

@@ -78,9 +78,9 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                     child: Observer(builder: (_) {
                       return AppTextField(
                         label: 'Data de nascimento',
-                        onChanged: registerStepTwoStore.setDataNascimento,
-                        errorText: registerStepTwoStore.getDataNascimentoError,
-                        inputFormatters: [AppMasks.dataNascimento],
+                        onChanged: registerStepTwoStore.setBirthDate,
+                        errorText: registerStepTwoStore.getBirthDateError,
+                        inputFormatters: [AppMasks.birthDateFormatter],
                       );
                     }),
                   ),
@@ -133,7 +133,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                         child: Text(value),
                       );
                     }).toList(),
-                    onChanged: registerStepTwoStore.setGenero,
+                    onChanged: registerStepTwoStore.setGender,
                   ),
                 ),
               ],
@@ -154,8 +154,8 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                       borderColor: registerStepTwoStore.enableButton ? Color(0xff006633) : VivassimoTheme.grey,
                       onPressed: registerStepTwoStore.enableButton
                           ? () {
-                              registerUserRequestModel.genero = registerStepTwoStore.genero;
-                              registerUserRequestModel.dataNascimento = registerStepTwoStore.dataNascimento;
+                              registerUserRequestModel.gender = registerStepTwoStore.gender;
+                              registerUserRequestModel.birthDate = registerStepTwoStore.birthDate;
 
                               Navigator.pushNamed(
                                 context,

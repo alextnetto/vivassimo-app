@@ -114,7 +114,7 @@ class _RegisterStepOneState extends State<RegisterStepOneScreen> {
                           label: 'Digite seu telefone',
                           onChanged: registerStepOneStore!.setPhoneNumber,
                           errorText: registerStepOneStore!.getPhoneNumberError,
-                          inputFormatters: [AppMasks.phone],
+                          inputFormatters: [AppMasks.phoneFormatter],
                         );
                       }),
                     ),
@@ -141,7 +141,7 @@ class _RegisterStepOneState extends State<RegisterStepOneScreen> {
                               LoadingIndicator.hide(context);
 
                               if (response.success) {
-                                if (response.userExists) {
+                                if (response.userExists!) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) => AlertDialog(

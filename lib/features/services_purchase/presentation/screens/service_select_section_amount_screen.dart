@@ -88,9 +88,9 @@ class _ServiceSelectSectionAmountScreenState extends State<ServiceSelectSectionA
                   Text('Quantas sessões deseja?', style: AppTextStyles.defaultTextStyleTitleMiddleBold),
                   Observer(builder: (_) {
                     return SelectAmountComponent(
-                      installments: serviceStore.formatSessionsAmount, //paymentStore.formatInstallment(),
-                      onTapDecrease: serviceStore.decreaseInstallment, //paymentStore.decreaseInstallment,
-                      onTapIncrease: serviceStore.increaseInstallment, //paymentStore.increaseInstallment,
+                      installments: serviceStore.formatSessionsAmount,
+                      onTapDecrease: serviceStore.decreaseInstallment,
+                      onTapIncrease: serviceStore.increaseInstallment,
                     );
                   }),
                   Container(

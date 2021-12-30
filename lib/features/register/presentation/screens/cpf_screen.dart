@@ -82,7 +82,7 @@ class CpfScreenState extends State<CpfScreen> {
                         label: 'Digite aqui o CPF',
                         onChanged: cpfStore!.setCpf,
                         errorText: cpfStore!.getCpfError,
-                        inputFormatters: [AppMasks.cpf],
+                        inputFormatters: [AppMasks.cpfFormatter],
                       );
                     }),
                   ),

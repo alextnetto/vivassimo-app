@@ -6,24 +6,24 @@ class DeliveryAddressStore = _DeliveryAddressStoreBase with _$DeliveryAddressSto
 
 abstract class _DeliveryAddressStoreBase with Store {
   _DeliveryAddressStoreBase() {
-    addDeliveryAddress(DeliveryAddressEntity(
+    addDeliveryAddress(AddressEntity(
       id: 1,
-      cep: '06455-555',
+      zipCode: '06455-555',
       city: 'São Paulo',
       neighborhood: 'Centro',
       number: '930',
       street: 'Av. Paulista',
-      uf: 'SP',
+      state: 'SP',
     ));
 
-    deliveryAddressEntity = DeliveryAddressEntity(
+    deliveryAddressEntity = AddressEntity(
       id: 1,
-      cep: '06455-555',
+      zipCode: '06455-555',
       city: 'São Paulo',
       neighborhood: 'Centro',
       number: '930',
       street: 'Av. Paulista',
-      uf: 'SP',
+      state: 'SP',
     );
   }
 
@@ -31,7 +31,7 @@ abstract class _DeliveryAddressStoreBase with Store {
   int selectedDeliveryAddressId = 1;
 
   @observable
-  DeliveryAddressEntity? deliveryAddressEntity;
+  AddressEntity? deliveryAddressEntity;
 
   @action
   setSelectedDeliveryAddressId(int value) {
@@ -43,15 +43,15 @@ abstract class _DeliveryAddressStoreBase with Store {
     deliveryAddressEntity = deliveryAddresses.where((element) => element.id == value).first;
   }
 
-  ObservableList<DeliveryAddressEntity> deliveryAddresses = ObservableList<DeliveryAddressEntity>();
+  ObservableList<AddressEntity> deliveryAddresses = ObservableList<AddressEntity>();
 
   @action
-  addDeliveryAddress(DeliveryAddressEntity addressEntity) {
+  addDeliveryAddress(AddressEntity addressEntity) {
     deliveryAddresses.add(addressEntity);
   }
 
   @action
-  removeDeliveryAddress(DeliveryAddressEntity addressEntity) {
+  removeDeliveryAddress(AddressEntity addressEntity) {
     deliveryAddresses.remove(addressEntity);
   }
 }

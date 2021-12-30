@@ -175,15 +175,15 @@ abstract class _NewDeliveryAddressStoreBase with Store {
   }
 
   Future<void> setAddressByCep(CepResponseModel cepResponseModel) async {
-    setAddress(cepResponseModel.logradouro);
-    addressController.text = cepResponseModel.logradouro;
+    setAddress(cepResponseModel.street);
+    addressController.text = cepResponseModel.street;
 
-    setNeighborhood(cepResponseModel.bairro);
-    neighborhoodController.text = cepResponseModel.bairro;
+    setNeighborhood(cepResponseModel.neighborhood);
+    neighborhoodController.text = cepResponseModel.neighborhood;
 
-    setUf(cepResponseModel.uf);
+    setUf(cepResponseModel.state);
 
-    setCity(cepResponseModel.localidade);
-    cityController.text = cepResponseModel.localidade;
+    setCity(cepResponseModel.city);
+    cityController.text = cepResponseModel.city;
   }
 }

@@ -1,14 +1,15 @@
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 import 'package:my_app/core/contracts/i_response_model_default.dart';
 
-class RegisterUserResponseModel implements IResponseModelDefault {
+class RegisterUserResponseModel extends Equatable implements IResponseModelDefault {
   @override
   final String message;
 
   @override
   final bool success;
 
-  RegisterUserResponseModel({
+  const RegisterUserResponseModel({
     this.message = '',
     this.success = false,
   });
@@ -29,6 +30,8 @@ class RegisterUserResponseModel implements IResponseModelDefault {
 
   String toJson() => json.encode(toMap());
 
-  factory RegisterUserResponseModel.fromJson(String source) =>
-      RegisterUserResponseModel.fromMap(json.decode(source));
+  factory RegisterUserResponseModel.fromJson(String source) => RegisterUserResponseModel.fromMap(json.decode(source));
+
+  @override
+  List<Object?> get props => [message, success];
 }

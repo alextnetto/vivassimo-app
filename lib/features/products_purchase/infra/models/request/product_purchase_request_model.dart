@@ -5,7 +5,7 @@ import 'package:my_app/features/products_purchase/domain/entities/shipping_metho
 
 class ProductPurchaseRequestModel {
   ProductEntity? productEntity;
-  DeliveryAddressEntity? deliveryAddressEntity;
+  AddressEntity? deliveryAddressEntity;
   ShippingMethodEntity? shippingMethodEntity;
   PaymentMethodEntity? paymentMethodEntity;
   num? totalPurchase;

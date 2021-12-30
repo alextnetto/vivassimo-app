@@ -60,7 +60,7 @@ class AppHelpers {
         backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),
         // margin:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.6),
         width: MediaQuery.of(context).size.width * 0.8,
-        duration: Duration(seconds: 6),
+        duration: Duration(seconds: 3),
         content: Text(
           'Código enviado com sucesso',
           textAlign: TextAlign.center,

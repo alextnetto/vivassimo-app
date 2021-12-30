@@ -41,7 +41,7 @@ abstract class _RegisterStepOneStoreBase with Store {
   @action
   setPhoneNumber(String value) {
     hasChangedPhoneNumber = true;
-    return phoneNumber = AppMasks.phone.getUnmaskedText();
+    return phoneNumber = AppMasks.phoneFormatter.getUnmaskedText();
   }
 
   @action

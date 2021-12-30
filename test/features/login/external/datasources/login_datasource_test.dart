@@ -24,7 +24,7 @@ void main() {
     expect(response, LoginResponseModel(token: 'aaaaaa'));
   });
 
-  test('Should return if token is expired', () async {
+  test('Should return an error if token is expired', () async {
     var loginRequestModel = LoginRequestModel(phoneNumber: '11988888888', password: '123456');
 
     when(() => requestService.post(endpoint: '/login', body: loginRequestModel.toJson()))

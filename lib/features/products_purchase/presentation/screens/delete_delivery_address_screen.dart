@@ -134,20 +134,20 @@ class _DeleteDeliveryAddressScreenState
     );
   }
 
-  Widget buildAddressToDelete(DeliveryAddressEntity deliveryAddress) {
+  Widget buildAddressToDelete(AddressEntity deliveryAddress) {
     return GestureDetector(
       onTap: () {
         deleteAddressStore.setDeliveryAddressId(deliveryAddress.id!);
       },
       child: AddressCardWidget(
         streetAndNumber: '${deliveryAddress.street}, ${deliveryAddress.number}',
-        cep: 'CEP ${deliveryAddress.cep}',
+        cep: 'CEP ${deliveryAddress.zipCode}',
         checkIconPath:
             deleteAddressStore.deliveryAddressId == deliveryAddress.id
                 ? 'assets/icon/checked_icon.png'
                 : 'assets/icon/unchecked_icon.png',
         cityAndState:
-            '${deliveryAddress.neighborhood} - ${deliveryAddress.city}/${deliveryAddress.uf}',
+            '${deliveryAddress.neighborhood} - ${deliveryAddress.city}/${deliveryAddress.state}',
         cardColor: Color(0XFFFF3300),
       ),
     );

@@ -175,7 +175,7 @@ class _ProductAnnouncementPreviewScreenState extends State<ProductAnnouncementPr
                               }
                             },
                             label: 'CEP',
-                            inputFormatters: [AppMasks.cep],
+                            inputFormatters: [AppMasks.cepFormatter],
                             // errorText: newAddressStore.getCepError,
                           );
                         }),

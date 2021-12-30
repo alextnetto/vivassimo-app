@@ -2,49 +2,48 @@ import 'dart:convert';
 
 class CepResponseModel {
   bool success;
-  String cep;
-  String logradouro;
-  String complemento;
-  String bairro;
-  String localidade;
-  String uf;
+  String zipCode;
+  String street;
+  String complement;
+  String neighborhood;
+  String city;
+  String state;
 
   CepResponseModel({
     required this.success,
-    this.cep = '',
-    this.logradouro = '',
-    this.complemento = '',
-    this.bairro = '',
-    this.localidade = '',
-    this.uf = '',
+    this.zipCode = '',
+    this.street = '',
+    this.complement = '',
+    this.neighborhood = '',
+    this.city = '',
+    this.state = '',
   });
 
   Map<String, dynamic> toMap() {
     return {
       'success': success,
-      'cep': cep,
-      'logradouro': logradouro,
-      'complemento': complemento,
-      'bairro': bairro,
-      'localidade': localidade,
-      'uf': uf,
+      'zipCode': zipCode,
+      'street': street,
+      'complement': complement,
+      'neighborhood': neighborhood,
+      'city': city,
+      'state': state,
     };
   }
 
   factory CepResponseModel.fromMap(Map<String, dynamic> map) {
     return CepResponseModel(
       success: map['success'] ?? false,
-      cep: map['cep'] ?? '',
-      logradouro: map['logradouro'] ?? '',
-      complemento: map['complemento'] ?? '',
-      bairro: map['bairro'] ?? '',
-      localidade: map['localidade'] ?? '',
-      uf: map['uf'] ?? '',
+      zipCode: map['zipCode'] ?? '',
+      street: map['street'] ?? '',
+      complement: map['complement'] ?? '',
+      neighborhood: map['neighborhood'] ?? '',
+      city: map['city'] ?? '',
+      state: map['state'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CepResponseModel.fromJson(String source) =>
-      CepResponseModel.fromMap(json.decode(source));
+  factory CepResponseModel.fromJson(String source) => CepResponseModel.fromMap(json.decode(source));
 }

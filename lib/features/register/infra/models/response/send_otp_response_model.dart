@@ -1,15 +1,16 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:my_app/core/contracts/i_response_model_default.dart';
 
-class SendOtpResponseModel implements IResponseModelDefault {
+class SendOtpResponseModel extends Equatable implements IResponseModelDefault {
   @override
   final String message;
 
   @override
   final bool success;
 
-  SendOtpResponseModel({
+  const SendOtpResponseModel({
     this.message = '',
     this.success = false,
   });
@@ -30,6 +31,8 @@ class SendOtpResponseModel implements IResponseModelDefault {
 
   String toJson() => json.encode(toMap());
 
-  factory SendOtpResponseModel.fromJson(String source) =>
-      SendOtpResponseModel.fromMap(json.decode(source));
+  factory SendOtpResponseModel.fromJson(String source) => SendOtpResponseModel.fromMap(json.decode(source));
+
+  @override
+  List<Object?> get props => [message, success];
 }

@@ -7,20 +7,20 @@ class RegisterUserRequestModel {
   String? email;
   String? phoneNumber;
   String? password;
-  String? genero;
+  String? gender;
   String? cpf;
-  String? dataNascimento;
-  DeliveryAddressEntity? deliveryAddress;
+  String? birthDate;
+  AddressEntity? address;
 
   RegisterUserRequestModel({
     this.name,
     this.email,
     this.phoneNumber,
     this.password,
-    this.genero,
+    this.gender,
     this.cpf,
-    this.dataNascimento,
-    this.deliveryAddress,
+    this.birthDate,
+    this.address,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,10 +29,10 @@ class RegisterUserRequestModel {
       'email': email,
       'phoneNumber': phoneNumber,
       'password': password,
-      'genero': genero,
+      'gender': gender,
       'cpf': cpf,
-      'dataNascimento': dataNascimento,
-      'deliveryAddress': deliveryAddress?.toMap(),
+      'birthDate': birthDate,
+      'address': address?.toMap(),
     };
   }
 
@@ -42,17 +42,14 @@ class RegisterUserRequestModel {
       email: map['email'],
       phoneNumber: map['phoneNumber'],
       password: map['password'],
-      genero: map['genero'],
+      gender: map['gender'],
       cpf: map['cpf'],
-      dataNascimento: map['dataNascimento'],
-      deliveryAddress: map['deliveryAddress'] != null
-          ? DeliveryAddressEntity.fromMap(map['deliveryAddress'])
-          : null,
+      birthDate: map['birthDate'],
+      address: map['address'] != null ? AddressEntity.fromMap(map['address']) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory RegisterUserRequestModel.fromJson(String source) =>
-      RegisterUserRequestModel.fromMap(json.decode(source));
+  factory RegisterUserRequestModel.fromJson(String source) => RegisterUserRequestModel.fromMap(json.decode(source));
 }
