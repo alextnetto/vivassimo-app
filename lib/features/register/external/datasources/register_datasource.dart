@@ -22,8 +22,8 @@ class RegisterDatasource implements IRegisterDatasource {
     var response = await httpClient.get(endpoint: '/userExists', queryParams: existingUserRequestModel.toMap());
 
     if (response.statusCode == 200) {
-      // var resultModel = CheckExistingUserResponseModel.fromJson(response.body);
-      var resultModel = CheckExistingUserResponseModel(userExists: response.body == 'true');
+      var resultModel = CheckExistingUserResponseModel.fromJson(response.body);
+      // var resultModel = CheckExistingUserResponseModel(userExists: response.body == 'true');
       return resultModel;
     } else {
       var message = json.decode(response.body)['message'];
@@ -67,9 +67,12 @@ class RegisterDatasource implements IRegisterDatasource {
     if (response.statusCode == 201) {
       var resultModel = RegisterUserResponseModel.fromJson(response.body);
       return resultModel;
-    } else {
+    } else if (response.statusCode == 401) {
       var message = json.decode(response.body)['message'];
 
+      throw RegisterDatasourceError(message: message);
+    } else {
+      var message = json.decode(response.body)['message'];
       throw RegisterDatasourceError(message: message);
     }
   }
