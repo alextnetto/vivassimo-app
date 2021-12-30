@@ -53,7 +53,7 @@ class AppHelpers {
     return 'Cartão final ${value.substring(value.length - 4, value.length)}';
   }
 
-  static void showToast(BuildContext context) {
+  static void showToast(BuildContext context, String textToDisplay) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
@@ -64,7 +64,7 @@ class AppHelpers {
         width: MediaQuery.of(context).size.width * 0.8,
         duration: Duration(seconds: 3),
         content: Text(
-          'Código enviado com sucesso',
+          textToDisplay,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),

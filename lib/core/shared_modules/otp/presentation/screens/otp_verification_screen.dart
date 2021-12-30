@@ -102,7 +102,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 )
               }
             else
-              {AppHelpers.showToast(context)}
+              {AppHelpers.showToast(context, 'Código enviado com sucesso')}
           },
         );
 

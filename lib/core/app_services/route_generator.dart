@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/ui/screens/internet_connection_failure_screen.dart';
 
 import 'package:my_app/features/announcements/presentation/screens/my_announcements_screen.dart';
 import 'package:my_app/features/announcements/presentation/screens/choose_announcement_type_screen.dart';
@@ -338,6 +339,14 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => DeletePaymentMethodScreen(
             paymentStore: args['paymentStore'],
+          ),
+        );
+
+      case '/internet-connection':
+        // if (args is String) {
+        return MaterialPageRoute(
+          builder: (_) => InternetConnectionFailureScreen(
+            executeAction: args['executeAction'],
           ),
         );
 

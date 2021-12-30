@@ -130,36 +130,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: loginStore!.enableButton
                                   ? () async {
                                       if (AppHelpers.isInternetActive) {
-                                        LoadingIndicator.show(context);
-                                        var response = await loginStore!.login();
-                                        LoadingIndicator.hide(context);
-
-                                        if (response.success) {
-                                          Navigator.of(context).pushNamed('/register/verifyOtp', arguments: {
-                                            'redirectTo': redirectTo,
-                                            'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
-                                            'nextPageArguments': widget.nextPageArguments,
-                                          });
-                                        } else {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) => AlertDialog(
-                                              title: Text('Ops!'),
-                                              content: Text(response.message),
-                                              contentPadding: EdgeInsets.all(20),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('OK'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }
+                                        await executeLoginAction();
                                       } else {
-                                        print('internet ta off');
+                                        Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                                          'executeAction': executeLoginAction,
+                                        });
                                       }
                                     }
                                   : null,
@@ -176,5 +151,36 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> executeLoginAction() async {
+    LoadingIndicator.show(context);
+    var response = await loginStore!.login();
+    LoadingIndicator.hide(context);
+
+    if (response.success) {
+      Navigator.of(context).pushNamed('/register/verifyOtp', arguments: {
+        'redirectTo': redirectTo,
+        'phoneNumber': loginStore!.phoneNumberFormatter.getUnmaskedText(),
+        'nextPageArguments': widget.nextPageArguments,
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Ops!'),
+          content: Text(response.message),
+          contentPadding: EdgeInsets.all(20),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
