@@ -6,9 +6,14 @@ import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
-class AcceptRegisterTermsScreen extends StatelessWidget {
+class AcceptRegisterTermsScreen extends StatefulWidget {
   const AcceptRegisterTermsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AcceptRegisterTermsScreen> createState() => _AcceptRegisterTermsScreenState();
+}
+
+class _AcceptRegisterTermsScreenState extends State<AcceptRegisterTermsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +72,7 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
                           borderColor: VivassimoTheme.blue,
                           onPressed: () {
                             if (AppHelpers.isInternetActive) {
-                              executeTermsAction(context);
+                              executeTermsAction();
                             } else {
                               Navigator.of(context).pushNamed('/internet-connection', arguments: {
                                 'executeAction': executeTermsAction,
@@ -93,7 +98,7 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
                   borderColor: Color(0xff006633),
                   onPressed: () {
                     if (AppHelpers.isInternetActive) {
-                      executeRedirectRegisterAction(context);
+                      executeRedirectRegisterAction();
                     } else {
                       Navigator.of(context).pushNamed('/internet-connection', arguments: {
                         'executeAction': executeRedirectRegisterAction,
@@ -109,11 +114,11 @@ class AcceptRegisterTermsScreen extends StatelessWidget {
     );
   }
 
-  executeRedirectRegisterAction(context) {
+  executeRedirectRegisterAction() {
     Navigator.of(context).pushNamed('/register/1');
   }
 
-  executeTermsAction(context) {
+  executeTermsAction() {
     Navigator.of(context).pushNamed('/register/terms');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/components/bottom_navigator_bar_app.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class MyAnnouncementsScreen extends StatefulWidget {
   const MyAnnouncementsScreen({Key? key}) : super(key: key);
@@ -99,11 +100,13 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context).pushNamed(
-                                            '/product/products_announcement/product_announcement_preview',
-                                            arguments: {
-                                              'imagePath': 'assets/images/announcement/chocolate_cake.png',
-                                            });
+                                        if (AppHelpers.isInternetActive) {
+                                          executeAnnouncePreviewAction();
+                                        } else {
+                                          Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                                            'executeAction': executeAnnouncePreviewAction,
+                                          });
+                                        }
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(top: 19),
@@ -206,11 +209,13 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context).pushNamed(
-                                            '/product/products_announcement/product_announcement_preview',
-                                            arguments: {
-                                              'imagePath': 'assets/images/announcement/chocolate_cake.png',
-                                            });
+                                        if (AppHelpers.isInternetActive) {
+                                          executeAnnouncePreviewAction();
+                                        } else {
+                                          Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                                            'executeAction': executeAnnouncePreviewAction,
+                                          });
+                                        }
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(top: 19),
@@ -273,8 +278,13 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseAnnouncementScreen()));
-                          Navigator.of(context).pushNamed('/announcements/choose_announcement');
+                          if (AppHelpers.isInternetActive) {
+                            executeAnnouncementAction();
+                          } else {
+                            Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                              'executeAction': executeAnnouncementAction,
+                            });
+                          }
                         },
                         child: Text(
                           'Novo Anúncio',
@@ -293,74 +303,16 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
     );
   }
 
-  // Widget bottomNavigationBar() {
-  //   return Container(
-  //     height: 72,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(20)),
-  //       boxShadow: const [BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10)],
-  //     ),
-  //     child: ClipRRect(
-  //       borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-  //       child: Material(
-  //         elevation: 40,
-  //         child: SizedBox(
-  //           height: 60,
-  //           child: Material(
-  //             elevation: 40,
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               crossAxisAlignment: CrossAxisAlignment.center,
-  //               children: <Widget>[
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/home_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 0;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Inicio",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/announce_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 1;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Anunciar",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/order_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 2;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Pedidos",
-  //                 ),
-  //                 VerticalDivider(color: Color(0xffA480BD), width: 1),
-  //                 TabItemWidget(
-  //                   iconPath: 'assets/icon/person_icon.png',
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _selectedIndex = 3;
-  //                     });
-  //                   },
-  //                   selectedIndex: _selectedIndex,
-  //                   title: "Perfil",
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  void executeAnnouncementAction() {
+    Navigator.of(context).pushNamed('/announcements/choose_announcement');
+  }
+
+  void executeAnnouncePreviewAction() {
+    Navigator.of(context).pushNamed(
+      '/product/products_announcement/product_announcement_preview',
+      arguments: {
+        'imagePath': 'assets/images/announcement/chocolate_cake.png',
+      },
+    );
+  }
 }

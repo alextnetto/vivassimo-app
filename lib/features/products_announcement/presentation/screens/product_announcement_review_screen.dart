@@ -8,6 +8,7 @@ import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_text_field.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
 import 'package:my_app/core/utils/formatters/currency_pt_br_input_formatter.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/stores/product_announcement_review_store.dart';
 
@@ -323,8 +324,13 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
                 textColor: Color(0xFFFFFFFF),
                 borderColor: Color(0xFF006633),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_success',
-                      arguments: {'imagePath': productModel.productImages![0]});
+                  if (AppHelpers.isInternetActive) {
+                    executeProductReviewAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeProductReviewAction,
+                    });
+                  }
                 },
               ),
             ),
@@ -332,5 +338,10 @@ class _ProductAnnouncementReviewScreenState extends State<ProductAnnouncementRev
         ),
       ),
     );
+  }
+
+  executeProductReviewAction() {
+    Navigator.of(context).pushNamed('/product/products_announcement/product_announcement_success',
+        arguments: {'imagePath': productModel.productImages![0]});
   }
 }

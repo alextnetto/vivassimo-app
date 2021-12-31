@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 
 class ProductPhotosScreen extends StatefulWidget {
@@ -106,18 +107,12 @@ class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      var imagePath = await getImageFromGalery();
-
-                      if (imagePath.isNotEmpty) {
-                        productModel.productImages!
-                          ..clear()
-                          ..add(imagePath);
-                        Navigator.of(context).pushNamed(
-                          '/product/products_announcement/product_photo_confirmation',
-                          arguments: {
-                            'productAnnouncementRequestModel': productModel,
-                          },
-                        );
+                      if (AppHelpers.isInternetActive) {
+                        await executeGaleryPhotosAction();
+                      } else {
+                        Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                          'executeAction': executeGaleryPhotosAction,
+                        });
                       }
                     },
                     child: Text(
@@ -147,18 +142,12 @@ class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    var imagePath = await takePhotoFromCamera();
-
-                    if (imagePath.isNotEmpty) {
-                      productModel.productImages!
-                        ..clear()
-                        ..add(imagePath);
-                      Navigator.of(context).pushNamed(
-                        '/product/products_announcement/product_photo_confirmation',
-                        arguments: {
-                          'productAnnouncementRequestModel': productModel,
-                        },
-                      );
+                    if (AppHelpers.isInternetActive) {
+                      await executeCameraPhotosAction();
+                    } else {
+                      Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                        'executeAction': executeCameraPhotosAction,
+                      });
                     }
                   },
                   child: Text(
@@ -172,5 +161,38 @@ class _ProductPhotosScreenState extends State<ProductPhotosScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> executeCameraPhotosAction() async {
+    var imagePath = await takePhotoFromCamera();
+
+    if (imagePath.isNotEmpty) {
+      productModel.productImages!
+        ..clear()
+        ..add(imagePath);
+
+      Navigator.of(context).pushNamed(
+        '/product/products_announcement/product_photo_confirmation',
+        arguments: {
+          'productAnnouncementRequestModel': productModel,
+        },
+      );
+    }
+  }
+
+  Future<void> executeGaleryPhotosAction() async {
+    var imagePath = await getImageFromGalery();
+
+    if (imagePath.isNotEmpty) {
+      productModel.productImages!
+        ..clear()
+        ..add(imagePath);
+      Navigator.of(context).pushNamed(
+        '/product/products_announcement/product_photo_confirmation',
+        arguments: {
+          'productAnnouncementRequestModel': productModel,
+        },
+      );
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/app_style.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class SignInOrSignUpRedirectScreen extends StatefulWidget {
   final String redirectTo;
@@ -75,10 +76,13 @@ class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScre
                         onPrimary: VivassimoTheme.white,
                         borderColor: VivassimoTheme.purple,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/login', arguments: {
-                            'redirectTo': redirectTo,
-                            'nextPageArguments': widget.nextPageArguments,
-                          });
+                          if (AppHelpers.isInternetActive) {
+                            executeLoginAction();
+                          } else {
+                            Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                              'executeAction': executeLoginAction,
+                            });
+                          }
                         }),
                   ),
                   SizedBox(
@@ -89,7 +93,13 @@ class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScre
                     height: 60,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/register/acceptTerms');
+                        if (AppHelpers.isInternetActive) {
+                          executeSigninCreateAction();
+                        } else {
+                          Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                            'executeAction': executeSigninCreateAction,
+                          });
+                        }
                       },
                       child: Text(
                         'Não tenho uma conta',
@@ -117,5 +127,16 @@ class SignInOrSignUpRedirectScreenState extends State<SignInOrSignUpRedirectScre
         ],
       ),
     );
+  }
+
+  void executeSigninCreateAction() {
+    Navigator.of(context).pushNamed('/register/acceptTerms');
+  }
+
+  void executeLoginAction() {
+    Navigator.of(context).pushNamed('/login', arguments: {
+      'redirectTo': redirectTo,
+      'nextPageArguments': widget.nextPageArguments,
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class ChooseAnnouncementTypeScreen extends StatefulWidget {
   const ChooseAnnouncementTypeScreen({Key? key}) : super(key: key);
@@ -45,7 +46,13 @@ class _ChooseAnnouncementTypeScreenState extends State<ChooseAnnouncementTypeScr
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/product/products_announcement/product_category');
+                  if (AppHelpers.isInternetActive) {
+                    executeChooseAnnounceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeChooseAnnounceAction,
+                    });
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 43, left: 45, right: 45),
@@ -71,7 +78,13 @@ class _ChooseAnnouncementTypeScreenState extends State<ChooseAnnouncementTypeScr
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/product/products_announcement/product_category');
+                  if (AppHelpers.isInternetActive) {
+                    executeChooseAnnounceAction();
+                  } else {
+                    Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                      'executeAction': executeChooseAnnounceAction,
+                    });
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 43, left: 45, right: 45),
@@ -97,5 +110,9 @@ class _ChooseAnnouncementTypeScreenState extends State<ChooseAnnouncementTypeScr
         ],
       ),
     );
+  }
+
+  void executeChooseAnnounceAction() {
+    Navigator.of(context).pushNamed('/product/products_announcement/product_category');
   }
 }

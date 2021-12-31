@@ -6,9 +6,12 @@ import 'package:my_app/core/ui/widgets/button_1.dart';
 import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class InternetConnectionFailureScreen extends StatefulWidget {
-  final Function() executeAction;
+  final Function()? executeAction;
+  final Function(dynamic value)? executeActionWithParameter;
+  final dynamic parameter;
 
-  const InternetConnectionFailureScreen({Key? key, required this.executeAction}) : super(key: key);
+  const InternetConnectionFailureScreen({Key? key, this.executeAction, this.executeActionWithParameter, this.parameter})
+      : super(key: key);
 
   @override
   _InternetConnectionFailureScreenState createState() => _InternetConnectionFailureScreenState();
@@ -59,7 +62,11 @@ class _InternetConnectionFailureScreenState extends State<InternetConnectionFail
                   borderColor: Color(0xff006633),
                   onPressed: () {
                     if (AppHelpers.isInternetActive) {
-                      widget.executeAction();
+                      if (widget.executeAction != null) {
+                        widget.executeAction!();
+                      } else {
+                        widget.executeActionWithParameter!(widget.parameter);
+                      }
                     } else {
                       AppHelpers.showToast(context, 'Você ainda está sem internet');
                     }

@@ -7,6 +7,7 @@ import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/components/shipping_method_card.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
 import 'package:my_app/features/products_purchase/presentation/stores/shipping_method_store.dart';
 
@@ -133,12 +134,13 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
                   textColor: VivassimoTheme.white,
                   borderColor: VivassimoTheme.greenBorderColor,
                   onPressed: () {
-                    productPurchaseRequestModel.shippingMethodEntity = shippingStore.shippingMethodEntity;
-                    productPurchaseRequestModel.totalPurchase = shippingStore.totalPurchase;
-
-                    Navigator.of(context).pushNamed('/products/products_purchase/payment_method', arguments: {
-                      'productPurchaseRequestModel': productPurchaseRequestModel,
-                    });
+                    if (AppHelpers.isInternetActive) {
+                      executeShippingAction();
+                    } else {
+                      Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                        'executeAction': executeShippingAction,
+                      });
+                    }
                   },
                 );
               }),
@@ -147,5 +149,14 @@ class _ShippingMethodScreenState extends State<ShippingMethodScreen> {
         ],
       ),
     );
+  }
+
+  executeShippingAction() {
+    productPurchaseRequestModel.shippingMethodEntity = shippingStore.shippingMethodEntity;
+    productPurchaseRequestModel.totalPurchase = shippingStore.totalPurchase;
+
+    Navigator.of(context).pushNamed('/products/products_purchase/payment_method', arguments: {
+      'productPurchaseRequestModel': productPurchaseRequestModel,
+    });
   }
 }

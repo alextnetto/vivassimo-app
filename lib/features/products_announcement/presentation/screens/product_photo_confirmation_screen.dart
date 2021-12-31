@@ -8,6 +8,7 @@ import 'package:my_app/core/ui/app_style.dart';
 import 'package:my_app/core/ui/components/linear_progress_bar.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_announcement/infra/models/product_announcement_request_model.dart';
 import 'package:my_app/features/products_announcement/presentation/stores/product_photo_confirmation_store.dart';
 
@@ -104,8 +105,8 @@ class _ProductPhotoConfirmationScreenState extends State<ProductPhotoConfirmatio
           child: Container(
             // height: 120,
             padding: EdgeInsets.only(
-             top: MediaQuery.of(context).padding.top,
-             bottom: 15,
+              top: MediaQuery.of(context).padding.top,
+              bottom: 15,
             ),
             decoration: BoxDecoration(
               color: Color.fromRGBO(180, 216, 216, 0.2),
@@ -220,62 +221,28 @@ class _ProductPhotoConfirmationScreenState extends State<ProductPhotoConfirmatio
               textColor: VivassimoTheme.white,
               borderColor: VivassimoTheme.greenBorderColor,
               onPressed: () async {
-                productModel.productImages!
-                  ..clear()
-                  ..addAll(productPhotoConfirmationStore!.imagesPathList);
-
-                Navigator.of(context).pushNamed('/product/products_announcement/product_value', arguments: {
-                  'productAnnouncementRequestModel': productModel,
-                });
+                if (AppHelpers.isInternetActive) {
+                  executePhotoConfirmationAction();
+                } else {
+                  Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                    'executeAction': executePhotoConfirmationAction,
+                  });
+                }
               },
             ),
-            // child: Container(
-            //   padding: EdgeInsets.only(top: 30, bottom: 50, right: 45, left: 45),
-            //   alignment: Alignment.bottomCenter,
-            //   height: 170,
-            //   color: Color.fromRGBO(180, 216, 216, 0.2),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.stretch,
-            //     children: [
-            //       SizedBox(
-            //         height: 60,
-            //         child: ElevatedButton(
-            //           style: ElevatedButton.styleFrom(
-            //             alignment: Alignment.center,
-            //             elevation: 0,
-            //             primary: Color(0xFF22AB86),
-            //             // fixedSize: Size(324, 60),
-            //             shape: RoundedRectangleBorder(
-            //               side: BorderSide(
-            //                 width: 2.0,
-            //                 color: Color(0xFF006633),
-            //               ),
-            //               borderRadius: BorderRadius.all(
-            //                 Radius.circular(10),
-            //               ),
-            //             ),
-            //           ),
-            //           onPressed: () async {
-            //             productModel.productImages!
-            //               ..clear()
-            //               ..addAll(productPhotoConfirmationStore!.imagesPathList);
-
-            //             Navigator.of(context).pushNamed('/product/products_announcement/product_value', arguments: {
-            //               'productAnnouncementRequestModel': productModel,
-            //             });
-            //           },
-            //           child: Text(
-            //             'Confirmar',
-            //             style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w600),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ),
         ),
       ]),
     );
+  }
+
+  executePhotoConfirmationAction() {
+    productModel.productImages!
+      ..clear()
+      ..addAll(productPhotoConfirmationStore!.imagesPathList);
+
+    Navigator.of(context).pushNamed('/product/products_announcement/product_value', arguments: {
+      'productAnnouncementRequestModel': productModel,
+    });
   }
 }

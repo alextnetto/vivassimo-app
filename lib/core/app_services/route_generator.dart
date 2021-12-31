@@ -346,7 +346,9 @@ class RouteGenerator {
         // if (args is String) {
         return MaterialPageRoute(
           builder: (_) => InternetConnectionFailureScreen(
-            executeAction: args['executeAction'],
+            executeAction: args['executeActionWithParameter'] == null ? args['executeAction'] : null,
+            executeActionWithParameter: args['executeAction'] == null ? args['executeActionWithParameter'] : null,
+            parameter: args['executeAction'] == null ? args['parameter'] : null,
           ),
         );
 

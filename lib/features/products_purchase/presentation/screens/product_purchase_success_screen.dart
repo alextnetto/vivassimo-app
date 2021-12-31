@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/core/ui/component_styles/text_style.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/core/ui/widgets/button_confirm.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 
 class ProductPurchaseSuccessScreen extends StatefulWidget {
   const ProductPurchaseSuccessScreen({Key? key}) : super(key: key);
@@ -63,7 +64,13 @@ class _ProductPurchaseSuccessScreenState extends State<ProductPurchaseSuccessScr
                     textColor: Color(0XFF4D0351),
                     borderColor: Color(0XFFFFB640),
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+                      if (AppHelpers.isInternetActive) {
+                        executePurchaseAction();
+                      } else {
+                        Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                          'executeAction': executePurchaseAction,
+                        });
+                      }
                     },
                   ),
                 ),
@@ -73,5 +80,9 @@ class _ProductPurchaseSuccessScreenState extends State<ProductPurchaseSuccessScr
         ],
       ),
     );
+  }
+
+  executePurchaseAction() {
+    Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
   }
 }

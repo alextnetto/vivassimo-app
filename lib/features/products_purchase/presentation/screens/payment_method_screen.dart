@@ -8,6 +8,7 @@ import 'package:my_app/core/ui/components/select_installments_component.dart';
 import 'package:my_app/core/ui/widgets/app_bar_default.dart';
 import 'package:my_app/core/ui/widgets/app_button.dart';
 import 'package:my_app/core/ui/widgets/app_dropdown_list_with_model.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/products_purchase/domain/entities/payment_method_entity.dart';
 import 'package:my_app/features/products_purchase/infra/models/request/product_purchase_request_model.dart';
 
@@ -95,12 +96,16 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             fontWeight: FontWeight.bold,
             textColor: Color(0XFF635F75),
             title: 'Adicionar um cartão',
-            onPressed: () {
-              Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
-                'paymentStore': paymentStore,
-              }).then((value) {
-                setState(() {});
-              });
+            onPressed: () async {
+              if (AppHelpers.isInternetActive) {
+                executeNewPaymentAction().then((value) {
+                  setState(() {});
+                });
+              } else {
+                Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                  'executeAction': executeNewPaymentAction,
+                });
+              }
             },
           ),
           AppButton(
@@ -112,9 +117,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             textColor: Color(0XFF635F75),
             title: 'Excluir um cartão',
             onPressed: () {
-              Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method', arguments: {
-                'paymentStore': paymentStore,
-              });
+              if (AppHelpers.isInternetActive) {
+                executeDeleteCardAction();
+              } else {
+                Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                  'executeAction': executeDeleteCardAction,
+                });
+              }
             },
           ),
           Container(
@@ -247,5 +256,17 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         ],
       ),
     );
+  }
+
+  void executeDeleteCardAction() {
+    Navigator.of(context).pushNamed('/products/products_purchase/delete_payment_method', arguments: {
+      'paymentStore': paymentStore,
+    });
+  }
+
+  Future<void> executeNewPaymentAction() async {
+    await Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
+      'paymentStore': paymentStore,
+    });
   }
 }

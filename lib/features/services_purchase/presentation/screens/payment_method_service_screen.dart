@@ -275,8 +275,9 @@ class _PaymentMethodServiceScreenState extends State<PaymentMethodServiceScreen>
   Future<void> executeNewPaymentAction() async {
     await Navigator.of(context).pushNamed('/services-purchase/new-credit-card', arguments: {
       'paymentStore': paymentStore,
-    }).then((value) {
-      setState(() {});
     });
+    // .then((value) {
+    //   setState(() {});
+    // });
   }
 }

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/utils/helpers/app_helpers.dart';
 import 'package:my_app/features/home/presentation/widgets/tab_item.dart';
 
 // ignore: must_be_immutable
-class BottomNavigatorBarApp extends StatelessWidget {
+class BottomNavigatorBarApp extends StatefulWidget {
   final int selectedIndex;
   const BottomNavigatorBarApp({Key? key, required this.selectedIndex}) : super(key: key);
 
+  @override
+  State<BottomNavigatorBarApp> createState() => _BottomNavigatorBarAppState();
+}
+
+class _BottomNavigatorBarAppState extends State<BottomNavigatorBarApp> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,21 +35,32 @@ class BottomNavigatorBarApp extends StatelessWidget {
                   TabItemWidget(
                     iconPath: 'assets/icon/home_icon.png',
                     onTap: () {
-                      Navigator.of(context).pushNamed('/home');
+                      if (AppHelpers.isInternetActive) {
+                        executeRedirectHomeAction();
+                      } else {
+                        Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                          'executeAction': executeRedirectHomeAction,
+                        });
+                      }
                     },
-                    selectedIndex: selectedIndex,
-                    setBorderBottom: selectedIndex == 1,
+                    selectedIndex: widget.selectedIndex,
+                    setBorderBottom: widget.selectedIndex == 1,
                     title: "Inicio",
                   ),
                   VerticalDivider(color: Color(0xffA480BD), width: 1),
                   TabItemWidget(
                     iconPath: 'assets/icon/announce_icon.png',
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/signin_or_signup', arguments: {'redirectTo': '/announcements/my_announcements'});
+                      if (AppHelpers.isInternetActive) {
+                        executeRedicrectSignAction();
+                      } else {
+                        Navigator.of(context).pushNamed('/internet-connection', arguments: {
+                          'executeAction': executeRedicrectSignAction,
+                        });
+                      }
                     },
-                    selectedIndex: selectedIndex,
-                    setBorderBottom: selectedIndex == 2,
+                    selectedIndex: widget.selectedIndex,
+                    setBorderBottom: widget.selectedIndex == 2,
                     title: "Anunciar",
                   ),
                   VerticalDivider(color: Color(0xffA480BD), width: 1),
@@ -52,8 +69,8 @@ class BottomNavigatorBarApp extends StatelessWidget {
                     onTap: () {
                       // selectedIndex = 2;
                     },
-                    setBorderBottom: selectedIndex == 3,
-                    selectedIndex: selectedIndex,
+                    setBorderBottom: widget.selectedIndex == 3,
+                    selectedIndex: widget.selectedIndex,
                     title: "Pedidos",
                   ),
                   VerticalDivider(color: Color(0xffA480BD), width: 1),
@@ -62,8 +79,8 @@ class BottomNavigatorBarApp extends StatelessWidget {
                     onTap: () {
                       // selectedIndex = 3;
                     },
-                    selectedIndex: selectedIndex,
-                    setBorderBottom: selectedIndex == 4,
+                    selectedIndex: widget.selectedIndex,
+                    setBorderBottom: widget.selectedIndex == 4,
                     title: "Perfil",
                   ),
                 ],
@@ -72,6 +89,17 @@ class BottomNavigatorBarApp extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void executeRedirectHomeAction() {
+    Navigator.of(context).pushNamed('/home');
+  }
+
+  void executeRedicrectSignAction() {
+    Navigator.of(context).pushNamed(
+      '/signin_or_signup',
+      arguments: {'redirectTo': '/announcements/my_announcements'},
     );
   }
 }
