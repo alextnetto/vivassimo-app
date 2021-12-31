@@ -39,4 +39,11 @@ class AppFormatter {
       "#": RegExp(r'[0-9]'),
     },
   );
+
+    static var cvvFormatter = MaskTextInputFormatter(
+    mask: "####",
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
+  );
 }

@@ -70,6 +70,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 padding: EdgeInsets.only(left: 23),
@@ -124,7 +125,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 13, left: 68, right: 10),
+                                padding: const EdgeInsets.only(top: 13,right: 10),
                                 child: Container(
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                                   child: Image.asset(
@@ -179,6 +180,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 padding: EdgeInsets.only(left: 23),
@@ -233,7 +235,7 @@ class _MyAnnouncementsScreenState extends State<MyAnnouncementsScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 13, left: 68, right: 10),
+                                padding: const EdgeInsets.only(top: 13, right: 10),
                                 child: Container(
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                                   child: Image.asset(

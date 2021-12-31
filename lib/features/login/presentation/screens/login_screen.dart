@@ -82,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: loginStore!.setPhoneNumber,
                           errorText: loginStore!.getPhoneNumberError,
                           inputFormatters: [loginStore!.phoneNumberFormatter],
+                          keyBoardType: TextInputType.number,
                         );
                       }),
                     ),
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 90,
                         child: Observer(builder: (_) {
                           return AppTextField(
-                            label: 'Digite a senha com 6 digitos',
+                            label: 'Senha com 6 digitos',
                             onChanged: loginStore!.setPassword,
                             errorText: loginStore!.getPasswordError,
                             keyBoardType: TextInputType.number,

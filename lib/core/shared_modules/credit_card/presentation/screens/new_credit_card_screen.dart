@@ -148,6 +148,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                         AppFormatter.creditCardInputFormatter,
                       ],
                       errorText: creditCardStore.getNumberError,
+                      keyBoardType: TextInputType.number,
                     ),
                     SizedBox(height: 20),
                     AppTextField(
@@ -183,7 +184,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                             inputFormatters: [
                               AppFormatter.dateInputFormatter,
                             ],
-                            // errorText: creditCardStore.getExpireDateError,
+                            keyBoardType: TextInputType.number,
                           ),
                         ),
                         SizedBox(width: 20),
@@ -194,6 +195,11 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> with SingleTi
                             textAlign: TextAlign.center,
                             // errorText: creditCardStore.getCvvError,
                             focusNode: cvvFocusNode,
+                            keyBoardType: TextInputType.number,
+                            inputFormatters: [
+                              AppFormatter.cvvFormatter,
+                            ],
+
                             // onEditingComplete: () {
                             //   FocusScope.of(context).requestFocus(cvvFocusNode);
                             // },
