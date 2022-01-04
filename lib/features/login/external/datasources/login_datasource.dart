@@ -1,4 +1,4 @@
-import 'package:my_app/core/request_service/interface/i_request_service.dart';
+import 'package:my_app/core/contracts/i_request_service.dart';
 import 'package:my_app/features/login/domain/errors/login_errors.dart';
 
 import 'package:my_app/features/login/infra/datasources/i_login_datasource.dart';
@@ -14,9 +14,9 @@ class LoginDatasource implements ILoginDatasource {
   Future<LoginResponseModel> login(LoginRequestModel loginRequestModel) async {
     String body = loginRequestModel.toJson();
 
-    print(body);
-
     final response = await httpClient.post(endpoint: '/login', body: body);
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       var resultModel = LoginResponseModel.fromJson(response.body);
@@ -24,9 +24,9 @@ class LoginDatasource implements ILoginDatasource {
     } else if (response.statusCode == 404) {
       throw LoginNotFoundError(message: response.body);
     } else if (response.statusCode == 401) {
-      throw LoginNotAuthorizedError();
+      throw LoginNotAuthorizedError(message: response.body);
     } else {
-      throw LoginDatasourceError();
+      throw LoginDatasourceError(message: response.body);
     }
   }
 }

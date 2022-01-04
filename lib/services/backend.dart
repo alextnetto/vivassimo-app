@@ -1,16 +1,15 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:my_app/models/register/user.dart';
 
 class BackendService {
   static BackendService instance = BackendService();
-  final String _baseUrl = 'localhost';
+  final String _baseUrl = '10.14.133.167';
+  // final String _baseUrl = '172.17.208.1';
 
-  //TODO: Implement error handling
 
-  userExists(String phonenumber) async {
-    Uri url = Uri.http(_baseUrl, '/userExists', {'phonenumber': phonenumber});
+  userExists(String phoneNumber) async {
+    Uri url = Uri.http(_baseUrl, '/userExists', {'phoneNumber': phoneNumber});
     try {
       final response = await http.get(url);
       if (response.statusCode != 200) {
@@ -25,8 +24,8 @@ class BackendService {
     }
   }
 
-  sendOtp(String phonenumber) async {
-    String body = jsonEncode({'phonenumber': phonenumber});
+  sendOtp(String phoneNumber) async {
+    String body = jsonEncode({'phoneNumber': phoneNumber});
     Uri url = Uri.http(_baseUrl, '/sendOtp');
     const customHeaders = {"content-type": "application/json"};
 
@@ -42,9 +41,9 @@ class BackendService {
     }
   }
 
-  verifyOtp(String phonenumber, String token) async {
+  verifyOtp(String phoneNumber, String token) async {
     Uri url = Uri.http(_baseUrl, '/verifyOtp', {
-      'phonenumber': phonenumber,
+      'phoneNumber': phoneNumber,
       'token': token,
     });
 
@@ -67,13 +66,15 @@ class BackendService {
     }
   }
 
-  registerUser(RegisterUser user) async {
+  registerUser(user) async {
     String body = jsonEncode(user.toJson());
     Uri url = Uri.http(_baseUrl, '/users');
     const customHeaders = {"content-type": "application/json"};
 
     try {
       final response = await http.post(url, headers: customHeaders, body: body);
+
+      print(response.body);
 
       if (response.statusCode == 201) {
         return {'valid': true};
@@ -86,9 +87,9 @@ class BackendService {
     }
   }
 
-  login(String phonenumber, String password) async {
+  login(String phoneNumber, String password) async {
     String body = jsonEncode({
-      'phonenumber': phonenumber,
+      'phoneNumber': phoneNumber,
       'password': password,
     });
     Uri url = Uri.http(_baseUrl, '/login');

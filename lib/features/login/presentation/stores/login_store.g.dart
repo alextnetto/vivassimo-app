@@ -31,6 +31,22 @@ mixin _$LoginStore on _LoginStoreBase, Store {
               name: '_LoginStoreBase.enableButton'))
           .value;
 
+  final _$isPasswordVisibleAtom =
+      Atom(name: '_LoginStoreBase.isPasswordVisible');
+
+  @override
+  bool get isPasswordVisible {
+    _$isPasswordVisibleAtom.reportRead();
+    return super.isPasswordVisible;
+  }
+
+  @override
+  set isPasswordVisible(bool value) {
+    _$isPasswordVisibleAtom.reportWrite(value, super.isPasswordVisible, () {
+      super.isPasswordVisible = value;
+    });
+  }
+
   final _$phoneNumberAtom = Atom(name: '_LoginStoreBase.phoneNumber');
 
   @override
@@ -98,6 +114,17 @@ mixin _$LoginStore on _LoginStoreBase, Store {
       ActionController(name: '_LoginStoreBase');
 
   @override
+  dynamic changePasswordVisibity() {
+    final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
+        name: '_LoginStoreBase.changePasswordVisibity');
+    try {
+      return super.changePasswordVisibity();
+    } finally {
+      _$_LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setPhoneNumber(String value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setPhoneNumber');
@@ -122,6 +149,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   @override
   String toString() {
     return '''
+isPasswordVisible: ${isPasswordVisible},
 phoneNumber: ${phoneNumber},
 hasChangedPhoneNumber: ${hasChangedPhoneNumber},
 password: ${password},
